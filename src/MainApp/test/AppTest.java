@@ -7,6 +7,6 @@ import org.junit.*;
 public class AppTest {
     @Test
     public void testAdd() {
-        Assert.assertEquals(20, new App().add(5, 5));
+        Assert.assertEquals(16, new App().add(5, 5));
     }
 }
