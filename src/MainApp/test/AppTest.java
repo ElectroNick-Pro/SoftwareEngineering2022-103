@@ -1,13 +1,12 @@
 package MainApp.test;
 
-import MainApp.App;
+import MainApp.GUISample;
 
 import org.junit.*;
 
 public class AppTest {
     @Test
     public void testAdd() {
-        Assert.assertEquals(2, new App().add(5, 5));
-        //hello
+        Assert.assertEquals(19, new GUISample().add(5, 5));
     }
 }
