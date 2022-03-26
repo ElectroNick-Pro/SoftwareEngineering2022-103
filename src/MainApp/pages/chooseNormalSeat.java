@@ -16,7 +16,7 @@ public class chooseNormalSeat {
         JFrame f = new JFrame("Choose Seat");
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setLayout(new BorderLayout());
-        f.setBounds(0,0,900,600);
+        f.setBounds(0,0,960,540);
         
         /*
             NORTH
@@ -80,7 +80,7 @@ public class chooseNormalSeat {
         p12.setLayout(new FlowLayout(0));
         p12.setBorder(new EmptyBorder(0, 10, 0, 0));
         JLabel title = new JLabel("Choose Seat ");
-        title.setFont(new Font(Font.SERIF, Font.BOLD|Font.ITALIC, 40)); 
+        title.setFont(new Font(Font.SERIF, Font.BOLD|Font.ITALIC, 35)); 
         p12.add(title);
         p1.add(p12);
 
@@ -114,14 +114,14 @@ public class chooseNormalSeat {
         normal_text1.setHorizontalAlignment(JLabel.CENTER); //水平居中
         normal_text1.setVerticalAlignment(JLabel.BOTTOM); //垂直置底
         JLabel normal_text2 = new JLabel("Seat", JLabel.CENTER);
-        JLabel normal_num1 = new JLabel("Reamining", JLabel.CENTER);
+        JLabel normal_num1 = new JLabel("Remaining", JLabel.CENTER);
         JLabel normal_num2 = new JLabel("10");
         normal_num2.setHorizontalAlignment(JLabel.CENTER);
         normal_num2.setVerticalAlignment(JLabel.TOP); 
-        normal_text1.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 30));
-        normal_text2.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 30));
-        normal_num1.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 15));
-        normal_num2.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 15));
+        normal_text1.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 32));
+        normal_text2.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 32));
+        normal_num1.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 17));
+        normal_num2.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 17));
         normal_num1.setForeground(new ColorUIResource(30,144,255));
         normal_num2.setForeground(new ColorUIResource(30,144,255));
         normal.add(normal_text1);
@@ -139,14 +139,14 @@ public class chooseNormalSeat {
         window_text1.setHorizontalAlignment(JLabel.CENTER); //水平居中
         window_text1.setVerticalAlignment(JLabel.BOTTOM); //垂直置底
         JLabel window_text2 = new JLabel("Seat", JLabel.CENTER);
-        JLabel window_num1 = new JLabel("Reamining", JLabel.CENTER);
+        JLabel window_num1 = new JLabel("Remaining", JLabel.CENTER);
         JLabel window_num2 = new JLabel("5");
         window_num2.setHorizontalAlignment(JLabel.CENTER);
         window_num2.setVerticalAlignment(JLabel.TOP); 
-        window_text1.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 30));
-        window_text2.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 30));
-        window_num1.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 15));
-        window_num2.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 15));
+        window_text1.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 32));
+        window_text2.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 32));
+        window_num1.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 17));
+        window_num2.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 17));
         window_num1.setForeground(new ColorUIResource(30,144,255));
         window_num2.setForeground(new ColorUIResource(30,144,255));
         window.add(window_text1);
@@ -164,14 +164,14 @@ public class chooseNormalSeat {
         aside_text1.setHorizontalAlignment(JLabel.CENTER); //水平居中
         aside_text1.setVerticalAlignment(JLabel.BOTTOM); //垂直置底
         JLabel aside_text2 = new JLabel("Seat", JLabel.CENTER);
-        JLabel aside_num1 = new JLabel("Reamining", JLabel.CENTER);
+        JLabel aside_num1 = new JLabel("Remaining", JLabel.CENTER);
         JLabel aside_num2 = new JLabel("5");
         aside_num2.setHorizontalAlignment(JLabel.CENTER);
         aside_num2.setVerticalAlignment(JLabel.TOP); 
-        aside_text1.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 30));
-        aside_text2.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 30));
-        aside_num1.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 15));
-        aside_num2.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 15));
+        aside_text1.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 32));
+        aside_text2.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 32));
+        aside_num1.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 17));
+        aside_num2.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 17));
         aside_num1.setForeground(new ColorUIResource(30,144,255));
         aside_num2.setForeground(new ColorUIResource(30,144,255));
         aside.add(aside_text1);
@@ -185,18 +185,18 @@ public class chooseNormalSeat {
         JPanel extra = new JPanel();
         extra.setLayout(new GridLayout(4, 0));
         extra.setBorder(BorderFactory.createLineBorder(new ColorUIResource(220,220,220), 1));
-        JLabel extra_text1 = new JLabel("An Aside");
+        JLabel extra_text1 = new JLabel("A Seat with");
         extra_text1.setHorizontalAlignment(JLabel.CENTER); //水平居中
         extra_text1.setVerticalAlignment(JLabel.BOTTOM); //垂直置底
-        JLabel extra_text2 = new JLabel("Seat", JLabel.CENTER);
-        JLabel extra_num1 = new JLabel("Reamining", JLabel.CENTER);
+        JLabel extra_text2 = new JLabel("Extra Space", JLabel.CENTER);
+        JLabel extra_num1 = new JLabel("Remaining", JLabel.CENTER);
         JLabel extra_num2 = new JLabel("8");
         extra_num2.setHorizontalAlignment(JLabel.CENTER);
         extra_num2.setVerticalAlignment(JLabel.TOP); 
-        extra_text1.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 30));
-        extra_text2.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 30));
-        extra_num1.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 15));
-        extra_num2.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 15));
+        extra_text1.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 32));
+        extra_text2.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 32));
+        extra_num1.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 17));
+        extra_num2.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 17));
         extra_num1.setForeground(new ColorUIResource(30,144,255));
         extra_num2.setForeground(new ColorUIResource(30,144,255));
         extra.add(extra_text1);
