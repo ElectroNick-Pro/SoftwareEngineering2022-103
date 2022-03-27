@@ -22,7 +22,7 @@ public class Checkin extends JFrame implements ActionListener{
         exit.setContentAreaFilled(false);
         exit.setBorder(BorderFactory.createRaisedSoftBevelBorder());
 		setIcon exitIcon = new setIcon();
-        exitIcon.changeIconSize("src/MainApp/image/exit.png", exit, 40, 40);
+        exitIcon.changeIconSize("src/MainApp/pages/image/exit.png", exit, 40, 40);
         exit.setBounds(40,40,40,40);
         container.add(exit);
 
