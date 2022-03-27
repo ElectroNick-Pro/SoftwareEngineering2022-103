@@ -41,8 +41,16 @@ public class chooseNormalSeat {
         /*
             面包屑
         */
-        JLabel chart = new JLabel("Check In>Choose Seat>Choose a meal plan>Confirm and Print>Have a Good Trip!");
-        chart.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 15));
+        // JLabel chart = new JLabel("Check In>Choose Seat>Choose a meal plan>Confirm and Print>Have a Good Trip!");
+        // chart.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 15));
+        JLabel label1 = new JLabel("Check In > ");
+        JLabel label2 = new JLabel("Choose Seat > ");
+        JLabel label3 = new JLabel("Choose Food > ");
+        JLabel label4 = new JLabel("Confirm and Print");
+        label1.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 15));
+        label2.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 15));
+        label3.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 15));
+        label4.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 15));
         // chart.setOpaque(false);
         /*
             人工服务
@@ -135,7 +143,10 @@ public class chooseNormalSeat {
         JButton next = new JButton("next");
 
         exit.setBounds(40,40,40,40);
-        chart.setBounds(120,51,420,17);
+        label1.setBounds(120,51,85,17);
+        label2.setBounds(205,51,117,17);
+        label3.setBounds(320,51,193,17);
+        label4.setBounds(440,51,258,17);
         service.setBounds(880, 40, 40, 40);
         title.setBounds(45,105,230,49);
         hint.setBounds(45,137,650,70);
@@ -167,7 +178,10 @@ public class chooseNormalSeat {
         next.setBounds(860,490,75,30);
 
         f.add(exit);
-        f.add(chart);
+        f.add(label1);
+        f.add(label2);
+        f.add(label3);
+        f.add(label4);
         f.add(service);
         f.add(title);
         f.add(hint);
