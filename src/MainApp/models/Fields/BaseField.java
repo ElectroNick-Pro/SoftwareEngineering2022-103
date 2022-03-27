@@ -32,4 +32,12 @@ public class BaseField {
     public void read_field() {
         rawData = csvForm.equals("") ? null : csvForm;
     }
+
+    public Object getValue() {
+        return rawData;
+    }
+
+    public void setValue(Object newValue) {
+        this.rawData = newValue;
+    }
 }
