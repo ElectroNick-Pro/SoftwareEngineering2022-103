@@ -7,16 +7,34 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.text.AttributeSet.ColorAttribute;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JScrollPane;
+
+import javax.swing.JLayeredPane;
 
 
 import java.awt.*;
 
+class MyPanel extends JPanel {
+    public Image image;
+    public MyPanel(Image image) {
+        super();
+        setBackground(Color.WHITE);
+        this.image = image;
+    }
+    public void paint(Graphics g) {
+        super.paint(g);
+        g.drawImage(image, 0, 0, this);
+    }
+}
 
 public class FlightInformationFrm extends JFrame
 {
     private JPanel contentPane;
+    JLayeredPane pane = new JLayeredPane();
     public static void main(String[] args){
         EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -30,115 +48,132 @@ public class FlightInformationFrm extends JFrame
 			}
         });
     }
-    private static final int DEFAULT_WIDTH = 1000;
-    private static final int DEFAULT_HEIGHT = 600;
+    private static final int DEFAULT_WIDTH = 960;
+    private static final int DEFAULT_HEIGHT = 540; 
+    private static final int INFO_WIDTH = 420;
+    private static final int INFO_HEIGHT = 250;
+    private static final int NUM = 5;
     public FlightInformationFrm(){
         setSize(DEFAULT_WIDTH,DEFAULT_HEIGHT);
         contentPane = new JPanel();
-        contentPane.setBackground(Color.WHITE);
+        contentPane.setLayout(null);
         setContentPane(contentPane);
+        pane = new JLayeredPane();
 
         JLabel label = new JLabel("Flight Information");
         label.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 35));
+        label.setBounds(45,85,323,49);
+        add(label);
 
-
-        JLabel smallLabel = new JLabel("Please choose your flight:                             ");
+        JLabel smallLabel = new JLabel("Please choose your flight:                         ");
         smallLabel.setFont(new Font("宋体", Font.BOLD, 15));
-        //  contentPane.add(smallLabel);
+        smallLabel.setBounds(47,117,509,70);
+        add(smallLabel);
 
         JPanel flightCheck = createFlight();
         flightCheck.setBorder(new RoundBorder(Color.GRAY)); 
 
-        // contentPane.add(flightInfo);
-
         ImageIcon image = new ImageIcon("src/MainApp/image/travel.png");// 这是背景图片 .png .jpg .gif 等格式的图片都可以
-        image.setImage(image.getImage().getScaledInstance(410,350,Image.SCALE_DEFAULT));//这里设置图片大小，目前是20*20
-        JLabel picture=new JLabel();
-        picture.setIcon(image);
-        // contentPane.add(picture);
+        // image.setImage(image.getImage().getScaledInstance(960,0,Image.SCALE_DEFAULT));//这里设置图片大小，目前是20*20
+        JLabel picture=new JLabel(image);
+        //picture.setBounds(544,34,350,523);
+        picture.setBounds(0, 0, image.getIconWidth(), image.getIconHeight()-35);   //把标签设置为和图片等高等宽
+		// contentPane = (JPanel)this.getContentPane(); 	//把我的面板设置为内容面板	
+        contentPane.add(picture,JLayeredPane.DEFAULT_LAYER);
+        contentPane.setOpaque(false);					//把我的面板设置为不可视
+		this.getLayeredPane().setLayout(null);		//把分层面板的布局置空
+		this.getLayeredPane().add(picture, new Integer(Integer.MIN_VALUE));
+        this.getLayeredPane().setBackground(Color.WHITE);
 
-        JButton flightInfo = createButton();
-        flightInfo.setBorder(new RoundBorder(Color.GRAY));
-
-        //
-        GroupLayout layout = new GroupLayout(contentPane);
-        GroupLayout.ParallelGroup hparallelGroup1 = layout.createParallelGroup();
-        hparallelGroup1.addComponent(label);
-        hparallelGroup1.addComponent(smallLabel);
         
-        GroupLayout.ParallelGroup hparallelGroup2 = layout.createParallelGroup();
-        hparallelGroup2.addComponent(picture);
+        JPanel panelInfo = new JPanel();
+        panelInfo.setBackground(Color.white);
+        JButton[] flightInfo = new JButton[10];
+        for(int i=0;i<NUM;i++){
+            flightInfo[i]=createButton();  
+            flightInfo[i].setBorder(new RoundBorder(Color.GRAY));    
+        }
+        //grouplayout
+        GroupLayout layout1 = new GroupLayout(panelInfo);
+        GroupLayout.ParallelGroup hparallelGroupInfo = layout1.createParallelGroup(Alignment.LEADING);
+        for(int i = 0; i < NUM;i++){
+            hparallelGroupInfo.addComponent(flightInfo[i],GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE);
+        }
+        GroupLayout.SequentialGroup hSeqGpInfo = layout1.createSequentialGroup();
+        hSeqGpInfo.addGap(20);
+        hSeqGpInfo.addGroup(hparallelGroupInfo);
+        layout1.setHorizontalGroup(hSeqGpInfo);
 
-        GroupLayout.ParallelGroup hparallelGroup3 = layout.createParallelGroup(Alignment.LEADING);
-        hparallelGroup3.addComponent(flightInfo,GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE);
+        GroupLayout.SequentialGroup vSeqGpInfo = layout1.createSequentialGroup();
+        for(int i = 0; i <NUM;i++){
+            vSeqGpInfo.addGap(11);
+            vSeqGpInfo.addComponent(flightInfo[i],GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE);
+        }
+        layout1.setVerticalGroup(vSeqGpInfo);
+        panelInfo.setLayout(layout1);
+        JScrollPane info = new JScrollPane(panelInfo);
+        info.setBackground(Color.white);
+        info.setBounds(35,170,INFO_WIDTH,INFO_HEIGHT);
+        info.getVerticalScrollBar().setUI(new DemoScrollBarUI()); 
+        add(info);
 
-        GroupLayout.ParallelGroup hparallelGroup4 = layout.createParallelGroup();
-        hparallelGroup4.addGroup(hparallelGroup1);
-        hparallelGroup4.addGroup(hparallelGroup3);
+        ImageIcon questionIcon = new ImageIcon("src/MainApp/image/question.png");
+        questionIcon.setImage(questionIcon.getImage().getScaledInstance(40,40,Image.SCALE_DEFAULT));
+        JButton question = new JButton();
+        question.setBackground(Color.WHITE);
+        question.setBorder(new RoundBorder(Color.white));
+        question.setIcon(questionIcon);
+        question.setBounds(880,20,40,40);
+        add(question);
 
-        GroupLayout.SequentialGroup hSeqGp01 = layout.createSequentialGroup();
-        hSeqGp01.addGap(50);
-        hSeqGp01.addGroup(hparallelGroup4);
-        hSeqGp01.addGap(50);
-        hSeqGp01.addGroup(hparallelGroup2);
+        ImageIcon backHome = new ImageIcon("src/MainApp/image/exit.png");
+        backHome.setImage(backHome.getImage().getScaledInstance(40,40,Image.SCALE_DEFAULT));
+        JButton home = new JButton();
+        home.setBackground(Color.WHITE);
+        home.setBorder(new RoundBorder(Color.white));
+        home.setIcon(backHome);
+        home.setBounds(40,20,40,40);
+        add(home);
 
-        layout.setHorizontalGroup(hSeqGp01);
+        JButton next = new JButton();
+        next.setBackground(new Color(30, 144, 255));
+        next.setText("Next");
+        next.setForeground(Color.white);
+        next.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
+        next.setBorder(new RoundBorder(new Color(30, 144, 255)));
+        next.setBounds(830,460,75,30);
+        add(next);
+
+        JButton back = new JButton();
+        back.setBackground(Color.gray);
+        back.setText("Back");
+        back.setForeground(Color.white);
+        back.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
+        back.setBorder(new RoundBorder(Color.gray));
+        back.setBounds(25,460,75,30);
+        add(back);
+
         
+        for(int i = 0 ; i < NUM;i++){
+            int number = i;
+            flightInfo[i].addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    for(int j = 0; j < NUM;j++){
+                        flightInfo[j].setBorder(new RoundBorder(Color.GRAY));
+                    }
+                    flightInfo[number].setBorder(new RoundBorder(new Color(83,180,248)));
+                    smallLabel.setText("Please choose the flight and check the information:");
+                    ImageIcon newImage = new ImageIcon("src/MainApp/image/background.png");// 这是背景图片 .png .jpg .gif 等格式的图片都可以
+                    // newImage.setImage(newImage.getImage().getScaledInstance(430,350,Image.SCALE_DEFAULT));//这里设置图片大小，目前是20*20
+                    picture.setIcon(newImage);
+                    picture.setBounds(0, 0, image.getIconWidth(), image.getIconHeight()-35);
+                    flightCheck.setBounds(500,80,415,355);
+                    add(flightCheck);
+                }
+            });
+        }
 
-        GroupLayout.ParallelGroup vparallelGroup1 = layout.createParallelGroup();
-        vparallelGroup1.addComponent(label);
-
-        GroupLayout.ParallelGroup vparallelGroup2 = layout.createParallelGroup();
-        vparallelGroup2.addComponent(smallLabel);
-
-        GroupLayout.ParallelGroup vparallelGroup3 = layout.createParallelGroup();
-        vparallelGroup3.addComponent(flightInfo,GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE);
-
-        GroupLayout.SequentialGroup vSeqGp01 = layout.createSequentialGroup();
-        vSeqGp01.addGap(70);
-        vSeqGp01.addGroup(vparallelGroup1);
-        vSeqGp01.addGap(20);
-        vSeqGp01.addGroup(vparallelGroup2);
-        vSeqGp01.addGap(20);
-        vSeqGp01.addGroup(vparallelGroup3);
-
-        GroupLayout.SequentialGroup vSeqGp02 = layout.createSequentialGroup();
-        vSeqGp02.addGap(100);
-        vSeqGp02.addComponent(picture);
-
-        GroupLayout.ParallelGroup vparallelGroup4 = layout.createParallelGroup();
-        vparallelGroup4.addGroup(vSeqGp01);
-        vparallelGroup4.addGroup(vSeqGp02);
-
-        layout.setVerticalGroup(vparallelGroup4);
-
-
-        contentPane.setLayout(layout);
-        flightInfo.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                flightInfo.setBorder(new RoundBorder(new Color(83,180,248)));
-
-                GroupLayout.SequentialGroup hSequential = layout.createSequentialGroup();
-                hSequential.addGap(550);
-                hSequential.addComponent(flightCheck,GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE);
-
-                layout.setHorizontalGroup(hSequential);
-
-                GroupLayout.SequentialGroup vSequential = layout.createSequentialGroup();
-                vSequential.addGap(60);
-                vSequential.addComponent(flightCheck,GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE);
-                layout.setVerticalGroup(vSequential );
-
-                smallLabel.setText("Please choose the flight and check the information:");
-                // picture.setVisible(false);
-                ImageIcon newImage = new ImageIcon("src/MainApp/image/background.png");// 这是背景图片 .png .jpg .gif 等格式的图片都可以
-                image.setImage(newImage.getImage().getScaledInstance(410,350,Image.SCALE_DEFAULT));//这里设置图片大小，目前是20*20
-                picture.setIcon(newImage);
-
-
-            }
-        });
-
+        
 
     }
     // private static JPanel createPanel() {
@@ -150,7 +185,7 @@ public class FlightInformationFrm extends JFrame
     // }
     private static JButton createButton() {
         JButton button = new JButton();
-        button.setPreferredSize(new Dimension(450, 110));
+        button.setPreferredSize(new Dimension(374, 70));
         button.setBackground(Color.WHITE);
         
         ImageIcon image = new ImageIcon("src/MainApp/image/airplane.png");// 这是背景图片 .png .jpg .gif 等格式的图片都可以
@@ -158,37 +193,37 @@ public class FlightInformationFrm extends JFrame
         JLabel picture=new JLabel(image);
 
         JLabel takeoff = new JLabel("Beijing");
-        takeoff.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 25));
+        takeoff.setFont(new Font("Arial", Font.BOLD, 23));
 
         JLabel arrive = new JLabel("Shanghai");
-        arrive.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 25));
+        arrive.setFont(new Font("Arial", Font.BOLD, 23));
 
         JLabel flightNo = new JLabel("KN2316");
-        flightNo.setFont(new Font("宋体", Font.BOLD, 15));
+        flightNo.setFont(new Font("Arial", Font.ITALIC, 12));
 
         JLabel date = new JLabel("Mar 20,2022");
-        date.setFont(new Font("宋体", Font.BOLD, 15));
+        date.setFont(new Font("Arial", Font.ITALIC, 12));
 
         JLabel where = new JLabel("Air China");
-        where.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 15));
+        where.setFont(new Font("Arial", Font.BOLD, 12));
 
         //
 
         GroupLayout layout = new GroupLayout(button);
         GroupLayout.SequentialGroup hSeqGp01 = layout.createSequentialGroup();
-        hSeqGp01.addGap(30);
+        hSeqGp01.addGap(15);
         hSeqGp01.addComponent(takeoff);
-        hSeqGp01.addGap(70);
-        hSeqGp01.addComponent(picture);
         hSeqGp01.addGap(60);
+        hSeqGp01.addComponent(picture);
+        hSeqGp01.addGap(55);
         hSeqGp01.addComponent(arrive);
 
         GroupLayout.SequentialGroup hSeqGp02 = layout.createSequentialGroup();
-        hSeqGp02.addGap(30);
+        hSeqGp02.addGap(15);
         hSeqGp02.addComponent(where);
         hSeqGp02.addGap(10);
         hSeqGp02.addComponent(flightNo);
-        hSeqGp02.addGap(170);
+        hSeqGp02.addGap(165);
         hSeqGp02.addComponent(date);
 
         GroupLayout.ParallelGroup hparallelGroup1 = layout.createParallelGroup();
@@ -204,19 +239,19 @@ public class FlightInformationFrm extends JFrame
         vparallelGroup1.addComponent(flightNo);
 
         GroupLayout.SequentialGroup vSeqGp01 = layout.createSequentialGroup();
-        vSeqGp01.addGap(20);
+        vSeqGp01.addGap(8);
         vSeqGp01.addGroup(vparallelGroup1);
         vSeqGp01.addGap(10);
         vSeqGp01.addComponent(takeoff);
 
         GroupLayout.SequentialGroup vSeqGp02 = layout.createSequentialGroup();
-        vSeqGp02.addGap(20);
+        vSeqGp02.addGap(8);
         vSeqGp02.addComponent(date);
         vSeqGp02.addGap(10);
         vSeqGp02.addComponent(arrive);
 
         GroupLayout.SequentialGroup vSeqGp03 = layout.createSequentialGroup();
-        vSeqGp03.addGap(40);
+        vSeqGp03.addGap(25);
         vSeqGp03.addComponent(picture);
 
         GroupLayout.ParallelGroup vparallelGroup = layout.createParallelGroup();
@@ -233,7 +268,6 @@ public class FlightInformationFrm extends JFrame
     }
     private static JPanel createFlight() {
         JPanel panel = new JPanel();
-        panel.setPreferredSize(new Dimension(400, 400));
         panel.setOpaque(false);
 
         JLabel book = new JLabel("Booking ID");
@@ -259,7 +293,7 @@ public class FlightInformationFrm extends JFrame
         arrive.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 25));
 
         JLabel flightNo = new JLabel("KN2316");
-        flightNo.setFont(new Font("宋体", Font.BOLD, 20));
+        flightNo.setFont(new Font("宋体", Font.BOLD, 22));
 
         JLabel airport1 = new JLabel("Daxinng Airport");
         airport1.setFont(new Font("宋体", Font.BOLD, 13));
@@ -295,7 +329,7 @@ public class FlightInformationFrm extends JFrame
         Gate.setFont(new Font("宋体", Font.BOLD, 15));
 
         JLabel name = new JLabel("Xiping Yang");
-        name.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 25));
+        name.setFont(new Font("Arial", Font.BOLD, 22));
 
         JLabel ID = new JLabel("130203200109110322");
         ID.setFont(new Font("宋体", Font.BOLD, 15));
@@ -376,7 +410,7 @@ public class FlightInformationFrm extends JFrame
         layout.setHorizontalGroup(hparallelGroup);
 
         GroupLayout.SequentialGroup vSeqGP01 = layout.createSequentialGroup();
-        vSeqGP01.addGap(15);
+        vSeqGP01.addGap(5);
         vSeqGP01.addComponent(book);
         vSeqGP01.addGap(15);
         vSeqGP01.addComponent(where);
@@ -384,29 +418,29 @@ public class FlightInformationFrm extends JFrame
         vSeqGP01.addComponent(takeoff);
         vSeqGP01.addGap(15);
         vSeqGP01.addComponent(airport1);
-        vSeqGP01.addGap(15);
-        vSeqGP01.addComponent(startTime);
         vSeqGP01.addGap(25);
+        vSeqGP01.addComponent(startTime);
+        vSeqGP01.addGap(20);
         vSeqGP01.addComponent(seat);
-        vSeqGP01.addGap(18);
+        vSeqGP01.addGap(8);
         vSeqGP01.addComponent(food);
 
         GroupLayout.SequentialGroup vSeqGP02 = layout.createSequentialGroup();
-        vSeqGP02.addGap(15);
+        vSeqGP02.addGap(5);
         vSeqGP02.addComponent(bookID);
         vSeqGP02.addGap(15);
         vSeqGP02.addComponent(flightNo);
-        vSeqGP02.addGap(15);
+        vSeqGP02.addGap(10);
         vSeqGP02.addComponent(picture);
         vSeqGP02.addGap(40);
         vSeqGP02.addComponent(time);
         vSeqGP02.addGap(15);
         vSeqGP02.addComponent(TerminalNum);
-        vSeqGP02.addGap(5);
+        vSeqGP02.addGap(3);
         vSeqGP02.addComponent(Terminal);
 
         GroupLayout.SequentialGroup vSeqGP03 = layout.createSequentialGroup();
-        vSeqGP03.addGap(20);
+        vSeqGP03.addGap(5);
         vSeqGP03.addComponent(date);
         vSeqGP03.addGap(50);
         vSeqGP03.addComponent(arrive);
@@ -416,12 +450,12 @@ public class FlightInformationFrm extends JFrame
         vSeqGP03.addComponent(arriveTime);
         vSeqGP03.addGap(15);
         vSeqGP03.addComponent(GateNo);
-        vSeqGP03.addGap(10);
+        vSeqGP03.addGap(8);
         vSeqGP03.addComponent(Gate);
         
         GroupLayout.SequentialGroup vSeqGP04 = layout.createSequentialGroup();
         vSeqGP04.addComponent(name);
-        vSeqGP04.addGap(10);
+        vSeqGP04.addGap(2);
         vSeqGP04.addComponent(ID);
 
         GroupLayout.ParallelGroup vParallelGroup = layout.createParallelGroup();
@@ -441,4 +475,5 @@ public class FlightInformationFrm extends JFrame
         
         return panel;
     }
+    
 }

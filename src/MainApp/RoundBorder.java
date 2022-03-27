@@ -16,6 +16,7 @@ import javax.swing.border.Border;
  * close.setOpaque(false);// 设置原来按钮背景透明
  * close.setBorder(new RoundBorder());黑色的圆角边框
  * close.setBorder(new RoundBorder(Color.RED)); 红色的圆角边框
+ * new color();
  * 
  * @author Monsoons
  */
