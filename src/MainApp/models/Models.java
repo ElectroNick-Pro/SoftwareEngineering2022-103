@@ -12,7 +12,7 @@ import MainApp.models.Field.BaseField;
 import MainApp.models.Model.BaseModel;
 
 public class Models {
-    
+
     public static Map<String, BaseModel> modelInstances = new HashMap<>();
 
     @SuppressWarnings("unchecked")
@@ -25,7 +25,7 @@ public class Models {
                 dataDirFile.mkdir();
             }
             for(var clzName: (String[])GlobalData.config.get("userModels")) {
-                var clz = Class.forName("MainApp.models.Models.UserModels." + clzName);
+                var clz = Class.forName("MainApp.models.Model.UserModel." + clzName);
                 var ins = clz.getConstructor().newInstance();
                 modelInstances.put(clzName, (BaseModel)ins);
                 // Collect the verboses

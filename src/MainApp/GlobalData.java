@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import javax.swing.*;
 
+import MainApp.pages.Welcome;
+
 public class GlobalData {
     public static Map<String, Object> data = new HashMap<>();
     public static Map<String, Object> config = new HashMap<>();
@@ -22,6 +24,8 @@ public class GlobalData {
             "Airline", "Customer", "Flight", "Food", "Interval", "Plane", "Seat", "Ticket"
         };
         config.put("userModels", userModels);
+
+        config.put("welcomePage", new Welcome());
 
     }
 }
