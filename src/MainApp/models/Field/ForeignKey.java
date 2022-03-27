@@ -1,11 +1,11 @@
-package MainApp.models.Fields;
+package MainApp.models.Field;
 
 import java.util.stream.Stream;
 
-import MainApp.models.Models.*;
-import MainApp.models.Models.Exception.FieldNotFoundException;
-import MainApp.models.Models.Exception.ObjectNotFoundException;
-import MainApp.models.Models.Exception.ValidationException;
+import MainApp.models.Model.*;
+import MainApp.models.Model.Exception.FieldNotFoundException;
+import MainApp.models.Model.Exception.ObjectNotFoundException;
+import MainApp.models.Model.Exception.ValidationException;
 
 public class ForeignKey extends BaseField {
 

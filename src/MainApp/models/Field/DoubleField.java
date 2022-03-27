@@ -1,4 +1,4 @@
-package MainApp.models.Fields;
+package MainApp.models.Field;
 
 public class DoubleField extends BaseField {
 

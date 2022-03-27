@@ -1,11 +1,11 @@
-package MainApp.models.Models.UserModels;
+package MainApp.models.Model.UserModel;
 
 import java.nio.file.Path;
 import java.util.*;
 
-import MainApp.models.Fields.ForeignKey;
-import MainApp.models.Fields.StringField;
-import MainApp.models.Models.BaseModel;
+import MainApp.models.Field.ForeignKey;
+import MainApp.models.Field.StringField;
+import MainApp.models.Model.BaseModel;
 
 public class Flight extends BaseModel {
     public static Path storagePath;

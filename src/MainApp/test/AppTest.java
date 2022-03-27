@@ -1,10 +1,10 @@
 package MainApp.test;
 
 import MainApp.App;
-import MainApp.models.Models.Exception.FieldNotFoundException;
-import MainApp.models.Models.Exception.ObjectNotFoundException;
-import MainApp.models.Models.UserModels.Airline;
-import MainApp.models.Models.UserModels.Plane;
+import MainApp.models.Model.Exception.FieldNotFoundException;
+import MainApp.models.Model.Exception.ObjectNotFoundException;
+import MainApp.models.Model.UserModel.Airline;
+import MainApp.models.Model.UserModel.Plane;
 
 import org.junit.*;
 
