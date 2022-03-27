@@ -1,4 +1,4 @@
-package MainApp;
+package MainApp.pages;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -8,6 +8,9 @@ import javax.swing.JPanel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.text.AttributeSet.ColorAttribute;
+
+import MainApp.pages.components.DemoScrollBarUI;
+import MainApp.pages.components.RoundBorder;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;

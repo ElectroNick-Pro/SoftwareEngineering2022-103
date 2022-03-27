@@ -1,4 +1,4 @@
-package MainApp;
+package MainApp.pages.components;
 
 import java.awt.Color;
 import java.awt.Component;
