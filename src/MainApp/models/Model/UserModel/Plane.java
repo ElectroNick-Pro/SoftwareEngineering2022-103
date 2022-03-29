@@ -1,10 +1,10 @@
-package MainApp.models.Models.UserModels;
+package MainApp.models.Model.UserModel;
 
 import java.nio.file.Path;
 import java.util.*;
 
-import MainApp.models.Fields.*;
-import MainApp.models.Models.BaseModel;
+import MainApp.models.Field.*;
+import MainApp.models.Model.BaseModel;
 
 public class Plane extends BaseModel {
     public static Path storagePath;

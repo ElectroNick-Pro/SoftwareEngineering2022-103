@@ -1,4 +1,4 @@
-package MainApp.models.Models;
+package MainApp.models.Model;
 
 import java.io.IOException;
 import java.lang.reflect.*;
@@ -8,9 +8,9 @@ import java.nio.file.Path;
 import java.util.*;
 import java.util.stream.Stream;
 
-import MainApp.models.Fields.BaseField;
-import MainApp.models.Models.Exception.FieldNotFoundException;
-import MainApp.models.Models.Exception.ObjectNotFoundException;
+import MainApp.models.Field.BaseField;
+import MainApp.models.Model.Exception.FieldNotFoundException;
+import MainApp.models.Model.Exception.ObjectNotFoundException;
 
 public class BaseModel {
 

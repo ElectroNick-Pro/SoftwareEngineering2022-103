@@ -1,7 +1,7 @@
-package MainApp.models.Models.UserModels;
+package MainApp.models.Model.UserModel;
 
-import MainApp.models.Fields.StringField;
-import MainApp.models.Models.BaseModel;
+import MainApp.models.Field.StringField;
+import MainApp.models.Model.BaseModel;
 
 import java.nio.file.Path;
 import java.util.*;

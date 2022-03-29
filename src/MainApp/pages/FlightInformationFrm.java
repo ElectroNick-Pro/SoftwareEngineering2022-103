@@ -166,7 +166,7 @@ public class FlightInformationFrm extends JFrame
                     }
                     flightInfo[number].setBorder(new RoundBorder(new Color(83,180,248)));
                     smallLabel.setText("Please choose the flight and check the information:");
-                    ImageIcon newImage = new ImageIcon("src/MainApp/image/background.png");// 这是背景图片 .png .jpg .gif 等格式的图片都可以
+                    ImageIcon newImage = new ImageIcon("src/MainApp/pages/image/background.png");// 这是背景图片 .png .jpg .gif 等格式的图片都可以
                     // newImage.setImage(newImage.getImage().getScaledInstance(430,350,Image.SCALE_DEFAULT));//这里设置图片大小，目前是20*20
                     picture.setIcon(newImage);
                     picture.setBounds(0, 0, image.getIconWidth(), image.getIconHeight()-35);

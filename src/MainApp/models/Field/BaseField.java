@@ -1,6 +1,6 @@
-package MainApp.models.Fields;
+package MainApp.models.Field;
 
-import MainApp.models.Models.Exception.ValidationException;
+import MainApp.models.Model.Exception.ValidationException;
 
 public class BaseField {
 

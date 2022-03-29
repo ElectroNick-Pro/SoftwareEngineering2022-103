@@ -1,14 +1,14 @@
-package MainApp.models.Models.UserModels;
+package MainApp.models.Model.UserModel;
 
 import java.nio.file.Path;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 import MainApp.GlobalData;
-import MainApp.models.Fields.DateTimeField;
-import MainApp.models.Fields.ForeignKey;
-import MainApp.models.Fields.StringField;
-import MainApp.models.Models.BaseModel;
+import MainApp.models.Field.DateTimeField;
+import MainApp.models.Field.ForeignKey;
+import MainApp.models.Field.StringField;
+import MainApp.models.Model.BaseModel;
 
 public class Interval extends BaseModel {
     public static Path storagePath;

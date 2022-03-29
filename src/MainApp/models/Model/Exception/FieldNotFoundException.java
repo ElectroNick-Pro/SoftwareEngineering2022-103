@@ -1,4 +1,4 @@
-package MainApp.models.Models.Exception;
+package MainApp.models.Model.Exception;
 
 public class FieldNotFoundException extends Exception {
     public FieldNotFoundException() {

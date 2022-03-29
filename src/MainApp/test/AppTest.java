@@ -1,10 +1,11 @@
 package MainApp.test;
 
 import MainApp.App;
-import MainApp.models.Models.Exception.FieldNotFoundException;
-import MainApp.models.Models.Exception.ObjectNotFoundException;
-import MainApp.models.Models.UserModels.Airline;
-import MainApp.models.Models.UserModels.Plane;
+import MainApp.models.Field.ForeignKey;
+import MainApp.models.Model.Exception.FieldNotFoundException;
+import MainApp.models.Model.Exception.ObjectNotFoundException;
+import MainApp.models.Model.UserModel.Airline;
+import MainApp.models.Model.UserModel.Plane;
 
 import org.junit.*;
 
@@ -25,9 +26,11 @@ public class AppTest {
         new App();
         try {
             var airline = (Airline) Airline.getById(Airline.class, 1);
-            airline.name.rawData = "AirTwo";
+            airline.name.setValue("AirTwo");
             airline.save();
             var plane = Plane.queryByProperty(Plane.class, "type", "PlaneOne").toArray();
+            var plane_set = ForeignKey.getReferring(Plane.class, "Airline_id", airline.id);
+            var planeArr = plane_set.toArray();
             System.out.println(plane);
         } catch (ObjectNotFoundException | FieldNotFoundException e) {
             e.printStackTrace();

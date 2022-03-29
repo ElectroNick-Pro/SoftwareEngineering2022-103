@@ -1,4 +1,4 @@
-package MainApp.models.Fields;
+package MainApp.models.Field;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
