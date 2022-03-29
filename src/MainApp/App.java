@@ -13,12 +13,12 @@ public class App {
 
     
     public static void main(String[] args) {
-        new App();
+        var a = new App();
     }
 
     public App() {
         GlobalData.init();
         Models.init();
-        Pages.init();
+        // Pages.init();
     }
 }

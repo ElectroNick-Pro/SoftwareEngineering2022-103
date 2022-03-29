@@ -25,7 +25,5 @@ public class GlobalData {
         };
         config.put("userModels", userModels);
 
-        config.put("welcomePage", new Welcome());
-
     }
 }

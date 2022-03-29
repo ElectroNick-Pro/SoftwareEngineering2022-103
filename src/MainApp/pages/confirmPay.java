@@ -9,9 +9,9 @@ import javax.swing.*;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-class MyPanel extends JPanel {
+class MyPayPanel extends JPanel {
     public Image image;
-    public MyPanel(Image image) {
+    public MyPayPanel(Image image) {
         super();
         setBackground(Color.WHITE);
         this.image = image;
@@ -21,16 +21,16 @@ class MyPanel extends JPanel {
         g.drawImage(image, 0, 0, this);
     }
 }
-public class confirmPrint extends JFrame{
+public class confirmPay extends JFrame{
     private JPanel contentPane;
     JLayeredPane pane = new JLayeredPane();
     public static void main(String[] args){
         EventQueue.invokeLater(new Runnable() {
         public void run(){
             try{
-                confirmPrint frame = new confirmPrint();
+                confirmPay frame = new confirmPay();
                 frame.setVisible(true);
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             }catch (Exception e) {
                 e.printStackTrace();
             }
@@ -41,7 +41,7 @@ public class confirmPrint extends JFrame{
     private static final int DEFAULT_HEIGHT = 540; 
     private static final int INFO_WIDTH = 420;
     private static final int INFO_HEIGHT = 250;
-    public confirmPrint(){
+    public confirmPay(){
     
         setSize(DEFAULT_WIDTH,DEFAULT_HEIGHT);
         contentPane = new JPanel();
@@ -49,28 +49,108 @@ public class confirmPrint extends JFrame{
         setContentPane(contentPane);
         pane = new JLayeredPane();
 
-        JLabel label1 = new JLabel("Please sacn your ID document:");
-        label1.setFont(new Font("Microsoft YaHei", Font.PLAIN,18));
-        label1.setBounds(45,100,341,191);
+        JLabel label1 = new JLabel("Please check your information and pay the bill:");
+        label1.setFont(new Font("Microsoft YaHei", Font.PLAIN,15));
+        label1.setBounds(45,120,378,70);
+        add(label1);
+       
 
-        JLabel label2 = new JLabel("Confirm and Print");
+        JLabel label2 = new JLabel("Confirm and Pay");
         label2.setFont(new Font("Microsoft YaHei", Font.BOLD,35));
-        label2.setBounds(45,85,323,49);
+        label2.setBounds(45,90,323,49);
+        add(label2);
 
     
         
-        ImageIcon m =new ImageIcon("src/MainApp/pages/image/scanIDcard.png");
-        m.setImage(m.getImage().getScaledInstance(300,150,Image.SCALE_DEFAULT));//这里设置图片大小，目前是20*20
-        JLabel label3 = new JLabel(m);
-        label3.setBounds(85,190,300,250);
+        ImageIcon m =new ImageIcon("src/MainApp/pages/image/seat.png");
+        m.setImage(m.getImage().getScaledInstance(45,45,Image.SCALE_DEFAULT));//这里设置图片大小，目前是20*20
+        JPanel panel1 = new JPanel(null);
+        panel1.setBorder(BorderFactory.createRaisedSoftBevelBorder());
+        panel1.setBorder(new RoundBorder(Color.gray));
+        panel1.setBounds(45,170,375,85);
+        panel1.setBackground(Color.white);
+        String mo="$10";
+        JLabel label11 = new JLabel(mo);
+        label11.setForeground(Color.red);
+        label11.setBounds(278,30,75,25);
+        label11.setFont(new Font("Microsoft YaHei",Font.PLAIN,25));
+        panel1.add(label11);
+        String co="extra space";
+        JLabel label12 = new JLabel(co);
+        label12.setBounds(110,22,156,42);
+        label12.setFont(new Font("Microsoft YaHei",Font.PLAIN,25));
+        panel1.add(label12);
+        JLabel label13 = new JLabel(m);
+        label13.setBounds(18,13,60,60);
+        panel1.add(label13);
+        add(panel1);
 
-        JButton btn = new JButton("Check in");
+        ImageIcon m2 =new ImageIcon("src/MainApp/pages/image/seat.png");
+        m2.setImage(m2.getImage().getScaledInstance(45,45,Image.SCALE_DEFAULT));//这里设置图片大小，目前是20*20
+        JPanel panel2 = new JPanel(null);
+        panel2.setBackground(Color.white);
+        panel2.setBorder(new RoundBorder(Color.gray));
+        panel2.setBounds(45,260,375,85);
+        String mo2="$20";
+        JLabel label21 = new JLabel(mo2);
+        label21.setForeground(Color.red);
+        label21.setBounds(278,30,75,25);
+        label21.setFont(new Font("Microsoft YaHei",Font.PLAIN,25));
+        panel2.add(label21);
+        String co2="Food choice";
+        JLabel label22 = new JLabel(co2);
+        label22.setBounds(110,18,156,21);
+        label22.setFont(new Font("Microsoft YaHei",Font.PLAIN,25));
+        panel2.add(label22);
+        JLabel label23 = new JLabel(m2);
+        label23.setBounds(20,18,50,50);
+        panel2.add(label23);
+        JButton btnf = new JButton("Click here to view the details");
+        panel2.add(btnf);
+        btnf.setBounds(80,44,186,28);
+        btnf.setFont(new Font("Microsoft YaHei",Font.PLAIN,10));
+        btnf.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                foodchoice f=new foodchoice();
+                f.setBackground(Color.WHITE);
+                f.setVisible(true);
+                f.setSize(519,540);
+                f.setLocationRelativeTo(null);
+                f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); }
+            });
+        add(panel2);
+
+        ImageIcon m3 =new ImageIcon("src/MainApp/pages/image/pay.png");
+        m3.setImage(m3.getImage().getScaledInstance(40,40,Image.SCALE_DEFAULT));//这里设置图片大小，目前是20*20
+        JPanel panel3 = new JPanel(null);
+        panel3.setBounds(45,350,375,85);
+        panel3.setBackground(Color.white);
+        panel3.setBorder(new RoundBorder(Color.gray));
+        String mo3="$30";
+        JLabel label31 = new JLabel(mo3);
+        label31.setForeground(Color.red);
+        label31.setBounds(278,30,75,25);
+        label31.setFont(new Font("Microsoft YaHei",Font.PLAIN,25));
+        panel3.add(label31);
+        String co3="Total";
+        JLabel label32 = new JLabel(co3);
+        label32.setBounds(158,30,62,21);
+        label32.setFont(new Font("Microsoft YaHei",Font.PLAIN,25));
+        panel3.add(label32);
+        JLabel label33 = new JLabel(m3);
+        label33.setBounds(20,18,50,50);
+        panel3.add(label33);
+        add(panel3);
+
+        /*JButton btn = new JButton("Comfirm");
         btn.setBounds(45,400,425,38);
         btn.setFont(new Font("Microsoft YaHei", Font.BOLD,17));
         btn.setBackground(Color.BLUE);
         //btn.setForeground(Color.white);
         //btn.setBorder(BorderFactory.createRaisedBevelBorder());
-
+        add(btn);
+*/
         JPanel panelFlight = createFlight();
         panelFlight.setBorder(new RoundBorder(Color.gray));
         add(panelFlight);
@@ -88,10 +168,8 @@ public class confirmPrint extends JFrame{
         this.getLayeredPane().setBackground(Color.WHITE);
         
         
-        add(label1);
-        add(label2);
-        add(label3);
-        add(btn);
+        
+        
         
 
         ImageIcon questionIcon = new ImageIcon("src/MainApp/pages/image/question.png");
@@ -114,12 +192,26 @@ public class confirmPrint extends JFrame{
 
         JButton next = new JButton();
         next.setBackground(Color.blue);
-        next.setText("Next");
-        //next.setForeground(Color.white);
+        
+        next.setText("Confirm");
+        next.setForeground(Color.white);
+        next.setBounds(830,460,75,30);
         next.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
         //next.setBorder(new RoundBorder(new Color(30, 144, 255)));
-        next.setBounds(830,460,75,30);
         next.setContentAreaFilled(false);
+        next.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // 点击按钮, 显示新的一个窗口
+                 credit frame = new credit();
+        frame.setBackground(Color.WHITE);
+        frame.setVisible(true);
+        frame.setSize(515,313);
+        frame.setLocationRelativeTo(null);
+        frame.setDefaultCloseOperation(credit.HIDE_ON_CLOSE); 
+          
+            }
+        });
         add(next);
 
         JButton back = new JButton();
@@ -139,6 +231,45 @@ public class confirmPrint extends JFrame{
                     panelFlight.setBounds(500,80,415,355);
                 
     }
+    /*
+    public  creditWindow(JPanel relativeWindow){
+        JFrame newJFrame = new JFrame();
+        newJFrame.setLocationRelativeTo(relativeWindow);
+
+        newJFrame.setSize(250, 250);
+        newJFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+
+        // 窗口设置为不可改变大小
+        newJFrame.setResizable(false);
+
+        JPanel panel = new JPanel(null);
+
+        // 在新窗口中显示一个标签
+        JLabel label = new JLabel("Please enter your credit card number:");
+        label.setFont(new Font(null, Font.PLAIN, 18));
+        label.setBounds(46,80,436,35);
+        panel.add(label);
+        JLabel label2 = new JLabel("Please enter your password:");
+        label.setFont(new Font(null, Font.PLAIN, 18));
+        label.setBounds(46,137,436,35);
+        panel.add(label2);
+
+        String id;
+        String password;
+        int loginFlag = 0;
+        boolean flag;
+        JTextField
+
+        JButton btn = new JButton("OK");
+        panel.add(btn);
+        label.setFont(new Font(null, Font.PLAIN, 15));
+        label.setBounds(398,253,75,30);
+
+        newJFrame.setContentPane(panel);
+        newJFrame.setVisible(true);
+
+    }
+    */
 
     
 
