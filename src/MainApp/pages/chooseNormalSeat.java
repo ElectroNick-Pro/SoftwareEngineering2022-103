@@ -3,7 +3,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.ColorUIResource;
 
-import MainApp.models.Models.UserModels.Seat;
+import MainApp.models.Model.UserModel.Seat;
 import MainApp.pages.components.RoundBorder;
 
 import java.awt.event.*;
