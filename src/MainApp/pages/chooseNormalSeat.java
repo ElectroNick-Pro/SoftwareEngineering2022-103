@@ -11,10 +11,8 @@ import java.awt.Font;
 import java.awt.*;
 
 public class chooseNormalSeat {
-    // public int width = 960;
-    // public int height = 540;
-    public int width = 975;
-    public int height = 597;
+    public int width = 960;
+    public int height = 540;
 
     JFrame f = new JFrame("Choose Seat");
     private JButton normal = normalSeat(f);
