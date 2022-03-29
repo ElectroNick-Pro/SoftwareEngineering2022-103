@@ -14,7 +14,7 @@ public class AppTest {
     public void testSave() {
         new App();
         var airline = new Airline();
-        airline.name.rawData = "AirOne";
+        airline.name.setValue("AirOne");
         airline.save();
         var plane = new Plane();
         plane.type.rawData = "PlaneOne";

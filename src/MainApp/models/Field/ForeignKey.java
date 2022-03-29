@@ -50,7 +50,7 @@ public class ForeignKey extends BaseField {
     }
 
     public static <T extends BaseModel> Stream<T> getReferring(Class<T> referring_clz, String key, int id) 
-    throws FieldNotFoundException, ObjectNotFoundException {
+    throws FieldNotFoundException {
         return T.queryByProperty(referring_clz, key, Integer.valueOf(id));
     }
 

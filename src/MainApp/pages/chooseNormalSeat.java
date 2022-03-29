@@ -3,10 +3,13 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.ColorUIResource;
 
+import MainApp.models.Field.ForeignKey;
+import MainApp.models.Model.UserModel.Interval;
 import MainApp.models.Model.UserModel.Seat;
 import MainApp.pages.components.RoundBorder;
 
 import java.awt.event.*;
+import java.util.stream.Stream;
 import java.awt.Font;
 import java.awt.*;
 
@@ -20,9 +23,10 @@ public class chooseNormalSeat {
     private JButton aside = asideSeat(f);
     private JButton extra = extraSeat(f);
     
-    Seat seat = new Seat();
+    Stream<Seat> seat;
 
     public chooseNormalSeat(){
+        // seat = ForeignKey.getReferring(Seat.class, "Interval_id", 1);
         /**
          * get the flightNo/InternalNo from globalData
          */
