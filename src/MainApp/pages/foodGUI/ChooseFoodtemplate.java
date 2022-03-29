@@ -14,9 +14,12 @@ class ChooseFoodtemplate extends JFrame{
 Font Bigfont=new Font("Serief",Font.BOLD,40);
 Font Middlefont=new Font("Serief",Font.PLAIN,20);
 Font Smallfont=new Font("Serief",Font.BOLD+Font.ITALIC,10);
+JLabel ok=new JLabel(new ImageIcon("D:/Coursework/software-engineering2022-103src/MainApp/pages/image/success1.png"));
+
 //constructer
 public ChooseFoodtemplate(){
-
+ok.setVisible(false);
+this.getLayeredPane().add(ok,Integer.valueOf(5));
 ImageIcon home=new ImageIcon("D:/Coursework/software-engineering2022-103/src/MainApp/pages/image/exit1.png"); 
 JButton Home=new JButton(home);
 Home.setBounds(40,40,40,40);
