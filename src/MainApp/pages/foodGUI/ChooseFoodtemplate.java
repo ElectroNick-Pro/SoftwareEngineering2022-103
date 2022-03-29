@@ -3,8 +3,6 @@ import javax.imageio.ImageIO;
 import javax.security.auth.x500.X500Principal;
 import javax.swing.*;
 
-import org.junit.jupiter.params.shadow.com.univocity.parsers.annotations.LowerCase;
-
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.RoundRectangle2D;
