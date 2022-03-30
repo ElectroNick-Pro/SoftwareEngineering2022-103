@@ -14,12 +14,11 @@ class ChooseFoodtemplate extends JFrame{
 Font Bigfont=new Font("Serief",Font.BOLD,40);
 Font Middlefont=new Font("Serief",Font.PLAIN,20);
 Font Smallfont=new Font("Serief",Font.BOLD+Font.ITALIC,10);
-JLabel ok=new JLabel(new ImageIcon("D:/Coursework/software-engineering2022-103src/MainApp/pages/image/success1.png"));
+JLabel ok=new JLabel(new ImageIcon("D:/Coursework/software-engineering2022-103/src/MainApp/pages/image/success1.png"));
 
 //constructer
 public ChooseFoodtemplate(){
-ok.setVisible(false);
-this.getLayeredPane().add(ok,Integer.valueOf(5));
+
 ImageIcon home=new ImageIcon("D:/Coursework/software-engineering2022-103/src/MainApp/pages/image/exit1.png"); 
 JButton Home=new JButton(home);
 Home.setBounds(40,40,40,40);
@@ -76,6 +75,10 @@ this.getLayeredPane().add(Food,0);
 this.getLayeredPane().add(Please,0);
 this.getLayeredPane().add(Back,0);
 //this.getLayeredPane().add(Next,0);
+ok.setVisible(false);
+//ok.setVisible(true);
+ok.setBounds(100,100,50,50);
+this.getLayeredPane().add(ok,Integer.valueOf(5));
 this.setBackground(Color.WHITE);
 this.setSize(960,540);
 this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -134,5 +137,8 @@ panel.setBounds(x,y,194,122);
 panel.setBorder(null);
     return panel;
 } 
-
+public static void main(String[] args){
+    ChooseFoodtemplate t=new ChooseFoodtemplate();
+    t.setVisible(true);
+}
 }
