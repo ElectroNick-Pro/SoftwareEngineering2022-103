@@ -12,6 +12,10 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
+
+import MainApp.GlobalData;
+import MainApp.models.Model.UserModel.Customer;
+
 import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 
@@ -37,8 +41,8 @@ public class credit extends JFrame implements ActionListener{
     
     
 
-    public String id = getString("1234");
-    public String password = getString("1234");;
+    public String id = (String)((Customer)GlobalData.data.get("customer")).creditId.getValue();
+    public String password = (String)((Customer)GlobalData.data.get("customer")).password.getValue();;
     //int cFlag = 0;
     //boolean flag;
     protected JFrame frame;
@@ -67,8 +71,7 @@ public class credit extends JFrame implements ActionListener{
         label.setFont(new Font(null, Font.PLAIN, 18));
         label.setBounds(46,40,436,35);}
         public void actionPerformed(ActionEvent e){
-            String cmd = e.getActionCommand();
-            if(cmd.equals("OK")){
+            if(e.getSource() == btn){
                 String creditText = creditF.getText().toString();
                 String passText = passF.getText().toString();
                 if(id.equals(creditText)&&password.equals(passText)){

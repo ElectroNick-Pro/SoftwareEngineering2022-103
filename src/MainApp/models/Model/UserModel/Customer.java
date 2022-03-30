@@ -12,4 +12,6 @@ public class Customer extends BaseModel {
     public StringField firstname = new StringField();
     public StringField surname = new StringField();
     public StringField customerId = new StringField();
+    public StringField creditId = new StringField();
+    public StringField password = new StringField();
 }
