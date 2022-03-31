@@ -121,7 +121,7 @@ public class confirmPrint extends JFrame{
         next.setBounds(830,460,75,30);
         next.setContentAreaFilled(false);
         add(next);
-
+/*
         JButton back = new JButton();
         back.setBackground(Color.gray);
         back.setText("Back");
@@ -131,7 +131,7 @@ public class confirmPrint extends JFrame{
         back.setBounds(25,460,75,30);
         back.setContentAreaFilled(false);
         add(back);
-
+*/
         ImageIcon newImage = new ImageIcon("src/MainApp/pages/image/background.png");// 这是背景图片 .png .jpg .gif 等格式的图片都可以
                     // newImage.setImage(newImage.getImage().getScaledInstance(430,350,Image.SCALE_DEFAULT));//这里设置图片大小，目前是20*20
                     picture.setIcon(newImage);
@@ -158,8 +158,8 @@ public class confirmPrint extends JFrame{
         JLabel where = new JLabel("Air China");
         where.setFont(new Font("宋体",Font.ITALIC,20));
 
-        ImageIcon image = new ImageIcon("src/MainApp/image/airplane.png");// 这是背景图片 .png .jpg .gif 等格式的图片都可以
-        image.setImage(image.getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));//这里设置图片大小，目前是20*20
+        ImageIcon image = new ImageIcon("src/MainApp/pages/image/airplane.png");
+        image.setImage(image.getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));//size
         JLabel picture=new JLabel(image);
 
         JLabel takeoff = new JLabel("Beijing");
@@ -186,11 +186,8 @@ public class confirmPrint extends JFrame{
         JLabel time = new JLabel("2h15min");
         time.setFont(new Font("宋体", Font.BOLD, 15));
 
-        JLabel seat = new JLabel("economy seat");
-        seat.setFont(new Font("宋体", Font.BOLD, 13));
-
-        JLabel food =new JLabel("food provided");
-        food.setFont(new Font("宋体", Font.BOLD, 13));
+        JLabel foodtype = new JLabel("Children Food");
+        foodtype.setFont(new Font("宋体", Font.BOLD, 15));
 
         JLabel Terminal = new JLabel("Terminal");
         Terminal.setFont(new Font("宋体", Font.BOLD, 15));
@@ -210,6 +207,14 @@ public class confirmPrint extends JFrame{
         JLabel ID = new JLabel("130203200109110322");
         ID.setFont(new Font("宋体", Font.BOLD, 15));
 
+        JLabel seattype = new JLabel("economy class");
+        seattype.setFont(new Font("宋体", Font.BOLD, 20));
+        seattype.setForeground(Color.blue);
+
+        JLabel seatno = new JLabel("12C");
+        seatno.setFont(new Font("宋体", Font.BOLD,20));
+        seatno.setForeground(Color.blue);
+
         GroupLayout layout = new GroupLayout(panel);
 
         GroupLayout.SequentialGroup hSeqGp01 = layout.createSequentialGroup();
@@ -223,7 +228,7 @@ public class confirmPrint extends JFrame{
         GroupLayout.SequentialGroup hSeqGp02 = layout.createSequentialGroup();
         hSeqGp02.addGap(20);
         hSeqGp02.addComponent(where);
-        hSeqGp02.addGap(20);
+        hSeqGp02.addGap(100);
         hSeqGp02.addComponent(flightNo);
 
         GroupLayout.SequentialGroup hSeqGp03 = layout.createSequentialGroup();
@@ -250,7 +255,7 @@ public class confirmPrint extends JFrame{
 
         GroupLayout.SequentialGroup hSeqGp06 = layout.createSequentialGroup();
         hSeqGp06.addGap(30);
-        hSeqGp06.addComponent(seat);
+        hSeqGp06.addComponent(foodtype);
         hSeqGp06.addGap(70);
         hSeqGp06.addComponent(TerminalNum);
         hSeqGp06.addGap(105);
@@ -258,7 +263,7 @@ public class confirmPrint extends JFrame{
 
         GroupLayout.SequentialGroup hSeqGp07 = layout.createSequentialGroup();
         hSeqGp07.addGap(30);
-        hSeqGp07.addComponent(food);
+        hSeqGp07.addComponent(foodtype);
         hSeqGp07.addGap(40);
         hSeqGp07.addComponent(Terminal);
         hSeqGp07.addGap(83);
@@ -267,10 +272,14 @@ public class confirmPrint extends JFrame{
         GroupLayout.SequentialGroup hSeqGp08 = layout.createSequentialGroup();
         hSeqGp08.addGap(25);
         hSeqGp08.addComponent(name);
+        hSeqGp08.addGap(80);
+        hSeqGp08.addComponent(seattype);
 
         GroupLayout.SequentialGroup hSeqGp09 = layout.createSequentialGroup();
         hSeqGp09.addGap(25);
         hSeqGp09.addComponent(ID);
+        hSeqGp09.addGap(50);
+        hSeqGp09.addComponent(seatno);
 
         GroupLayout.ParallelGroup hparallelGroup = layout.createParallelGroup();
         hparallelGroup.addGroup(hSeqGp01);
@@ -297,9 +306,9 @@ public class confirmPrint extends JFrame{
         vSeqGP01.addGap(25);
         vSeqGP01.addComponent(startTime);
         vSeqGP01.addGap(20);
-        vSeqGP01.addComponent(seat);
-        vSeqGP01.addGap(8);
-        vSeqGP01.addComponent(food);
+        vSeqGP01.addComponent(foodtype);
+        //vSeqGP01.addGap(8);
+        //vSeqGP01.addComponent(food);
 
         GroupLayout.SequentialGroup vSeqGP02 = layout.createSequentialGroup();
         vSeqGP02.addGap(5);
@@ -318,11 +327,11 @@ public class confirmPrint extends JFrame{
         GroupLayout.SequentialGroup vSeqGP03 = layout.createSequentialGroup();
         vSeqGP03.addGap(5);
         vSeqGP03.addComponent(date);
-        vSeqGP03.addGap(50);
+        vSeqGP03.addGap(55);
         vSeqGP03.addComponent(arrive);
         vSeqGP03.addGap(15);
         vSeqGP03.addComponent(airport2);
-        vSeqGP03.addGap(15);
+        vSeqGP03.addGap(20);
         vSeqGP03.addComponent(arriveTime);
         vSeqGP03.addGap(15);
         vSeqGP03.addComponent(GateNo);
@@ -334,16 +343,26 @@ public class confirmPrint extends JFrame{
         vSeqGP04.addGap(2);
         vSeqGP04.addComponent(ID);
 
+        GroupLayout.SequentialGroup vSeqGP05 = layout.createSequentialGroup();
+        vSeqGP05.addComponent(seattype);
+        vSeqGP05.addGap(2);
+        vSeqGP05.addComponent(seatno);
+
         GroupLayout.ParallelGroup vParallelGroup = layout.createParallelGroup();
         vParallelGroup.addGroup(vSeqGP01);
         vParallelGroup.addGroup(vSeqGP02);
         vParallelGroup.addGroup(vSeqGP03);
+        GroupLayout.ParallelGroup vParallelGroup2 = layout.createParallelGroup();
+        vParallelGroup2.addGroup(vSeqGP04);
+        vParallelGroup2.addGroup(vSeqGP05);
+        
         
         GroupLayout.SequentialGroup vSeqGP = layout.createSequentialGroup();
         vSeqGP.addGap(20);
         vSeqGP.addGroup(vParallelGroup);
         vSeqGP.addGap(20);
-        vSeqGP.addGroup(vSeqGP04);
+        vSeqGP.addGroup(vParallelGroup2);
+       
 
         layout.setVerticalGroup(vSeqGP);
 

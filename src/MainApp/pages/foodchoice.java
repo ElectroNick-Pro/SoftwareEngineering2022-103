@@ -63,6 +63,7 @@ public class foodchoice extends JFrame {
         panela.add(labela2);
         String an = "1";
         JLabel labelan = new JLabel(an);
+        labelan.setForeground(Color.blue);
         labelan.setBounds(356,30,123,24);
         labelan.setFont(new Font("Microsoft YaHei",Font.PLAIN,25));
         panela.add(labelan);
@@ -93,6 +94,7 @@ public class foodchoice extends JFrame {
         JLabel labelbn = new JLabel(bn);
         labelbn.setBounds(356,30,123,24);
         labelbn.setFont(new Font("Microsoft YaHei",Font.PLAIN,25));
+        labelbn.setForeground(Color.blue);
         panelb.add(labelbn);
         JLabel labelb3 = new JLabel(mb);
         labelb3.setBounds(20,18,50,50);
@@ -119,6 +121,7 @@ public class foodchoice extends JFrame {
         String cn = "2";
         JLabel labelcn = new JLabel(cn);
         labelcn.setBounds(356,30,123,24);
+        labelcn.setForeground(Color.blue);
         labelcn.setFont(new Font("Microsoft YaHei",Font.PLAIN,25));
         panelc.add(labelcn);
         JLabel labelc3 = new JLabel(mc);
@@ -144,7 +147,7 @@ public class foodchoice extends JFrame {
         ImageIcon m3 =new ImageIcon("src/MainApp/pages/image/pay.png");
         m3.setImage(m3.getImage().getScaledInstance(40,40,Image.SCALE_DEFAULT));//这里设置图片大小，目前是20*20
         JPanel panel3 = new JPanel(null);
-        panel3.setBounds(45,387,430,85);
+        panel3.setBounds(38,387,460,90);
         panel3.setBackground(Color.white);
         panel3.setBorder(new RoundBorder(Color.gray));
         String mo3="$30";
