@@ -13,12 +13,29 @@ class ChooseFoodDessert extends ChooseFoodtemplate{
 public ChooseFoodDessert(){
 
 
-JPanel whitepanel=new JPanel();
-whitepanel.setSize(960, 540);
-whitepanel.setBackground(Color.WHITE);
+
 
 this.Titleset("Choose Dessert");
  
+JButton Back=new JButton("BACK");
+Back.setBackground(new Color(191,191,191));
+Back.setForeground(Color.WHITE);
+Back.setFont(Smallfont);
+Back.setBounds(25,490,75,30);
+this.add(Back,Integer.valueOf(4));
+
+JButton Next=new JButton("NEXT");
+Next.setBackground(new Color(0,131,255));
+Next.setForeground(Color.WHITE);
+Next.setFont(Smallfont);
+Next.setBounds(860,490,75,30);
+Next.addActionListener(new ActionListener(){
+	public void actionPerformed(ActionEvent e){
+	//Next 后面指向哪里
+ }
+	}
+	);
+this.add(Next,Integer.valueOf(4));
 //框框
 JPanel panel1=this.paintRect(45,200,1);
 foodimage Dou1=new foodimage("src/MainApp/pages/image/doughnut1.png");

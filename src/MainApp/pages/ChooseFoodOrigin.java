@@ -15,21 +15,29 @@ public class ChooseFoodOrigin extends ChooseFoodtemplate{
 //constructer**************************************************
 public ChooseFoodOrigin(){
 
-JButton Next=new JButton("NEXT");
-Next.setBackground(new Color(0,131,255));
-Next.setForeground(Color.WHITE);
-Next.setFont(Smallfont);
-Next.setBounds(860,490,75,30);
-Next.addActionListener(new ActionListener(){
-	public void actionPerformed(ActionEvent e){
-	ChooseFoodExtra extrafood=new ChooseFoodExtra();
-    extrafood.setVisible(true);
-   }
-	}
-	);
-    this.add(Next,0);
+
 
 	this.Titleset("Choose Food");
+
+	ImageIcon home=new ImageIcon("src/MainApp/pages/image/exit1.png"); 
+	JButton Home=new JButton(home);
+	Home.setBounds(40,40,40,40);
+	Home.setBorderPainted(false);
+	Home.setBackground(Color.WHITE);
+	Home.addActionListener(new ActionListener(){
+		public void actionPerformed(ActionEvent e){
+			//dispose();
+		}
+	});
+this.add(Home,Integer.valueOf(4));
+
+ImageIcon help=new ImageIcon("src/MainApp/pages/image/help2.png");
+JButton Help=new JButton(help);
+Help.setBounds(880,40,40,40);
+Help.setBorderPainted(false);
+Help.setBackground(Color.WHITE);
+this.add(Help);
+this.add(Help,Integer.valueOf(4));
 //框框*****************************************
 
 JPanel panel1=this.paintRect(45,200,0);
@@ -156,20 +164,7 @@ Lowsugar.addActionListener(new ActionListener(){
     ok.setVisible(true); }
 	}
 	);
-/*JLayeredPane choice=new JLayeredPane();
-choice.setBackground(Color.WHITE);
-choice.add(Lowsugar,Integer.valueOf(3));
-choice.setSize(960,540);
-this.add(choice,4);*/
 
-/*this.getLayeredPane().add(Standard,Integer.valueOf(3));
-this.getLayeredPane().add(Vegan,Integer.valueOf(3));
-this.getLayeredPane().add(Humbergur,Integer.valueOf(3));
-this.getLayeredPane().add(BeefSteak,Integer.valueOf(3));
-this.getLayeredPane().add(Halal,Integer.valueOf(3));
-this.getLayeredPane().add(Children,Integer.valueOf(3));
-this.getLayeredPane().add(Seafood,Integer.valueOf(3));
-this.getLayeredPane().add(Lowsugar,Integer.valueOf(3));*/
 this.add(Standard,Integer.valueOf(4));
 this.add(Vegan,Integer.valueOf(4));
 this.add(Humbergur,Integer.valueOf(4));

@@ -13,26 +13,10 @@ class ChooseFoodExtra extends ChooseFoodtemplate{
 //constructer
 public ChooseFoodExtra(){
 
-JButton Next=new JButton("NEXT");
-Next.setBackground(new Color(0,131,255));
-Next.setForeground(Color.WHITE);
-Next.setFont(Smallfont);
-Next.setBounds(860,490,75,30);
-Next.addActionListener(new ActionListener(){
-	public void actionPerformed(ActionEvent e){
-	ChooseFoodDessert dessert=new ChooseFoodDessert();
-    dessert.setVisible(true); }
-	}
-	);
+
 this.Titleset("Choose Extra Food");
-JPanel whitepanel=new JPanel();
-whitepanel.setSize(960, 540);
-whitepanel.setBackground(Color.WHITE);
 
- 
-this.add(whitepanel,-1);
 
-this.add(Next,Integer.valueOf(3));
 this.setBackground(Color.WHITE);
 //框框
 JPanel panel1=this.paintRect(45,200,1);

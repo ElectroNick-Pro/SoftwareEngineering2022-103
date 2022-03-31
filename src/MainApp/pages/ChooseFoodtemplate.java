@@ -30,6 +30,8 @@ Home.addActionListener(new ActionListener(){
     }
 });
 
+
+
 ImageIcon help=new ImageIcon("src/MainApp/pages/image/help2.png");
 JButton Help=new JButton(help);
 Help.setBounds(880,40,40,40);
@@ -37,7 +39,7 @@ Help.setBorderPainted(false);
 Help.setBackground(Color.WHITE);
 
 
-Food.setBounds(45,105,300,50);
+Food.setBounds(45,105,400,50);
 Food.setFont(Bigfont);
 Food.setBackground(Color.WHITE);
 
@@ -69,11 +71,11 @@ whitepanel.setBackground(Color.WHITE);
 
  
 this.add(whitepanel,-1);
-this.add(Home,0);
-this.add(Help,0);
+//this.add(Home,0);
+//this.add(Help,0);
 this.add(Food,0);
 this.add(Please,0);
-this.add(Back,0);
+//this.add(Back,0);
 //this.getLayeredPane().add(Next,0);
 ok.setVisible(false);
 //ok.setVisible(true);
