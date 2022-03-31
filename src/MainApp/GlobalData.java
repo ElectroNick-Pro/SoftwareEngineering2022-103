@@ -1,10 +1,10 @@
 package MainApp;
 
+import java.nio.file.Path;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import javax.swing.*;
 
-import MainApp.pages.Welcome;
+import javax.swing.*;
 
 public class GlobalData {
     public static Map<String, Object> data = new HashMap<>();
@@ -25,5 +25,11 @@ public class GlobalData {
         };
         config.put("userModels", userModels);
 
+        var pagePaths = new HashMap<Path, JFrame>();
+        pagePaths.put(Path.of("frame1"), new JFrame());
+        pagePaths.put(Path.of("frame2"), new JFrame());
+        config.put("pagePaths", pagePaths);
+
+        config.put("welcomePage", Path.of("frame1"));
     }
 }

@@ -1,9 +1,6 @@
 package MainApp.models.Field;
 
-import java.util.stream.Stream;
-
 import MainApp.models.Model.*;
-import MainApp.models.Model.Exception.FieldNotFoundException;
 import MainApp.models.Model.Exception.ObjectNotFoundException;
 import MainApp.models.Model.Exception.ValidationException;
 
@@ -47,11 +44,6 @@ public class ForeignKey extends BaseField {
 
     public BaseModel getReferred() throws ObjectNotFoundException {
         return BaseModel.getById(foreignClz, (Integer)rawData);
-    }
-
-    public static <T extends BaseModel> Stream<T> getReferring(Class<T> referring_clz, String key, int id) 
-    throws FieldNotFoundException {
-        return T.queryByProperty(referring_clz, key, Integer.valueOf(id));
     }
 
 }
