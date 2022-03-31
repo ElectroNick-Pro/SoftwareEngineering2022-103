@@ -172,64 +172,9 @@ JPanel shadow7=shade(520,355);
 this.getLayeredPane().add(shadow7,Integer.valueOf(1));
 JPanel shadow8=shade(745,355);
 this.getLayeredPane().add(shadow8,Integer.valueOf(1));
-//this.setSize(960,540);
-//this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-}
-/*//绘制框框（我抄）
-public JPanel paintRect(int x,int y,int i){
-    final Paint p = new GradientPaint(0.0f, 0.0f, new Color(0, 131, 255, 100),
-			getWidth(), getHeight(), new Color(0, 131, 255, 200), true);
-            JPanel panel=new JPanel(){
-                public void paintComponent(Graphics g){
-    Graphics2D g2d = (Graphics2D) g;
-				g2d.setPaint(p);
-				// 设置画笔颜色为白色
-				g2d.setColor(new Color(255,255,255));
-				g2d.fillRect(0, 0, getWidth(), getHeight());
-				
-				// 设置画笔颜色为灰色
-                if(i==0)
-				{g2d.setColor(new Color(211,211,211));}
-                else{
-                    g2d.setColor(new Color(98,206,242));  
-                }
-				Shape shape = null;
-				shape = new RoundRectangle2D.Double(0, 0, 194, 123, 6.5D, 6.5D);
-				g2d.draw(shape);	
-                }	
-            };
-            panel.setBackground(Color.WHITE);
-            panel.setBounds(x,y,195,124);
-            return panel;
-}
-//绘制阴影
-public JPanel shade(int x,int y){
-    final Paint p = new GradientPaint(0.0f, 0.0f, new Color(0, 131, 255, 100),
-    getWidth(), getHeight(), new Color(0, 131, 255, 200), true);
 
-    JPanel panel=new JPanel(){
-       public void paintComponent(Graphics g){
-            Graphics2D g2d=(Graphics2D)g;
-            g2d.setPaint(p);
-            for(int i=194;i>0;i--){
-               
-                double opacity=i;
-                //System.out.println(opcity);
-                //int opacity=50;
-g2d.setColor(new Color(98,206,242,(int)opacity));
-Shape shape = new RoundRectangle2D.Double(0, 0, 194-i, 122, 6.5D, 6.5D);
-g2d.draw(shape);
-                
-        }
-    }
-};
-    //panel.setOpaque(false);
-    panel.setBackground(Color.WHITE);
-panel.setBounds(x,y,194,122);
-panel.setBorder(null);
-    return panel;
-} 
-*/
+}
+
 public static void main(String[] args){
     ChooseFoodOrigin o=new ChooseFoodOrigin();
     o.setVisible(true);
