@@ -4,20 +4,26 @@ package MainApp.pages;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.nio.file.Path;
+
 import javax.swing.JOptionPane;
+
+import MainApp.pages.Exception.UnboundPageException;
 public class Retrive extends JFrame implements ActionListener{
+    private Path path = Path.of("page1");
     public Container container;
     public JTextField bookingIDField;
     public JButton button1,button2,button3;
     public JPanel bookingID;
     public Retrive(){
+        Pages.bindPage(this.path, this);
 		this.setTitle("Check-In Kiosk");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		container = this.getContentPane();
-        // ÉèÖÃ¾ø¶Ô²¼¾Ö
+        // ï¿½ï¿½ï¿½Ã¾ï¿½ï¿½Ô²ï¿½ï¿½ï¿½
         container.setLayout(null);
-        // ÉèÖÃ±³¾°ÑÕÉ«Îª°×É«
+        // ï¿½ï¿½ï¿½Ã±ï¿½ï¿½ï¿½ï¿½ï¿½É«Îªï¿½ï¿½É«
         container.setBackground(Color.white);
 
 		// exit
@@ -91,6 +97,19 @@ public class Retrive extends JFrame implements ActionListener{
 
         // button - Retrive
         JButton btnRetrive = new JButton("Retrive");
+        btnRetrive.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(e.getSource() == btnRetrive) {
+                    Pages.bindPage(Path.of("page1/page2"), new FlightInformationFrm());
+                    try {
+                        Pages.displayPage(Path.of("page1/page2"));
+                    } catch (UnboundPageException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+            }
+        });
         btnRetrive.setBounds(45,390,425,38);
         container.add(btnRetrive);
 

@@ -9,10 +9,13 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.text.AttributeSet.ColorAttribute;
 
+import MainApp.pages.Exception.UnboundPageException;
+import MainApp.pages.components.BreadCrumbPanel;
 import MainApp.pages.components.DemoScrollBarUI;
 import MainApp.pages.components.RoundBorder;
 
 import java.awt.event.ActionListener;
+import java.nio.file.Path;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
 
@@ -36,6 +39,7 @@ class MyPanel extends JPanel {
 
 public class FlightInformationFrm extends JFrame
 {
+    private Path path = Path.of("page1/page2");
     private JPanel contentPane;
     JLayeredPane pane = new JLayeredPane();
     public static void main(String[] args){
@@ -57,11 +61,17 @@ public class FlightInformationFrm extends JFrame
     private static final int INFO_HEIGHT = 250;
     private static final int NUM = 5;
     public FlightInformationFrm(){
+        Pages.bindPage(this.path, this);
+
         setSize(DEFAULT_WIDTH,DEFAULT_HEIGHT);
         contentPane = new JPanel();
         contentPane.setLayout(null);
         setContentPane(contentPane);
         pane = new JLayeredPane();
+
+        var bread = new BreadCrumbPanel(this.path);
+        bread.setBounds(0, 0, 300, 50);
+        this.add(bread);
 
         JLabel label = new JLabel("Flight Information");
         label.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 35));
@@ -154,6 +164,20 @@ public class FlightInformationFrm extends JFrame
         back.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
         back.setBorder(new RoundBorder(Color.gray));
         back.setBounds(25,460,75,30);
+        back.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(e.getSource() == back) {
+                    try {
+                        Pages.displayPage(Path.of("page1"));
+                    } catch (UnboundPageException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+            }
+            
+        });
         add(back);
 
         
