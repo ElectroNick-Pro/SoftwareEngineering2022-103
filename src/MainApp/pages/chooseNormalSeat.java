@@ -9,6 +9,7 @@ import java.awt.*;
 import MainApp.models.Field.ForeignKey;
 import MainApp.models.Model.UserModel.Interval;
 import MainApp.models.Model.UserModel.Seat;
+import MainApp.pages.components.BreadCrumbPanel;
 import MainApp.pages.components.RoundBorder;
 import MainApp.pages.foodGUI.ChooseFoodOrigin;
 
@@ -35,7 +36,7 @@ public class chooseNormalSeat {
         title_hint(); //title + hint
         bottom(); // back + next button
         buttonAction(); //4 buttons action 
-        f.setLocationRelativeTo(null); //窗口显示在屏幕中央
+        f.setLocationRelativeTo(null); 
         f.setVisible(true);
     }
     private void myFrame(){
@@ -210,27 +211,27 @@ public class chooseNormalSeat {
             String buttonName = e.getActionCommand();
             if(buttonName.equals("normalSeat")){
                 if(normalRest != 0){
-                    JOptionPane.showMessageDialog(null, "分配一个normal seat", "normal", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "assign a normal seat", "normal", JOptionPane.INFORMATION_MESSAGE);
                 }else{
-                    JOptionPane.showMessageDialog(null, "当前类型已无座位", "normal", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "no seat left", "normal", JOptionPane.ERROR_MESSAGE);
                 }
             }else if(buttonName.equals("windowSeat")){
                 if(windowRest != 0){
-                    JOptionPane.showMessageDialog(null, "分配一个window seat", "window", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "assign a window seat", "window", JOptionPane.INFORMATION_MESSAGE);
                 }else{
-                    JOptionPane.showMessageDialog(null, "当前类型已无座位", "window", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "no seat left", "window", JOptionPane.ERROR_MESSAGE);
                 }
             }else if(buttonName.equals("asideSeat")){
                 if(asideRest != 0){
-                    JOptionPane.showMessageDialog(null, "分配一个aside seat", "aside", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "assign a aside seat", "aside", JOptionPane.INFORMATION_MESSAGE);
                 }else{
-                    JOptionPane.showMessageDialog(null, "当前类型已无座位", "aside", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "no seat left", "aside", JOptionPane.ERROR_MESSAGE);
                 }
             }else if(buttonName.equals("extraSeat")){
                 if(extraRest != 0){
-                    JOptionPane.showMessageDialog(null, "分配一个extra seat", "extra", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "assign a extra seat", "extra", JOptionPane.INFORMATION_MESSAGE);
                 }else{
-                    JOptionPane.showMessageDialog(null, "当前类型已无座位", "extra", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "no seat left", "extra", JOptionPane.ERROR_MESSAGE);
                 }
             }
         }
@@ -295,7 +296,7 @@ public class chooseNormalSeat {
         exitIcon.changeIconSize("src/MainApp/pages/image/exit.png", exit, 40, 40);
         // exit.setOpaque(false);
         /*
-            面包屑
+            mian bao xie
         */
         // JLabel chart = new JLabel("Check In>Choose Seat>Choose a meal plan>Confirm and Print>Have a Good Trip!");
         // chart.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 15));
@@ -309,7 +310,7 @@ public class chooseNormalSeat {
         label4.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 15));
         // chart.setOpaque(false);
         /*
-            人工服务
+            artificial service
         */
         JButton service = new JButton();
         service.setContentAreaFilled(false);
@@ -371,9 +372,7 @@ public class chooseNormalSeat {
         extra.addActionListener(myListener);
         extra.addMouseListener(myListener2);
     }
-    // private  laodSeat(){
-
-    // }
+    
     public static void main(String[] args) {
         chooseNormalSeat seat = new chooseNormalSeat();
     }
