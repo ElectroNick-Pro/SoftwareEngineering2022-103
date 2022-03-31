@@ -14,7 +14,7 @@ public class GlobalData {
 
     public static void init() {
 
-        config.put("srcDir", "D:/Courses/ebu6304SoftwareEngineering/CourseWork/software-engineering2022-103/");
+        config.put("srcDir", "/");
 
         config.put("dataDir", (String)config.get("srcDir")+"data");
 
@@ -28,7 +28,9 @@ public class GlobalData {
         config.put("userModels", userModels);
 
         var pagePaths = new HashMap<Path, JFrame>();
-        pagePaths.put(Path.of("page1"), new Retrive());
+        pagePaths.put(Path.of("page1"), new Retrive(){{
+            setSize(960, 540);
+        }});
         config.put("pagePaths", pagePaths);
 
         config.put("welcomePage", Path.of("page1"));
