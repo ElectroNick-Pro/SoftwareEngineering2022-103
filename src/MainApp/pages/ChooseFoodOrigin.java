@@ -170,14 +170,14 @@ this.getLayeredPane().add(Halal,Integer.valueOf(3));
 this.getLayeredPane().add(Children,Integer.valueOf(3));
 this.getLayeredPane().add(Seafood,Integer.valueOf(3));
 this.getLayeredPane().add(Lowsugar,Integer.valueOf(3));*/
-this.add(Standard,3);
-this.add(Vegan,3);
-this.add(Humbergur,3);
-this.add(BeefSteak,3);
-this.add(Halal,3);
-this.add(Children,3);
-this.add(Seafood,3);
-this.add(Lowsugar,3);
+this.add(Standard,Integer.valueOf(4));
+this.add(Vegan,Integer.valueOf(4));
+this.add(Humbergur,Integer.valueOf(4));
+this.add(BeefSteak,Integer.valueOf(4));
+this.add(Halal,Integer.valueOf(4));
+this.add(Children,Integer.valueOf(4));
+this.add(Seafood,Integer.valueOf(4));
+this.add(Lowsugar,Integer.valueOf(4));
 
 JPanel shadow3=shade(520,210);
 this.add(shadow3,Integer.valueOf(1));
