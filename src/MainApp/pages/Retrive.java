@@ -21,13 +21,11 @@ public class Retrive extends JFrame implements ActionListener{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		container = this.getContentPane();
-        // ���þ��Բ���
         container.setLayout(null);
-        // ���ñ�����ɫΪ��ɫ
         container.setBackground(Color.white);
 
 		// exit
-        ImageIcon exitIcon = new ImageIcon("src/MainApp/image/exit.png");
+        ImageIcon exitIcon = new ImageIcon("src/MainApp/pages/image/exit.png");
         exitIcon.setImage(exitIcon.getImage().getScaledInstance(40,40,Image.SCALE_DEFAULT));
         JLabel exit = new JLabel(exitIcon);
         exit .setBackground(Color.white);
@@ -223,5 +221,6 @@ public class Retrive extends JFrame implements ActionListener{
 		frame.pack();
 		frame.setVisible(true);
         frame.setSize(960,540);
+        frame.setLocationRelativeTo(null); 
 	}
 }

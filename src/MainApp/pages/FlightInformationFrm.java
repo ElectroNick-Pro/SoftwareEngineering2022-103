@@ -54,6 +54,7 @@ public class FlightInformationFrm extends JFrame
 					FlightInformationFrm frame = new FlightInformationFrm();
 					frame.setVisible(true);
                     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    frame.setLocationRelativeTo(null); 
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -84,7 +85,7 @@ public class FlightInformationFrm extends JFrame
         add(label);
 
         JLabel smallLabel = new JLabel("Please choose your flight:                         ");
-        smallLabel.setFont(new Font("宋体", Font.BOLD, 15));
+        smallLabel.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 15));
         smallLabel.setBounds(47,117,509,70);
         add(smallLabel);
 
@@ -206,9 +207,6 @@ public class FlightInformationFrm extends JFrame
                 }
             });
         }
-
-        
-
     }
 
     private static JButton createButton(String flightTakeoff,String flightArrive,String flightFlightNo,
@@ -217,8 +215,8 @@ public class FlightInformationFrm extends JFrame
         button.setPreferredSize(new Dimension(374, 70));
         button.setBackground(Color.WHITE);
         
-        ImageIcon image = new ImageIcon("src/MainApp/pages/image/airplane.png");// 这是背景图片 .png .jpg .gif 等格式的图片都可以
-        image.setImage(image.getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));//这里设置图片大小，目前是20*20
+        ImageIcon image = new ImageIcon("src/MainApp/pages/image/airplane.png");// background picture
+        image.setImage(image.getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));// setSize
         JLabel picture=new JLabel(image);
 
         JLabel takeoff = new JLabel(flightTakeoff);
@@ -303,19 +301,19 @@ public class FlightInformationFrm extends JFrame
         panel.setOpaque(false);
 
         JLabel book = new JLabel("Booking ID");
-        book.setFont(new Font("宋体",Font.ITALIC,15));
+        book.setFont(new Font("Microsoft YaHei UI",Font.ITALIC,15));
 
         JLabel bookID = new JLabel(flightbookID);
-        bookID.setFont(new Font("宋体",Font.ITALIC,15));
+        bookID.setFont(new Font("Microsoft YaHei UI",Font.ITALIC,15));
 
         JLabel date = new JLabel(flightDate);
-        date.setFont(new Font("宋体",Font.ITALIC,15));
+        date.setFont(new Font("Microsoft YaHei UI",Font.ITALIC,15));
 
         JLabel where = new JLabel("Air China");
-        where.setFont(new Font("宋体",Font.ITALIC,20));
+        where.setFont(new Font("Microsoft YaHei UI",Font.ITALIC,20));
 
-        ImageIcon image = new ImageIcon("D:/Git/software-engineering2022-103/src/MainApp/pages/image/airplane.png");// 这是背景图片 .png .jpg .gif 等格式的图片都可以
-        image.setImage(image.getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));//这里设置图片大小，目前是20*20
+        ImageIcon image = new ImageIcon("D:/Git/software-engineering2022-103/src/MainApp/pages/image/airplane.png");//
+        image.setImage(image.getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));//
         JLabel picture=new JLabel(image);
 
         JLabel takeoff = new JLabel(flightTakeoff);
@@ -325,31 +323,31 @@ public class FlightInformationFrm extends JFrame
         arrive.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 25));
 
         JLabel flightNo = new JLabel(flightFlightNo);
-        flightNo.setFont(new Font("宋体", Font.BOLD, 22));
+        flightNo.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 22));
 
         JLabel airport1 = new JLabel(flightAirport1);
-        airport1.setFont(new Font("宋体", Font.BOLD, 13));
+        airport1.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 13));
 
         JLabel airport2 = new JLabel(flightAirport2);
-        airport2.setFont(new Font("宋体", Font.BOLD, 13));
+        airport2.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 13));
 
         JLabel startTime = new JLabel(flightStartTime);
-        startTime.setFont(new Font("宋体", Font.BOLD, 20));
+        startTime.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 20));
 
         JLabel arriveTime = new JLabel(flightArriveTime);
-        arriveTime.setFont(new Font("宋体", Font.BOLD, 20));
+        arriveTime.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 20));
 
         JLabel time = new JLabel(fightTime);
-        time.setFont(new Font("宋体", Font.BOLD, 15));
+        time.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 15));
 
         JLabel seat = new JLabel(flightSeat);
-        seat.setFont(new Font("宋体", Font.BOLD, 13));
+        seat.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 13));
 
         JLabel food =new JLabel(flightFood);
-        food.setFont(new Font("宋体", Font.BOLD, 13));
+        food.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 13));
 
         JLabel Terminal = new JLabel("Terminal");
-        Terminal.setFont(new Font("宋体", Font.BOLD, 15));
+        Terminal.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 15));
 
         JLabel TerminalNum = new JLabel(FlightTerminalNum);
         TerminalNum.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 25));
@@ -358,13 +356,13 @@ public class FlightInformationFrm extends JFrame
         GateNo.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 25));
 
         JLabel Gate = new JLabel("Gate");
-        Gate.setFont(new Font("宋体", Font.BOLD, 15));
+        Gate.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 15));
 
         JLabel name = new JLabel(flightName);
         name.setFont(new Font("Arial", Font.BOLD, 22));
 
         JLabel ID = new JLabel(fligthNameID);
-        ID.setFont(new Font("宋体", Font.BOLD, 15));
+        ID.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 15));
 
         GroupLayout layout = new GroupLayout(panel);
 
@@ -507,6 +505,4 @@ public class FlightInformationFrm extends JFrame
         
         return panel;
     }
-    
-
 }
