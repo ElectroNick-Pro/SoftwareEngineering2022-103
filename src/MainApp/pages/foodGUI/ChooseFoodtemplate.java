@@ -8,35 +8,35 @@ import java.awt.event.*;
 import java.awt.geom.RoundRectangle2D;
 
 
-class ChooseFoodtemplate extends JFrame{
+class ChooseFoodtemplate extends JLayeredPane{
 
     
 Font Bigfont=new Font("Serief",Font.BOLD,40);
 Font Middlefont=new Font("Serief",Font.PLAIN,20);
 Font Smallfont=new Font("Serief",Font.BOLD+Font.ITALIC,10);
-JLabel ok=new JLabel(new ImageIcon("D:/Coursework/software-engineering2022-103/src/MainApp/pages/image/success1.png"));
-
+JLabel ok=new JLabel(new ImageIcon("src/MainApp/pages/image/success1.png"));
+JLabel Food=new JLabel();
 //constructer
 public ChooseFoodtemplate(){
 
-ImageIcon home=new ImageIcon("D:/Coursework/software-engineering2022-103/src/MainApp/pages/image/exit1.png"); 
+ImageIcon home=new ImageIcon("src/MainApp/pages/image/exit1.png"); 
 JButton Home=new JButton(home);
 Home.setBounds(40,40,40,40);
 Home.setBorderPainted(false);
 Home.setBackground(Color.WHITE);
 Home.addActionListener(new ActionListener(){
     public void actionPerformed(ActionEvent e){
-        dispose();
+        //dispose();
     }
 });
 
-ImageIcon help=new ImageIcon("D:/Coursework/software-engineering2022-103/src/MainApp/pages/image/help2.png");
+ImageIcon help=new ImageIcon("src/MainApp/pages/image/help2.png");
 JButton Help=new JButton(help);
 Help.setBounds(880,40,40,40);
 Help.setBorderPainted(false);
 Help.setBackground(Color.WHITE);
 
-JLabel Food=new JLabel("Choose Food");
+
 Food.setBounds(45,105,300,50);
 Food.setFont(Bigfont);
 Food.setBackground(Color.WHITE);
@@ -68,20 +68,20 @@ whitepanel.setSize(960, 540);
 whitepanel.setBackground(Color.WHITE);
 
  
-this.getLayeredPane().add(whitepanel,-1);
-this.getLayeredPane().add(Home,0);
-this.getLayeredPane().add(Help,0);
-this.getLayeredPane().add(Food,0);
-this.getLayeredPane().add(Please,0);
-this.getLayeredPane().add(Back,0);
+this.add(whitepanel,-1);
+this.add(Home,0);
+this.add(Help,0);
+this.add(Food,0);
+this.add(Please,0);
+this.add(Back,0);
 //this.getLayeredPane().add(Next,0);
 ok.setVisible(false);
 //ok.setVisible(true);
 ok.setBounds(100,100,50,50);
-this.getLayeredPane().add(ok,Integer.valueOf(5));
+this.add(ok,Integer.valueOf(5));
 this.setBackground(Color.WHITE);
 this.setSize(960,540);
-this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 }
 //绘制框框（我抄）
 public JPanel paintRect(int x,int y,int i){
@@ -137,6 +137,9 @@ panel.setBounds(x,y,194,122);
 panel.setBorder(null);
     return panel;
 } 
+public void Titleset(String Welcome){
+Food.setText(Welcome);
+}
 public static void main(String[] args){
     ChooseFoodtemplate t=new ChooseFoodtemplate();
     t.setVisible(true);

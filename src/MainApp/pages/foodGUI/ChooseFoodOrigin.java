@@ -22,60 +22,61 @@ Next.setBounds(860,490,75,30);
 Next.addActionListener(new ActionListener(){
 	public void actionPerformed(ActionEvent e){
 	ChooseFoodExtra extrafood=new ChooseFoodExtra();
-    extrafood.setVisible(true); }
+    extrafood.setVisible(true);
+   }
 	}
 	);
-    this.getLayeredPane().add(Next,0);
+    this.add(Next,0);
 //框框*****************************************
 
 JPanel panel1=this.paintRect(45,200,0);
-foodimage standard1=new foodimage("D:/Coursework/software-engineering2022-103/src/MainApp/pages/image/Standard1.png");
+foodimage standard1=new foodimage("src/MainApp/pages/image/Standard1.png");
 standard1.set1();
-this.getLayeredPane().add(panel1,Integer.valueOf(2));
-this.getLayeredPane().add(standard1,Integer.valueOf(4));
+this.add(panel1,Integer.valueOf(2));
+this.add(standard1,Integer.valueOf(4));
 
 JPanel panel2=this.paintRect(270,200,0);
-foodimage vegan2=new foodimage("D:/Coursework/software-engineering2022-103/src/MainApp/pages/image/Vegan2.png");
+foodimage vegan2=new foodimage("src/MainApp/pages/image/Vegan2.png");
 vegan2.set2();
-this.getLayeredPane().add(panel2,Integer.valueOf(2));
-this.getLayeredPane().add(vegan2,Integer.valueOf(4));
+this.add(panel2,Integer.valueOf(2));
+this.add(vegan2,Integer.valueOf(4));
 
 JPanel panel3=this.paintRect(495,200,1);
-foodimage hum3=new foodimage("D:/Coursework/software-engineering2022-103/src/MainApp/pages/image/Humbergur3.png");
+foodimage hum3=new foodimage("src/MainApp/pages/image/Humbergur3.png");
 hum3.set3();
-this.getLayeredPane().add(panel3,Integer.valueOf(2));
-this.getLayeredPane().add(hum3,Integer.valueOf(4));
+this.add(panel3,Integer.valueOf(2));
+this.add(hum3,Integer.valueOf(4));
 
 JPanel panel4=this.paintRect(720,200,1);
-foodimage beef4=new foodimage("D:/Coursework/software-engineering2022-103/src/MainApp/pages/image/Beefsteak4.png");
+foodimage beef4=new foodimage("src/MainApp/pages/image/Beefsteak4.png");
 beef4.set4();
-this.getLayeredPane().add(panel4,Integer.valueOf(2));
-this.getLayeredPane().add(beef4,Integer.valueOf(4));
+this.add(panel4,Integer.valueOf(2));
+this.add(beef4,Integer.valueOf(4));
 
 JPanel panel5=this.paintRect(45,345,0);
-foodimage halal5=new foodimage("D:/Coursework/software-engineering2022-103/src/MainApp/pages/image/Halal5.png");
+foodimage halal5=new foodimage("src/MainApp/pages/image/Halal5.png");
 halal5.set5();
-this.getLayeredPane().add(panel5,Integer.valueOf(2));
-this.getLayeredPane().add(halal5,Integer.valueOf(4));
+this.add(panel5,Integer.valueOf(2));
+this.add(halal5,Integer.valueOf(4));
 
 JPanel panel6=this.paintRect(270,345,0);
-foodimage child6=new foodimage("D:/Coursework/software-engineering2022-103/src/MainApp/pages/image/child6.png");
+foodimage child6=new foodimage("src/MainApp/pages/image/child6.png");
 child6.set6();
-this.getLayeredPane().add(panel6,Integer.valueOf(2));
-this.getLayeredPane().add(child6,Integer.valueOf(4));
+this.add(panel6,Integer.valueOf(2));
+this.add(child6,Integer.valueOf(4));
 
 JPanel panel7=this.paintRect(495,345,1);
     //panel7.setBorder(BorderFactory.createEtchedBorder(Color.GRAY, Color.PINK));
-foodimage seafood7=new foodimage("D:/Coursework/software-engineering2022-103/src/MainApp/pages/image/Seafood7.png");
-this.getLayeredPane().add(panel7,Integer.valueOf(2));
-this.getLayeredPane().add(seafood7,Integer.valueOf(4));
+foodimage seafood7=new foodimage("src/MainApp/pages/image/Seafood7.png");
+this.add(panel7,Integer.valueOf(2));
+this.add(seafood7,Integer.valueOf(4));
 seafood7.set7();
 
 JPanel panel8=this.paintRect(720,345,1);
-foodimage lowsugar8=new foodimage("D:/Coursework/software-engineering2022-103/src/MainApp/pages/image/Lowsugar8.png");
+foodimage lowsugar8=new foodimage("src/MainApp/pages/image/Lowsugar8.png");
 lowsugar8.set8();
-this.getLayeredPane().add(panel8,Integer.valueOf(2));
-this.getLayeredPane().add(lowsugar8,Integer.valueOf(4));
+this.add(panel8,Integer.valueOf(2));
+this.add(lowsugar8,Integer.valueOf(4));
 
 
 //按钮*******************************
@@ -152,26 +153,37 @@ Lowsugar.addActionListener(new ActionListener(){
     ok.setVisible(true); }
 	}
 	);
+/*JLayeredPane choice=new JLayeredPane();
+choice.setBackground(Color.WHITE);
+choice.add(Lowsugar,Integer.valueOf(3));
+choice.setSize(960,540);
+this.add(choice,4);*/
 
-//JButton Lowsugar=new JButton("111",new ImageIcon("D:/Coursework/software-engineering2022-103/src/MainApp/pages/image/Seafood7.jpg"));
-//Lowsugar.setBounds(721, 346, 193, 122);
-this.getLayeredPane().add(Standard,Integer.valueOf(3));
+/*this.getLayeredPane().add(Standard,Integer.valueOf(3));
 this.getLayeredPane().add(Vegan,Integer.valueOf(3));
 this.getLayeredPane().add(Humbergur,Integer.valueOf(3));
 this.getLayeredPane().add(BeefSteak,Integer.valueOf(3));
 this.getLayeredPane().add(Halal,Integer.valueOf(3));
 this.getLayeredPane().add(Children,Integer.valueOf(3));
 this.getLayeredPane().add(Seafood,Integer.valueOf(3));
-this.getLayeredPane().add(Lowsugar,Integer.valueOf(3));
+this.getLayeredPane().add(Lowsugar,Integer.valueOf(3));*/
+this.add(Standard,3);
+this.add(Vegan,3);
+this.add(Humbergur,3);
+this.add(BeefSteak,3);
+this.add(Halal,3);
+this.add(Children,3);
+this.add(Seafood,3);
+this.add(Lowsugar,3);
 
 JPanel shadow3=shade(520,210);
-this.getLayeredPane().add(shadow3,Integer.valueOf(1));
+this.add(shadow3,Integer.valueOf(1));
 JPanel shadow4=shade(745,210);
-this.getLayeredPane().add(shadow4,Integer.valueOf(1));
+this.add(shadow4,Integer.valueOf(1));
 JPanel shadow7=shade(520,355);
-this.getLayeredPane().add(shadow7,Integer.valueOf(1));
+this.add(shadow7,Integer.valueOf(1));
 JPanel shadow8=shade(745,355);
-this.getLayeredPane().add(shadow8,Integer.valueOf(1));
+this.add(shadow8,Integer.valueOf(1));
 
 }
 
