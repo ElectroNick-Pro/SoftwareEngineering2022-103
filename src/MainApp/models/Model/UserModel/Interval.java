@@ -14,9 +14,12 @@ public class Interval extends BaseModel {
     public static Path storagePath;
     public static Map<String, String> verboseMap = new HashMap<>();
     public ForeignKey flight = new ForeignKey(Flight.class);
-    public StringField departure = new StringField();
-    public StringField destination = new StringField();
+    public StringField departureCity = new StringField();
+    public StringField departureAirport = new StringField();
     public DateTimeField departureTime = new DateTimeField((SimpleDateFormat) GlobalData.config.get("timezone"));
+    public StringField destCity = new StringField();
+    public StringField destAirport = new StringField();
     public DateTimeField destTime = new DateTimeField((SimpleDateFormat) GlobalData.config.get("timezone"));
     public StringField gate = new StringField();
+    public StringField terminal = new StringField();
 }

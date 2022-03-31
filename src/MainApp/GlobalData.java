@@ -6,6 +6,8 @@ import java.util.*;
 
 import javax.swing.*;
 
+import MainApp.pages.Retrive;
+
 public class GlobalData {
     public static Map<String, Object> data = new HashMap<>();
     public static Map<String, Object> config = new HashMap<>();
@@ -26,10 +28,9 @@ public class GlobalData {
         config.put("userModels", userModels);
 
         var pagePaths = new HashMap<Path, JFrame>();
-        pagePaths.put(Path.of("frame1"), new JFrame());
-        pagePaths.put(Path.of("frame2"), new JFrame());
+        pagePaths.put(Path.of("page1"), new Retrive());
         config.put("pagePaths", pagePaths);
 
-        config.put("welcomePage", Path.of("frame1"));
+        config.put("welcomePage", Path.of("page1"));
     }
 }

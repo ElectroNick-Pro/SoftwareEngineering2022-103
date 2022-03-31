@@ -4,24 +4,28 @@ package MainApp.pages;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.nio.file.Path;
+
 import javax.swing.JOptionPane;
+
+import MainApp.pages.Exception.UnboundPageException;
 public class Retrive extends JFrame implements ActionListener{
+    private Path path = Path.of("page1");
     public Container container;
     public JTextField bookingIDField;
     public JButton button1,button2,button3;
     public JPanel bookingID;
     public Retrive(){
+        Pages.bindPage(this.path, this);
 		this.setTitle("Check-In Kiosk");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		container = this.getContentPane();
-        // 设置绝对布局
         container.setLayout(null);
-        // 设置背景颜色为白色
         container.setBackground(Color.white);
 
 		// exit
-        ImageIcon exitIcon = new ImageIcon("src/MainApp/image/exit.png");
+        ImageIcon exitIcon = new ImageIcon("src/MainApp/pages/image/exit.png");
         exitIcon.setImage(exitIcon.getImage().getScaledInstance(40,40,Image.SCALE_DEFAULT));
         JLabel exit = new JLabel(exitIcon);
         exit .setBackground(Color.white);
@@ -91,6 +95,19 @@ public class Retrive extends JFrame implements ActionListener{
 
         // button - Retrive
         JButton btnRetrive = new JButton("Retrive");
+        btnRetrive.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(e.getSource() == btnRetrive) {
+                    Pages.bindPage(Path.of("page1/page2"), new FlightInformationFrm());
+                    try {
+                        Pages.displayPage(Path.of("page1/page2"));
+                    } catch (UnboundPageException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+            }
+        });
         btnRetrive.setBounds(45,390,425,38);
         container.add(btnRetrive);
 
@@ -204,5 +221,6 @@ public class Retrive extends JFrame implements ActionListener{
 		frame.pack();
 		frame.setVisible(true);
         frame.setSize(960,540);
+        frame.setLocationRelativeTo(null); 
 	}
 }

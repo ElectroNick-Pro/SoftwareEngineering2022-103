@@ -18,19 +18,19 @@ public class OK extends JFrame {
         JFrame successF = new JFrame();
         successF.setSize(480,185);
         successF.setBackground(Color.WHITE);
-        //successF.setLocationRelativeTo(relativeWindow);
+        successF.setLocationRelativeTo(null);
         successF.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         successF.setResizable(false);
         JPanel panel = new JPanel(null);
-        JLabel label = new JLabel("You Have Paid Successfully");
-        label.setBounds(150,44,283,50);
-        label.setFont(new Font("Microsoft YaHei", Font.PLAIN,18));
+        JLabel label = new JLabel("You Have Paid Successfully!");
+        label.setBounds(140,44,290,50);
+        label.setFont(new Font("Microsoft YaHei", Font.PLAIN,21));
         ImageIcon m =new ImageIcon("src/MainApp/pages/image/success.png");
         m.setImage(m.getImage().getScaledInstance(50,50,1));//这里设置图片大小，目前是20*20
         JLabel label2 = new JLabel(m);
-        label2.setBounds(30,30,75,75);
+        label2.setBounds(25,30,75,75);
         JButton btn = new JButton("OK");
-        btn.setBounds(392,85,75,30);
+        btn.setBounds(355,95,75,30);
         panel.add(btn);
         btn.addActionListener(new ActionListener() {
             
@@ -39,6 +39,7 @@ public class OK extends JFrame {
                 confirmPrint f =new confirmPrint();
 f.setVisible(true);
 successF.setVisible(false);
+
             }
         });
         panel.add(label);
