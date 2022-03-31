@@ -10,6 +10,7 @@ import MainApp.models.Field.ForeignKey;
 import MainApp.models.Model.UserModel.Interval;
 import MainApp.models.Model.UserModel.Seat;
 import MainApp.pages.components.RoundBorder;
+import MainApp.pages.foodGUI.ChooseFoodOrigin;
 
 public class chooseNormalSeat {
     public int width = 960;
@@ -339,6 +340,22 @@ public class chooseNormalSeat {
         JButton next = new JButton("next");
         back.setBounds(20,465,75,30);
         next.setBounds(855,465,75,30);
+        back.addActionListener(
+            new ActionListener(){
+                public void actionPerformed(ActionEvent e){
+                    FlightInformationFrm flightInfo = new FlightInformationFrm();
+                    flightInfo.setVisible(true);
+                    f.setVisible(false);
+                }
+        });
+        next.addActionListener(
+            new ActionListener(){
+                public void actionPerformed(ActionEvent e){
+                    ChooseFoodOrigin chooseFood = new ChooseFoodOrigin();
+                    chooseFood.setVisible(true);
+                    f.setVisible(false);
+                }
+        });
         f.add(back);
         f.add(next);
     }

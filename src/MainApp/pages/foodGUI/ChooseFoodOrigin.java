@@ -8,7 +8,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.RoundRectangle2D;
 
-class ChooseFoodOrigin extends ChooseFoodtemplate{
+public class ChooseFoodOrigin extends ChooseFoodtemplate{
 
 
 //constructer**************************************************
