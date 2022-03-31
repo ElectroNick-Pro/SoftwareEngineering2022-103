@@ -1,8 +1,7 @@
-package MainApp.pages.foodGUI;
+package MainApp.pages;
 import javax.imageio.ImageIO;
 import javax.security.auth.x500.X500Principal;
 import javax.swing.*;
-
 
 import java.awt.*;
 import java.awt.event.*;

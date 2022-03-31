@@ -11,7 +11,6 @@ import MainApp.models.Model.UserModel.Interval;
 import MainApp.models.Model.UserModel.Seat;
 import MainApp.pages.components.BreadCrumbPanel;
 import MainApp.pages.components.RoundBorder;
-import MainApp.pages.foodGUI.ChooseFoodOrigin;
 
 public class chooseNormalSeat {
     public int width = 960;

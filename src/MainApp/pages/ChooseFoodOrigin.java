@@ -1,7 +1,8 @@
-package MainApp.pages.foodGUI;
+package MainApp.pages;
 import javax.imageio.ImageIO;
 import javax.security.auth.x500.X500Principal;
 import javax.swing.*;
+
 
 
 import java.awt.*;
@@ -27,6 +28,8 @@ Next.addActionListener(new ActionListener(){
 	}
 	);
     this.add(Next,0);
+
+	this.Titleset("Choose Food");
 //框框*****************************************
 
 JPanel panel1=this.paintRect(45,200,0);

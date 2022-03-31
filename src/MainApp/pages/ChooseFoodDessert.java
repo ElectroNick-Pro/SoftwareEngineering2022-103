@@ -1,8 +1,7 @@
-package MainApp.pages.foodGUI;
+package MainApp.pages;
 import javax.imageio.ImageIO;
 import javax.security.auth.x500.X500Principal;
 import javax.swing.*;
-
 
 import java.awt.*;
 import java.awt.event.*;
@@ -18,7 +17,7 @@ JPanel whitepanel=new JPanel();
 whitepanel.setSize(960, 540);
 whitepanel.setBackground(Color.WHITE);
 
-this.Titleset("Choose Dessert You Like");
+this.Titleset("Choose Dessert");
  
 //框框
 JPanel panel1=this.paintRect(45,200,1);

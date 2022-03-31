@@ -16,10 +16,18 @@ public FoodPanel(){
     this.setSize(960,540);
 
     JTabbedPane threechoice=new JTabbedPane(3);
-    threechoice.add
-    
+    threechoice.addTab("Normal", new ChooseFoodOrigin());
+    threechoice.addTab("Extra",new ChooseFoodExtra());
+    threechoice.addTab("Dessert",new ChooseFoodDessert());
+    threechoice.setBackground(Color.WHITE);
+    this.add(threechoice);
+    this.setVisible(true);
+    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 }
-
+public static void main(String[] args){
+    FoodPanel f=new FoodPanel();
+    f.setVisible(true);
+}
 
 
 }

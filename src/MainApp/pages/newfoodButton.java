@@ -1,4 +1,4 @@
-package MainApp.pages.foodGUI;
+package MainApp.pages;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
