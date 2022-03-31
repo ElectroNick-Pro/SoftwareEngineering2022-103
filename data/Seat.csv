@@ -1,0 +1,3 @@
+id,Interval_id,Ticket_id,price,seatClass,seatNo,type
+1,1,1,400,Normal,1A,Normal
+2,1,,500,First,2F,Normal
