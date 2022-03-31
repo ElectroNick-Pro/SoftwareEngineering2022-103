@@ -44,6 +44,7 @@ public class confirmPay extends JFrame{
     public confirmPay(){
     
         setSize(DEFAULT_WIDTH,DEFAULT_HEIGHT);
+        this.setLocationRelativeTo(null);
         contentPane = new JPanel();
         contentPane.setLayout(null);
         setContentPane(contentPane);
@@ -191,18 +192,17 @@ public class confirmPay extends JFrame{
         add(home);
 
         JButton next = new JButton();
-        next.setBackground(Color.blue);
+        next.setForeground(Color.blue);
         
         next.setText("Confirm");
-        next.setForeground(Color.white);
-        next.setBounds(830,460,75,30);
-        next.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
+        next.setBackground(Color.blue);
+        next.setBounds(800,460,100,35);
+        next.setFont(new Font("Microsoft YaHei UI",Font.BOLD,14));
         //next.setBorder(new RoundBorder(new Color(30, 144, 255)));
-        next.setContentAreaFilled(false);
+        next.setContentAreaFilled(true);
         next.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // 点击按钮, 显示新的一个窗口
                  credit frame = new credit();
         frame.setBackground(Color.WHITE);
         frame.setVisible(true);
@@ -218,7 +218,7 @@ public class confirmPay extends JFrame{
         back.setBackground(Color.gray);
         back.setText("Back");
         //back.setForeground(Color.white);
-        back.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
+        back.setFont(new Font("Microsoft YaHei UI",Font.BOLD,14));
         back.setBorder(new RoundBorder(Color.gray));
         back.setBounds(25,460,75,30);
         back.setContentAreaFilled(false);
@@ -289,7 +289,7 @@ public class confirmPay extends JFrame{
         JLabel where = new JLabel("Air China");
         where.setFont(new Font("宋体",Font.ITALIC,20));
 
-        ImageIcon image = new ImageIcon("src/MainApp/image/airplane.png");// 这是背景图片 .png .jpg .gif 等格式的图片都可以
+        ImageIcon image = new ImageIcon("src/MainApp/pages/image/airplane.png");// 这是背景图片 .png .jpg .gif 等格式的图片都可以
         image.setImage(image.getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));//这里设置图片大小，目前是20*20
         JLabel picture=new JLabel(image);
 

@@ -47,7 +47,19 @@ public class Models {
                 if(!clzPath.toFile().exists()) {
                     var line = new LinkedList<String>();
                     line.add("id");
-                    line.addAll(verboseMap.keySet());
+                    var ls = new ArrayList<>(verboseMap.keySet());
+                    ls.sort((x,y)->{
+                        int m = x.length(), n = y.length();
+                        int i = 0;
+                        for(; i < m && i < n; i++) {
+                            char xc = x.charAt(i), yc = y.charAt(i);
+                            if(xc != yc) {
+                                return xc - yc;
+                            }
+                        }
+                        return m - n;
+                    });
+                    line.addAll(ls);
                     var lineStr = line.stream().reduce((a,b)->a+","+b).get();
                     Files.createFile(clzPath);
                     Files.write(clzPath, List.of(lineStr));

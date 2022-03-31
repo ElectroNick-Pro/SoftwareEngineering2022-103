@@ -1,9 +1,6 @@
 package MainApp.test;
 
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-
+import javax.swing.*;
 public class ResourceTest {
     public static void main(String[] args) {
         var frame = new JFrame();

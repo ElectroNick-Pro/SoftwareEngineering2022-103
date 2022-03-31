@@ -12,10 +12,6 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
-
-import MainApp.GlobalData;
-import MainApp.models.Model.UserModel.Customer;
-
 import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 
@@ -41,8 +37,8 @@ public class credit extends JFrame implements ActionListener{
     
     
 
-    public String id = (String)((Customer)GlobalData.data.get("customer")).creditId.getValue();
-    public String password = (String)((Customer)GlobalData.data.get("customer")).password.getValue();;
+    public String id = String("1234");
+    public String password = String("1234");;
     //int cFlag = 0;
     //boolean flag;
     protected JFrame frame;
@@ -63,25 +59,29 @@ public class credit extends JFrame implements ActionListener{
         btn.addActionListener(this);
         btn.setFont(new Font(null, Font.PLAIN, 15));
         btn.setBackground(Color.blue);
-        btn.setBounds(398,253,75,30);
+        btn.setBounds(398,240,78,30);
         this.add(label);
         label2.setBounds(46,137,436,35);
         label2.setFont(new Font(null, Font.PLAIN, 18));
         this.add(label2);
         label.setFont(new Font(null, Font.PLAIN, 18));
         label.setBounds(46,40,436,35);}
+        private String String(String string) {
+        return string;
+    }
         public void actionPerformed(ActionEvent e){
-            if(e.getSource() == btn){
+            String cmd = e.getActionCommand();
+            if(cmd.equals("OK")){
                 String creditText = creditF.getText().toString();
                 String passText = passF.getText().toString();
                 if(id.equals(creditText)&&password.equals(passText)){
             
                     OK frame = new OK();
-        //frame.setBackground(Color.WHITE);
-        frame.setVisible(true);
+        frame.setBackground(Color.WHITE);
+        //frame.setVisible(true);
         this.setVisible(false);
         //frame.setSize(515,313);
-        //frame.setLocationRelativeTo(null);
+        frame.setLocationRelativeTo(null);
         //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
         
     }else{
@@ -92,9 +92,7 @@ public class credit extends JFrame implements ActionListener{
         
 
     }
-    private String getString(String string) {
-        return null;
-    }
+    
 
 
 

@@ -4,7 +4,6 @@ import MainApp.models.Models;
 import MainApp.pages.Pages;
 
 public class App {
-
     
     public static void main(String[] args) {
         new App();
