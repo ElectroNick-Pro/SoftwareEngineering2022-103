@@ -14,8 +14,8 @@ import java.awt.Font;
 import java.awt.*;
 
 public class chooseNormalSeat {
-    public int width = 960;
-    public int height = 540;
+    public int width = 970;
+    public int height = 580;
 
     JFrame f = new JFrame("Choose Seat");
     private JButton normal = normalSeat(f);
@@ -41,7 +41,7 @@ public class chooseNormalSeat {
         exitIcon.changeIconSize("src/MainApp/pages/image/exit.png", exit, 40, 40);
         // exit.setOpaque(false);
         /*
-            面包屑
+            flow chart
         */
         // JLabel chart = new JLabel("Check In>Choose Seat>Choose a meal plan>Confirm and Print>Have a Good Trip!");
         // chart.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 15));
@@ -55,7 +55,7 @@ public class chooseNormalSeat {
         label4.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 15));
         // chart.setOpaque(false);
         /*
-            人工服务
+            mannul service
         */
         JButton service = new JButton();
         service.setContentAreaFilled(false);
@@ -119,8 +119,8 @@ public class chooseNormalSeat {
         f.add(hint);
         f.add(back);
         f.add(next); 
-
-        f.setLocationRelativeTo(null); //窗口显示在屏幕中央
+        // make the window show in the center
+        f.setLocationRelativeTo(null); 
         f.setVisible(true);
     }
     public void myFrame(){
@@ -247,13 +247,13 @@ public class chooseNormalSeat {
         public void actionPerformed(ActionEvent e) {
             String buttonName = e.getActionCommand();
             if(buttonName.equals("normalSeat")){
-                JOptionPane.showMessageDialog(null, "分配一个normal seat", "normal", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "normal seat", "normal", JOptionPane.INFORMATION_MESSAGE);
             }else if(buttonName.equals("windowSeat")){
-                JOptionPane.showMessageDialog(null, "分配一个window seat", "window", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "window seat", "window", JOptionPane.INFORMATION_MESSAGE);
             }else if(buttonName.equals("asideSeat")){
-                JOptionPane.showMessageDialog(null, "分配一个aside seat", "aside", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "aside seat", "aside", JOptionPane.INFORMATION_MESSAGE);
             }else if(buttonName.equals("extraSeat")){
-                JOptionPane.showMessageDialog(null, "分配一个extra seat", "extra", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "extra seat", "extra", JOptionPane.INFORMATION_MESSAGE);
             }
         }
     }
