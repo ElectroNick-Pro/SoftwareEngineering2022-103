@@ -7,6 +7,11 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.RoundRectangle2D;
 
+import MainApp.GlobalData;
+import MainApp.models.Model.Exception.FieldNotFoundException;
+import MainApp.models.Model.UserModel.Food;
+import MainApp.pages.Exception.UnboundPageException;
+
 class ChooseFoodDessert extends ChooseFoodtemplate{
 
 String[] dessertchoice=new  String[]{"0","0","0"};
@@ -206,6 +211,7 @@ this.add(shadow8,Integer.valueOf(1));
 
 //选完了************************************************************************************
 String[] dessertinfo=new String[]{"1","1",dessertchoice[0],dessertchoice[1],dessertchoice[2]};
+
 
 this.setSize(960,540);
 }
