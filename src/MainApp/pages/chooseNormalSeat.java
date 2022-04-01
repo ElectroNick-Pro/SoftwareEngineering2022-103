@@ -379,9 +379,13 @@ public class chooseNormalSeat extends JFrame{
         back.setBorder(new RoundBorder(Color.gray));
         back.addActionListener(
             new ActionListener(){
-                public void actionPerformed(ActionEvent e){
+                public void actionPerformed(ActionEvent e) {
                     if(e.getSource() == back) {
-                        return;
+                        try {
+                            Pages.goBack();
+                        } catch (UnboundPageException e1) {
+                            e1.printStackTrace();
+                        }
                     }
                 }
         });
