@@ -6,7 +6,8 @@ import MainApp.pages.components.DemoScrollBarUI;
 import MainApp.pages.components.RoundBorder;
 
 import javax.swing.*;
-
+import MainApp.pages.Exception.UnboundPageException;
+import java.nio.file.Path;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 class MyPayPanel extends JPanel {
@@ -22,6 +23,8 @@ class MyPayPanel extends JPanel {
     }
 }
 public class confirmPay extends JFrame{
+    
+    private Path path = Path.of("page1/page2/page3/page4/page5");
     private JPanel contentPane;
     JLayeredPane pane = new JLayeredPane();
     public static void main(String[] args){
@@ -42,7 +45,7 @@ public class confirmPay extends JFrame{
     private static final int INFO_WIDTH = 420;
     private static final int INFO_HEIGHT = 250;
     public confirmPay(){
-    
+        Pages.bindPage(this.path, this);
         setSize(DEFAULT_WIDTH,DEFAULT_HEIGHT);
         this.setLocationRelativeTo(null);
         contentPane = new JPanel();
