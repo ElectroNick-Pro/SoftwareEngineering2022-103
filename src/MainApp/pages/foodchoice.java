@@ -40,10 +40,8 @@ public class foodchoice extends JFrame {
         food.setBackground(Color.white);
         food.getVerticalScrollBar().setUI(new DemoScrollBarUI()); 
         
-        
         add(food);
         
-
         ImageIcon ma =new ImageIcon("src/MainApp/pages/image/seafood.png");
         ma.setImage(ma.getImage().getScaledInstance(40,40,Image.SCALE_DEFAULT));//这里设置图片大小，目前是20*20
         JPanel panela = new JPanel(null);
@@ -63,7 +61,7 @@ public class foodchoice extends JFrame {
         panela.add(labela2);
         String an = "1";
         JLabel labelan = new JLabel(an);
-        labelan.setForeground(Color.blue);
+        labelan.setForeground(new Color(0,131,255));
         labelan.setBounds(356,30,123,24);
         labelan.setFont(new Font("Microsoft YaHei",Font.PLAIN,25));
         panela.add(labelan);
@@ -94,7 +92,7 @@ public class foodchoice extends JFrame {
         JLabel labelbn = new JLabel(bn);
         labelbn.setBounds(356,30,123,24);
         labelbn.setFont(new Font("Microsoft YaHei",Font.PLAIN,25));
-        labelbn.setForeground(Color.blue);
+        labelbn.setForeground(new Color(0,131,255));
         panelb.add(labelbn);
         JLabel labelb3 = new JLabel(mb);
         labelb3.setBounds(20,18,50,50);
@@ -121,7 +119,7 @@ public class foodchoice extends JFrame {
         String cn = "2";
         JLabel labelcn = new JLabel(cn);
         labelcn.setBounds(356,30,123,24);
-        labelcn.setForeground(Color.blue);
+        labelcn.setForeground(new Color(0,131,255));
         labelcn.setFont(new Font("Microsoft YaHei",Font.PLAIN,25));
         panelc.add(labelcn);
         JLabel labelc3 = new JLabel(mc);
@@ -133,16 +131,8 @@ public class foodchoice extends JFrame {
         layout1.setHorizontalGroup(hparallelGroup);
         GroupLayout.SequentialGroup vSeqGroup = layout1.createSequentialGroup().addComponent(panela).addComponent(panelb).addComponent(panelc);
         layout1.setVerticalGroup(vSeqGroup);
-
-    
-            
+       
         panelin.setLayout(layout1);
-
-
-
-
-
-        
 
         ImageIcon m3 =new ImageIcon("src/MainApp/pages/image/pay.png");
         m3.setImage(m3.getImage().getScaledInstance(40,40,Image.SCALE_DEFAULT));//这里设置图片大小，目前是20*20
@@ -165,14 +155,5 @@ public class foodchoice extends JFrame {
         label33.setBounds(20,18,50,50);
         panel3.add(label33);
         panel.add(panel3);
-
-
-
-        
-        
     }
-
-
-
-
 }
