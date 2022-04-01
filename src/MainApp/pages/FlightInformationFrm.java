@@ -14,6 +14,7 @@ import MainApp.pages.control.FlightInfo;
 
 import java.awt.event.ActionListener;
 import java.nio.file.Path;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
@@ -36,11 +37,18 @@ class MyPanel extends JPanel {
     }
 }
 
+class FlightInfoButton extends JButton {
+    public FlightInfo info;
+    public FlightInfoButton() {
+        super();
+    }
+}
+
 public class FlightInformationFrm extends JFrame
 {
     private Path path = Path.of("page1/page2");
     private JPanel contentPane;
-    private Map<Integer, FlightInfo> flightInfoMap;
+    private Map<Integer, FlightInfo> flightInfoMap = FlightInfo.getInfoMap(((Customer)GlobalData.data.get("customer")).id);
     JLayeredPane pane = new JLayeredPane();
     public static void main(String[] args){
         EventQueue.invokeLater(new Runnable() {
@@ -60,10 +68,9 @@ public class FlightInformationFrm extends JFrame
     private static final int DEFAULT_HEIGHT = 540; 
     private static final int INFO_WIDTH = 420;
     private static final int INFO_HEIGHT = 250;
-    private static final int NUM = 5;
     public FlightInformationFrm(){
+        int NUM = flightInfoMap.size();
         Pages.bindPage(this.path, this);
-        flightInfoMap = FlightInfo.getInfoMap((Integer)GlobalData.data.get("customerId"));
         setSize(DEFAULT_WIDTH,DEFAULT_HEIGHT);
         contentPane = new JPanel();
         contentPane.setLayout(null);
@@ -84,11 +91,6 @@ public class FlightInformationFrm extends JFrame
         smallLabel.setBounds(47,117,509,70);
         add(smallLabel);
 
-        JPanel flightCheck = createFlight("1339202","Mar 22,2022","Beijing","Shanghai",
-        "KN2316","Daxinng Airport","Shuangliu Airport","16:00","18:05","2h15min",
-        "economy seat","food provided","3","12","Xiping Yang","130203200109110322");
-        flightCheck.setBorder(new RoundBorder(Color.GRAY)); 
-
         ImageIcon image = new ImageIcon("src/MainApp/pages/image/travel.png");// 这是背景图片 .png .jpg .gif 等格式的图片都可以
         // image.setImage(image.getImage().getScaledInstance(960,0,Image.SCALE_DEFAULT));//这里设置图片大小，目前是20*20
         JLabel picture=new JLabel(image);
@@ -104,10 +106,20 @@ public class FlightInformationFrm extends JFrame
         
         JPanel panelInfo = new JPanel();
         panelInfo.setBackground(Color.white);
-        JButton[] flightInfo = new JButton[10];
-        for(int i=0;i<NUM;i++){
-            flightInfo[i]=createButton("Beijing","Shanghai","KN2316","Mar 20,2022","Air China");  
-            flightInfo[i].setBorder(new RoundBorder(Color.GRAY));    
+        var flightInfo = new FlightInfoButton[10];
+        int i_map = 0;
+        for(var entry: flightInfoMap.entrySet()){
+            var tuple = entry.getValue();
+            var interval = tuple.interval.get(0);
+            String departureCity = (String)interval.departureCity.getValue();
+            String destCity = (String)interval.destCity.getValue();
+            String flightNo = (String)tuple.flight.flightNo.getValue();
+            var departureDt = (Date)interval.departureTime.getValue();
+            String departureDate = new SimpleDateFormat("MMM dd,yyyy", Locale.US).format(departureDt);
+            String airline = (String)tuple.airline.name.getValue();
+            flightInfo[i_map]=createButton(tuple, departureCity,destCity,flightNo,departureDate,airline);  
+            flightInfo[i_map].setBorder(new RoundBorder(Color.GRAY));
+            i_map++; 
         }
         //grouplayout
         GroupLayout layout1 = new GroupLayout(panelInfo);
@@ -189,15 +201,39 @@ public class FlightInformationFrm extends JFrame
             int number = i;
             flightInfo[i].addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
+                    if(e.getSource() != flightInfo[number]) {
+                        return;
+                    }
+                    String departureCity = "0";
                     for(int j = 0; j < NUM;j++){
                         flightInfo[j].setBorder(new RoundBorder(Color.GRAY));
                     }
                     flightInfo[number].setBorder(new RoundBorder(new Color(83,180,248)));
                     smallLabel.setText("Please choose the flight and check the information:");
                     ImageIcon newImage = new ImageIcon("src/MainApp/pages/image/background.png");// 这是背景图片 .png .jpg .gif 等格式的图片都可以
-                    // newImage.setImage(newImage.getImage().getScaledInstance(430,350,Image.SCALE_DEFAULT));//这里设置图片大小，目前是20*20
                     picture.setIcon(newImage);
                     picture.setBounds(0, 0, image.getIconWidth(), image.getIconHeight()-35);
+                    String bookingID =(String)flightInfo[number].info.ticket.bookingId.getValue();
+                    var departureDt = (Date)flightInfo[number].info.interval.get(0).departureTime.getValue();
+                    String departureDate = new SimpleDateFormat("MMM dd,yyyy", Locale.US).format(departureDt);
+                    String destCity = (String)flightInfo[number].info.interval.get(0).destCity.getValue();
+                    String flightNo = (String)flightInfo[number].info.flight.flightNo.getValue();
+                    String departureAirport = (String)flightInfo[number].info.interval.get(0).departureAirport.getValue();
+                    String destAirport = (String)flightInfo[number].info.interval.get(0).destAirport.getValue();
+                    String departureTime = new SimpleDateFormat("hh:mm").format(departureDt);
+                    var destDt = (String)flightInfo[number].info.interval.get(0).destTime.getValue();
+                    String destTime = new SimpleDateFormat("hh:mm").format(destDt);
+                    String terminal = (String)flightInfo[number].info.interval.get(0).terminal.getValue();
+                    String gate = (String)flightInfo[number].info.interval.get(0).gate.getValue();
+                    String firstname = (String)((Customer)GlobalData.data.get("customer")).firstname.getValue();
+                    String surname = (String)((Customer)GlobalData.data.get("customer")).surname.getValue();
+                    String name = firstname+ " " + surname;
+                    String ID =(String)((Customer)GlobalData.data.get("customer")).customerId.getValue();
+                    String seatClass = (String)flightInfo[number].info.ticket.seatClass.getValue() + "class";
+                    JPanel flightCheck = createFlight(bookingID,departureDate,departureCity,destCity,
+                    flightNo,departureAirport,destAirport,departureTime,destTime,"2h15min",
+                    seatClass,"food provided",terminal,gate,name,ID);
+                    flightCheck.setBorder(new RoundBorder(Color.GRAY)); 
                     flightCheck.setBounds(500,80,415,355);
                     add(flightCheck);
                 }
@@ -205,9 +241,10 @@ public class FlightInformationFrm extends JFrame
         }
     }
 
-    private static JButton createButton(String flightTakeoff,String flightArrive,String flightFlightNo,
+    private static FlightInfoButton createButton(FlightInfo flightInfo, String flightTakeoff,String flightArrive,String flightFlightNo,
     String flightDate,String flightWhere) {
-        JButton button = new JButton();
+        var button = new FlightInfoButton();
+        button.info = flightInfo;
         button.setPreferredSize(new Dimension(374, 70));
         button.setBackground(Color.WHITE);
         

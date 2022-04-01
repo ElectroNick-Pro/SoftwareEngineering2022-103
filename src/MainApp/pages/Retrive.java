@@ -131,7 +131,7 @@ public class Retrive extends JFrame implements ActionListener{
                         e1.printStackTrace();
                         return;
                     }
-                    GlobalData.data.put("customerId", customer.id);
+                    GlobalData.data.put("customer", customer);
                     try {
                         new FlightInformationFrm();
                         Pages.displayPage(Path.of("page1/page2"));
