@@ -215,14 +215,14 @@ String[] origininfo=new String[]{"1","1",originchoice[0],originchoice[1],originc
 //传值**************************************************
 //
 
-var flightinfo=(FlightInfo)GlobalData.data.get("flight");
+/*var flightinfo=(FlightInfo)GlobalData.data.get("flight");
 String flightNo=(String)flightinfo.flight.flightNo.getValue();
 String ID=(String)((Customer)GlobalData.data.get("customer")).customerId.getValue();
 var name = originchoice[0];
 var price=originchoice[1];
 var type=originchoice[2];
 Food food=null;
-GlobalData.data.put("Food",originchoice[0]);
+GlobalData.data.put("Food",originchoice[0]);*/
 
 }
 
