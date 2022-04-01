@@ -9,7 +9,7 @@ import java.awt.geom.RoundRectangle2D;
 
 class ChooseFoodDessert extends ChooseFoodtemplate{
 
-String[] dessertchoice;
+String[] dessertchoice=new  String[]{"0","0","0"};
 
 //constructer
 public ChooseFoodDessert(){
@@ -33,7 +33,7 @@ Next.setFont(Smallfont);
 Next.setBounds(860,490,75,30);
 Next.addActionListener(new ActionListener(){
 	public void actionPerformed(ActionEvent e){
-	//Next 后面指向哪里
+	//Next 后面指向哪里？
  }
 	}
 	);
@@ -203,6 +203,10 @@ JPanel shadow7=shade(520,355);
 this.add(shadow7,Integer.valueOf(1));
 JPanel shadow8=shade(745,355);
 this.add(shadow8,Integer.valueOf(1));
+
+//选完了************************************************************************************
+String[] dessertinfo=new String[]{"1","1",dessertchoice[0],dessertchoice[1],dessertchoice[2]};
+
 this.setSize(960,540);
 }
 

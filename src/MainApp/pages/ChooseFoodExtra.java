@@ -8,7 +8,7 @@ import java.awt.event.*;
 import java.awt.geom.RoundRectangle2D;
 
 class ChooseFoodExtra extends ChooseFoodtemplate{
-    String[] extrachoice;
+    String[] extrachoice=new String[]{"0","0","0"};
 
 //constructer
 public ChooseFoodExtra(){
@@ -184,6 +184,9 @@ JPanel shadow7=shade(520,355);
 this.add(shadow7,Integer.valueOf(1));
 JPanel shadow8=shade(745,355);
 this.add(shadow8,Integer.valueOf(1));
+// 选完了**********************************************************************
+String[] extrainfo=new String[]{"1","1",extrachoice[0],extrachoice[1],extrachoice[2]};
+
 this.setSize(960,540);
 }
 

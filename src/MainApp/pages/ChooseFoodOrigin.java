@@ -11,7 +11,7 @@ import java.awt.geom.RoundRectangle2D;
 
 public class ChooseFoodOrigin extends ChooseFoodtemplate{
 
-String[]  originchoice;
+String[]  originchoice=new String[]{"0","0","0"};
 
 //constructer**************************************************
 public ChooseFoodOrigin(){
@@ -39,7 +39,7 @@ Help.setBorderPainted(false);
 Help.setBackground(Color.WHITE);
 this.add(Help);
 this.add(Help,Integer.valueOf(4));
-//框框*****************************************
+//框框
 
 JPanel panel1=this.paintRect(45,200,0);
 foodimage standard1=new foodimage("src/MainApp/pages/image/Standard1.png");
@@ -200,6 +200,9 @@ JPanel shadow7=shade(520,355);
 this.add(shadow7,Integer.valueOf(1));
 JPanel shadow8=shade(745,355);
 this.add(shadow8,Integer.valueOf(1));
+
+//选完了************************************************
+String[] origininfo=new String[]{"1","1",originchoice[0],originchoice[1],originchoice[2]};
 
 }
 
