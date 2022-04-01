@@ -50,6 +50,7 @@ public class FlightInformationFrm extends JFrame
 {
     private Path path = Path.of("page1/page2");
     private JPanel contentPane;
+    public FlightInfo passData = new FlightInfo();
     private Map<Integer, FlightInfo> flightInfoMap = FlightInfo.getInfoMap(((Customer)GlobalData.data.get("customer")).id);
     JLayeredPane pane = new JLayeredPane();
     public static void main(String[] args){
@@ -214,18 +215,6 @@ public class FlightInformationFrm extends JFrame
         next.setBorder(new RoundBorder(new Color(30, 144, 255)));
         next.setBounds(830,460,75,30);
         add(next);
-        next.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent e) {
-                if(e.getSource() == next) {
-                    new chooseNormalSeat();
-                    try {
-                        Pages.displayPage(Path.of("page1/page2/page3"));
-                    } catch (UnboundPageException e1) {
-                        e1.printStackTrace();
-                    }
-                }
-            }
-        });
 
         JButton back = new JButton();
         back.setBackground(Color.gray);
@@ -250,7 +239,6 @@ public class FlightInformationFrm extends JFrame
         });
         add(back);
 
-        
         for(int i = 0 ; i < NUM;i++){
             int number = i;
             flightInfo[i].addActionListener(new ActionListener() {
@@ -267,6 +255,7 @@ public class FlightInformationFrm extends JFrame
                     ImageIcon newImage = new ImageIcon("src/MainApp/pages/image/background.png");// 这是背景图片 .png .jpg .gif 等格式的图片都可以
                     picture.setIcon(newImage);
                     picture.setBounds(0, 0, image.getIconWidth(), image.getIconHeight()-35);
+                    passData = flightInfo[number].info;
                     String bookingID =(String)flightInfo[number].info.ticket.bookingId.getValue();
                     var departureDt = (Date)flightInfo[number].info.interval.get(0).departureTime.getValue();
                     String departureDate = new SimpleDateFormat("MMM dd,yyyy", Locale.US).format(departureDt);
@@ -295,6 +284,19 @@ public class FlightInformationFrm extends JFrame
                 }
             });
         }
+        next.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e) {
+                if(e.getSource() == next) {
+                    new chooseNormalSeat();
+                    try {
+                        Pages.displayPage(Path.of("page1/page2/page3"));
+                    } catch (UnboundPageException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+                GlobalData.data.put("flight",passData);
+            }
+        });
     }
 
     private static FlightInfoButton createButton(FlightInfo flightInfo, String flightTakeoff,String flightArrive,String flightFlightNo,
