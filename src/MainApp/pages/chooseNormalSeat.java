@@ -8,7 +8,10 @@ import java.awt.Font;
 import java.awt.*;
 
 import MainApp.GlobalData;
+import MainApp.models.Models;
 import MainApp.models.Field.ForeignKey;
+import MainApp.models.Model.Exception.FieldNotFoundException;
+import MainApp.models.Model.Exception.ObjectNotFoundException;
 import MainApp.models.Model.UserModel.Interval;
 import MainApp.models.Model.UserModel.Seat;
 import MainApp.pages.components.BreadCrumbPanel;
@@ -408,7 +411,44 @@ public class chooseNormalSeat extends JFrame{
         extra.addMouseListener(myListener2);
     }
     
+    private void getAllSeat(){
+        try {
+            var normalSeatStream = Seat.queryByProperty(Seat.class, "Interval_id", 1).filter((x)->{
+                return x.type.getValue().equals("Normal");
+            }).filter((x)->{
+                return x.ticket.getValue() == null;
+            });
+            var allNormalSeat = normalSeatStream.toArray();
+            normalRest = allNormalSeat.length;
+            var windowSeatStream = Seat.queryByProperty(Seat.class, "Interval_id", 1).filter((x)->{
+                return x.type.getValue().equals("Window");
+            }).filter((x)->{
+                return x.ticket.getValue() == null;
+            });
+            var allWindowSeat = windowSeatStream.toArray();
+            windowRest = allWindowSeat.length;
+            var asideSeatStream = Seat.queryByProperty(Seat.class, "Interval_id", 1).filter((x)->{
+                return x.type.getValue().equals("Aside");
+            }).filter((x)->{
+                return x.ticket.getValue() == null;
+            });
+            var allAsideSeat = asideSeatStream.toArray();
+            asideRest = allAsideSeat.length;
+            var extraSeatStream = Seat.queryByProperty(Seat.class, "Interval_id", 1).filter((x)->{
+                return x.type.getValue().equals("Extra");
+            }).filter((x)->{
+                return x.ticket.getValue() == null;
+            });
+            var allExtraSeat = extraSeatStream.toArray();
+            extraRest = allExtraSeat.length;
+        } catch (FieldNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
     public static void main(String[] args) {
+        GlobalData.init();
+        Models.init();
         chooseNormalSeat seat = new chooseNormalSeat();
+
     }
 }
