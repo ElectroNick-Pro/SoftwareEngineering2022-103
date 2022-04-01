@@ -12,6 +12,7 @@ import MainApp.models.Field.ForeignKey;
 import MainApp.models.Model.UserModel.Interval;
 import MainApp.models.Model.UserModel.Seat;
 import MainApp.pages.components.BreadCrumbPanel;
+import MainApp.pages.Exception.UnboundPageException;
 import MainApp.pages.components.RoundBorder;
 import java.nio.file.Path;
 
@@ -387,8 +388,13 @@ public class chooseNormalSeat extends JFrame{
         next.addActionListener(
             new ActionListener(){
                 public void actionPerformed(ActionEvent e){
-                    if(e.getSource()==next) {
-                        return;
+                    if(e.getSource() == next) {
+                        new FoodPanel();
+                        try {
+                            Pages.displayPage(Path.of("page1/page2/page3/page4"));
+                        } catch (UnboundPageException e1) {
+                            e1.printStackTrace();
+                        }
                     }
                 }
         });
