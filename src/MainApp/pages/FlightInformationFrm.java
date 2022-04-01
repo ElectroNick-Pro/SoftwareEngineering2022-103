@@ -506,3 +506,7 @@ public class FlightInformationFrm extends JFrame
         return panel;
     }
 }
+
+class FlightInfo {
+    
+}

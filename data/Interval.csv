@@ -1,2 +1,2 @@
 id,Flight_id,departureAirport,departureCity,departureTime,destAirport,destCity,destTime,gate,terminal
-1,1,Daxing Airport,Beijing,2022-3-30 12:00:00,Taiping Airport,Harbin.2022-3-30 15:23:00,15,3
+1,1,Daxing Airport,Beijing,2022-3-30 12:00:00,Taiping Airport,Harbin,2022-3-30 15:23:00,15,3
