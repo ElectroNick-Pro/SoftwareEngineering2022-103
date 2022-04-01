@@ -15,6 +15,8 @@ import MainApp.pages.control.FlightInfo;
 import java.awt.event.ActionListener;
 import java.nio.file.Path;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
@@ -185,8 +187,7 @@ public class FlightInformationFrm extends JFrame
             public void actionPerformed(ActionEvent e) {
                 if(e.getSource() == back) {
                     try {
-                        Pages.displayPage(Path.of("page1"));
-                        System.out.println(GlobalData.data.get("customerId"));
+                        Pages.goBack();
                     } catch (UnboundPageException e1) {
                         e1.printStackTrace();
                     }
@@ -221,17 +222,19 @@ public class FlightInformationFrm extends JFrame
                     String departureAirport = (String)flightInfo[number].info.interval.get(0).departureAirport.getValue();
                     String destAirport = (String)flightInfo[number].info.interval.get(0).destAirport.getValue();
                     String departureTime = new SimpleDateFormat("hh:mm").format(departureDt);
-                    var destDt = (String)flightInfo[number].info.interval.get(0).destTime.getValue();
+                    var destDt = (Date)flightInfo[number].info.interval.get(0).destTime.getValue();
                     String destTime = new SimpleDateFormat("hh:mm").format(destDt);
+                    var timeDelta = Duration.between(departureDt.toInstant(), destDt.toInstant());
+                    String timeDeltaStr = "" + timeDelta.toHours() + "h" + timeDelta.toMinutes() % 60 + "min";
                     String terminal = (String)flightInfo[number].info.interval.get(0).terminal.getValue();
                     String gate = (String)flightInfo[number].info.interval.get(0).gate.getValue();
                     String firstname = (String)((Customer)GlobalData.data.get("customer")).firstname.getValue();
                     String surname = (String)((Customer)GlobalData.data.get("customer")).surname.getValue();
                     String name = firstname+ " " + surname;
                     String ID =(String)((Customer)GlobalData.data.get("customer")).customerId.getValue();
-                    String seatClass = (String)flightInfo[number].info.ticket.seatClass.getValue() + "class";
+                    String seatClass = (String)flightInfo[number].info.ticket.seatClass.getValue() + " class";
                     JPanel flightCheck = createFlight(bookingID,departureDate,departureCity,destCity,
-                    flightNo,departureAirport,destAirport,departureTime,destTime,"2h15min",
+                    flightNo,departureAirport,destAirport,departureTime,destTime,timeDeltaStr,
                     seatClass,"food provided",terminal,gate,name,ID);
                     flightCheck.setBorder(new RoundBorder(Color.GRAY)); 
                     flightCheck.setBounds(500,80,415,355);
