@@ -23,10 +23,11 @@ import java.nio.file.Path;
 public class chooseNormalSeat extends JFrame{
     public int width = 965;
     public int height = 550;
-    private int normalRest = 10;
-    private int windowRest = 8;
+    private int normalRest = 0;
+    private int windowRest = 0;
     private int asideRest = 0;
-    private int extraRest = 3;
+    private int extraRest = 0;
+    private double extraMoney = 0.0;
     private Ticket ticket;
     JFrame f = this;
     {
@@ -181,12 +182,12 @@ public class chooseNormalSeat extends JFrame{
         extra.setBorder(new RoundBorder(Color.GRAY));   
         JLabel extra_text1 = new JLabel("A Seat with", JLabel.CENTER);
         JLabel extra_text2 = new JLabel("Extra Space", JLabel.CENTER);
-        JLabel extra_money = new JLabel("$10", JLabel.CENTER);
+        JLabel extra_money = new JLabel("$"+extraMoney, JLabel.CENTER);
         JLabel extra_num1 = new JLabel("Remaining", JLabel.CENTER);
         JLabel extra_num2 = new JLabel(extraRest+"", JLabel.CENTER);
         extra_text1.setFont(new Font("Arial", Font.BOLD, 32));
         extra_text2.setFont(new Font("Arial", Font.BOLD, 32));
-        extra_money.setFont(new Font("Arial", Font.PLAIN, 20));
+        extra_money.setFont(new Font("Arial", Font.PLAIN, 17));
         extra_money.setForeground(new ColorUIResource(Color.red));
         extra_num1.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 17));
         extra_num2.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 17));
@@ -203,7 +204,7 @@ public class chooseNormalSeat extends JFrame{
         extra.setBounds(715,175,195,268);
         extra_text1.setBounds(719,224,186,42);
         extra_text2.setBounds(719,266,186,42);
-        extra_money.setBounds(798,299,34,42);
+        extra_money.setBounds(780,299,60,42);
         extra_num1.setBounds(765,341,94,24);
         extra_num2.setBounds(765,365,94,24);
         f.add(extra);
@@ -462,6 +463,7 @@ public class chooseNormalSeat extends JFrame{
                 return x.ticket.getValue() == null;
             });
             var allExtraSeat = extraSeatStream.toArray();
+            extraMoney = (Double)((Seat)allExtraSeat[0]).price.getValue();
             extraRest = allExtraSeat.length;
         } catch (FieldNotFoundException e) {
             e.printStackTrace();
