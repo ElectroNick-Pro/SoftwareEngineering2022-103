@@ -9,6 +9,13 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.RoundRectangle2D;
 
+import MainApp.GlobalData;
+import MainApp.models.Model.Exception.FieldNotFoundException;
+import MainApp.models.Model.UserModel.Food;
+import MainApp.models.Model.UserModel.Customer;
+import MainApp.models.Model.UserModel.Flight;
+import MainApp.pages.Exception.UnboundPageException;
+import MainApp.pages.control.FlightInfo;
 public class ChooseFoodOrigin extends ChooseFoodtemplate{
 
 String[]  originchoice=new String[]{"0","0","0"};
@@ -201,8 +208,21 @@ this.add(shadow7,Integer.valueOf(1));
 JPanel shadow8=shade(745,355);
 this.add(shadow8,Integer.valueOf(1));
 
+
+
 //选完了************************************************
 String[] origininfo=new String[]{"1","1",originchoice[0],originchoice[1],originchoice[2]};
+//传值**************************************************
+//
+
+var flightinfo=(FlightInfo)GlobalData.data.get("flight");
+String flightNo=(String)flightinfo.flight.flightNo.getValue();
+String ID=(String)((Customer)GlobalData.data.get("customer")).customerId.getValue();
+var name = originchoice[0];
+var price=originchoice[1];
+var type=originchoice[2];
+Food food=null;
+GlobalData.data.put("Food",originchoice[0]);
 
 }
 

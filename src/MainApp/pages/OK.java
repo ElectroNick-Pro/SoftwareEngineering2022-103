@@ -11,6 +11,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 import MainApp.pages.components.RoundBorder;
+import java.nio.file.Path;
+import MainApp.pages.Exception.UnboundPageException;
 
 public class OK extends JFrame {
     
@@ -37,13 +39,16 @@ public class OK extends JFrame {
         btn.setBorder(new RoundBorder(new Color(30, 144, 255)));
         panel.add(btn);
         btn.addActionListener(new ActionListener() {
-            
-            @Override
             public void actionPerformed(ActionEvent e) {
-                confirmPrint f =new confirmPrint();
-                f.setVisible(true);
-                f.setLocationRelativeTo(null);
-                successF.setVisible(false);
+                if(e.getSource() == btn) {
+                    successF.setVisible(false);
+                    new confirmPrint();
+                    try {
+                        Pages.displayPage(Path.of("page1/page2/page3/page4/page5/page6"));
+                    } catch (UnboundPageException e1) {
+                        e1.printStackTrace();
+                    }
+                }
             }
         });
         panel.add(label);

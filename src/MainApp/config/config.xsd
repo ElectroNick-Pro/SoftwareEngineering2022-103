@@ -1,9 +1,10 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
     <xs:element name="config">
         <xs:complexType>
-            <xs:all>
+            <xs:sequence>
+                <xs:element name="dataDir" type="xs:string"/>
                 
-            </xs:all>
+            </xs:sequence>
         </xs:complexType>
     </xs:element>
 </xs:schema>

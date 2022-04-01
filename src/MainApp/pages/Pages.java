@@ -32,6 +32,7 @@ public class Pages {
         }
         curPagePath = path;
         pagePathMap.get(curPagePath).setVisible(true);
+        pagePathMap.get(curPagePath).setLocationRelativeTo(null); 
     }
 
     public static void goBack() throws UnboundPageException {
