@@ -6,7 +6,6 @@ import java.awt.event.*;
 import java.util.stream.Stream;
 import java.awt.Font;
 import java.awt.*;
-
 import MainApp.GlobalData;
 import MainApp.models.Models;
 import MainApp.models.Field.ForeignKey;
@@ -14,8 +13,10 @@ import MainApp.models.Model.Exception.FieldNotFoundException;
 import MainApp.models.Model.Exception.ObjectNotFoundException;
 import MainApp.models.Model.UserModel.Interval;
 import MainApp.models.Model.UserModel.Seat;
+import MainApp.models.Model.UserModel.Ticket;
 import MainApp.pages.components.BreadCrumbPanel;
 import MainApp.pages.components.RoundBorder;
+import MainApp.pages.control.FlightInfo;
 import java.nio.file.Path;
 
 
@@ -26,8 +27,7 @@ public class chooseNormalSeat extends JFrame{
     private int windowRest = 8;
     private int asideRest = 0;
     private int extraRest = 3;
-    private String ticketId = "2";
-
+    private Ticket ticket;
     JFrame f = this;
     {
         getAllSeat();
@@ -36,11 +36,7 @@ public class chooseNormalSeat extends JFrame{
     private JButton window = windowSeat(f);
     private JButton aside = asideSeat(f);
     private JButton extra = extraSeat(f);
-    
-    Stream<Seat> seat;
-
     private Path path = Path.of("page1/page2/page3");
-    
     public chooseNormalSeat(){
         super("Choose seat");
         Pages.bindPage(this.path, this);
@@ -407,6 +403,7 @@ public class chooseNormalSeat extends JFrame{
             new ActionListener(){
                 public void actionPerformed(ActionEvent e){
                     if(e.getSource()==next) {
+                        dataTransfer();
                         return;
                     }
                 }
@@ -426,8 +423,9 @@ public class chooseNormalSeat extends JFrame{
         extra.addActionListener(myListener);
         extra.addMouseListener(myListener2);
     }
-    
     private void getAllSeat(){
+        var flightinfo = (FlightInfo)GlobalData.data.get("flight");
+        ticket = flightinfo.ticket;
         try {
             var normalSeatStream = Seat.queryByProperty(Seat.class, "Interval_id", 1).filter((x)->{
                 return x.type.getValue().equals("Normal");
@@ -483,7 +481,8 @@ public class chooseNormalSeat extends JFrame{
             var seat = seatStream.toArray();
             if(seat.length != 0){
                 var aSeat = (Seat)seat[0];
-                aSeat.ticket.setValue(ticketId);
+                aSeat.ticket.setValue(ticket.id);
+                aSeat.save();
                 JOptionPane.showMessageDialog(null, "Select Successfulluy!", "Success", JOptionPane.PLAIN_MESSAGE);
             }else{
                 JOptionPane.showMessageDialog(null, "Sorry, there is no seat left.\nPlease choose again.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -491,6 +490,16 @@ public class chooseNormalSeat extends JFrame{
         } catch (FieldNotFoundException e) {
             e.printStackTrace();
         }
+    }
+    private void dataTransfer(){
+        try {
+            var seatStream = Seat.queryByProperty(Seat.class, "Ticket_id", ticket.id).toArray();
+            var seat = seatStream[0];
+            GlobalData.data.put("seat",seat);
+        } catch (FieldNotFoundException e) {
+            e.printStackTrace();
+        }
+        
     }
     public static void main(String[] args) {
         GlobalData.init();
