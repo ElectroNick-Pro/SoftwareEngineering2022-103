@@ -14,7 +14,7 @@ public class GlobalData {
 
     public static void init() {
 
-        config.put("srcDir", "/");
+        config.put("srcDir", "C:/Users/mi/Desktop/学习/大三下/1_软件工程/Group Project/Code/software-engineering2022-103/");
 
         config.put("dataDir", (String)config.get("srcDir")+"data");
 

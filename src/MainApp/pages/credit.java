@@ -9,6 +9,7 @@ import javax.swing.JPasswordField;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import MainApp.pages.components.RoundBorder;
 
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
@@ -35,8 +36,6 @@ public class credit extends JFrame implements ActionListener{
     JLabel label2 = new JLabel("Please enter your password:");
     JButton btn = new JButton("OK");
     
-    
-
     public String id = String("1234");
     public String password = String("1234");;
     //int cFlag = 0;
@@ -52,13 +51,15 @@ public class credit extends JFrame implements ActionListener{
         this.add(creditF);
         this.add(passF);
         creditF.setBounds(46,80,425,42);
-        creditF.setBorder(BorderFactory.createLineBorder(Color.blue));
+        creditF.setBorder(BorderFactory.createLineBorder(new Color(0,131,255)));
         passF.setBounds(46,180,425,42);
-        passF.setBorder(BorderFactory.createLineBorder(Color.blue));
+        passF.setBorder(BorderFactory.createLineBorder(new Color(0,131,255)));
         panel.add(btn);
         btn.addActionListener(this);
         btn.setFont(new Font(null, Font.PLAIN, 15));
-        btn.setBackground(Color.blue);
+        btn.setForeground(Color.white);
+        btn.setBackground(new Color(0,131,255));
+        btn.setBorder(new RoundBorder(new Color(30, 144, 255)));
         btn.setBounds(398,240,78,30);
         this.add(label);
         label2.setBounds(46,137,436,35);
@@ -75,29 +76,20 @@ public class credit extends JFrame implements ActionListener{
                 String creditText = creditF.getText().toString();
                 String passText = passF.getText().toString();
                 if(id.equals(creditText)&&password.equals(passText)){
-            
+                    this.setVisible(false);
                     OK frame = new OK();
-        frame.setBackground(Color.WHITE);
-        //frame.setVisible(true);
-        this.setVisible(false);
-        //frame.setSize(515,313);
-        frame.setLocationRelativeTo(null);
-        //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+                    frame.setSize(515,313);
+                    frame.setBackground(Color.WHITE);
+                    frame.setLocationRelativeTo(null);
+                    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
         
-    }else{
-        creditF.setText("");
-        passF.setText("");
-    }
-}         
-        
-
+            }else{
+            creditF.setText("");
+            passF.setText("");
+            }
+        }         
     }
     
-
-
-
-
-
     public static void main(String args[]){
         final credit frame = new credit();
         frame.setBackground(Color.WHITE);

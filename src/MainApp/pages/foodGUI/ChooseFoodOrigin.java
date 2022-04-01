@@ -4,6 +4,7 @@ import javax.security.auth.x500.X500Principal;
 import javax.swing.*;
 
 
+
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.RoundRectangle2D;
@@ -14,19 +15,21 @@ public class ChooseFoodOrigin extends ChooseFoodtemplate{
 //constructer**************************************************
 public ChooseFoodOrigin(){
 
-JButton Next=new JButton("NEXT");
-Next.setBackground(new Color(0,131,255));
-Next.setForeground(Color.WHITE);
-Next.setFont(Smallfont);
-Next.setBounds(860,490,75,30);
-Next.addActionListener(new ActionListener(){
-	public void actionPerformed(ActionEvent e){
-	ChooseFoodExtra extrafood=new ChooseFoodExtra();
-    extrafood.setVisible(true);
-   }
+	JButton Next=new JButton("NEXT");
+	Next.setBackground(new Color(0,131,255));
+	Next.setForeground(Color.WHITE);
+	Next.setFont(Smallfont);
+	Next.setBounds(860,490,75,30);
+	Next.addActionListener(new ActionListener(){
+		public void actionPerformed(ActionEvent e){
+		ChooseFoodExtra extrafood=new ChooseFoodExtra();
+		extrafood.setVisible(true);
 	}
-	);
-    this.add(Next,0);
+		}
+		);
+		this.add(Next,0);
+
+	this.Titleset("Choose Food");
 //框框*****************************************
 
 JPanel panel1=this.paintRect(45,200,0);
