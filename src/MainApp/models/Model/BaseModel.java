@@ -12,6 +12,16 @@ import MainApp.models.Field.BaseField;
 import MainApp.models.Model.Exception.FieldNotFoundException;
 import MainApp.models.Model.Exception.ObjectNotFoundException;
 
+/**
+ * <p>The class that every model should extend. Provides methods to interact with database to get or save data</p>
+ * <p>Usual process to get a model/models shall be like below: (take model {@link MainApp.models.Model.UserModel.Airline Airline} as example)</p>
+ * <pre>
+ * Airline airline = Airline.getById(1); // Get an instance of Airline with primary key id=1 from database
+ * String name = airline.name.getValue(); // Get the value of the {@link MainApp.models.Field.StringField StringField} of the instance
+ * Stream<BaseModel> airlines = Airline.getByProperty(Airline.class, "name", "AirOne"); // Get a stream of Airline whose name is "AirOne"
+ * 
+ * </pre>
+ */
 public class BaseModel {
 
     public static Path storagePath;
@@ -143,6 +153,39 @@ public class BaseModel {
                     }
                     resLs.add(ins);
                 }
+            }
+            return resLs.stream();
+        } catch (IOException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException | NoSuchFieldException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <T extends BaseModel> Stream<T> queryAll(Class<T> clz) 
+    throws FieldNotFoundException {
+        try {
+            var resLs = new ArrayList<T>();
+            var path = (Path) clz.getField("storagePath").get(null);
+            var lines = Files.readAllLines(path, StandardCharsets.UTF_8);
+            var keyArr = lines.get(0).split(",");
+            int n = keyArr.length;
+            String[] valArr = null;
+            var verMap = (Map<String, String>)clz.getField("verboseMap").get(null);
+            
+            int m = lines.size();
+            int ln = 1;
+            for(ln = 1; ln < m; ln++) {
+                valArr = lines.get(ln).split(",");
+                T ins = clz.getConstructor().newInstance();
+                ins.id = ln;
+                for(int i = 1; i < n; i++) {
+                    var field = clz.getField(verMap.get(keyArr[i])).get(ins);
+                    field.getClass().getField("csvForm").set(field, valArr[i]);
+                    field.getClass().getMethod("validate_csv").invoke(field);
+                    field.getClass().getMethod("read_field").invoke(field);
+                }
+                resLs.add(ins);
             }
             return resLs.stream();
         } catch (IOException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException | NoSuchFieldException e) {

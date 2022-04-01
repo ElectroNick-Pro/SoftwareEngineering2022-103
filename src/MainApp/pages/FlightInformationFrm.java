@@ -1,31 +1,28 @@
 package MainApp.pages;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.GroupLayout;
+import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.text.AttributeSet.ColorAttribute;
 
 import MainApp.GlobalData;
 import MainApp.models.Model.Exception.FieldNotFoundException;
-import MainApp.models.Model.UserModel.Customer;
-import MainApp.models.Model.UserModel.Ticket;
+import MainApp.models.Model.Exception.ObjectNotFoundException;
+import MainApp.models.Model.UserModel.*;
 import MainApp.pages.Exception.UnboundPageException;
-import MainApp.pages.components.BreadCrumbPanel;
-import MainApp.pages.components.DemoScrollBarUI;
-import MainApp.pages.components.RoundBorder;
+import MainApp.pages.components.*;
+import MainApp.pages.control.FlightInfo;
 
 import java.awt.event.ActionListener;
 import java.nio.file.Path;
+import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
 
 import javax.swing.JLayeredPane;
-
+import java.util.*;
 
 import java.awt.*;
 
@@ -42,10 +39,18 @@ class MyPanel extends JPanel {
     }
 }
 
+class FlightInfoButton extends JButton {
+    public FlightInfo info;
+    public FlightInfoButton() {
+        super();
+    }
+}
+
 public class FlightInformationFrm extends JFrame
 {
     private Path path = Path.of("page1/page2");
     private JPanel contentPane;
+    private Map<Integer, FlightInfo> flightInfoMap = FlightInfo.getInfoMap(((Customer)GlobalData.data.get("customer")).id);
     JLayeredPane pane = new JLayeredPane();
     public static void main(String[] args){
         EventQueue.invokeLater(new Runnable() {
@@ -61,38 +66,73 @@ public class FlightInformationFrm extends JFrame
 			}
         });
     }
-    private static final int DEFAULT_WIDTH = 960;
-    private static final int DEFAULT_HEIGHT = 540; 
+    private static final int DEFAULT_WIDTH = 965;
+    private static final int DEFAULT_HEIGHT = 550; 
     private static final int INFO_WIDTH = 420;
     private static final int INFO_HEIGHT = 250;
-    private static final int NUM = 5;
     public FlightInformationFrm(){
+        int NUM = flightInfoMap.size();
         Pages.bindPage(this.path, this);
-
         setSize(DEFAULT_WIDTH,DEFAULT_HEIGHT);
         contentPane = new JPanel();
         contentPane.setLayout(null);
         setContentPane(contentPane);
-        pane = new JLayeredPane();
+        // pane = new JLayeredPane();
 
-        var bread = new BreadCrumbPanel(this.path);
-        bread.setBounds(0, 0, 300, 50);
-        this.add(bread);
+        // var bread = new BreadCrumbPanel(this.path);
+        // bread.setBounds(0, 0, 300, 50);
+        // this.add(bread);
+        JPanel flowChart = new JPanel();
+        flowChart.setLayout(null);
+        flowChart.setBounds(100, 25,765,25);
+        flowChart.setBackground(Color.WHITE);
+
+        JLabel retrive = new JLabel("Retrive>");
+        retrive.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
+        retrive.setBounds(0,0,70,35);
+        flowChart.add(retrive);
+
+        JLabel fInfo = new JLabel("Flight Information>");
+        fInfo.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
+        fInfo.setBounds(70,0,160,35);
+        flowChart.add(fInfo);
+
+        JLabel chooseSeat = new JLabel("Choose Seat>");
+        chooseSeat.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
+        chooseSeat.setBounds(230,0,110,35);
+        flowChart.add(chooseSeat);
+
+        JLabel chooseFood = new JLabel("Choose Food>");
+        chooseFood.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
+        chooseFood.setBounds(340,0,115,35);
+        flowChart.add(chooseFood);
+
+        JLabel extraFood = new JLabel("Extra Food>");
+        extraFood.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
+        extraFood.setBounds(455,0,100,35);
+        flowChart.add(extraFood);
+
+        JLabel confirmPay = new JLabel("Confirm and Pay>");
+        confirmPay.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
+        confirmPay.setBounds(555,0,140,35);
+        flowChart.add(confirmPay);
+
+        JLabel checkin = new JLabel("Check in");
+        checkin.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
+        checkin.setBounds(695,0,80,35);
+        flowChart.add(checkin);
+
+        add(flowChart);
 
         JLabel label = new JLabel("Flight Information");
         label.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 35));
-        label.setBounds(45,85,323,49);
+        label.setBounds(45,85,523,49);
         add(label);
 
         JLabel smallLabel = new JLabel("Please choose your flight:                         ");
         smallLabel.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 15));
         smallLabel.setBounds(47,117,509,70);
         add(smallLabel);
-
-        JPanel flightCheck = createFlight("1339202","Mar 22,2022","Beijing","Shanghai",
-        "KN2316","Daxinng Airport","Shuangliu Airport","16:00","18:05","2h15min",
-        "economy seat","food provided","3","12","Xiping Yang","130203200109110322");
-        flightCheck.setBorder(new RoundBorder(Color.GRAY)); 
 
         ImageIcon image = new ImageIcon("src/MainApp/pages/image/travel.png");// 这是背景图片 .png .jpg .gif 等格式的图片都可以
         // image.setImage(image.getImage().getScaledInstance(960,0,Image.SCALE_DEFAULT));//这里设置图片大小，目前是20*20
@@ -101,7 +141,7 @@ public class FlightInformationFrm extends JFrame
         picture.setBounds(0, 0, image.getIconWidth(), image.getIconHeight()-35);   //把标签设置为和图片等高等宽
 		// contentPane = (JPanel)this.getContentPane(); 	//把我的面板设置为内容面板	
         contentPane.add(picture,JLayeredPane.DEFAULT_LAYER);
-        contentPane.setOpaque(false);					//把我的面板设置为不可视
+        contentPane.setOpaque(false);		//把我的面板设置为不可视
 		this.getLayeredPane().setLayout(null);		//把分层面板的布局置空
 		this.getLayeredPane().add(picture, new Integer(Integer.MIN_VALUE));
         this.getLayeredPane().setBackground(Color.WHITE);
@@ -109,10 +149,20 @@ public class FlightInformationFrm extends JFrame
         
         JPanel panelInfo = new JPanel();
         panelInfo.setBackground(Color.white);
-        JButton[] flightInfo = new JButton[10];
-        for(int i=0;i<NUM;i++){
-            flightInfo[i]=createButton("Beijing","Shanghai","KN2316","Mar 20,2022","Air China");  
-            flightInfo[i].setBorder(new RoundBorder(Color.GRAY));    
+        var flightInfo = new FlightInfoButton[10];
+        int i_map = 0;
+        for(var entry: flightInfoMap.entrySet()){
+            var tuple = entry.getValue();
+            var interval = tuple.interval.get(0);
+            String departureCity = (String)interval.departureCity.getValue();
+            String destCity = (String)interval.destCity.getValue();
+            String flightNo = (String)tuple.flight.flightNo.getValue();
+            var departureDt = (Date)interval.departureTime.getValue();
+            String departureDate = new SimpleDateFormat("MMM dd,yyyy", Locale.US).format(departureDt);
+            String airline = (String)tuple.airline.name.getValue();
+            flightInfo[i_map]=createButton(tuple, departureCity,destCity,flightNo,departureDate,airline);  
+            flightInfo[i_map].setBorder(new RoundBorder(Color.GRAY));
+            i_map++; 
         }
         //grouplayout
         GroupLayout layout1 = new GroupLayout(panelInfo);
@@ -164,6 +214,18 @@ public class FlightInformationFrm extends JFrame
         next.setBorder(new RoundBorder(new Color(30, 144, 255)));
         next.setBounds(830,460,75,30);
         add(next);
+        next.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e) {
+                if(e.getSource() == next) {
+                    new chooseNormalSeat();
+                    try {
+                        Pages.displayPage(Path.of("page1/page2/page3"));
+                    } catch (UnboundPageException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+            }
+        });
 
         JButton back = new JButton();
         back.setBackground(Color.gray);
@@ -178,7 +240,7 @@ public class FlightInformationFrm extends JFrame
             public void actionPerformed(ActionEvent e) {
                 if(e.getSource() == back) {
                     try {
-                        Pages.displayPage(Path.of("page1"));
+                        Pages.goBack();
                     } catch (UnboundPageException e1) {
                         e1.printStackTrace();
                     }
@@ -193,15 +255,41 @@ public class FlightInformationFrm extends JFrame
             int number = i;
             flightInfo[i].addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
+                    if(e.getSource() != flightInfo[number]) {
+                        return;
+                    }
+                    String departureCity = "0";
                     for(int j = 0; j < NUM;j++){
                         flightInfo[j].setBorder(new RoundBorder(Color.GRAY));
                     }
                     flightInfo[number].setBorder(new RoundBorder(new Color(83,180,248)));
                     smallLabel.setText("Please choose the flight and check the information:");
                     ImageIcon newImage = new ImageIcon("src/MainApp/pages/image/background.png");// 这是背景图片 .png .jpg .gif 等格式的图片都可以
-                    // newImage.setImage(newImage.getImage().getScaledInstance(430,350,Image.SCALE_DEFAULT));//这里设置图片大小，目前是20*20
                     picture.setIcon(newImage);
                     picture.setBounds(0, 0, image.getIconWidth(), image.getIconHeight()-35);
+                    String bookingID =(String)flightInfo[number].info.ticket.bookingId.getValue();
+                    var departureDt = (Date)flightInfo[number].info.interval.get(0).departureTime.getValue();
+                    String departureDate = new SimpleDateFormat("MMM dd,yyyy", Locale.US).format(departureDt);
+                    String destCity = (String)flightInfo[number].info.interval.get(0).destCity.getValue();
+                    String flightNo = (String)flightInfo[number].info.flight.flightNo.getValue();
+                    String departureAirport = (String)flightInfo[number].info.interval.get(0).departureAirport.getValue();
+                    String destAirport = (String)flightInfo[number].info.interval.get(0).destAirport.getValue();
+                    String departureTime = new SimpleDateFormat("hh:mm").format(departureDt);
+                    var destDt = (Date)flightInfo[number].info.interval.get(0).destTime.getValue();
+                    String destTime = new SimpleDateFormat("hh:mm").format(destDt);
+                    var timeDelta = Duration.between(departureDt.toInstant(), destDt.toInstant());
+                    String timeDeltaStr = "" + timeDelta.toHours() + "h" + timeDelta.toMinutes() % 60 + "min";
+                    String terminal = (String)flightInfo[number].info.interval.get(0).terminal.getValue();
+                    String gate = (String)flightInfo[number].info.interval.get(0).gate.getValue();
+                    String firstname = (String)((Customer)GlobalData.data.get("customer")).firstname.getValue();
+                    String surname = (String)((Customer)GlobalData.data.get("customer")).surname.getValue();
+                    String name = firstname+ " " + surname;
+                    String ID =(String)((Customer)GlobalData.data.get("customer")).customerId.getValue();
+                    String seatClass = (String)flightInfo[number].info.ticket.seatClass.getValue() + " class";
+                    JPanel flightCheck = createFlight(bookingID,departureDate,departureCity,destCity,
+                    flightNo,departureAirport,destAirport,departureTime,destTime,timeDeltaStr,
+                    seatClass,"food provided",terminal,gate,name,ID);
+                    flightCheck.setBorder(new RoundBorder(Color.GRAY)); 
                     flightCheck.setBounds(500,80,415,355);
                     add(flightCheck);
                 }
@@ -209,9 +297,10 @@ public class FlightInformationFrm extends JFrame
         }
     }
 
-    private static JButton createButton(String flightTakeoff,String flightArrive,String flightFlightNo,
+    private static FlightInfoButton createButton(FlightInfo flightInfo, String flightTakeoff,String flightArrive,String flightFlightNo,
     String flightDate,String flightWhere) {
-        JButton button = new JButton();
+        var button = new FlightInfoButton();
+        button.info = flightInfo;
         button.setPreferredSize(new Dimension(374, 70));
         button.setBackground(Color.WHITE);
         
@@ -220,19 +309,19 @@ public class FlightInformationFrm extends JFrame
         JLabel picture=new JLabel(image);
 
         JLabel takeoff = new JLabel(flightTakeoff);
-        takeoff.setFont(new Font("Arial", Font.BOLD, 23));
+        takeoff.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23));
 
         JLabel arrive = new JLabel(flightArrive);
-        arrive.setFont(new Font("Arial", Font.BOLD, 23));
+        arrive.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23));
 
         JLabel flightNo = new JLabel(flightFlightNo);
-        flightNo.setFont(new Font("Arial", Font.ITALIC, 12));
+        flightNo.setFont(new Font("Microsoft YaHei UI", Font.ITALIC, 12));
 
         JLabel date = new JLabel(flightDate);
-        date.setFont(new Font("Arial", Font.ITALIC, 12));
+        date.setFont(new Font("Microsoft YaHei UI", Font.ITALIC, 12));
 
         JLabel where = new JLabel(flightWhere);
-        where.setFont(new Font("Arial", Font.BOLD, 12));
+        where.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12));
 
         //
 
@@ -359,7 +448,7 @@ public class FlightInformationFrm extends JFrame
         Gate.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 15));
 
         JLabel name = new JLabel(flightName);
-        name.setFont(new Font("Arial", Font.BOLD, 22));
+        name.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 22));
 
         JLabel ID = new JLabel(fligthNameID);
         ID.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 15));

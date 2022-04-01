@@ -11,7 +11,7 @@ import MainApp.pages.Exception.UnboundPageException;
 
 public class Pages {
 
-    public static List<Path> pagePathStack = new LinkedList<>();
+    public static List<Path> pagePathStack = new ArrayList<>();
     public static Path curPagePath = null;
     public static Map<Path, JFrame> pagePathMap = new HashMap<>();
 
@@ -32,6 +32,14 @@ public class Pages {
         }
         curPagePath = path;
         pagePathMap.get(curPagePath).setVisible(true);
+    }
+
+    public static void goBack() throws UnboundPageException {
+        int idx = pagePathStack.indexOf(curPagePath);
+        if(idx <= 0) {
+            return;
+        }
+        displayPage(pagePathStack.get(idx - 1));
     }
 
     @SuppressWarnings("unchecked")

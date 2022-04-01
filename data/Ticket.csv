@@ -1,2 +1,3 @@
-id,Customer_id,Flight_id,counterNo,luggageCnt
-1,1,1,,3
+id,Customer_id,Flight_id,bookingId,counterNo,luggageCnt,seatClass
+1,1,1,BK1001,1556733,3,Normal
+2,1,2,BK1002,1556711,2,First
