@@ -26,11 +26,8 @@ public class chooseNormalSeat extends JFrame{
     private int windowRest = 8;
     private int asideRest = 0;
     private int extraRest = 3;
-<<<<<<< HEAD
-=======
     private String ticketId = "2";
 
->>>>>>> 1abfde7fa90bceb9059f6cb5960e4ae471aea879
     JFrame f = this;
     {
         getAllSeat();
