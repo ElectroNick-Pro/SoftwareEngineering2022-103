@@ -26,8 +26,10 @@ public class chooseNormalSeat extends JFrame{
     private int windowRest = 8;
     private int asideRest = 0;
     private int extraRest = 3;
-
     JFrame f = this;
+    {
+        getAllSeat();
+    }
     private JButton normal = normalSeat(f);
     private JButton window = windowSeat(f);
     private JButton aside = asideSeat(f);
