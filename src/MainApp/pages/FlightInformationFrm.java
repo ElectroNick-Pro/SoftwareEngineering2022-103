@@ -1,22 +1,16 @@
 package MainApp.pages;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.GroupLayout;
+import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.text.AttributeSet.ColorAttribute;
 
 import MainApp.GlobalData;
 import MainApp.models.Model.Exception.FieldNotFoundException;
-import MainApp.models.Model.UserModel.Customer;
-import MainApp.models.Model.UserModel.Ticket;
+import MainApp.models.Model.Exception.ObjectNotFoundException;
+import MainApp.models.Model.UserModel.*;
 import MainApp.pages.Exception.UnboundPageException;
-import MainApp.pages.components.BreadCrumbPanel;
-import MainApp.pages.components.DemoScrollBarUI;
-import MainApp.pages.components.RoundBorder;
+import MainApp.pages.components.*;
+import MainApp.pages.control.FlightInfo;
 
 import java.awt.event.ActionListener;
 import java.nio.file.Path;
@@ -25,7 +19,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
 
 import javax.swing.JLayeredPane;
-
+import java.util.*;
 
 import java.awt.*;
 
@@ -46,6 +40,7 @@ public class FlightInformationFrm extends JFrame
 {
     private Path path = Path.of("page1/page2");
     private JPanel contentPane;
+    private Map<Integer, FlightInfo> flightInfoMap;
     JLayeredPane pane = new JLayeredPane();
     public static void main(String[] args){
         EventQueue.invokeLater(new Runnable() {
@@ -68,7 +63,7 @@ public class FlightInformationFrm extends JFrame
     private static final int NUM = 5;
     public FlightInformationFrm(){
         Pages.bindPage(this.path, this);
-
+        flightInfoMap = FlightInfo.getInfoMap((Integer)GlobalData.data.get("customerId"));
         setSize(DEFAULT_WIDTH,DEFAULT_HEIGHT);
         contentPane = new JPanel();
         contentPane.setLayout(null);
@@ -179,6 +174,7 @@ public class FlightInformationFrm extends JFrame
                 if(e.getSource() == back) {
                     try {
                         Pages.displayPage(Path.of("page1"));
+                        System.out.println(GlobalData.data.get("customerId"));
                     } catch (UnboundPageException e1) {
                         e1.printStackTrace();
                     }
@@ -505,8 +501,4 @@ public class FlightInformationFrm extends JFrame
         
         return panel;
     }
-}
-
-class FlightInfo {
-    
 }

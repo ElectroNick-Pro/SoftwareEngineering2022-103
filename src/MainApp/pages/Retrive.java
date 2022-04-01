@@ -8,13 +8,16 @@ import java.nio.file.Path;
 
 import javax.swing.JOptionPane;
 
+import MainApp.GlobalData;
+import MainApp.models.Model.Exception.FieldNotFoundException;
+import MainApp.models.Model.UserModel.Customer;
 import MainApp.pages.Exception.UnboundPageException;
 public class Retrive extends JFrame implements ActionListener{
     private Path path = Path.of("page1");
     public Container container;
-    public JTextField bookingIDField;
+    public JTextField bookingIdField, surnameField, customerIdField;
     public JButton button1,button2,button3;
-    public JPanel bookingID;
+    public JPanel panel1, panel2, panel3;
     public Retrive(){
         Pages.bindPage(this.path, this);
 		this.setTitle("Check-In Kiosk");
@@ -99,11 +102,42 @@ public class Retrive extends JFrame implements ActionListener{
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(e.getSource() == btnRetrive) {
-                    Pages.bindPage(Path.of("page1/page2"), new FlightInformationFrm());
+                    var surname = surnameField.getText();
+                    var customerId = customerIdField.getText();
+                    var bookingId = bookingIdField.getText();
+                    Customer customer = null;
                     try {
+                        if(panel1.isVisible()) {
+                            var customers = Customer.queryByProperty(Customer.class, "bookingId", bookingId).toArray();
+                            if(customers.length == 0) {
+                                return;
+                            }
+                            customer = (Customer)customers[0];
+                        }
+                        if(panel2.isVisible()) {
+                            var customers = Customer.queryByProperty(Customer.class, "customerId", customerId)
+                            .filter((x)->{
+                                return x.surname.getValue().equals(surname);
+                            }).toArray();
+                            if(customers.length == 0) {
+                                return;
+                            }
+                            customer = (Customer)customers[0];
+                        }
+                        if(panel3.isVisible()) {
+                            return;
+                        }
+                    } catch (FieldNotFoundException e1) {
+                        e1.printStackTrace();
+                        return;
+                    }
+                    GlobalData.data.put("customerId", customer.id);
+                    try {
+                        new FlightInformationFrm();
                         Pages.displayPage(Path.of("page1/page2"));
                     } catch (UnboundPageException e1) {
                         e1.printStackTrace();
+                        return;
                     }
                 }
             }
@@ -112,13 +146,14 @@ public class Retrive extends JFrame implements ActionListener{
         container.add(btnRetrive);
 
         // part1 - Booking ID
-        JPanel panel1 = new JPanel();
+        panel1 = new JPanel();
         panel1.setBounds(45,215,425,134);
         panel1.setLayout(null); // Absolute Layout
         JLabel label1 = new JLabel("Please enter your booking ID:");
         label1.setFont(new Font("Microsoft YaHei UI",Font.LAYOUT_LEFT_TO_RIGHT,18));
         label1.setBounds(0,0,425,70); // relative location
         JTextField field1 = new JTextField();
+        bookingIdField = field1;
         field1.setBounds(0,95,425,38);
 
         panel1.add(label1);
@@ -128,18 +163,21 @@ public class Retrive extends JFrame implements ActionListener{
         panel1.setVisible(true);
 
         // part2 - Surname and ID
-        JPanel panel2 = new JPanel();
+        panel2 = new JPanel();
         panel2.setBounds(45,170,425,193);
         panel2.setLayout(null);
-        JLabel label2_1 = new JLabel("Please enter your booking ID:");
+        JLabel label2_1 = new JLabel("Please enter your surname:");
         label2_1.setFont(new Font("Microsoft YaHei UI",Font.LAYOUT_LEFT_TO_RIGHT,18));
         label2_1.setBounds(0,0,425,70);
+
         JTextField field2_1 = new JTextField();
+        surnameField = field2_1;
         field2_1.setBounds(0,63,425,38);
-        JLabel label2_2 = new JLabel("Please enter your booking ID:");
+        JLabel label2_2 = new JLabel("Please enter your ID number:");
         label2_2.setFont(new Font("Microsoft YaHei UI",Font.LAYOUT_LEFT_TO_RIGHT,18));
         label2_2.setBounds(0,90,425,70);
         JTextField field2_2 = new JTextField();
+        customerIdField = field2_2;
         field2_2.setBounds(0,155,425,38);
 
         panel2.add(label2_1);
@@ -151,7 +189,7 @@ public class Retrive extends JFrame implements ActionListener{
         panel2.setVisible(false);
 
         // part3 - Scan ID
-        JPanel panel3 = new JPanel();
+        panel3 = new JPanel();
         panel3.setBounds(45,170,341,191);
         panel3.setLayout(null);
         JLabel label3 = new JLabel("Please scan your ID document:");
