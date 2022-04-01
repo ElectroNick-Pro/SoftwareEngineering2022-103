@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
+import MainApp.pages.components.RoundBorder;
 
 public class OK extends JFrame {
     
@@ -26,20 +27,23 @@ public class OK extends JFrame {
         label.setBounds(140,44,290,50);
         label.setFont(new Font("Microsoft YaHei", Font.PLAIN,21));
         ImageIcon m =new ImageIcon("src/MainApp/pages/image/success.png");
-        m.setImage(m.getImage().getScaledInstance(50,50,1));//这里设置图片大小，目前是20*20
+        m.setImage(m.getImage().getScaledInstance(50,50,1));
         JLabel label2 = new JLabel(m);
         label2.setBounds(25,30,75,75);
         JButton btn = new JButton("OK");
         btn.setBounds(355,95,75,30);
+        btn.setBackground(new Color(30, 144, 255));
+        btn.setForeground(Color.WHITE);
+        btn.setBorder(new RoundBorder(new Color(30, 144, 255)));
         panel.add(btn);
         btn.addActionListener(new ActionListener() {
             
             @Override
             public void actionPerformed(ActionEvent e) {
                 confirmPrint f =new confirmPrint();
-f.setVisible(true);
-successF.setVisible(false);
-
+                f.setVisible(true);
+                f.setLocationRelativeTo(null);
+                successF.setVisible(false);
             }
         });
         panel.add(label);
@@ -49,12 +53,10 @@ successF.setVisible(false);
     }
     public static void main(String args[]){
         final OK frame = new OK();
-        //frame.setBackground(Color.WHITE);
-        //frame.setVisible(true);
-       // frame.setSize(515,313);
-       // frame.setLocationRelativeTo(null);
-       // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+    //     frame.setBackground(Color.WHITE);
+    //     frame.setVisible(true);
+    //    frame.setSize(515,313);
+    //    frame.setLocationRelativeTo(null);
+    //    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
     }
-
-
 }

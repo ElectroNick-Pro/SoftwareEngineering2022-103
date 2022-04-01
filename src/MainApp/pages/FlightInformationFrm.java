@@ -66,8 +66,8 @@ public class FlightInformationFrm extends JFrame
 			}
         });
     }
-    private static final int DEFAULT_WIDTH = 960;
-    private static final int DEFAULT_HEIGHT = 540; 
+    private static final int DEFAULT_WIDTH = 965;
+    private static final int DEFAULT_HEIGHT = 550; 
     private static final int INFO_WIDTH = 420;
     private static final int INFO_HEIGHT = 250;
     public FlightInformationFrm(){
@@ -77,15 +77,56 @@ public class FlightInformationFrm extends JFrame
         contentPane = new JPanel();
         contentPane.setLayout(null);
         setContentPane(contentPane);
-        pane = new JLayeredPane();
+        // pane = new JLayeredPane();
 
-        var bread = new BreadCrumbPanel(this.path);
-        bread.setBounds(0, 0, 300, 50);
-        this.add(bread);
+        // var bread = new BreadCrumbPanel(this.path);
+        // bread.setBounds(0, 0, 300, 50);
+        // this.add(bread);
+        JPanel flowChart = new JPanel();
+        flowChart.setLayout(null);
+        flowChart.setBounds(100, 25,765,25);
+        flowChart.setBackground(Color.WHITE);
+
+        JLabel retrive = new JLabel("Retrive>");
+        retrive.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
+        retrive.setBounds(0,0,70,35);
+        flowChart.add(retrive);
+
+        JLabel fInfo = new JLabel("Flight Information>");
+        fInfo.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
+        fInfo.setBounds(70,0,160,35);
+        flowChart.add(fInfo);
+
+        JLabel chooseSeat = new JLabel("Choose Seat>");
+        chooseSeat.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
+        chooseSeat.setBounds(230,0,110,35);
+        flowChart.add(chooseSeat);
+
+        JLabel chooseFood = new JLabel("Choose Food>");
+        chooseFood.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
+        chooseFood.setBounds(340,0,115,35);
+        flowChart.add(chooseFood);
+
+        JLabel extraFood = new JLabel("Extra Food>");
+        extraFood.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
+        extraFood.setBounds(455,0,100,35);
+        flowChart.add(extraFood);
+
+        JLabel confirmPay = new JLabel("Confirm and Pay>");
+        confirmPay.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
+        confirmPay.setBounds(555,0,140,35);
+        flowChart.add(confirmPay);
+
+        JLabel checkin = new JLabel("Check in");
+        checkin.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
+        checkin.setBounds(695,0,80,35);
+        flowChart.add(checkin);
+
+        add(flowChart);
 
         JLabel label = new JLabel("Flight Information");
         label.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 35));
-        label.setBounds(45,85,323,49);
+        label.setBounds(45,85,523,49);
         add(label);
 
         JLabel smallLabel = new JLabel("Please choose your flight:                         ");
@@ -100,7 +141,7 @@ public class FlightInformationFrm extends JFrame
         picture.setBounds(0, 0, image.getIconWidth(), image.getIconHeight()-35);   //把标签设置为和图片等高等宽
 		// contentPane = (JPanel)this.getContentPane(); 	//把我的面板设置为内容面板	
         contentPane.add(picture,JLayeredPane.DEFAULT_LAYER);
-        contentPane.setOpaque(false);					//把我的面板设置为不可视
+        contentPane.setOpaque(false);		//把我的面板设置为不可视
 		this.getLayeredPane().setLayout(null);		//把分层面板的布局置空
 		this.getLayeredPane().add(picture, new Integer(Integer.MIN_VALUE));
         this.getLayeredPane().setBackground(Color.WHITE);
@@ -173,6 +214,18 @@ public class FlightInformationFrm extends JFrame
         next.setBorder(new RoundBorder(new Color(30, 144, 255)));
         next.setBounds(830,460,75,30);
         add(next);
+        next.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e) {
+                if(e.getSource() == next) {
+                    new chooseNormalSeat();
+                    try {
+                        Pages.displayPage(Path.of("page1/page2/page3"));
+                    } catch (UnboundPageException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+            }
+        });
 
         JButton back = new JButton();
         back.setBackground(Color.gray);
@@ -256,19 +309,19 @@ public class FlightInformationFrm extends JFrame
         JLabel picture=new JLabel(image);
 
         JLabel takeoff = new JLabel(flightTakeoff);
-        takeoff.setFont(new Font("Arial", Font.BOLD, 23));
+        takeoff.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23));
 
         JLabel arrive = new JLabel(flightArrive);
-        arrive.setFont(new Font("Arial", Font.BOLD, 23));
+        arrive.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23));
 
         JLabel flightNo = new JLabel(flightFlightNo);
-        flightNo.setFont(new Font("Arial", Font.ITALIC, 12));
+        flightNo.setFont(new Font("Microsoft YaHei UI", Font.ITALIC, 12));
 
         JLabel date = new JLabel(flightDate);
-        date.setFont(new Font("Arial", Font.ITALIC, 12));
+        date.setFont(new Font("Microsoft YaHei UI", Font.ITALIC, 12));
 
         JLabel where = new JLabel(flightWhere);
-        where.setFont(new Font("Arial", Font.BOLD, 12));
+        where.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12));
 
         //
 
@@ -395,7 +448,7 @@ public class FlightInformationFrm extends JFrame
         Gate.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 15));
 
         JLabel name = new JLabel(flightName);
-        name.setFont(new Font("Arial", Font.BOLD, 22));
+        name.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 22));
 
         JLabel ID = new JLabel(fligthNameID);
         ID.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 15));

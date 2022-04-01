@@ -31,6 +31,7 @@ public class confirmPrint extends JFrame{
                 confirmPrint frame = new confirmPrint();
                 frame.setVisible(true);
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                frame.setLocationRelativeTo(null);
             }catch (Exception e) {
                 e.printStackTrace();
             }
@@ -48,6 +49,49 @@ public class confirmPrint extends JFrame{
         contentPane.setLayout(null);
         setContentPane(contentPane);
         pane = new JLayeredPane();
+
+        // flow chart
+        JPanel flowChart = new JPanel();
+        flowChart.setLayout(null);
+        flowChart.setBounds(100, 25,765,25);
+        flowChart.setBackground(Color.WHITE);
+
+        JLabel retrive = new JLabel("Retrive>");
+        retrive.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
+        retrive.setBounds(0,0,70,35);
+        flowChart.add(retrive);
+
+        JLabel fInfo = new JLabel("Flight Information>");
+        fInfo.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
+        fInfo.setBounds(70,0,160,35);
+        flowChart.add(fInfo);
+
+        JLabel chooseSeat = new JLabel("Choose Seat>");
+        chooseSeat.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
+        chooseSeat.setBounds(230,0,110,35);
+        flowChart.add(chooseSeat);
+
+        JLabel chooseFood = new JLabel("Choose Food>");
+        chooseFood.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
+        chooseFood.setBounds(340,0,115,35);
+        flowChart.add(chooseFood);
+
+        JLabel extraFood = new JLabel("Extra Food>");
+        extraFood.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
+        extraFood.setBounds(455,0,100,35);
+        flowChart.add(extraFood);
+
+        JLabel confirmPay = new JLabel("Confirm and Pay>");
+        confirmPay.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
+        confirmPay.setBounds(555,0,140,35);
+        flowChart.add(confirmPay);
+
+        JLabel checkin = new JLabel("Check in");
+        checkin.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
+        checkin.setBounds(695,0,80,35);
+        flowChart.add(checkin);
+
+        add(flowChart);
 
         JLabel label1 = new JLabel("Please sacn your ID document:");
         label1.setFont(new Font("Microsoft YaHei", Font.PLAIN,18));
@@ -67,9 +111,9 @@ public class confirmPrint extends JFrame{
         JButton btn = new JButton("Check in");
         btn.setBounds(45,400,425,38);
         btn.setFont(new Font("Microsoft YaHei", Font.BOLD,17));
-        btn.setBackground(Color.BLUE);
-        //btn.setForeground(Color.white);
-        //btn.setBorder(BorderFactory.createRaisedBevelBorder());
+        btn.setBackground(new Color(0,131,255));
+        btn.setForeground(Color.white);
+        btn.setBorder(new RoundBorder(new Color(30, 144, 255)));
 
         JPanel panelFlight = createFlight();
         panelFlight.setBorder(new RoundBorder(Color.gray));
@@ -112,51 +156,29 @@ public class confirmPrint extends JFrame{
         home.setBounds(40,20,40,40);
         add(home);
 
-        JButton next = new JButton();
-        next.setBackground(Color.blue);
-        next.setText("Next");
-        //next.setForeground(Color.white);
-        next.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
-        //next.setBorder(new RoundBorder(new Color(30, 144, 255)));
-        next.setBounds(830,460,75,30);
-        next.setContentAreaFilled(false);
-        add(next);
-/*
-        JButton back = new JButton();
-        back.setBackground(Color.gray);
-        back.setText("Back");
-        //back.setForeground(Color.white);
-        back.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
-        back.setBorder(new RoundBorder(Color.gray));
-        back.setBounds(25,460,75,30);
-        back.setContentAreaFilled(false);
-        add(back);
-*/
         ImageIcon newImage = new ImageIcon("src/MainApp/pages/image/background.png");// 这是背景图片 .png .jpg .gif 等格式的图片都可以
-                    // newImage.setImage(newImage.getImage().getScaledInstance(430,350,Image.SCALE_DEFAULT));//这里设置图片大小，目前是20*20
-                    picture.setIcon(newImage);
-                    picture.setBounds(0, 0, image.getIconWidth(), image.getIconHeight()-35);
-                    panelFlight.setBounds(500,80,415,355);
+            // newImage.setImage(newImage.getImage().getScaledInstance(430,350,Image.SCALE_DEFAULT));//这里设置图片大小，目前是20*20
+            picture.setIcon(newImage);
+            picture.setBounds(0, 0, image.getIconWidth(), image.getIconHeight()-35);
+            panelFlight.setBounds(500,80,415,370);
                 
     }
-
-    
 
     private static JPanel createFlight() {
         JPanel panel = new JPanel();
         panel.setOpaque(false);
 
         JLabel book = new JLabel("Booking ID");
-        book.setFont(new Font("宋体",Font.ITALIC,15));
+        book.setFont(new Font("Microsoft YaHei UI",Font.ITALIC,15));
 
         JLabel bookID = new JLabel("13351112345");
-        bookID.setFont(new Font("宋体",Font.ITALIC,15));
+        bookID.setFont(new Font("Microsoft YaHei UI",Font.ITALIC,15));
 
         JLabel date = new JLabel("Mar 22,2022");
-        date.setFont(new Font("宋体",Font.ITALIC,15));
+        date.setFont(new Font("Microsoft YaHei UI",Font.ITALIC,15));
 
         JLabel where = new JLabel("Air China");
-        where.setFont(new Font("宋体",Font.ITALIC,20));
+        where.setFont(new Font("Microsoft YaHei UI",Font.ITALIC,20));
 
         ImageIcon image = new ImageIcon("src/MainApp/pages/image/airplane.png");
         image.setImage(image.getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));//size
@@ -169,28 +191,28 @@ public class confirmPrint extends JFrame{
         arrive.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 25));
 
         JLabel flightNo = new JLabel("KN2316");
-        flightNo.setFont(new Font("宋体", Font.BOLD, 22));
+        flightNo.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 22));
 
         JLabel airport1 = new JLabel("Daxinng Airport");
-        airport1.setFont(new Font("宋体", Font.BOLD, 13));
+        airport1.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 13));
 
         JLabel airport2 = new JLabel("Shuangliu Airport");
-        airport2.setFont(new Font("宋体", Font.BOLD, 13));
+        airport2.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 13));
 
         JLabel startTime = new JLabel("16:00");
-        startTime.setFont(new Font("宋体", Font.BOLD, 20));
+        startTime.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 20));
 
         JLabel arriveTime = new JLabel("18:05");
-        arriveTime.setFont(new Font("宋体", Font.BOLD, 20));
+        arriveTime.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 20));
 
         JLabel time = new JLabel("2h15min");
-        time.setFont(new Font("宋体", Font.BOLD, 15));
+        time.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 15));
 
         JLabel foodtype = new JLabel("Children Food");
-        foodtype.setFont(new Font("宋体", Font.BOLD, 15));
+        foodtype.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 15));
 
         JLabel Terminal = new JLabel("Terminal");
-        Terminal.setFont(new Font("宋体", Font.BOLD, 15));
+        Terminal.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 15));
 
         JLabel TerminalNum = new JLabel("3");
         TerminalNum.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 25));
@@ -199,21 +221,21 @@ public class confirmPrint extends JFrame{
         GateNo.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 25));
 
         JLabel Gate = new JLabel("Gate");
-        Gate.setFont(new Font("宋体", Font.BOLD, 15));
+        Gate.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 15));
 
         JLabel name = new JLabel("Xiping Yang");
         name.setFont(new Font("Arial", Font.BOLD, 22));
 
         JLabel ID = new JLabel("130203200109110322");
-        ID.setFont(new Font("宋体", Font.BOLD, 15));
+        ID.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 15));
 
         JLabel seattype = new JLabel("economy class");
-        seattype.setFont(new Font("宋体", Font.BOLD, 20));
-        seattype.setForeground(Color.blue);
+        seattype.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 20));
+        seattype.setForeground(new Color(0,131,255));
 
         JLabel seatno = new JLabel("12C");
-        seatno.setFont(new Font("宋体", Font.BOLD,20));
-        seatno.setForeground(Color.blue);
+        seatno.setFont(new Font("Microsoft YaHei UI", Font.BOLD,20));
+        seatno.setForeground(new Color(0,131,255));
 
         GroupLayout layout = new GroupLayout(panel);
 

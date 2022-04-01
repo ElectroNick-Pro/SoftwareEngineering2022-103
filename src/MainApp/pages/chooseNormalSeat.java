@@ -6,21 +6,25 @@ import java.awt.event.*;
 import java.util.stream.Stream;
 import java.awt.Font;
 import java.awt.*;
+
+import MainApp.GlobalData;
 import MainApp.models.Field.ForeignKey;
 import MainApp.models.Model.UserModel.Interval;
 import MainApp.models.Model.UserModel.Seat;
 import MainApp.pages.components.BreadCrumbPanel;
 import MainApp.pages.components.RoundBorder;
+import java.nio.file.Path;
 
-public class chooseNormalSeat {
-    public int width = 960;
-    public int height = 540;
+
+public class chooseNormalSeat extends JFrame{
+    public int width = 965;
+    public int height = 550;
     private int normalRest = 10;
     private int windowRest = 8;
     private int asideRest = 0;
     private int extraRest = 3;
 
-    JFrame f = new JFrame("Choose Seat");
+    JFrame f = this;
     private JButton normal = normalSeat(f);
     private JButton window = windowSeat(f);
     private JButton aside = asideSeat(f);
@@ -28,7 +32,11 @@ public class chooseNormalSeat {
     
     Stream<Seat> seat;
 
+    private Path path = Path.of("page1/page2/page3");
+    
     public chooseNormalSeat(){
+        super("Choose seat");
+        Pages.bindPage(this.path, this);
         // seat = ForeignKey.getReferring(Seat.class, "Interval_id", 1);
         myFrame();
         front(); //exit + mian bao xie + question service
@@ -36,7 +44,6 @@ public class chooseNormalSeat {
         bottom(); // back + next button
         buttonAction(); //4 buttons action 
         f.setLocationRelativeTo(null); 
-        f.setVisible(true);
     }
     private void myFrame(){
         f.setLayout(null);
@@ -295,18 +302,50 @@ public class chooseNormalSeat {
         exitIcon.changeIconSize("src/MainApp/pages/image/exit.png", exit, 40, 40);
         // exit.setOpaque(false);
         /*
-            mian bao xie
+            flow chart
         */
         // JLabel chart = new JLabel("Check In>Choose Seat>Choose a meal plan>Confirm and Print>Have a Good Trip!");
         // chart.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 15));
-        JLabel label1 = new JLabel("Check In > ");
-        JLabel label2 = new JLabel("Choose Seat > ");
-        JLabel label3 = new JLabel("Choose Food > ");
-        JLabel label4 = new JLabel("Confirm and Print");
-        label1.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 15));
-        label2.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 15));
-        label3.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 15));
-        label4.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 15));
+        JPanel flowChart = new JPanel();
+        flowChart.setLayout(null);
+        flowChart.setBounds(100, 25,765,25);
+        flowChart.setBackground(Color.WHITE);
+
+        JLabel retrive = new JLabel("Retrive>");
+        retrive.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
+        retrive.setBounds(0,0,70,35);
+        flowChart.add(retrive);
+
+        JLabel fInfo = new JLabel("Flight Information>");
+        fInfo.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
+        fInfo.setBounds(70,0,160,35);
+        flowChart.add(fInfo);
+
+        JLabel chooseSeat = new JLabel("Choose Seat>");
+        chooseSeat.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
+        chooseSeat.setBounds(230,0,110,35);
+        flowChart.add(chooseSeat);
+
+        JLabel chooseFood = new JLabel("Choose Food>");
+        chooseFood.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
+        chooseFood.setBounds(340,0,115,35);
+        flowChart.add(chooseFood);
+
+        JLabel extraFood = new JLabel("Extra Food>");
+        extraFood.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
+        extraFood.setBounds(455,0,100,35);
+        flowChart.add(extraFood);
+
+        JLabel confirmPay = new JLabel("Confirm and Pay>");
+        confirmPay.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
+        confirmPay.setBounds(555,0,140,35);
+        flowChart.add(confirmPay);
+
+        JLabel checkin = new JLabel("Check in");
+        checkin.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
+        checkin.setBounds(695,0,80,35);
+        flowChart.add(checkin);
+
         // chart.setOpaque(false);
         /*
             artificial service
@@ -319,17 +358,10 @@ public class chooseNormalSeat {
         // service.setOpaque(false)
 
         exit.setBounds(35,20,40,40);
-        label1.setBounds(115,30,85,17);
-        label2.setBounds(200,30,117,17);
-        label3.setBounds(315,30,193,17);
-        label4.setBounds(435,30,258,17);
         service.setBounds(875, 20, 40, 40);
         f.add(exit);
-        f.add(label1);
-        f.add(label2);
-        f.add(label3);
-        f.add(label4);
         f.add(service);
+        f.add(flowChart);
     }
     private void bottom(){
         /**
@@ -340,20 +372,24 @@ public class chooseNormalSeat {
         JButton next = new JButton("next");
         back.setBounds(20,465,75,30);
         next.setBounds(855,465,75,30);
+        next.setBackground(new Color(30, 144, 255));
+        next.setBorder(new RoundBorder(new Color(30, 144, 255)));
+        back.setBackground(Color.gray);
+        back.setBorder(new RoundBorder(Color.gray));
         back.addActionListener(
             new ActionListener(){
                 public void actionPerformed(ActionEvent e){
-                    FlightInformationFrm flightInfo = new FlightInformationFrm();
-                    flightInfo.setVisible(true);
-                    f.setVisible(false);
+                    if(e.getSource() == back) {
+                        return;
+                    }
                 }
         });
         next.addActionListener(
             new ActionListener(){
                 public void actionPerformed(ActionEvent e){
-                    ChooseFoodOrigin chooseFood = new ChooseFoodOrigin();
-                    chooseFood.setVisible(true);
-                    f.setVisible(false);
+                    if(e.getSource()==next) {
+                        return;
+                    }
                 }
         });
         f.add(back);
