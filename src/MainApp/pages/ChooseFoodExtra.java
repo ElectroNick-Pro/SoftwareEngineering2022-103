@@ -8,10 +8,11 @@ import java.awt.event.*;
 import java.awt.geom.RoundRectangle2D;
 
 class ChooseFoodExtra extends ChooseFoodtemplate{
-
+    String[] extrachoice=new String[]{"0","0","0"};
 
 //constructer
 public ChooseFoodExtra(){
+
 
 
 this.Titleset("Choose Extra Food");
@@ -50,7 +51,6 @@ Apple6.set6();
 this.add(panel6,Integer.valueOf(2));
 this.add(Apple6,Integer.valueOf(4));
 JPanel panel7=this.paintRect(495,345,1);
-    //panel7.setBorder(BorderFactory.createEtchedBorder(Color.GRAY, Color.PINK));
 foodimage Hotdog7=new foodimage("src/MainApp/pages/image/hotdog7.png");
 this.add(panel7,Integer.valueOf(2));
 this.add(Hotdog7,Integer.valueOf(4));
@@ -60,23 +60,104 @@ foodimage French8=new foodimage("src/MainApp/pages/image/French fries8.png");
 French8.set8();
 this.add(panel8,Integer.valueOf(2));
 this.add(French8,Integer.valueOf(4));
-//按钮
+
+//按钮****************************************
 newfoodButton Coffee=new newfoodButton("Coffee",1,"$2");
 Coffee.set1();
+Coffee.addActionListener(new ActionListener(){
+	public void actionPerformed(ActionEvent e){
+        ok.setVisible(false);
+        ok.setBounds(46,201,50,50);
+        ok.setVisible(true); 
+    extrachoice=new String[]{"Coffee","2","extra"};      
+    System.out.println(extrachoice[0].toString());                                  
+	}
+}
+	);
 newfoodButton Cola=new newfoodButton("Cola",1,"$3");
 Cola.set2();
+Cola.addActionListener(new ActionListener(){
+	public void actionPerformed(ActionEvent e){
+        ok.setVisible(false);
+        ok.setBounds(271,201,50,50);
+        ok.setVisible(true); 
+    extrachoice=new String[]{"Cola","3","extra"};      
+    System.out.println(extrachoice[0].toString());                                  
+	}
+}
+	);
 newfoodButton Beer=new newfoodButton("Beer",1,"$4");
 Beer.set3();
+Beer.addActionListener(new ActionListener(){
+	public void actionPerformed(ActionEvent e){
+        ok.setVisible(false);
+        ok.setBounds(496,201,50,50);
+        ok.setVisible(true); 
+    extrachoice=new String[]{"Beer","4","extra"};      
+    System.out.println(extrachoice[0].toString());                                  
+	}
+}
+	);
 newfoodButton Juice=new newfoodButton("Juice",1,"$2.5");
 Juice.set4();
+Juice.addActionListener(new ActionListener(){
+	public void actionPerformed(ActionEvent e){
+        ok.setVisible(false);
+        ok.setBounds(721,201,50,50);
+        ok.setVisible(true); 
+    extrachoice=new String[]{"Juice","2.5","extra"};      
+    System.out.println(extrachoice[0].toString());                                  
+	}
+}
+	);
 newfoodButton WM=new newfoodButton("WaterMelon",1,"$1.5");
 WM.set5();
+WM.addActionListener(new ActionListener(){
+	public void actionPerformed(ActionEvent e){
+        ok.setVisible(false);
+        ok.setBounds(46,346,50,50);
+        ok.setVisible(true); 
+    extrachoice=new String[]{"WM","1.5","extra"};      
+    System.out.println(extrachoice[0].toString());                                  
+	}
+}
+	);
 newfoodButton Apple=new newfoodButton("Apple",1,"2.5");
 Apple.set6();
+Apple.addActionListener(new ActionListener(){
+	public void actionPerformed(ActionEvent e){
+        ok.setVisible(false);
+        ok.setBounds(271,346,50,50);
+        ok.setVisible(true); 
+    extrachoice=new String[]{"Apple","2.5","extra"};      
+    System.out.println(extrachoice[0].toString());                                  
+	}
+}
+	);
 newfoodButton Hotdog=new newfoodButton("Hotdog",1,"$3");
 Hotdog.set7();
+Hotdog.addActionListener(new ActionListener(){
+	public void actionPerformed(ActionEvent e){
+        ok.setVisible(false);
+        ok.setBounds(496,346,50,50);
+        ok.setVisible(true); 
+    extrachoice=new String[]{"Hotdog","3","extra"};      
+    System.out.println(extrachoice[0].toString());                                  
+	}
+}
+	);
 newfoodButton French=new newfoodButton("French Fires",1,"$2.9");
 French.set8();
+French.addActionListener(new ActionListener(){
+	public void actionPerformed(ActionEvent e){
+        ok.setVisible(false);
+        ok.setBounds(721,346,50,50);
+        ok.setVisible(true); 
+    extrachoice=new String[]{"French fries","2.9","extra"};      
+    System.out.println(extrachoice[0].toString());                                  
+	}
+}
+	);
 
 this.add(Coffee,Integer.valueOf(3));
 this.add(Cola,Integer.valueOf(3));
@@ -103,8 +184,10 @@ JPanel shadow7=shade(520,355);
 this.add(shadow7,Integer.valueOf(1));
 JPanel shadow8=shade(745,355);
 this.add(shadow8,Integer.valueOf(1));
+// 选完了**********************************************************************
+String[] extrainfo=new String[]{"1","1",extrachoice[0],extrachoice[1],extrachoice[2]};
+
 this.setSize(960,540);
-//this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 }
 
 public static void main(String[] args){

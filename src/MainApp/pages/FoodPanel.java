@@ -18,7 +18,17 @@ public class FoodPanel extends JFrame{
 public FoodPanel(){
 
 
-
+    JButton Next=new JButton("NEXT");
+    Next.setBackground(new Color(0,131,255));
+    Next.setForeground(Color.WHITE);
+    Next.setFont(new Font("Serief",Font.BOLD+Font.ITALIC,10));
+    Next.setBounds(860,490,75,30);
+    Next.addActionListener(new ActionListener(){
+        public void actionPerformed(ActionEvent e){
+     //下一页*************************************** 
+    }
+        }
+        );
   
 JPanel J=new JPanel();
 J.setPreferredSize(new Dimension(960,1620));
@@ -38,6 +48,9 @@ J.add(d,Integer.valueOf(4));
     this.setSize(960,540);
     this.getContentPane().add(three);
     //three.setViewportView(this);
+
+    this.getLayeredPane().add(Next,Integer.valueOf(4));
+
     this.setVisible(true);
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 }

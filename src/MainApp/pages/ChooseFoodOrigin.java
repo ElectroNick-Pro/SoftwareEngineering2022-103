@@ -11,6 +11,7 @@ import java.awt.geom.RoundRectangle2D;
 
 public class ChooseFoodOrigin extends ChooseFoodtemplate{
 
+String[]  originchoice=new String[]{"0","0","0"};
 
 //constructer**************************************************
 public ChooseFoodOrigin(){
@@ -38,7 +39,7 @@ Help.setBorderPainted(false);
 Help.setBackground(Color.WHITE);
 this.add(Help);
 this.add(Help,Integer.valueOf(4));
-//框框*****************************************
+//框框
 
 JPanel panel1=this.paintRect(45,200,0);
 foodimage standard1=new foodimage("src/MainApp/pages/image/Standard1.png");
@@ -77,7 +78,6 @@ this.add(panel6,Integer.valueOf(2));
 this.add(child6,Integer.valueOf(4));
 
 JPanel panel7=this.paintRect(495,345,1);
-    //panel7.setBorder(BorderFactory.createEtchedBorder(Color.GRAY, Color.PINK));
 foodimage seafood7=new foodimage("src/MainApp/pages/image/Seafood7.png");
 this.add(panel7,Integer.valueOf(2));
 this.add(seafood7,Integer.valueOf(4));
@@ -90,23 +90,28 @@ this.add(panel8,Integer.valueOf(2));
 this.add(lowsugar8,Integer.valueOf(4));
 
 
-//按钮*******************************
+//按钮***************************************
 newfoodButton Standard=new newfoodButton("Standard",0,null);
 Standard.set1();
 Standard.addActionListener(new ActionListener(){
 	public void actionPerformed(ActionEvent e){
 	ok.setVisible(false);
     ok.setBounds(46,201,50,50);
-    ok.setVisible(true); }
+    ok.setVisible(true);
+	originchoice=new String[]{"Standard","0","origin"};      
+	System.out.println(originchoice[0].toString());  }
 	}
 	);
+
 newfoodButton Vegan=new newfoodButton("Vegetarian",0,null);
 Vegan.set2();
 Vegan.addActionListener(new ActionListener(){
 	public void actionPerformed(ActionEvent e){
 	ok.setVisible(false);
     ok.setBounds(271,201,50,50);
-    ok.setVisible(true); }
+    ok.setVisible(true); 
+	originchoice=new String[]{"Vegan","0","origin"};      
+	System.out.println(originchoice[0].toString()); }
 	}
 	);
 newfoodButton Humbergur=new newfoodButton("Humbergur",1,"$5");
@@ -115,7 +120,9 @@ Humbergur.addActionListener(new ActionListener(){
 	public void actionPerformed(ActionEvent e){
 	ok.setVisible(false);
     ok.setBounds(496,201,50,50);
-    ok.setVisible(true); }
+    ok.setVisible(true); 
+	originchoice=new String[]{"Humbergur","5","origin"};      
+	System.out.println(originchoice[0].toString()); }
 	}
 	);
 newfoodButton BeefSteak=new newfoodButton("BeefSteak",1,"$12");
@@ -124,7 +131,9 @@ BeefSteak.addActionListener(new ActionListener(){
 	public void actionPerformed(ActionEvent e){
 	ok.setVisible(false);
     ok.setBounds(721,201,50,50);
-    ok.setVisible(true); }
+    ok.setVisible(true); 
+	originchoice=new String[]{"BeefSteak","12","origin"};      
+	System.out.println(originchoice[0].toString()); }
 	}
 	);
 newfoodButton Halal=new newfoodButton("Halal",0,null);
@@ -133,7 +142,9 @@ Halal.addActionListener(new ActionListener(){
 	public void actionPerformed(ActionEvent e){
 	ok.setVisible(false);
     ok.setBounds(46,346,50,50);
-    ok.setVisible(true); }
+    ok.setVisible(true);
+	originchoice=new String[]{"Halal","0","origin"};      
+	System.out.println(originchoice[0].toString());  }
 	}
 	);
 newfoodButton Children=new newfoodButton("Children",0,null);
@@ -143,7 +154,9 @@ Children.addActionListener(new ActionListener(){
 	public void actionPerformed(ActionEvent e){
 	ok.setVisible(false);
     ok.setBounds(271,346,50,50);
-    ok.setVisible(true); }
+    ok.setVisible(true); 
+	originchoice=new String[]{"Children","0","origin"};      
+	System.out.println(originchoice[0].toString()); }
 	}
 	);
 newfoodButton Seafood=new newfoodButton("Seafood",1,"$8");
@@ -152,7 +165,9 @@ Seafood.addActionListener(new ActionListener(){
 	public void actionPerformed(ActionEvent e){
 	ok.setVisible(false);
     ok.setBounds(496,346,50,50);
-    ok.setVisible(true); }
+    ok.setVisible(true);
+	originchoice=new String[]{"Seafood","8","origin"};      
+	System.out.println(originchoice[0].toString());  }
 	}
 	);
 newfoodButton Lowsugar=new newfoodButton("Low Sugar",1,"$4");
@@ -161,7 +176,10 @@ Lowsugar.addActionListener(new ActionListener(){
 	public void actionPerformed(ActionEvent e){
 	ok.setVisible(false);
     ok.setBounds(721,346,50,50);
-    ok.setVisible(true); }
+    ok.setVisible(true); 
+	originchoice=new String[]{"Low Sugar","4","origin"};      
+	System.out.println(originchoice[0].toString()); 
+    }
 	}
 	);
 
@@ -182,6 +200,9 @@ JPanel shadow7=shade(520,355);
 this.add(shadow7,Integer.valueOf(1));
 JPanel shadow8=shade(745,355);
 this.add(shadow8,Integer.valueOf(1));
+
+//选完了************************************************
+String[] origininfo=new String[]{"1","1",originchoice[0],originchoice[1],originchoice[2]};
 
 }
 

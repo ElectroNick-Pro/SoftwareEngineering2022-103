@@ -26,6 +26,11 @@ public class chooseNormalSeat extends JFrame{
     private int windowRest = 8;
     private int asideRest = 0;
     private int extraRest = 3;
+<<<<<<< HEAD
+=======
+    private String ticketId = "2";
+
+>>>>>>> 1abfde7fa90bceb9059f6cb5960e4ae471aea879
     JFrame f = this;
     {
         getAllSeat();
@@ -222,25 +227,37 @@ public class chooseNormalSeat extends JFrame{
             String buttonName = e.getActionCommand();
             if(buttonName.equals("normalSeat")){
                 if(normalRest != 0){
-                    JOptionPane.showMessageDialog(null, "assign a normal seat", "normal", JOptionPane.INFORMATION_MESSAGE);
+                    int choice = JOptionPane.showConfirmDialog(null, "Choose a normal seat?", "Confirm",JOptionPane.YES_NO_OPTION);
+                    if(choice == 0){
+                        chooseSeat("Normal","Normal");
+                    } 
                 }else{
-                    JOptionPane.showMessageDialog(null, "no seat left", "normal", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "no normal seat left", "normal", JOptionPane.ERROR_MESSAGE);
                 }
             }else if(buttonName.equals("windowSeat")){
                 if(windowRest != 0){
-                    JOptionPane.showMessageDialog(null, "assign a window seat", "window", JOptionPane.INFORMATION_MESSAGE);
+                    int choice = JOptionPane.showConfirmDialog(null, "Choose a window seat?", "Confirm",JOptionPane.YES_NO_OPTION);
+                    if(choice == 0){
+                        chooseSeat("Window","Normal");
+                    }
                 }else{
                     JOptionPane.showMessageDialog(null, "no seat left", "window", JOptionPane.ERROR_MESSAGE);
                 }
             }else if(buttonName.equals("asideSeat")){
                 if(asideRest != 0){
-                    JOptionPane.showMessageDialog(null, "assign a aside seat", "aside", JOptionPane.INFORMATION_MESSAGE);
+                    int choice = JOptionPane.showConfirmDialog(null, "Choose an aside seat?", "Confirm",JOptionPane.YES_NO_OPTION);
+                    if(choice == 0){
+                        chooseSeat("Aside","Normal");
+                    }
                 }else{
                     JOptionPane.showMessageDialog(null, "no seat left", "aside", JOptionPane.ERROR_MESSAGE);
                 }
             }else if(buttonName.equals("extraSeat")){
                 if(extraRest != 0){
-                    JOptionPane.showMessageDialog(null, "assign a extra seat", "extra", JOptionPane.INFORMATION_MESSAGE);
+                    int choice = JOptionPane.showConfirmDialog(null, "Choose a seat with extra space?\nYou need to pay extra money for it.", "Confirm",JOptionPane.YES_NO_OPTION);
+                    if(choice == 0){
+                        chooseSeat("Extra","Normal");
+                    }
                 }else{
                     JOptionPane.showMessageDialog(null, "no seat left", "extra", JOptionPane.ERROR_MESSAGE);
                 }
@@ -418,12 +435,16 @@ public class chooseNormalSeat extends JFrame{
             var normalSeatStream = Seat.queryByProperty(Seat.class, "Interval_id", 1).filter((x)->{
                 return x.type.getValue().equals("Normal");
             }).filter((x)->{
+                return x.seatClass.getValue().equals("Normal");
+            }).filter((x)->{
                 return x.ticket.getValue() == null;
             });
             var allNormalSeat = normalSeatStream.toArray();
             normalRest = allNormalSeat.length;
             var windowSeatStream = Seat.queryByProperty(Seat.class, "Interval_id", 1).filter((x)->{
                 return x.type.getValue().equals("Window");
+            }).filter((x)->{
+                return x.seatClass.getValue().equals("Normal");
             }).filter((x)->{
                 return x.ticket.getValue() == null;
             });
@@ -432,12 +453,16 @@ public class chooseNormalSeat extends JFrame{
             var asideSeatStream = Seat.queryByProperty(Seat.class, "Interval_id", 1).filter((x)->{
                 return x.type.getValue().equals("Aside");
             }).filter((x)->{
+                return x.seatClass.getValue().equals("Normal");
+            }).filter((x)->{
                 return x.ticket.getValue() == null;
             });
             var allAsideSeat = asideSeatStream.toArray();
             asideRest = allAsideSeat.length;
             var extraSeatStream = Seat.queryByProperty(Seat.class, "Interval_id", 1).filter((x)->{
                 return x.type.getValue().equals("Extra");
+            }).filter((x)->{
+                return x.seatClass.getValue().equals("Normal");
             }).filter((x)->{
                 return x.ticket.getValue() == null;
             });
@@ -447,10 +472,33 @@ public class chooseNormalSeat extends JFrame{
             e.printStackTrace();
         }
     }
+    private void chooseSeat(String type, String seatClass){
+        System.out.println(type);
+        System.out.println(seatClass);
+        try {
+            var seatStream = Seat.queryByProperty(Seat.class, "Interval_id", 1).filter((x)->{
+                return x.type.getValue().equals(type);
+            }).filter((x)->{
+                return x.seatClass.getValue().equals(seatClass);
+            }).filter((x)->{
+                return x.ticket.getValue() == null;
+            });
+            var seat = seatStream.toArray();
+            if(seat.length != 0){
+                var aSeat = (Seat)seat[0];
+                aSeat.ticket.setValue(ticketId);
+                JOptionPane.showMessageDialog(null, "Select Successfulluy!", "Success", JOptionPane.PLAIN_MESSAGE);
+            }else{
+                JOptionPane.showMessageDialog(null, "Sorry, there is no seat left.\nPlease choose again.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (FieldNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
     public static void main(String[] args) {
         GlobalData.init();
         Models.init();
         chooseNormalSeat seat = new chooseNormalSeat();
-
+        seat.setVisible(true);
     }
 }
