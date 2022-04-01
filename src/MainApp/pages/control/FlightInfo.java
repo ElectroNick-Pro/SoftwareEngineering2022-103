@@ -26,9 +26,7 @@ public class FlightInfo {
                 }
                 tuples.put(info.ticket.id, info);
             }
-            if(!GlobalData.data.containsKey("flightInfoMap")) {
-                GlobalData.data.put("flightInfoMap", tuples);
-            }
+            GlobalData.data.put("flightInfoMap", tuples);
             return tuples;
         } catch (FieldNotFoundException | ObjectNotFoundException e) {
             e.printStackTrace();
