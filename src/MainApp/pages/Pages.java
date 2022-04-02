@@ -32,6 +32,7 @@ public class Pages {
         }
         curPagePath = path;
         pagePathMap.get(curPagePath).setVisible(true);
+        pagePathMap.get(curPagePath).setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pagePathMap.get(curPagePath).setLocationRelativeTo(null); 
     }
 

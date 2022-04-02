@@ -85,10 +85,10 @@ public class confirmPay extends JFrame {
         flowChart.setBounds(100, 25, 765, 25);
         flowChart.setBackground(Color.WHITE);
 
-        JLabel retrive = new JLabel("Retrive>");
-        retrive.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 15));
-        retrive.setBounds(0, 0, 70, 35);
-        flowChart.add(retrive);
+        JLabel retrieve = new JLabel("Retrieve>");
+        retrieve.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 15));
+        retrieve.setBounds(0, 0, 70, 35);
+        flowChart.add(retrieve);
 
         JLabel fInfo = new JLabel("Flight Information>");
         fInfo.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 15));
@@ -147,15 +147,15 @@ public class confirmPay extends JFrame {
         var ticket = flightInfo.ticket;
         String bookingID = (String) ticket.bookingId.getValue();
         var departureDt = (Date) flightInfo.interval.get(0).departureTime.getValue();
-        String departureDate = new SimpleDateFormat("MMM dd,yyyy", Locale.US).format(departureDt);
+        String departureDate = new SimpleDateFormat("MMM dd,yyyy", Locale.UK).format(departureDt);
         String destCity = (String) flightInfo.interval.get(0).destCity.getValue();
         String departureCity = (String) flightInfo.interval.get(0).departureCity.getValue();
         String flightNo = (String) flightInfo.flight.flightNo.getValue();
         String departureAirport = (String) flightInfo.interval.get(0).departureAirport.getValue();
         String destAirport = (String) flightInfo.interval.get(0).destAirport.getValue();
-        String departureTime = new SimpleDateFormat("hh:mm").format(departureDt);
+        String departureTime = new SimpleDateFormat("hh:mm", Locale.UK).format(departureDt);
         var destDt = (Date) flightInfo.interval.get(0).destTime.getValue();
-        String destTime = new SimpleDateFormat("hh:mm").format(destDt);
+        String destTime = new SimpleDateFormat("hh:mm", Locale.UK).format(destDt);
         var timeDelta = Duration.between(departureDt.toInstant(), destDt.toInstant());
         String timeDeltaStr = "" + timeDelta.toHours() + "h" + timeDelta.toMinutes() % 60 + "min";
         String terminal = (String) flightInfo.interval.get(0).terminal.getValue();
