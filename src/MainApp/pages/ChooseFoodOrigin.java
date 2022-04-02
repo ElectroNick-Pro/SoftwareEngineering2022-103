@@ -78,7 +78,7 @@ public class ChooseFoodOrigin extends ChooseFoodtemplate {
 		this.add(panel6, Integer.valueOf(2));
 		this.add(child6, Integer.valueOf(4));
 
-		JPanel panel7 = this.paintRect(495, 345, 1);
+		JPanel panel7 = this.paintRect(495, 315, 1);
 		foodimage seafood7 = new foodimage("src/MainApp/pages/image/Seafood7.png");
 		this.add(panel7, Integer.valueOf(2));
 		this.add(seafood7, Integer.valueOf(4));
@@ -191,13 +191,13 @@ public class ChooseFoodOrigin extends ChooseFoodtemplate {
 		this.add(Seafood, Integer.valueOf(4));
 		this.add(Lowsugar, Integer.valueOf(4));
 
-		JPanel shadow3 = shade(520, 210);
+		JPanel shadow3 = shade(520, 180);
 		this.add(shadow3, Integer.valueOf(1));
-		JPanel shadow4 = shade(745, 210);
+		JPanel shadow4 = shade(745, 180);
 		this.add(shadow4, Integer.valueOf(1));
-		JPanel shadow7 = shade(520, 355);
+		JPanel shadow7 = shade(520, 325);
 		this.add(shadow7, Integer.valueOf(1));
-		JPanel shadow8 = shade(745, 355);
+		JPanel shadow8 = shade(745, 325);
 		this.add(shadow8, Integer.valueOf(1));
 
 		
