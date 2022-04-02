@@ -23,6 +23,17 @@ private Path path = Path.of("page1/page2/page3/page4");
     Back.setForeground(Color.WHITE);
     Back.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
     Back.setBounds(25,460,75,30);
+    Back.addActionListener(new ActionListener(){
+        public void actionPerformed(ActionEvent e) {
+            if(e.getSource() == Back) {
+                try {
+                    Pages.goBack();
+                } catch (UnboundPageException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        }
+    });
     JButton Next=new JButton("next");
     Next.setBackground(new Color(0,131,255));
     Next.setForeground(Color.WHITE);
@@ -63,6 +74,7 @@ private Path path = Path.of("page1/page2/page3/page4");
         //three.setViewportView(this);
     
         this.getLayeredPane().add(Next,Integer.valueOf(4));
+        this.getLayeredPane().add(Back,Integer.valueOf(4));
     
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

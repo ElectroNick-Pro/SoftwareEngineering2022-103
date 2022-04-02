@@ -263,6 +263,17 @@ public class confirmPay extends JFrame{
         back.setBounds(25,460,75,30);
         back.setContentAreaFilled(false);
         add(back);
+        back.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e) {
+                if(e.getSource() == back) {
+                    try {
+                        Pages.goBack();
+                    } catch (UnboundPageException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+            }
+        });
 
         ImageIcon newImage = new ImageIcon("src/MainApp/pages/image/background.png");// 这是背景图片 .png .jpg .gif 等格式的图片都可以
                     // newImage.setImage(newImage.getImage().getScaledInstance(430,350,Image.SCALE_DEFAULT));//这里设置图片大小，目前是20*20
