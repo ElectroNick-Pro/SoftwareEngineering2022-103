@@ -132,7 +132,7 @@ public class Retrive extends JFrame implements ActionListener{
                     GlobalData.data.put("customer", customer);
                     try {
                         new FlightInformationFrm();
-                        Pages.displayPage(Path.of("page1/page2"));
+                        Pages.displayPage(path.resolve(Path.of("page2")));
                     } catch (UnboundPageException e1) {
                         e1.printStackTrace();
                         return;

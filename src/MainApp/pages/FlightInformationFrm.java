@@ -298,7 +298,7 @@ public class FlightInformationFrm extends JFrame
                     GlobalData.data.put("flight",passData);
                     new chooseNormalSeat();
                     try {
-                        Pages.displayPage(Path.of("page1/page2/page3"));
+                        Pages.displayPage(path.resolve(Path.of("page3")));
                     } catch (UnboundPageException e1) {
                         e1.printStackTrace();
                     }

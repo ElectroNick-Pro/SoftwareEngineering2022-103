@@ -74,13 +74,15 @@ public class FoodFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == Next) {
                     try {
-                        var ticket = (Ticket)GlobalData.data.get("ticket");
+                        var ticket = (Ticket)((Seat)GlobalData.data.get("seat")).ticket.getReferred();
 						var flight = (Flight)ticket.flight.getReferred();
 						var food = MainApp.models.Model.UserModel.Food
 									.queryByProperty(MainApp.models.Model.UserModel.Food.class, "name", o.originchoice[0])
 									.filter((x)->{
 										return x.flight.getValue().equals(flight.id);
 									}).findFirst().get();
+                        ticket.food.setValue(food.id);
+                        ticket.save();
 						GlobalData.data.put("food_choice", food);
                         new confirmPay();
                         Pages.displayPage(path.resolve(Path.of("page5")));
