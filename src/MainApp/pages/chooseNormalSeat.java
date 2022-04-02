@@ -6,7 +6,6 @@ import java.awt.event.*;
 import java.util.stream.Stream;
 import java.awt.Font;
 import java.awt.*;
-
 import MainApp.GlobalData;
 import MainApp.models.Models;
 import MainApp.models.Field.ForeignKey;
@@ -14,21 +13,23 @@ import MainApp.models.Model.Exception.FieldNotFoundException;
 import MainApp.models.Model.Exception.ObjectNotFoundException;
 import MainApp.models.Model.UserModel.Interval;
 import MainApp.models.Model.UserModel.Seat;
+import MainApp.models.Model.UserModel.Ticket;
 import MainApp.pages.components.BreadCrumbPanel;
 import MainApp.pages.Exception.UnboundPageException;
 import MainApp.pages.components.RoundBorder;
+import MainApp.pages.control.FlightInfo;
 import java.nio.file.Path;
 
 
 public class chooseNormalSeat extends JFrame{
     public int width = 965;
     public int height = 550;
-    private int normalRest = 10;
-    private int windowRest = 8;
+    private int normalRest = 0;
+    private int windowRest = 0;
     private int asideRest = 0;
-    private int extraRest = 3;
-    private String ticketId = "2";
-
+    private int extraRest = 0;
+    private double extraMoney = 0.0;
+    private Ticket ticket;
     JFrame f = this;
     {
         getAllSeat();
@@ -37,11 +38,7 @@ public class chooseNormalSeat extends JFrame{
     private JButton window = windowSeat(f);
     private JButton aside = asideSeat(f);
     private JButton extra = extraSeat(f);
-    
-    Stream<Seat> seat;
-
     private Path path = Path.of("page1/page2/page3");
-    
     public chooseNormalSeat(){
         super("Choose seat");
         Pages.bindPage(this.path, this);
@@ -186,12 +183,12 @@ public class chooseNormalSeat extends JFrame{
         extra.setBorder(new RoundBorder(Color.GRAY));   
         JLabel extra_text1 = new JLabel("A Seat with", JLabel.CENTER);
         JLabel extra_text2 = new JLabel("Extra Space", JLabel.CENTER);
-        JLabel extra_money = new JLabel("$10", JLabel.CENTER);
+        JLabel extra_money = new JLabel("$"+extraMoney, JLabel.CENTER);
         JLabel extra_num1 = new JLabel("Remaining", JLabel.CENTER);
         JLabel extra_num2 = new JLabel(extraRest+"", JLabel.CENTER);
         extra_text1.setFont(new Font("Arial", Font.BOLD, 32));
         extra_text2.setFont(new Font("Arial", Font.BOLD, 32));
-        extra_money.setFont(new Font("Arial", Font.PLAIN, 20));
+        extra_money.setFont(new Font("Arial", Font.PLAIN, 17));
         extra_money.setForeground(new ColorUIResource(Color.red));
         extra_num1.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 17));
         extra_num2.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 17));
@@ -208,7 +205,7 @@ public class chooseNormalSeat extends JFrame{
         extra.setBounds(715,175,195,268);
         extra_text1.setBounds(719,224,186,42);
         extra_text2.setBounds(719,266,186,42);
-        extra_money.setBounds(798,299,34,42);
+        extra_money.setBounds(780,299,60,42);
         extra_num1.setBounds(765,341,94,24);
         extra_num2.setBounds(765,365,94,24);
         f.add(extra);
@@ -407,13 +404,9 @@ public class chooseNormalSeat extends JFrame{
         next.addActionListener(
             new ActionListener(){
                 public void actionPerformed(ActionEvent e){
-                    if(e.getSource() == next) {
-                        new FoodPanel();
-                        try {
-                            Pages.displayPage(Path.of("page1/page2/page3/page4"));
-                        } catch (UnboundPageException e1) {
-                            e1.printStackTrace();
-                        }
+                    if(e.getSource()==next) {
+                        dataTransfer();
+                        return;
                     }
                 }
         });
@@ -432,8 +425,9 @@ public class chooseNormalSeat extends JFrame{
         extra.addActionListener(myListener);
         extra.addMouseListener(myListener2);
     }
-    
     private void getAllSeat(){
+        var flightinfo = (FlightInfo)GlobalData.data.get("flight");
+        ticket = flightinfo.ticket;
         try {
             var normalSeatStream = Seat.queryByProperty(Seat.class, "Interval_id", 1).filter((x)->{
                 return x.type.getValue().equals("Normal");
@@ -470,6 +464,7 @@ public class chooseNormalSeat extends JFrame{
                 return x.ticket.getValue() == null;
             });
             var allExtraSeat = extraSeatStream.toArray();
+            extraMoney = (Double)((Seat)allExtraSeat[0]).price.getValue();
             extraRest = allExtraSeat.length;
         } catch (FieldNotFoundException e) {
             e.printStackTrace();
@@ -489,7 +484,8 @@ public class chooseNormalSeat extends JFrame{
             var seat = seatStream.toArray();
             if(seat.length != 0){
                 var aSeat = (Seat)seat[0];
-                aSeat.ticket.setValue(ticketId);
+                aSeat.ticket.setValue(ticket.id);
+                aSeat.save();
                 JOptionPane.showMessageDialog(null, "Select Successfulluy!", "Success", JOptionPane.PLAIN_MESSAGE);
             }else{
                 JOptionPane.showMessageDialog(null, "Sorry, there is no seat left.\nPlease choose again.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -497,6 +493,16 @@ public class chooseNormalSeat extends JFrame{
         } catch (FieldNotFoundException e) {
             e.printStackTrace();
         }
+    }
+    private void dataTransfer(){
+        try {
+            var seatStream = Seat.queryByProperty(Seat.class, "Ticket_id", ticket.id).toArray();
+            var seat = seatStream[0];
+            GlobalData.data.put("seat",seat);
+        } catch (FieldNotFoundException e) {
+            e.printStackTrace();
+        }
+        
     }
     public static void main(String[] args) {
         GlobalData.init();

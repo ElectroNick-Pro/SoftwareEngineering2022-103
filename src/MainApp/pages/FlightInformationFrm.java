@@ -287,6 +287,7 @@ public class FlightInformationFrm extends JFrame
         next.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e) {
                 if(e.getSource() == next) {
+                    GlobalData.data.put("flight",passData);
                     new chooseNormalSeat();
                     try {
                         Pages.displayPage(Path.of("page1/page2/page3"));
@@ -294,7 +295,7 @@ public class FlightInformationFrm extends JFrame
                         e1.printStackTrace();
                     }
                 }
-                GlobalData.data.put("flight",passData);
+                
             }
         });
     }
