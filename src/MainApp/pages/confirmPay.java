@@ -3,6 +3,7 @@ import java.awt.Color;
 import java.awt.*;
 
 import MainApp.GlobalData;
+import MainApp.pages.Exception.UnboundPageException;
 import MainApp.pages.components.DemoScrollBarUI;
 import MainApp.pages.components.RoundBorder;
 import MainApp.pages.control.FlightInfo;
