@@ -13,6 +13,7 @@ import MainApp.pages.components.RoundBorder;
 import MainApp.GlobalData;
 import MainApp.models.Model.Exception.FieldNotFoundException;
 import MainApp.models.Model.UserModel.Customer;
+import MainApp.models.Model.UserModel.Ticket;
 import MainApp.pages.Exception.UnboundPageException;
 public class Retrive extends JFrame implements ActionListener{
     private Path path = Path.of("page1");
@@ -104,13 +105,13 @@ public class Retrive extends JFrame implements ActionListener{
                     var customerId = customerIdField.getText();
                     var bookingId = bookingIdField.getText();
                     Customer customer = null;
+                    Ticket ticket = null;
                     try {
                         if(panel1.isVisible()) {
-                            var customers = Customer.queryByProperty(Customer.class, "bookingId", bookingId).toArray();
-                            if(customers.length == 0) {
-                                return;
-                            }
-                            customer = (Customer)customers[0];
+                            var tickets = Ticket.queryByProperty(Ticket.class, "bookingId", bookingId).toArray();
+                            ticket = (Ticket)tickets[0];
+                            GlobalData.data.put("ticket",ticket);
+                            GlobalData.data.put("flag",1);
                         }
                         if(panel2.isVisible()) {
                             var customers = Customer.queryByProperty(Customer.class, "customerId", customerId)
@@ -121,15 +122,23 @@ public class Retrive extends JFrame implements ActionListener{
                                 return;
                             }
                             customer = (Customer)customers[0];
+                            GlobalData.data.put("customer", customer);
+                            GlobalData.data.put("flag",2);
                         }
                         if(panel3.isVisible()) {
+                            var customers = Customer.queryByProperty(Customer.class, "customerId", "230103200102223218").toArray();
+                            if(customers.length == 0) {
+                                return;
+                            }
+                            customer = (Customer)customers[0];
+                            GlobalData.data.put("customer", customer);
+                            GlobalData.data.put("flag",2);
                             return;
                         }
                     } catch (FieldNotFoundException e1) {
                         e1.printStackTrace();
                         return;
                     }
-                    GlobalData.data.put("customer", customer);
                     try {
                         new FlightInformationFrm();
                         Pages.displayPage(Path.of("page1/page2"));
