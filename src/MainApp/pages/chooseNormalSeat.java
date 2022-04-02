@@ -510,6 +510,12 @@ public class chooseNormalSeat extends JFrame{
                 public void actionPerformed(ActionEvent e){
                     if(e.getSource()==next) {
                         setGlobalData();
+                        new FoodFrame();
+                        try {
+                            Pages.displayPage(path.resolve(Path.of("page4")));
+                        } catch (UnboundPageException e1) {
+                            e1.printStackTrace();
+                        }
                         return;
                     }
                 }

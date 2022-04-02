@@ -35,4 +35,26 @@ public class FlightInfo {
         }
         return null;
     }
+    public static Map<Integer, FlightInfo> getTicketInfoMap(int id){
+        try {
+            var ticket = Ticket.getById(Ticket.class,id);
+            var tuples = new HashMap<Integer, FlightInfo>();
+            var info = new FlightInfo();
+            info.ticket = (Ticket)ticket;
+            info.flight = (Flight)info.ticket.flight.getReferred();
+            info.airline = (Airline)((Plane)info.flight.plane.getReferred()).airline.getReferred();
+            var arr = Interval.queryByProperty(Interval.class, "Flight_id", info.flight.id).toArray();
+            info.interval = new ArrayList<>();
+            for(int j = 0; j < arr.length; j++) {
+                var interval = (Interval)arr[j];
+                info.interval.add(interval);
+            }
+            tuples.put(info.ticket.id, info);
+            GlobalData.data.put("flightInfoMap", tuples);
+            return tuples;
+        } catch (FieldNotFoundException | ObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

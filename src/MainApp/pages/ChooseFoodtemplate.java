@@ -14,7 +14,7 @@ class ChooseFoodtemplate extends JLayeredPane{
     Font Middlefont=new Font("Microsoft YaHei UI",Font.PLAIN,20);
     Font Smallfont=new Font("Microsoft YaHei UI",Font.BOLD,15);
     JLabel ok=new JLabel(new ImageIcon("src/MainApp/pages/image/success1.png"));
-    JLabel Food=new JLabel();
+    JLabel Food1=new JLabel();
 //constructer
 public ChooseFoodtemplate(){
 
@@ -36,9 +36,9 @@ public ChooseFoodtemplate(){
     Help.setBackground(Color.WHITE);
 
 
-    Food.setBounds(45,75,400,50);
-    Food.setFont(Bigfont);
-    Food.setBackground(Color.WHITE);
+    Food1.setBounds(45,75,400,50);
+    Food1.setFont(Bigfont);
+    Food1.setBackground(Color.WHITE);
 
     JLabel Please=new JLabel("Please choose a type of food you prefer:");
     Please.setFont(Middlefont);
@@ -112,7 +112,7 @@ public ChooseFoodtemplate(){
     this.add(whitepanel,-1);
     //this.add(Home,0);
     //this.add(Help,0);
-    this.add(Food,0);
+    this.add(Food1,0);
     this.add(Please,0);
     //this.add(Back,0);
     //this.getLayeredPane().add(Next,0);
@@ -177,7 +177,7 @@ public ChooseFoodtemplate(){
         return panel;
     } 
     public void Titleset(String Welcome){
-        Food.setText(Welcome);
+        Food1.setText(Welcome);
     }
     public static void main(String[] args){
         ChooseFoodtemplate t=new ChooseFoodtemplate();

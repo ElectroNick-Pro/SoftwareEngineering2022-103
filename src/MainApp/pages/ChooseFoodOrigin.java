@@ -8,15 +8,18 @@ import MainApp.GlobalData;
 import MainApp.models.Models;
 import MainApp.models.Model.Exception.FieldNotFoundException;
 import MainApp.models.Model.Exception.ObjectNotFoundException;
+import MainApp.models.Model.UserModel.Customer;
 import MainApp.models.Model.UserModel.Flight;
 import MainApp.models.Model.UserModel.Food;
 import MainApp.models.Model.UserModel.Ticket;
+import MainApp.pages.Exception.UnboundPageException;
 import MainApp.pages.components.RoundBorder;
 
 
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.RoundRectangle2D;
+import java.nio.file.Path;
 
 public class ChooseFoodOrigin extends ChooseFoodtemplate {
 
@@ -205,17 +208,30 @@ public class ChooseFoodOrigin extends ChooseFoodtemplate {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == Home) {
-					
 					try {
 						var ticket = (Ticket)GlobalData.data.get("ticket");
 						var flight = (Flight)ticket.flight.getReferred();
+								//
+								var foodstream=Food.queryByProperty(Food.class, "id",flight.id)
+								.filter((x)->{
+									return x.flight.getValue().equals(flight.flightNo);
+								});
+								System.out.println("success!");
+								var afood=foodstream.toArray();
+								var aFood=(Food)afood[0];
+								aFood.name.setValue(originchoice[0]);
+								aFood.price.setValue(originchoice[1]);
+								aFood.type.setValue(originchoice[2]);
+								aFood.save();
+								System.out.println("success");
+								//
 						var food = MainApp.models.Model.UserModel.Food
 									.queryByProperty(MainApp.models.Model.UserModel.Food.class, "name", originchoice[0])
 									.filter((x)->{
 										return x.flight.getValue().equals(flight.id);
 									}).findFirst().get();
 						GlobalData.data.put("food_choice", food);
-						System.out.println();
+				
 					} catch (ObjectNotFoundException | FieldNotFoundException e1) {
 						e1.printStackTrace();
 					}
@@ -223,7 +239,26 @@ public class ChooseFoodOrigin extends ChooseFoodtemplate {
 			}
 		});
 	}
-
+/*public void choosefood(){
+       // System.out.println(type);
+      //  System.out.println(seatClass);
+        try {
+			
+            var foodStream = Food.queryByProperty(Food.class, "name", "Standard").filter((x)->{
+                return x.name.getValue().equals("Standard");
+			});
+            var food = foodStream.toArray();
+            if(food.length != 0){
+                var aFood = (Food)food[0];
+                aFood.type.setValue("Choosen");
+                aFood.save();
+            }else{
+            }
+        } catch (FieldNotFoundException e) {
+            e.printStackTrace();
+        }
+    
+}*/
 	public static void main(String[] args) {
 		
 		try {
@@ -231,6 +266,7 @@ public class ChooseFoodOrigin extends ChooseFoodtemplate {
 			Models.init();
 			GlobalData.data.put("ticket", Ticket.getById(Ticket.class, 1));
 			var f = new ChooseFoodOrigin();
+			//f.choosefood();
 			var frame = new JFrame();
 			frame.add(f);
 			frame.pack();
