@@ -12,14 +12,14 @@ Download the [release](https://gitee.com/electronick_pro/software-engineering202
 
 ## Instructions
 
-### Run directly (without configuration files)
+### Run directly (without configuration files) - *Unable for this preview version*
 - Run by directly double click on the `JAR` file
 - Or run in command line like below:
   ```shell
   java -jar path/to/jar/file.jar
   ```
   which you can also observe the output of `System.out`,  `System.err`, etc.
-### Run with a configuration file
+### Run with a configuration file - *You should use this*
 - First you should have a configuration `xml` file, whose specification shall be seen in document [Configuration Specification](Configuration%20Specification.md)
 - Run in command line like below
   ```shell
