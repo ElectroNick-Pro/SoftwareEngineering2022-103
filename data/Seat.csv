@@ -9,7 +9,7 @@ id,Interval_id,Ticket_id,price,seatClass,seatNo,type
 8,1,,0,Normal,8A,Window
 9,2,,0,Normal,9A,Window
 10,1,,100.0,Normal,10A,Extra
-11,1,,0,Normal,11A,Aisle
+11,1,,0.0,Normal,11A,Aisle
 12,1,,0,Normal,12A,Aisle
 13,1,,0,Normal,13A,Aisle
 14,1,,0,Normal,14A,Aisle

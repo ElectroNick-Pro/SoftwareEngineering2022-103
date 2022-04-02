@@ -50,10 +50,10 @@ public ChooseFoodtemplate(){
     flowChart.setBounds(100, 25,765,25);
     flowChart.setBackground(Color.WHITE);
 
-    JLabel retrive = new JLabel("Retrive>");
-    retrive.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
-    retrive.setBounds(0,0,70,35);
-    flowChart.add(retrive);
+    JLabel retrieve = new JLabel("Retrieve>");
+    retrieve.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
+    retrieve.setBounds(0,0,70,35);
+    flowChart.add(retrieve);
 
     JLabel fInfo = new JLabel("Flight Information>");
     fInfo.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));

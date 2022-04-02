@@ -279,7 +279,7 @@ newfoodButton Lowsugar = new newfoodButton("Low Sugar", 1, "$4");
 	public static void main(String[] args) {
 		
 		try {
-			GlobalData.init();
+			GlobalData.init(args);
 			Models.init();
 			GlobalData.data.put("ticket", Ticket.getById(Ticket.class, 1));
 			var f = new ChooseFoodOrigin();

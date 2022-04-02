@@ -15,13 +15,13 @@ import MainApp.models.Model.Exception.FieldNotFoundException;
 import MainApp.models.Model.UserModel.Customer;
 import MainApp.models.Model.UserModel.Ticket;
 import MainApp.pages.Exception.UnboundPageException;
-public class Retrive extends JFrame implements ActionListener{
+public class Retrieve extends JFrame implements ActionListener{
     private Path path = Path.of("page1");
     public Container container;
     public JTextField bookingIdField, surnameField, customerIdField;
     public JButton button1,button2,button3;
     public JPanel panel1, panel2, panel3;
-    public Retrive(){
+    public Retrieve(){
         Pages.bindPage(this.path, this);
 		this.setTitle("Check-In Kiosk");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -44,10 +44,10 @@ public class Retrive extends JFrame implements ActionListener{
         flowChart.setBounds(100, 51,765,25);
         flowChart.setBackground(Color.WHITE);
 
-        JLabel retrive = new JLabel("Retrive>");
-        retrive.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
-        retrive.setBounds(0,0,70,35);
-        flowChart.add(retrive);
+        JLabel retrieve = new JLabel("Retrieve>");
+        retrieve.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
+        retrieve.setBounds(0,0,70,35);
+        flowChart.add(retrieve);
 
         JLabel fInfo = new JLabel("Flight Information>");
         fInfo.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
@@ -89,18 +89,18 @@ public class Retrive extends JFrame implements ActionListener{
         question.setBounds(880,40,40,40);
         container.add(question);
 
-        // title - Retrive
-		JLabel title = new JLabel("Retrive",JLabel.LEFT);
-		title.setFont(new Font("Microsoft YaHei UI",Font.BOLD,50));
+        // title - Retrieve
+		JLabel title = new JLabel("Retrieve",JLabel.LEFT);
+		title.setFont(new Font("Microsoft YaHei UI",Font.BOLD,45));
 		title.setBounds(45,105,190,70);
 		container.add(title);
 
-        // button - Retrive
-        JButton btnRetrive = new JButton("Retrive");
-        btnRetrive.addActionListener(new ActionListener() {
+        // button - Retrieve
+        JButton btnRetrieve = new JButton("Retrieve");
+        btnRetrieve.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(e.getSource() == btnRetrive) {
+                if(e.getSource() == btnRetrieve) {
                     var surname = surnameField.getText();
                     var customerId = customerIdField.getText();
                     var bookingId = bookingIdField.getText();
@@ -152,10 +152,10 @@ public class Retrive extends JFrame implements ActionListener{
                 }
             }
         });
-        btnRetrive.setBounds(45,390,425,38);
-        btnRetrive.setBorder(new RoundBorder(new Color(0, 131, 255)));
-        btnRetrive.setBackground(new Color(0, 131, 255));
-        container.add(btnRetrive);
+        btnRetrieve.setBounds(45,390,425,38);
+        btnRetrieve.setBorder(new RoundBorder(new Color(0, 131, 255)));
+        btnRetrieve.setBackground(new Color(0, 131, 255));
+        container.add(btnRetrieve);
 
         // part1 - Booking ID
         panel1 = new JPanel();
@@ -274,7 +274,7 @@ public class Retrive extends JFrame implements ActionListener{
     }
 
     public static void main(String[] args){
-		Retrive frame = new Retrive();
+		Retrieve frame = new Retrieve();
 		frame.pack();
 		frame.setVisible(true);
         frame.setSize(965,550);

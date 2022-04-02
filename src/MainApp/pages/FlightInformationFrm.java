@@ -88,6 +88,14 @@ public class FlightInformationFrm extends JFrame
                 e1.printStackTrace();
             }
         }
+
+        var tz_day = new SimpleDateFormat("MMM dd,yyyy", Locale.UK);
+        tz_day.setTimeZone(((SimpleDateFormat)GlobalData.config.get("timezone")).getTimeZone());
+        var tz_time = new SimpleDateFormat("HH:mm", Locale.UK);
+        tz_time.setTimeZone(((SimpleDateFormat)GlobalData.config.get("timezone")).getTimeZone());
+        GlobalData.data.put("dateformat", tz_day);
+        GlobalData.data.put("timeformat", tz_time);
+
         int NUM = flightInfoMap.size();
         Pages.bindPage(this.path, this);
         setSize(DEFAULT_WIDTH,DEFAULT_HEIGHT);
@@ -104,10 +112,10 @@ public class FlightInformationFrm extends JFrame
         flowChart.setBounds(100, 25,765,25);
         flowChart.setBackground(Color.WHITE);
 
-        JLabel retrive = new JLabel("Retrive>");
-        retrive.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
-        retrive.setBounds(0,0,70,35);
-        flowChart.add(retrive);
+        JLabel retrieve = new JLabel("Retrieve>");
+        retrieve.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
+        retrieve.setBounds(0,0,70,35);
+        flowChart.add(retrieve);
 
         JLabel fInfo = new JLabel("Flight Information>");
         fInfo.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
@@ -175,7 +183,7 @@ public class FlightInformationFrm extends JFrame
             String destCity = (String)interval.destCity.getValue();
             String flightNo = (String)tuple.flight.flightNo.getValue();
             var departureDt = (Date)interval.departureTime.getValue();
-            String departureDate = new SimpleDateFormat("MMM dd,yyyy", Locale.US).format(departureDt);
+            String departureDate = ((SimpleDateFormat)GlobalData.data.get("dateformat")).format(departureDt);
             String airline = (String)tuple.airline.name.getValue();
             flightInfo[i_map]=createButton(tuple, departureCity,destCity,flightNo,departureDate,airline);  
             flightInfo[i_map].setBorder(new RoundBorder(Color.GRAY));
@@ -274,15 +282,15 @@ public class FlightInformationFrm extends JFrame
                     passData = flightInfo[number].info;
                     String bookingID =(String)flightInfo[number].info.ticket.bookingId.getValue();
                     var departureDt = (Date)flightInfo[number].info.interval.get(0).departureTime.getValue();
-                    String departureDate = new SimpleDateFormat("MMM dd,yyyy", Locale.US).format(departureDt);
+                    String departureDate = ((SimpleDateFormat)GlobalData.data.get("dateformat")).format(departureDt);
                     String departureCity = (String)flightInfo[number].info.interval.get(0).departureCity.getValue();
                     String destCity = (String)flightInfo[number].info.interval.get(0).destCity.getValue();
                     String flightNo = (String)flightInfo[number].info.flight.flightNo.getValue();
                     String departureAirport = (String)flightInfo[number].info.interval.get(0).departureAirport.getValue();
                     String destAirport = (String)flightInfo[number].info.interval.get(0).destAirport.getValue();
-                    String departureTime = new SimpleDateFormat("hh:mm").format(departureDt);
+                    String departureTime = ((SimpleDateFormat)GlobalData.data.get("timeformat")).format(departureDt);
                     var destDt = (Date)flightInfo[number].info.interval.get(0).destTime.getValue();
-                    String destTime = new SimpleDateFormat("hh:mm").format(destDt);
+                    String destTime = ((SimpleDateFormat)GlobalData.data.get("timeformat")).format(destDt);
                     var timeDelta = Duration.between(departureDt.toInstant(), destDt.toInstant());
                     String timeDeltaStr = "" + timeDelta.toHours() + "h" + timeDelta.toMinutes() % 60 + "min";
                     String terminal = (String)flightInfo[number].info.interval.get(0).terminal.getValue();

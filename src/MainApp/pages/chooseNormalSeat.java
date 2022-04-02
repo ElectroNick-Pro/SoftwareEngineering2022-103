@@ -197,7 +197,7 @@ public class chooseNormalSeat extends JFrame{
         JButton aisle = new JButton();
         aisle.setActionCommand("aisleSeat");
         aisle.setContentAreaFilled(false);  
-        JLabel aisle_text1 = new JLabel("An aisle", JLabel.CENTER);
+        JLabel aisle_text1 = new JLabel("An Aisle", JLabel.CENTER);
         JLabel aisle_text2 = new JLabel("Seat", JLabel.CENTER);
         JLabel aisle_num1 = new JLabel("Remaining", JLabel.CENTER);
         JLabel aisle_num2 = new JLabel(aisleRest+"", JLabel.CENTER);
@@ -433,10 +433,10 @@ public class chooseNormalSeat extends JFrame{
         flowChart.setBounds(100, 25,765,25);
         flowChart.setBackground(Color.WHITE);
 
-        JLabel retrive = new JLabel("Retrive>");
-        retrive.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
-        retrive.setBounds(0,0,70,35);
-        flowChart.add(retrive);
+        JLabel retrieve = new JLabel("Retrieve>");
+        retrieve.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
+        retrieve.setBounds(0,0,70,35);
+        flowChart.add(retrieve);
 
         JLabel fInfo = new JLabel("Flight Information>");
         fInfo.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
@@ -672,7 +672,7 @@ public class chooseNormalSeat extends JFrame{
         GlobalData.data.put("seat",seat);
     }
     public static void main(String[] args) {
-        GlobalData.init();
+        GlobalData.init(args);
         Models.init();
         chooseNormalSeat seat = new chooseNormalSeat();
         seat.setVisible(true);
