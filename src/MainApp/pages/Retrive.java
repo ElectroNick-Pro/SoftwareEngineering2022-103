@@ -112,6 +112,9 @@ public class Retrive extends JFrame implements ActionListener{
                             }
                             customer = (Customer)customers[0];
                         }
+                        else{
+                            
+                        }
                         if(panel2.isVisible()) {
                             var customers = Customer.queryByProperty(Customer.class, "customerId", customerId)
                             .filter((x)->{
