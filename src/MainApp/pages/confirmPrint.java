@@ -11,11 +11,12 @@ import MainApp.models.Model.UserModel.*;
 import javax.swing.*;
 
 
-import java.sql.Date;
+import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.Locale;
 import java.awt.event.ActionEvent;
+import java.nio.file.Path;
 class MyPrintPanel extends JPanel {
     public Image image;
     public MyPrintPanel(Image image) {
@@ -29,6 +30,7 @@ class MyPrintPanel extends JPanel {
     }
 }
 public class confirmPrint extends JFrame{
+    private Path path = Path.of("page1/page2/page3/page4/page5/page6");
     private JPanel contentPane;
     JLayeredPane pane = new JLayeredPane();
     public static void main(String[] args){
@@ -50,7 +52,7 @@ public class confirmPrint extends JFrame{
     private static final int INFO_WIDTH = 420;
     private static final int INFO_HEIGHT = 250;
     public confirmPrint(){
-    
+        Pages.bindPage(this.path, this);
         setSize(DEFAULT_WIDTH,DEFAULT_HEIGHT);
         contentPane = new JPanel();
         contentPane.setLayout(null);

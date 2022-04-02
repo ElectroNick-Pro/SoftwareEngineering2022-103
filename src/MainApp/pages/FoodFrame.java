@@ -82,7 +82,7 @@ public class FoodFrame extends JFrame {
 										return x.flight.getValue().equals(flight.id);
 									}).findFirst().get();
                         ticket.food.setValue(food.id);
-                        ticket.save();
+                        GlobalData.data.put("ticket", ticket);
 						GlobalData.data.put("food_choice", food);
                         new confirmPay();
                         Pages.displayPage(path.resolve(Path.of("page5")));

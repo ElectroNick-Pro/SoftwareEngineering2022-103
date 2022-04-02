@@ -4,7 +4,7 @@ id,Interval_id,Ticket_id,price,seatClass,seatNo,type
 3,1,,0.0,Normal,3A,Normal
 4,2,,0,Normal,4A,Aside
 5,2,,0,Normal,5A,Aside
-6,1,1,0.0,Normal,6A,Window
+6,1,,0.0,Normal,6A,Window
 7,1,,0,Normal,7A,Window
 8,1,,0,Normal,8A,Window
 9,2,,0,Normal,9A,Window

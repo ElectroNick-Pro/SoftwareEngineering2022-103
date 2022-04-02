@@ -3,6 +3,8 @@ package MainApp.pages;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -18,7 +20,7 @@ public class OK extends JFrame {
     
 
     public OK(){
-        JFrame successF = new JFrame();
+        JFrame successF = this;
         successF.setSize(480,185);
         successF.setBackground(Color.WHITE);
         successF.setLocationRelativeTo(null);
@@ -41,19 +43,62 @@ public class OK extends JFrame {
         btn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if(e.getSource() == btn) {
-                    successF.setVisible(false);
-                    new confirmPrint();
-                    try {
-                        Pages.displayPage(Path.of("page1/page2/page3/page4/page5/page6"));
-                    } catch (UnboundPageException e1) {
-                        e1.printStackTrace();
-                    }
+                    dispose();
                 }
             }
         });
         panel.add(label);
         panel.add(label2);
         successF.setContentPane(panel);
+        successF.addWindowListener(new WindowListener() {
+
+            @Override
+            public void windowOpened(WindowEvent e) {
+                // TODO Auto-generated method stub
+                
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                // TODO Auto-generated method stub
+                
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+                // TODO Auto-generated method stub
+                
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+                // TODO Auto-generated method stub
+                
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+                // TODO Auto-generated method stub
+                
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+                // TODO Auto-generated method stub
+                
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+                new confirmPrint();
+                try {
+                    Pages.displayPage(Path.of("page1/page2/page3/page4/page5/page6"));
+                } catch (UnboundPageException e1) {
+                    e1.printStackTrace();
+                }
+            }
+            
+        });
         successF.setVisible(true);
     }
     public static void main(String args[]){

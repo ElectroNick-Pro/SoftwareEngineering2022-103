@@ -31,7 +31,7 @@ public class chooseNormalSeat extends JFrame{
     private int extraRest = 0;
     private double extraMoney = 0.0;
     private Ticket ticket;
-    private Seat seat = (Seat)GlobalData.data.get("seat");
+    private Seat seat;
     private int interval_id = 1;
     private FlightInfo flightinfo = (FlightInfo)GlobalData.data.get("flight");
     JFrame f = this;
@@ -378,28 +378,28 @@ public class chooseNormalSeat extends JFrame{
         @Override
         public void mouseExited(MouseEvent e) {
             if(normalRest > 0){
-                if(seat.type.getValue().equals("Normal")){
+                if(seat != null && seat.type.getValue().equals("Normal")){
                     normal.setBorder(new RoundBorder(new ColorUIResource(30,144,255)));   
                 }else{
                     normal.setBorder(new RoundBorder(Color.GRAY));   
                 }
             }
             if(windowRest > 0){
-                if(seat.type.getValue().equals("Window")){
+                if(seat != null && seat.type.getValue().equals("Window")){
                     window.setBorder(new RoundBorder(new ColorUIResource(30,144,255)));   
                 }else{
                     window.setBorder(new RoundBorder(Color.GRAY));   
                 }
             }
             if(asideRest > 0){
-                if(seat.type.getValue().equals("Aside")){
+                if(seat != null && seat.type.getValue().equals("Aside")){
                     aside.setBorder(new RoundBorder(new ColorUIResource(30,144,255)));   
                 }else{
                     aside.setBorder(new RoundBorder(Color.GRAY));   
                 }
             }
             if(extraRest > 0){
-                if(seat.type.getValue().equals("Extra")){
+                if(seat != null && seat.type.getValue().equals("Extra")){
                     extra.setBorder(new RoundBorder(new ColorUIResource(30,144,255)));   
                 }else{
                     extra.setBorder(new RoundBorder(Color.GRAY));   
@@ -599,14 +599,12 @@ public class chooseNormalSeat extends JFrame{
     }
     private Seat getChosenSeat(){
         //check if the customer has already chosen a seat
-        Seat pastSeat;
         try {
             var seatStream = Seat.queryByProperty(Seat.class, "Interval_id", interval_id).toArray();
             for(int i = 0; i < seatStream.length; i ++){
                 if(((Seat)seatStream[i]).ticket.getValue() != null){
                     if(((Seat)seatStream[i]).ticket.getValue().equals(ticket.id)){
-                        pastSeat = (Seat)seatStream[i];
-                        seat = pastSeat;
+                        seat = (Seat)seatStream[i];
                         haveChosen = true;
                         break;
                     }
