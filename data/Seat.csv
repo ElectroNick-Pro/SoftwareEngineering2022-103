@@ -1,5 +1,5 @@
 id,Interval_id,Ticket_id,price,seatClass,seatNo,type
-1,1,,0,Normal,1A,Normal
+1,1,1,0.0,Normal,1A,Normal
 2,1,,0.0,Normal,2F,Normal
 3,1,,0.0,Normal,3A,Normal
 4,2,,0,Normal,4A,Aisle
