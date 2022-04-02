@@ -22,7 +22,9 @@ public class Models {
             var dataDir = (Path)GlobalData.config.get("dataDir");
             var dataDirFile = dataDir.toFile();
             if(!dataDirFile.exists()) {
-                dataDirFile.mkdir();
+                if(!dataDirFile.mkdirs()) {
+                    System.exit(1);
+                }
             }
             for(var clzName: (LinkedList<String>)GlobalData.config.get("userModels")) {
                 var clz = Class.forName("MainApp.models.Model.UserModel." + clzName);
