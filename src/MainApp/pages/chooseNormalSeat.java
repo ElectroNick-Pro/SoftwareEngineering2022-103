@@ -509,14 +509,18 @@ public class chooseNormalSeat extends JFrame{
             new ActionListener(){
                 public void actionPerformed(ActionEvent e){
                     if(e.getSource()==next) {
-                        setGlobalData();
-                        new FoodFrame();
-                        try {
-                            Pages.displayPage(path.resolve(Path.of("page4")));
-                        } catch (UnboundPageException e1) {
-                            e1.printStackTrace();
+                        if(seat != null){
+                            setGlobalData();
+                            new FoodFrame();
+                            try {
+                                Pages.displayPage(path.resolve(Path.of("page4")));
+                            } catch (UnboundPageException e1) {
+                                e1.printStackTrace();
+                            }
+                            return;
+                        }else{
+                            JOptionPane.showMessageDialog(null, "Please choose a seat before proceeding to the next page", "Error", JOptionPane.ERROR_MESSAGE);
                         }
-                        return;
                     }
                 }
         });
