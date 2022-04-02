@@ -11,12 +11,14 @@ import MainApp.models.Model.Exception.ObjectNotFoundException;
 import MainApp.models.Model.UserModel.Flight;
 import MainApp.models.Model.UserModel.Food;
 import MainApp.models.Model.UserModel.Ticket;
+import MainApp.pages.Exception.UnboundPageException;
 import MainApp.pages.components.RoundBorder;
 
 
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.RoundRectangle2D;
+import java.nio.file.Path;
 
 public class ChooseFoodOrigin extends ChooseFoodtemplate {
 
@@ -205,18 +207,9 @@ public class ChooseFoodOrigin extends ChooseFoodtemplate {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == Home) {
-					
 					try {
-						var ticket = (Ticket)GlobalData.data.get("ticket");
-						var flight = (Flight)ticket.flight.getReferred();
-						var food = MainApp.models.Model.UserModel.Food
-									.queryByProperty(MainApp.models.Model.UserModel.Food.class, "name", originchoice[0])
-									.filter((x)->{
-										return x.flight.getValue().equals(flight.id);
-									}).findFirst().get();
-						GlobalData.data.put("food_choice", food);
-						System.out.println();
-					} catch (ObjectNotFoundException | FieldNotFoundException e1) {
+						Pages.displayPage(Path.of("page1"));
+					} catch (UnboundPageException e1) {
 						e1.printStackTrace();
 					}
 				}
