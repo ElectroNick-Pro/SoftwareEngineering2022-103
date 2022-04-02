@@ -220,6 +220,8 @@ public class ChooseFoodOrigin extends ChooseFoodtemplate {
 								var afood=foodstream.toArray();
 								var aFood=(Food)afood[0];
 								aFood.name.setValue(originchoice[0]);
+								aFood.price.setValue(originchoice[1]);
+								aFood.type.setValue(originchoice[2]);
 								aFood.save();
 								System.out.println("success");
 								//
