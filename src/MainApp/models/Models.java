@@ -24,7 +24,7 @@ public class Models {
             if(!dataDirFile.exists()) {
                 dataDirFile.mkdir();
             }
-            for(var clzName: (String[])GlobalData.config.get("userModels")) {
+            for(var clzName: (LinkedList<String>)GlobalData.config.get("userModels")) {
                 var clz = Class.forName("MainApp.models.Model.UserModel." + clzName);
                 var ins = clz.getConstructor().newInstance();
                 modelInstances.put(clzName, (BaseModel)ins);

@@ -9,7 +9,11 @@ import javax.swing.JPasswordField;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
+import MainApp.GlobalData;
 import MainApp.pages.components.RoundBorder;
+
+import MainApp.models.Model.UserModel.*;
 
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
@@ -36,8 +40,8 @@ public class credit extends JFrame implements ActionListener{
     JLabel label2 = new JLabel("Please enter your password:");
     JButton btn = new JButton("OK");
     
-    public String id = String("1234");
-    public String password = String("1234");;
+    public String id = (String)((Customer)GlobalData.data.get("customer")).creditId.getValue();
+    public String password = (String)((Customer)GlobalData.data.get("customer")).password.getValue();
     //int cFlag = 0;
     //boolean flag;
     protected JFrame frame;

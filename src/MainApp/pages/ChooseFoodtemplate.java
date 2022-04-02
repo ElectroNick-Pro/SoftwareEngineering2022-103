@@ -10,7 +10,6 @@ import java.awt.geom.RoundRectangle2D;
 
 class ChooseFoodtemplate extends JLayeredPane{
 
-    
     Font Bigfont=new Font("Microsoft YaHei UI",Font.BOLD,40);
     Font Middlefont=new Font("Microsoft YaHei UI",Font.PLAIN,20);
     Font Smallfont=new Font("Microsoft YaHei UI",Font.BOLD,15);
@@ -37,7 +36,7 @@ public ChooseFoodtemplate(){
     Help.setBackground(Color.WHITE);
 
 
-    Food.setBounds(45,105,400,50);
+    Food.setBounds(45,75,400,50);
     Food.setFont(Bigfont);
     Food.setBackground(Color.WHITE);
 

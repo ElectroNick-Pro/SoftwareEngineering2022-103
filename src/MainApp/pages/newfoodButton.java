@@ -30,27 +30,27 @@ class newfoodButton extends JButton{
     }
 
     public void set1(){
-        this.setBounds(46,201,193,122);
+        this.setBounds(46,170,193,122);
     }
     public void set2(){
-        this.setBounds(271,201,193,122);
+        this.setBounds(271,170,193,122);
     }
     public void set3(){
-        this.setBounds(496,201,193,122);
+        this.setBounds(496,170,193,122);
     }
     public void set4(){
-        this.setBounds(721,201,193,122);
+        this.setBounds(721,170,193,122);
     }
     public void set5(){
-        this.setBounds(46,346,193,122);
+        this.setBounds(46,315,193,122);
     }
     public void set6(){
-        this.setBounds(271,346,193,122);
+        this.setBounds(271,315,193,122);
     }
     public void set7(){
-        this.setBounds(496,346,193,122);
+        this.setBounds(496,315,193,122);
     }
     public void set8(){
-        this.setBounds(721,346,193,122);
+        this.setBounds(721,315,193,122);
     }
 }
