@@ -4,11 +4,17 @@ import java.awt.*;
 
 import MainApp.pages.components.DemoScrollBarUI;
 import MainApp.pages.components.RoundBorder;
+import MainApp.GlobalData;
 
+import MainApp.pages.control.FlightInfo;
+import MainApp.models.Model.UserModel.*;
 import javax.swing.*;
-import java.nio.file.Path;
-import MainApp.pages.Exception.UnboundPageException;
-import java.awt.event.ActionListener;
+
+
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.util.Locale;
 import java.awt.event.ActionEvent;
 class MyPrintPanel extends JPanel {
     public Image image;
@@ -24,7 +30,6 @@ class MyPrintPanel extends JPanel {
 }
 public class confirmPrint extends JFrame{
     private JPanel contentPane;
-    private Path path = Path.of("page1/page2/page3/page4/page5/page6");
     JLayeredPane pane = new JLayeredPane();
     public static void main(String[] args){
         EventQueue.invokeLater(new Runnable() {
@@ -45,7 +50,7 @@ public class confirmPrint extends JFrame{
     private static final int INFO_WIDTH = 420;
     private static final int INFO_HEIGHT = 250;
     public confirmPrint(){
-        Pages.bindPage(this.path, this);
+    
         setSize(DEFAULT_WIDTH,DEFAULT_HEIGHT);
         contentPane = new JPanel();
         contentPane.setLayout(null);
@@ -117,7 +122,34 @@ public class confirmPrint extends JFrame{
         btn.setForeground(Color.white);
         btn.setBorder(new RoundBorder(new Color(30, 144, 255)));
 
-        JPanel panelFlight = createFlight();
+        var flightInfo = (FlightInfo)GlobalData.data.get("flight");
+        var seat = (Seat)GlobalData.data.get("seat");
+var ticket = flightInfo.ticket;
+
+String bookingID =(String)ticket.bookingId.getValue();
+                    var departureDt = (Date)flightInfo.interval.get(0).departureTime.getValue();
+                    String departureDate = new SimpleDateFormat("MMM dd,yyyy", Locale.US).format(departureDt);
+                    String destCity = (String)flightInfo.interval.get(0).destCity.getValue();
+                    String departureCity = (String)flightInfo.interval.get(0).departureCity.getValue();
+                    String flightNo = (String)flightInfo.flight.flightNo.getValue();
+                    String departureAirport = (String)flightInfo.interval.get(0).departureAirport.getValue();
+                    String destAirport = (String)flightInfo.interval.get(0).destAirport.getValue();
+                    String departureTime = new SimpleDateFormat("hh:mm").format(departureDt);
+                    var destDt = (Date)flightInfo.interval.get(0).destTime.getValue();
+                    String destTime = new SimpleDateFormat("hh:mm").format(destDt);
+                    var timeDelta = Duration.between(departureDt.toInstant(), destDt.toInstant());
+                    String timeDeltaStr = "" + timeDelta.toHours() + "h" + timeDelta.toMinutes() % 60 + "min";
+                    String terminal = (String)flightInfo.interval.get(0).terminal.getValue();
+                    String gate = (String)flightInfo.interval.get(0).gate.getValue();
+                    String firstname = (String)((Customer)GlobalData.data.get("customer")).firstname.getValue();
+                    String surname = (String)((Customer)GlobalData.data.get("customer")).surname.getValue();
+                    String name = firstname+ " " + surname;
+                    String ID =(String)((Customer)GlobalData.data.get("customer")).customerId.getValue();
+                    String seatClass = (String)seat.seatClass.getValue() + " class";
+                    String seatno = (String)seat.seatNo.getValue();
+        JPanel panelFlight = createFlight(bookingID,departureDate,departureCity,destCity,
+        flightNo,departureAirport,destAirport,departureTime,destTime,timeDeltaStr,
+        seatClass,"food provided",terminal,gate,name,ID,seatno);
         panelFlight.setBorder(new RoundBorder(Color.gray));
         add(panelFlight);
         
@@ -166,78 +198,85 @@ public class confirmPrint extends JFrame{
                 
     }
 
-    private static JPanel createFlight() {
+    private static JPanel createFlight(String flightbookID, String flightDate,String flightTakeoff,String flightArrive,
+    String flightFlightNo,String flightAirport1,String flightAirport2, String flightStartTime,String flightArriveTime,
+    String fightTime, String flightSeat,String flightFood,String FlightTerminalNum, String flightGateNo,String flightName,
+    String fligthNameID,String seatno) {
         JPanel panel = new JPanel();
         panel.setOpaque(false);
 
         JLabel book = new JLabel("Booking ID");
         book.setFont(new Font("Microsoft YaHei UI",Font.ITALIC,15));
 
-        JLabel bookID = new JLabel("13351112345");
+        JLabel bookID = new JLabel(flightbookID);
         bookID.setFont(new Font("Microsoft YaHei UI",Font.ITALIC,15));
 
-        JLabel date = new JLabel("Mar 22,2022");
+        JLabel date = new JLabel(flightDate);
         date.setFont(new Font("Microsoft YaHei UI",Font.ITALIC,15));
 
         JLabel where = new JLabel("Air China");
         where.setFont(new Font("Microsoft YaHei UI",Font.ITALIC,20));
-
-        ImageIcon image = new ImageIcon("src/MainApp/pages/image/airplane.png");
-        image.setImage(image.getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));//size
+        ImageIcon image = new ImageIcon("D:/Git/software-engineering2022-103/src/MainApp/pages/image/airplane.png");//
+        image.setImage(image.getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));//
         JLabel picture=new JLabel(image);
 
-        JLabel takeoff = new JLabel("Beijing");
+        JLabel takeoff = new JLabel(flightTakeoff);
         takeoff.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 25));
 
-        JLabel arrive = new JLabel("Shanghai");
+        JLabel arrive = new JLabel(flightArrive);
         arrive.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 25));
 
-        JLabel flightNo = new JLabel("KN2316");
+        JLabel flightNo = new JLabel(flightFlightNo);
         flightNo.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 22));
 
-        JLabel airport1 = new JLabel("Daxinng Airport");
+        JLabel airport1 = new JLabel(flightAirport1);
         airport1.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 13));
 
-        JLabel airport2 = new JLabel("Shuangliu Airport");
+        JLabel airport2 = new JLabel(flightAirport2);
         airport2.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 13));
 
-        JLabel startTime = new JLabel("16:00");
+        JLabel startTime = new JLabel(flightStartTime);
         startTime.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 20));
 
-        JLabel arriveTime = new JLabel("18:05");
+        JLabel arriveTime = new JLabel(flightArriveTime);
         arriveTime.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 20));
 
-        JLabel time = new JLabel("2h15min");
+        JLabel time = new JLabel(fightTime);
         time.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 15));
 
-        JLabel foodtype = new JLabel("Children Food");
-        foodtype.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 15));
+
+        JLabel seat = new JLabel(flightSeat);
+        seat.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 13));
+
+        JLabel food =new JLabel(flightFood);
+        food.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 13));
 
         JLabel Terminal = new JLabel("Terminal");
         Terminal.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 15));
 
-        JLabel TerminalNum = new JLabel("3");
+        JLabel TerminalNum = new JLabel(FlightTerminalNum);
         TerminalNum.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 25));
 
-        JLabel GateNo = new JLabel("12");
+        JLabel GateNo = new JLabel(flightGateNo);
         GateNo.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 25));
 
         JLabel Gate = new JLabel("Gate");
         Gate.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 15));
 
-        JLabel name = new JLabel("Xiping Yang");
-        name.setFont(new Font("Arial", Font.BOLD, 22));
+        JLabel name = new JLabel(flightName);
+        name.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 22));
 
-        JLabel ID = new JLabel("130203200109110322");
+        JLabel ID = new JLabel(fligthNameID);
         ID.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 15));
 
-        JLabel seattype = new JLabel("economy class");
+        /*JLabel seattype = new JLabel("economy class");
         seattype.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 20));
-        seattype.setForeground(new Color(0,131,255));
+        seattype.setForeground(new Color(0,131,255));*/
 
-        JLabel seatno = new JLabel("12C");
-        seatno.setFont(new Font("Microsoft YaHei UI", Font.BOLD,20));
-        seatno.setForeground(new Color(0,131,255));
+    
+        JLabel seatN = new JLabel(seatno);
+        seatN.setFont(new Font("Microsoft YaHei UI", Font.BOLD,20));
+        seatN.setForeground(new Color(0,131,255));
 
         GroupLayout layout = new GroupLayout(panel);
 
@@ -279,7 +318,7 @@ public class confirmPrint extends JFrame{
 
         GroupLayout.SequentialGroup hSeqGp06 = layout.createSequentialGroup();
         hSeqGp06.addGap(30);
-        hSeqGp06.addComponent(foodtype);
+        hSeqGp06.addComponent(food);
         hSeqGp06.addGap(70);
         hSeqGp06.addComponent(TerminalNum);
         hSeqGp06.addGap(105);
@@ -287,7 +326,7 @@ public class confirmPrint extends JFrame{
 
         GroupLayout.SequentialGroup hSeqGp07 = layout.createSequentialGroup();
         hSeqGp07.addGap(30);
-        hSeqGp07.addComponent(foodtype);
+        hSeqGp07.addComponent(food);
         hSeqGp07.addGap(40);
         hSeqGp07.addComponent(Terminal);
         hSeqGp07.addGap(83);
@@ -297,13 +336,13 @@ public class confirmPrint extends JFrame{
         hSeqGp08.addGap(25);
         hSeqGp08.addComponent(name);
         hSeqGp08.addGap(80);
-        hSeqGp08.addComponent(seattype);
+        hSeqGp08.addComponent(seat);
 
         GroupLayout.SequentialGroup hSeqGp09 = layout.createSequentialGroup();
         hSeqGp09.addGap(25);
         hSeqGp09.addComponent(ID);
         hSeqGp09.addGap(50);
-        hSeqGp09.addComponent(seatno);
+        hSeqGp09.addComponent(seatN);
 
         GroupLayout.ParallelGroup hparallelGroup = layout.createParallelGroup();
         hparallelGroup.addGroup(hSeqGp01);
@@ -330,7 +369,7 @@ public class confirmPrint extends JFrame{
         vSeqGP01.addGap(25);
         vSeqGP01.addComponent(startTime);
         vSeqGP01.addGap(20);
-        vSeqGP01.addComponent(foodtype);
+        vSeqGP01.addComponent(food);
         //vSeqGP01.addGap(8);
         //vSeqGP01.addComponent(food);
 
@@ -368,9 +407,9 @@ public class confirmPrint extends JFrame{
         vSeqGP04.addComponent(ID);
 
         GroupLayout.SequentialGroup vSeqGP05 = layout.createSequentialGroup();
-        vSeqGP05.addComponent(seattype);
+        vSeqGP05.addComponent(seat);
         vSeqGP05.addGap(2);
-        vSeqGP05.addComponent(seatno);
+        vSeqGP05.addComponent(seatN);
 
         GroupLayout.ParallelGroup vParallelGroup = layout.createParallelGroup();
         vParallelGroup.addGroup(vSeqGP01);
