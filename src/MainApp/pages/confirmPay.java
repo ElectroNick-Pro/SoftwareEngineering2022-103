@@ -50,7 +50,7 @@ public class confirmPay extends JFrame {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    GlobalData.init();
+                    GlobalData.init(args);
                     Models.init();
                     GlobalData.data.put("customer", Customer.getById(Customer.class, 1));
                     GlobalData.data.put("seat", Seat.getById(Seat.class, 6));

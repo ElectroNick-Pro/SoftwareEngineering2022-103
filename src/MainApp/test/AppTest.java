@@ -14,7 +14,7 @@ import org.junit.*;
 public class AppTest {
     @Test
     public void testSave() {
-        new App();
+        new App(new String[0]);
         var airline = new Airline();
         airline.name.setValue("AirOne");
         airline.save();
@@ -25,7 +25,7 @@ public class AppTest {
     }
     @Test
     public void testGetAndSet() {
-        new App();
+        new App(new String[0]);
         try {
             var airline = (Airline) Airline.getById(Airline.class, 1);
             airline.name.setValue("AirTwo");
@@ -41,7 +41,7 @@ public class AppTest {
     }
     @Test
     public void testReadNull() {
-        GlobalData.init();
+        GlobalData.init(new String[0]);
         Models.init();
         try {
             var seatStream = Seat.queryByProperty(Seat.class, "Interval_id", 1).filter((x)->{
@@ -59,7 +59,7 @@ public class AppTest {
     }
     @Test
     public void testFilter() {
-        GlobalData.init();
+        GlobalData.init(new String[0]);
         Models.init();
         try {
             var customers = Customer.queryByProperty(Customer.class, "customerId", "230103200102223218")

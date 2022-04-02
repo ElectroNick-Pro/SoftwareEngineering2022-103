@@ -1,8 +1,12 @@
 package MainApp;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -18,8 +22,12 @@ public class GlobalData {
     public static Map<String, Object> data = new HashMap<>();
     public static Map<String, Object> config = new HashMap<>();
 
-    public static void init() {
+    public static void init(String[] args) {
 
+        var file = args.length == 0 ? 
+            new File(ClassLoader.getSystemClassLoader().getResource("MainApp/config/config.xml").getFile()) :
+            Path.of(args[0]).resolve(Path.of("config.xml")).toFile();
+        
         var factory = DocumentBuilderFactory.newInstance();
         factory.setValidating(true);
         factory.setNamespaceAware(true);
@@ -28,9 +36,9 @@ public class GlobalData {
 
         try {
             var builder = factory.newDocumentBuilder();
-            var doc = builder.parse(new File(ClassLoader.getSystemClassLoader().getResource("MainApp/config/config.xml").getFile()));
+            var doc = builder.parse(file);
 
-            config.put("dataDir", doc.getElementsByTagName("dataDir").item(0).getTextContent());
+            config.put("dataDir", Path.of(doc.getElementsByTagName("dataDir").item(0).getTextContent()));
 
             var tz = new SimpleDateFormat(doc.getElementsByTagName("timeStrFormat").item(0).getTextContent());
             tz.setTimeZone(TimeZone.getTimeZone(doc.getElementsByTagName("timeZone").item(0).getTextContent()));

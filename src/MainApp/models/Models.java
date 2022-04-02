@@ -19,8 +19,8 @@ public class Models {
     public static void init() {
         try {
             // Create files if not exists
-            var dataDir = (String)GlobalData.config.get("dataDir");
-            var dataDirFile = new File(dataDir);
+            var dataDir = (Path)GlobalData.config.get("dataDir");
+            var dataDirFile = dataDir.toFile();
             if(!dataDirFile.exists()) {
                 dataDirFile.mkdir();
             }
@@ -42,7 +42,7 @@ public class Models {
                     }
                 }
                 // Init files with the first line 
-                var clzPath = Path.of(dataDir + "/" + clzName + ".csv");
+                var clzPath = dataDir.resolve(Path.of(clzName + ".csv"));
                 clz.getField("storagePath").set(null, clzPath);
                 if(!clzPath.toFile().exists()) {
                     var line = new LinkedList<String>();

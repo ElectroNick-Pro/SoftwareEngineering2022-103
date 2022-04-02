@@ -682,7 +682,7 @@ public class chooseNormalSeat extends JFrame{
         GlobalData.data.put("seat",seat);
     }
     public static void main(String[] args) {
-        GlobalData.init();
+        GlobalData.init(args);
         Models.init();
         chooseNormalSeat seat = new chooseNormalSeat();
         seat.setVisible(true);
