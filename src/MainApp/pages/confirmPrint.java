@@ -112,7 +112,7 @@ public class confirmPrint extends JFrame{
 
     
         
-        ImageIcon m =new ImageIcon("src/MainApp/pages/image/scanIDcard.png");
+        ImageIcon m =new ImageIcon(ClassLoader.getSystemResource("MainApp/pages/image/scanIDcard.png"));
         m.setImage(m.getImage().getScaledInstance(300,150,Image.SCALE_DEFAULT));//这里设置图片大小，目前是20*20
         JLabel label3 = new JLabel(m);
         label3.setBounds(85,190,300,250);
@@ -155,7 +155,7 @@ String bookingID =(String)ticket.bookingId.getValue();
         panelFlight.setBorder(new RoundBorder(Color.gray));
         add(panelFlight);
         
-        ImageIcon image = new ImageIcon("src/MainApp/pages/image/travel.png");// 这是背景图片 .png .jpg .gif 等格式的图片都可以
+        ImageIcon image = new ImageIcon(ClassLoader.getSystemResource("MainApp/pages/image/travel.png"));// 这是背景图片 .png .jpg .gif 等格式的图片都可以
         // image.setImage(image.getImage().getScaledInstance(960,0,Image.SCALE_DEFAULT));//这里设置图片大小，目前是20*20
         JLabel picture=new JLabel(image);
         //picture.setBounds(544,34,350,523);
@@ -174,7 +174,7 @@ String bookingID =(String)ticket.bookingId.getValue();
         add(btn);
         
 
-        ImageIcon questionIcon = new ImageIcon("src/MainApp/pages/image/question.png");
+        ImageIcon questionIcon = new ImageIcon(ClassLoader.getSystemResource("MainApp/pages/image/question.png"));
         questionIcon.setImage(questionIcon.getImage().getScaledInstance(40,40,Image.SCALE_DEFAULT));
         JButton question = new JButton();
         question.setBackground(Color.WHITE);
@@ -183,7 +183,7 @@ String bookingID =(String)ticket.bookingId.getValue();
         question.setBounds(880,20,40,40);
         add(question);
 
-        ImageIcon backHome = new ImageIcon("src/MainApp/pages/image/exit.png");
+        ImageIcon backHome = new ImageIcon(ClassLoader.getSystemResource("MainApp/pages/image/exit.png"));
         backHome.setImage(backHome.getImage().getScaledInstance(40,40,Image.SCALE_DEFAULT));
         JButton home = new JButton();
         home.setBackground(Color.WHITE);
@@ -192,7 +192,7 @@ String bookingID =(String)ticket.bookingId.getValue();
         home.setBounds(40,20,40,40);
         add(home);
 
-        ImageIcon newImage = new ImageIcon("src/MainApp/pages/image/background.png");// 这是背景图片 .png .jpg .gif 等格式的图片都可以
+        ImageIcon newImage = new ImageIcon(ClassLoader.getSystemResource("MainApp/pages/image/background.png"));// 这是背景图片 .png .jpg .gif 等格式的图片都可以
             // newImage.setImage(newImage.getImage().getScaledInstance(430,350,Image.SCALE_DEFAULT));//这里设置图片大小，目前是20*20
             picture.setIcon(newImage);
             picture.setBounds(0, 0, image.getIconWidth(), image.getIconHeight()-35);

@@ -159,7 +159,7 @@ public class FlightInformationFrm extends JFrame
         smallLabel.setBounds(47,117,509,70);
         add(smallLabel);
 
-        ImageIcon image = new ImageIcon("src/MainApp/pages/image/travel.png");// 这是背景图片 .png .jpg .gif 等格式的图片都可以
+        ImageIcon image = new ImageIcon(ClassLoader.getSystemResource("MainApp/pages/image/travel.png"));// 这是背景图片 .png .jpg .gif 等格式的图片都可以
         // image.setImage(image.getImage().getScaledInstance(960,0,Image.SCALE_DEFAULT));//这里设置图片大小，目前是20*20
         JLabel picture=new JLabel(image);
         //picture.setBounds(544,34,350,523);
@@ -213,7 +213,7 @@ public class FlightInformationFrm extends JFrame
         info.getVerticalScrollBar().setUI(new DemoScrollBarUI()); 
         add(info);
 
-        ImageIcon questionIcon = new ImageIcon("src/MainApp/pages/image/question.png");
+        ImageIcon questionIcon = new ImageIcon(ClassLoader.getSystemResource("MainApp/pages/image/question.png"));
         questionIcon.setImage(questionIcon.getImage().getScaledInstance(40,40,Image.SCALE_DEFAULT));
         JButton question = new JButton();
         question.setBackground(Color.WHITE);
@@ -222,7 +222,7 @@ public class FlightInformationFrm extends JFrame
         question.setBounds(880,20,40,40);
         add(question);
 
-        ImageIcon backHome = new ImageIcon("src/MainApp/pages/image/exit.png");
+        ImageIcon backHome = new ImageIcon(ClassLoader.getSystemResource("MainApp/pages/image/exit.png"));
         backHome.setImage(backHome.getImage().getScaledInstance(40,40,Image.SCALE_DEFAULT));
         JButton home = new JButton();
         home.setBackground(Color.WHITE);
@@ -276,7 +276,7 @@ public class FlightInformationFrm extends JFrame
                     
                     flightInfo[number].setBorder(new RoundBorder(new Color(83,180,248)));
                     smallLabel.setText("Please choose the flight and check the information:");
-                    ImageIcon newImage = new ImageIcon("src/MainApp/pages/image/background.png");// 这是背景图片 .png .jpg .gif 等格式的图片都可以
+                    ImageIcon newImage = new ImageIcon(ClassLoader.getSystemResource("MainApp/pages/image/background.png"));// 这是背景图片 .png .jpg .gif 等格式的图片都可以
                     picture.setIcon(newImage);
                     picture.setBounds(0, 0, image.getIconWidth(), image.getIconHeight()-35);
                     passData = flightInfo[number].info;
@@ -338,7 +338,7 @@ public class FlightInformationFrm extends JFrame
         button.setPreferredSize(new Dimension(374, 70));
         button.setBackground(Color.WHITE);
         
-        ImageIcon image = new ImageIcon("src/MainApp/pages/image/airplane.png");// background picture
+        ImageIcon image = new ImageIcon(ClassLoader.getSystemResource("MainApp/pages/image/airplane.png"));// background picture
         image.setImage(image.getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));// setSize
         JLabel picture=new JLabel(image);
 
@@ -435,7 +435,7 @@ public class FlightInformationFrm extends JFrame
         JLabel where = new JLabel("Air China");
         where.setFont(new Font("Microsoft YaHei UI",Font.ITALIC,20));
 
-        ImageIcon image = new ImageIcon("src/MainApp/pages/image/airplane.png");//
+        ImageIcon image = new ImageIcon(ClassLoader.getSystemResource("MainApp/pages/image/airplane.png"));//
         image.setImage(image.getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));//
         JLabel picture=new JLabel(image);
 

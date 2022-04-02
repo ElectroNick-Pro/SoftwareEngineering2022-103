@@ -4,10 +4,11 @@ import javax.swing.*;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.net.URL;
 
 class foodimage extends JLabel{
 
-public foodimage(String location){
+public foodimage(URL location){
     //this.setBounds(x,y,50,50);
     this.setSize(50,50);
     this.setBackground(Color.WHITE);

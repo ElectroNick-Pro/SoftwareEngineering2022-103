@@ -31,7 +31,7 @@ public class Retrieve extends JFrame implements ActionListener{
         container.setBackground(Color.white);
 
 		// exit
-        ImageIcon exitIcon = new ImageIcon("src/MainApp/pages/image/exit.png");
+        ImageIcon exitIcon = new ImageIcon(ClassLoader.getSystemClassLoader().getResource("MainApp/pages/image/exit.png"));
         exitIcon.setImage(exitIcon.getImage().getScaledInstance(40,40,Image.SCALE_DEFAULT));
         JLabel exit = new JLabel(exitIcon);
         exit .setBackground(Color.white);
@@ -82,7 +82,7 @@ public class Retrieve extends JFrame implements ActionListener{
         container.add(flowChart);
 
         // question
-        ImageIcon questionIcon = new ImageIcon("src/MainApp/image/question.png");
+        ImageIcon questionIcon = new ImageIcon(ClassLoader.getSystemClassLoader().getResource("MainApp/image/question.png"));
         questionIcon.setImage(questionIcon.getImage().getScaledInstance(40,40,Image.SCALE_DEFAULT));
         JLabel question = new JLabel(questionIcon);
         question .setBackground(Color.white);
@@ -207,7 +207,7 @@ public class Retrieve extends JFrame implements ActionListener{
         JLabel label3 = new JLabel("Please scan your ID document:");
         label3.setFont(new Font("Microsoft YaHei UI",Font.LAYOUT_LEFT_TO_RIGHT,18));
         label3.setBounds(0,0,341,70);
-        ImageIcon scanIcon = new ImageIcon("src/MainApp/pages/image/scanIDcard.png");
+        ImageIcon scanIcon = new ImageIcon(ClassLoader.getSystemClassLoader().getResource("MainApp/pages/image/scanIDcard.png"));
         scanIcon.setImage(scanIcon.getImage().getScaledInstance(276,126,Image.SCALE_DEFAULT));
         JLabel scan = new JLabel(scanIcon);
         scan.setBackground(Color.white);
@@ -262,7 +262,7 @@ public class Retrieve extends JFrame implements ActionListener{
         container.add(btnScanID);
 
         // background picture
-        ImageIcon backgroundIcon = new ImageIcon("src/MainApp/image/departing.png");
+        ImageIcon backgroundIcon = new ImageIcon(ClassLoader.getSystemClassLoader().getResource("MainApp/image/departing.png"));
         backgroundIcon.setImage(backgroundIcon.getImage().getScaledInstance(350,524,Image.SCALE_DEFAULT));
         JLabel background = new JLabel(backgroundIcon);
         background.setBackground(Color.white);

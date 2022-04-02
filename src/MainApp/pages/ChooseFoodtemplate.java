@@ -13,12 +13,12 @@ class ChooseFoodtemplate extends JLayeredPane{
     Font Bigfont=new Font("Microsoft YaHei UI",Font.BOLD,40);
     Font Middlefont=new Font("Microsoft YaHei UI",Font.PLAIN,20);
     Font Smallfont=new Font("Microsoft YaHei UI",Font.BOLD,15);
-    JLabel ok=new JLabel(new ImageIcon("src/MainApp/pages/image/success1.png"));
+    JLabel ok=new JLabel(new ImageIcon(ClassLoader.getSystemResource("MainApp/pages/image/success1.png")));
     JLabel Food1=new JLabel();
 //constructer
 public ChooseFoodtemplate(){
 
-    ImageIcon home=new ImageIcon("src/MainApp/pages/image/exit1.png"); 
+    ImageIcon home=new ImageIcon(ClassLoader.getSystemResource("MainApp/pages/image/exit1.png")); 
     JButton Home=new JButton(home);
     Home.setBounds(40,40,40,40);
     Home.setBorderPainted(false);
@@ -29,7 +29,7 @@ public ChooseFoodtemplate(){
         }
     });
 
-    ImageIcon help=new ImageIcon("src/MainApp/pages/image/help2.png");
+    ImageIcon help=new ImageIcon(ClassLoader.getSystemResource("MainApp/pages/image/help2.png"));
     JButton Help=new JButton(help);
     Help.setBounds(880,40,40,40);
     Help.setBorderPainted(false);

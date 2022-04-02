@@ -30,7 +30,7 @@ public class OK extends JFrame {
         JLabel label = new JLabel("You Have Paid Successfully!");
         label.setBounds(140,44,290,50);
         label.setFont(new Font("Microsoft YaHei", Font.PLAIN,21));
-        ImageIcon m =new ImageIcon("src/MainApp/pages/image/success.png");
+        ImageIcon m =new ImageIcon(ClassLoader.getSystemClassLoader().getResource("MainApp/pages/image/success.png"));
         m.setImage(m.getImage().getScaledInstance(50,50,1));
         JLabel label2 = new JLabel(m);
         label2.setBounds(25,30,75,75);

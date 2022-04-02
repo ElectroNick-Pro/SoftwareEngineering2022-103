@@ -42,7 +42,7 @@ public class foodchoice extends JFrame {
         
         add(food);
         
-        ImageIcon ma =new ImageIcon("src/MainApp/pages/image/seafood.png");
+        ImageIcon ma =new ImageIcon(ClassLoader.getSystemResource("MainApp/pages/image/seafood.png"));
         ma.setImage(ma.getImage().getScaledInstance(40,40,Image.SCALE_DEFAULT));//这里设置图片大小，目前是20*20
         JPanel panela = new JPanel(null);
         panela.setBounds(15,14,430,85);
@@ -71,7 +71,7 @@ public class foodchoice extends JFrame {
         panelin.add(panela);
 
 
-        ImageIcon mb =new ImageIcon("src/MainApp/pages/image/seafood.png");
+        ImageIcon mb =new ImageIcon(ClassLoader.getSystemResource("MainApp/pages/image/seafood.png"));
         mb.setImage(mb.getImage().getScaledInstance(40,40,Image.SCALE_DEFAULT));//这里设置图片大小，目前是20*20
         JPanel panelb = new JPanel(null);
         panelb.setSize(430,85);
@@ -99,7 +99,7 @@ public class foodchoice extends JFrame {
         panelb.add(labelb3);
         panelin.add(panelb);
 
-        ImageIcon mc =new ImageIcon("src/MainApp/pages/image/seafood.png");
+        ImageIcon mc =new ImageIcon(ClassLoader.getSystemResource("MainApp/pages/image/seafood.png"));
         mc.setImage(mc.getImage().getScaledInstance(40,40,Image.SCALE_DEFAULT));//这里设置图片大小，目前是20*20
         JPanel panelc = new JPanel(null);
         panelc.setSize(430,85);
@@ -134,7 +134,7 @@ public class foodchoice extends JFrame {
        
         panelin.setLayout(layout1);
 
-        ImageIcon m3 =new ImageIcon("src/MainApp/pages/image/pay.png");
+        ImageIcon m3 =new ImageIcon(ClassLoader.getSystemResource("MainApp/pages/image/pay.png"));
         m3.setImage(m3.getImage().getScaledInstance(40,40,Image.SCALE_DEFAULT));//这里设置图片大小，目前是20*20
         JPanel panel3 = new JPanel(null);
         panel3.setBounds(38,387,460,90);

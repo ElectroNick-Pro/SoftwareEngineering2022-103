@@ -421,7 +421,7 @@ public class chooseNormalSeat extends JFrame{
         exit.setContentAreaFilled(false);
         exit.setBorder(BorderFactory.createRaisedSoftBevelBorder());
         setIcon exitIcon = new setIcon();
-        exitIcon.changeIconSize("src/MainApp/pages/image/exit.png", exit, 40, 40);
+        exitIcon.changeIconSize(ClassLoader.getSystemResource("MainApp/pages/image/exit.png"), exit, 40, 40);
         // exit.setOpaque(false);
         /*
             flow chart
@@ -476,7 +476,7 @@ public class chooseNormalSeat extends JFrame{
         service.setContentAreaFilled(false);
         service.setBorder(BorderFactory.createRaisedSoftBevelBorder());
         setIcon serviceIcon = new setIcon();
-        serviceIcon.changeIconSize("src/MainApp/pages/image/question.png", service, 40, 40);
+        serviceIcon.changeIconSize(ClassLoader.getSystemResource("MainApp/pages/image/question.png"), service, 40, 40);
         // service.setOpaque(false)
 
         exit.setBounds(35,20,40,40);

@@ -173,7 +173,7 @@ public class confirmPay extends JFrame {
         panelFlight.setBorder(new RoundBorder(Color.gray));
         add(panelFlight);
 
-        ImageIcon image = new ImageIcon("src/MainApp/pages/image/travel.png");// 这是背景图片 .png .jpg .gif 等格式的图片都可以
+        ImageIcon image = new ImageIcon(ClassLoader.getSystemResource("MainApp/pages/image/travel.png"));// 这是背景图片 .png .jpg .gif 等格式的图片都可以
         // image.setImage(image.getImage().getScaledInstance(960,0,Image.SCALE_DEFAULT));//这里设置图片大小，目前是20*20
         JLabel picture = new JLabel(image);
         // picture.setBounds(544,34,350,523);
@@ -185,7 +185,7 @@ public class confirmPay extends JFrame {
         this.getLayeredPane().add(picture, new Integer(Integer.MIN_VALUE));
         this.getLayeredPane().setBackground(Color.WHITE);
 
-        ImageIcon questionIcon = new ImageIcon("src/MainApp/pages/image/question.png");
+        ImageIcon questionIcon = new ImageIcon(ClassLoader.getSystemResource("MainApp/pages/image/question.png"));
         questionIcon.setImage(questionIcon.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
         JButton question = new JButton();
         question.setBackground(Color.WHITE);
@@ -194,7 +194,7 @@ public class confirmPay extends JFrame {
         question.setBounds(880, 20, 40, 40);
         add(question);
 
-        ImageIcon backHome = new ImageIcon("src/MainApp/pages/image/exit.png");
+        ImageIcon backHome = new ImageIcon(ClassLoader.getSystemResource("MainApp/pages/image/exit.png"));
         backHome.setImage(backHome.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
         JButton home = new JButton();
         home.setBackground(Color.WHITE);
@@ -245,12 +245,12 @@ public class confirmPay extends JFrame {
             }
         });
 
-        ImageIcon newImage = new ImageIcon("src/MainApp/pages/image/background.png");// 这是背景图片 .png .jpg .gif 等格式的图片都可以
+        ImageIcon newImage = new ImageIcon(ClassLoader.getSystemResource("MainApp/pages/image/background.png"));// 这是背景图片 .png .jpg .gif 等格式的图片都可以
         // newImage.setImage(newImage.getImage().getScaledInstance(430,350,Image.SCALE_DEFAULT));//这里设置图片大小，目前是20*20
         picture.setIcon(newImage);
         picture.setBounds(0, 0, image.getIconWidth(), image.getIconHeight() - 35);
         panelFlight.setBounds(500, 80, 415, 355);
-        ImageIcon m = new ImageIcon("src/MainApp/pages/image/seat.png");
+        ImageIcon m = new ImageIcon(ClassLoader.getSystemResource("MainApp/pages/image/seat.png"));
         m.setImage(m.getImage().getScaledInstance(45, 45, Image.SCALE_DEFAULT));// 这里设置图片大小，目前是20*20
         JPanel panel1 = new JPanel(null);
         panel1.setBorder(BorderFactory.createRaisedSoftBevelBorder());
@@ -275,7 +275,7 @@ public class confirmPay extends JFrame {
         panel1.add(label13);
         add(panel1);
 
-        ImageIcon m2 = new ImageIcon("src/MainApp/pages/image/seat.png");
+        ImageIcon m2 = new ImageIcon(ClassLoader.getSystemResource("MainApp/pages/image/seat.png"));
         m2.setImage(m2.getImage().getScaledInstance(45, 45, Image.SCALE_DEFAULT));// 这里设置图片大小，目前是20*20
         JPanel panel2 = new JPanel(null);
         panel2.setBackground(Color.white);
@@ -314,7 +314,7 @@ public class confirmPay extends JFrame {
         });
         add(panel2);
 
-        ImageIcon m3 = new ImageIcon("src/MainApp/pages/image/pay.png");
+        ImageIcon m3 = new ImageIcon(ClassLoader.getSystemResource("MainApp/pages/image/pay.png"));
         m3.setImage(m3.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));// 这里设置图片大小，目前是20*20
         JPanel panel3 = new JPanel(null);
         panel3.setBounds(45, 350, 375, 85);

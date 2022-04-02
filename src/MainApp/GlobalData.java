@@ -34,7 +34,7 @@ public class GlobalData {
             var builder = factory.newDocumentBuilder();
             var doc = args.length == 0 ? 
                 builder.parse(ClassLoader.getSystemClassLoader().getResourceAsStream("MainApp/config/config.xml")) : 
-                builder.parse(Path.of(args[0]).resolve(Path.of("config.xml")).toFile());
+                builder.parse(Path.of(args[0]).toFile());
 
             config.put("dataDir", Path.of(doc.getElementsByTagName("dataDir").item(0).getTextContent()));
 
