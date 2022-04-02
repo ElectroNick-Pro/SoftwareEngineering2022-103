@@ -52,7 +52,8 @@ public class FlightInformationFrm extends JFrame
     private JPanel contentPane;
     private JPanel rightPanel = null;
     public FlightInfo passData = new FlightInfo();
-    private Map<Integer, FlightInfo> flightInfoMap = FlightInfo.getInfoMap(((Customer)GlobalData.data.get("customer")).id);
+    private int flag = (Integer)GlobalData.data.get("flage");
+    private Map<Integer, FlightInfo> flightInfoMap;
     JLayeredPane pane = new JLayeredPane();
     public static void main(String[] args){
         EventQueue.invokeLater(new Runnable() {
@@ -73,6 +74,20 @@ public class FlightInformationFrm extends JFrame
     private static final int INFO_WIDTH = 420;
     private static final int INFO_HEIGHT = 250;
     public FlightInformationFrm(){
+        if(flag == 2){
+            flightInfoMap = FlightInfo.getInfoMap(((Customer)GlobalData.data.get("customer")).id);
+        }
+        else if(flag == 1){
+            Ticket ticket = (Ticket)GlobalData.data.get("ticket");
+            flightInfoMap = FlightInfo.getTicketInfoMap((ticket).id);
+            Customer customer;
+            try {
+                customer = (Customer)ticket.customer.getReferred();
+                GlobalData.data.put("customer",customer);
+            } catch (ObjectNotFoundException e1) {
+                e1.printStackTrace();
+            }
+        }
         int NUM = flightInfoMap.size();
         Pages.bindPage(this.path, this);
         setSize(DEFAULT_WIDTH,DEFAULT_HEIGHT);
