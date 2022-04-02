@@ -113,6 +113,9 @@ public class Retrive extends JFrame implements ActionListener{
                             GlobalData.data.put("ticket",ticket);
                             GlobalData.data.put("flag",1);
                         }
+                        else{
+                            
+                        }
                         if(panel2.isVisible()) {
                             var customers = Customer.queryByProperty(Customer.class, "customerId", customerId)
                             .filter((x)->{
