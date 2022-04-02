@@ -52,7 +52,7 @@ public class FlightInformationFrm extends JFrame
     private JPanel contentPane;
     private JPanel rightPanel = null;
     public FlightInfo passData = new FlightInfo();
-    private int flag = (Integer)GlobalData.data.get("flage");
+    private int flag = (Integer)GlobalData.data.get("flag");
     private Map<Integer, FlightInfo> flightInfoMap;
     JLayeredPane pane = new JLayeredPane();
     public static void main(String[] args){
