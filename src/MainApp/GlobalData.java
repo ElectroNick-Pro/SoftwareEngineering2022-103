@@ -24,10 +24,6 @@ public class GlobalData {
 
     public static void init(String[] args) {
 
-        var file = args.length == 0 ? 
-            new File(ClassLoader.getSystemClassLoader().getResource("MainApp/config/config.xml").getFile()) :
-            Path.of(args[0]).resolve(Path.of("config.xml")).toFile();
-        
         var factory = DocumentBuilderFactory.newInstance();
         factory.setValidating(true);
         factory.setNamespaceAware(true);
@@ -36,7 +32,9 @@ public class GlobalData {
 
         try {
             var builder = factory.newDocumentBuilder();
-            var doc = builder.parse(file);
+            var doc = args.length == 0 ? 
+                builder.parse(ClassLoader.getSystemClassLoader().getResourceAsStream("MainApp/config/config.xml")) : 
+                builder.parse(Path.of(args[0]).resolve(Path.of("config.xml")).toFile());
 
             config.put("dataDir", Path.of(doc.getElementsByTagName("dataDir").item(0).getTextContent()));
 
