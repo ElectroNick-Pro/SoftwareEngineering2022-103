@@ -14,6 +14,5 @@ public class Food extends BaseModel {
     public DoubleField price = new DoubleField();
     public StringField name = new StringField();
     public StringField type = new StringField();
-    public ForeignKey ticket = new ForeignKey(Ticket.class);
     public ForeignKey flight = new ForeignKey(Flight.class);
 }

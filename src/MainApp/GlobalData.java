@@ -1,10 +1,16 @@
 package MainApp;
 
+import java.io.File;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 import javax.swing.*;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
 
 import MainApp.pages.Retrive;
 
@@ -14,25 +20,42 @@ public class GlobalData {
 
     public static void init() {
 
-        config.put("srcDir", "/");
+        var factory = DocumentBuilderFactory.newInstance();
+        factory.setValidating(true);
+        factory.setNamespaceAware(true);
+        factory.setAttribute("http://java.sun.com/xml/jaxp/properties/schemaLanguage", "http://www.w3.org/2001/XMLSchema");
+        factory.setIgnoringElementContentWhitespace(true);
 
-        config.put("dataDir", (String)config.get("srcDir")+"data");
+        try {
+            var builder = factory.newDocumentBuilder();
+            var doc = builder.parse(new File(ClassLoader.getSystemClassLoader().getResource("MainApp/config/config.xml").getFile()));
 
-        var tz = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        tz.setTimeZone(TimeZone.getTimeZone("UTC"));
-        config.put("timezone", tz);
+            config.put("dataDir", doc.getElementsByTagName("dataDir").item(0).getTextContent());
 
-        var userModels = new String[] {
-            "Airline", "Customer", "Flight", "Food", "Interval", "Plane", "Seat", "Ticket"
-        };
-        config.put("userModels", userModels);
+            var tz = new SimpleDateFormat(doc.getElementsByTagName("timeStrFormat").item(0).getTextContent());
+            tz.setTimeZone(TimeZone.getTimeZone(doc.getElementsByTagName("timeZone").item(0).getTextContent()));
+            config.put("timezone", tz);
 
-        var pagePaths = new HashMap<Path, JFrame>();
-        pagePaths.put(Path.of("page1"), new Retrive(){{
-            setSize(960, 540);
-        }});
-        config.put("pagePaths", pagePaths);
+            var nodeLs = doc.getElementsByTagName("model");
+            int n = nodeLs.getLength();
+            var userModels = new LinkedList<String>();
+            for(int i = 0; i < n; i++) {
+                userModels.add(nodeLs.item(i).getTextContent());
+            }
 
-        config.put("welcomePage", Path.of("page1"));
+            config.put("userModels", userModels);
+            var pagePaths = new HashMap<Path, JFrame>();
+            pagePaths.put(Path.of("page1"), new Retrive(){{
+                setSize(960, 540);
+            }});
+
+            config.put("pagePaths", pagePaths);
+
+            config.put("welcomePage", Path.of(doc.getElementsByTagName("welcomePage").item(0).getTextContent()));
+
+        } catch (SAXException | IOException | ParserConfigurationException e) {
+            e.printStackTrace();
+        }
+
     }
 }
