@@ -17,4 +17,5 @@ public class Ticket extends BaseModel {
     public ForeignKey flight = new ForeignKey(Flight.class);
     public StringField bookingId = new StringField();
     public StringField seatClass = new StringField();
+    public ForeignKey food = new ForeignKey(Food.class);
 }

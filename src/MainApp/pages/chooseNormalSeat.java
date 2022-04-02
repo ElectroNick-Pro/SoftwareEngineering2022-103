@@ -15,6 +15,7 @@ import MainApp.models.Model.UserModel.Interval;
 import MainApp.models.Model.UserModel.Seat;
 import MainApp.models.Model.UserModel.Ticket;
 import MainApp.pages.components.BreadCrumbPanel;
+import MainApp.pages.Exception.UnboundPageException;
 import MainApp.pages.components.RoundBorder;
 import MainApp.pages.control.FlightInfo;
 import java.nio.file.Path;

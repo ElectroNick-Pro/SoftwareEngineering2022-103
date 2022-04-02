@@ -6,7 +6,8 @@ import MainApp.pages.components.DemoScrollBarUI;
 import MainApp.pages.components.RoundBorder;
 
 import javax.swing.*;
-
+import java.nio.file.Path;
+import MainApp.pages.Exception.UnboundPageException;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 class MyPrintPanel extends JPanel {
@@ -23,6 +24,7 @@ class MyPrintPanel extends JPanel {
 }
 public class confirmPrint extends JFrame{
     private JPanel contentPane;
+    private Path path = Path.of("page1/page2/page3/page4/page5/page6");
     JLayeredPane pane = new JLayeredPane();
     public static void main(String[] args){
         EventQueue.invokeLater(new Runnable() {
@@ -43,7 +45,7 @@ public class confirmPrint extends JFrame{
     private static final int INFO_WIDTH = 420;
     private static final int INFO_HEIGHT = 250;
     public confirmPrint(){
-    
+        Pages.bindPage(this.path, this);
         setSize(DEFAULT_WIDTH,DEFAULT_HEIGHT);
         contentPane = new JPanel();
         contentPane.setLayout(null);

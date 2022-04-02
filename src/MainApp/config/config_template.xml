@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:noNamespaceSchemaLocation="config_schema.xsd">
+
+    <dataDir>/</dataDir>
+
+    <datetimeFormat>
+        <timeStrFormat>yyyy-MM-dd HH:mm:ss</timeStrFormat>
+        <timeZone>UTC</timeZone>
+    </datetimeFormat>
+
+    <userModel>
+        <model>Airline</model>
+        <model>Customer</model>
+        <model>Flight</model>
+        <model>Food</model>
+        <model>Interval</model>
+        <model>Plane</model>
+        <model>Seat</model>
+        <model>Ticket</model>
+    </userModel>
+
+    <welcomePage>page1</welcomePage>
+    
+</config>
