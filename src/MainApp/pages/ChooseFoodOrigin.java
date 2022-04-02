@@ -24,6 +24,15 @@ import java.nio.file.Path;
 public class ChooseFoodOrigin extends ChooseFoodtemplate {
 
 	String[] originchoice = new String[] { "0", "0", "0" };
+boolean choosen=false;
+newfoodButton Standard = new newfoodButton("Standard", 0, null);
+newfoodButton Vegan = new newfoodButton("Vegetarian", 0, null);
+newfoodButton Humbergur = new newfoodButton("Hamburger", 1, "$5");
+newfoodButton BeefSteak = new newfoodButton("BeefSteak", 1, "$12");
+newfoodButton Halal = new newfoodButton("Halal", 0, null);
+newfoodButton Children = new newfoodButton("Children", 0, null);
+newfoodButton Seafood = new newfoodButton("Seafood", 1, "$8");
+newfoodButton Lowsugar = new newfoodButton("Low Sugar", 1, "$4");
 
 	// constructer**************************************************
 	public ChooseFoodOrigin() {
@@ -94,63 +103,68 @@ public class ChooseFoodOrigin extends ChooseFoodtemplate {
 		this.add(lowsugar8, Integer.valueOf(4));
 
 		// 按钮***************************************
-		newfoodButton Standard = new newfoodButton("Standard", 0, null);
+		
 		Standard.set1();
 		Standard.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ok.setVisible(false);
 				ok.setBounds(46, 201, 50, 50);
 				ok.setVisible(true);
+				choosen=true;
 				originchoice = new String[] { "Standard", "0", "origin" };
 				System.out.println(originchoice[0].toString());
 			}
 		});
 
-		newfoodButton Vegan = new newfoodButton("Vegetarian", 0, null);
+	
 		Vegan.set2();
 		Vegan.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ok.setVisible(false);
 				ok.setBounds(271, 201, 50, 50);
 				ok.setVisible(true);
+				choosen=true;
 				originchoice = new String[] { "Vegan", "0", "origin" };
 				System.out.println(originchoice[0].toString());
 			}
 		});
-		newfoodButton Humbergur = new newfoodButton("Hamburger", 1, "$5");
+		
 		Humbergur.set3();
 		Humbergur.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ok.setVisible(false);
 				ok.setBounds(496, 201, 50, 50);
 				ok.setVisible(true);
+				choosen=true;
 				originchoice = new String[] { "Humbergur", "5", "origin" };
 				System.out.println(originchoice[0].toString());
 			}
 		});
-		newfoodButton BeefSteak = new newfoodButton("BeefSteak", 1, "$12");
+	
 		BeefSteak.set4();
 		BeefSteak.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ok.setVisible(false);
 				ok.setBounds(721, 201, 50, 50);
 				ok.setVisible(true);
+				choosen=true;
 				originchoice = new String[] { "BeefSteak", "12", "origin" };
 				System.out.println(originchoice[0].toString());
 			}
 		});
-		newfoodButton Halal = new newfoodButton("Halal", 0, null);
+		
 		Halal.set5();
 		Halal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ok.setVisible(false);
 				ok.setBounds(46, 346, 50, 50);
 				ok.setVisible(true);
+				choosen=true;
 				originchoice = new String[] { "Halal", "0", "origin" };
 				System.out.println(originchoice[0].toString());
 			}
 		});
-		newfoodButton Children = new newfoodButton("Children", 0, null);
+	
 		Children.set6();
 		Children.set6();
 		Children.addActionListener(new ActionListener() {
@@ -158,28 +172,31 @@ public class ChooseFoodOrigin extends ChooseFoodtemplate {
 				ok.setVisible(false);
 				ok.setBounds(271, 346, 50, 50);
 				ok.setVisible(true);
+				choosen=true;
 				originchoice = new String[] { "Children", "0", "origin" };
 				System.out.println(originchoice[0].toString());
 			}
 		});
-		newfoodButton Seafood = new newfoodButton("Seafood", 1, "$8");
+	
 		Seafood.set7();
 		Seafood.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ok.setVisible(false);
 				ok.setBounds(496, 346, 50, 50);
 				ok.setVisible(true);
+				choosen=true;
 				originchoice = new String[] { "Seafood", "8", "origin" };
 				System.out.println(originchoice[0].toString());
 			}
 		});
-		newfoodButton Lowsugar = new newfoodButton("Low Sugar", 1, "$4");
+		
 		Lowsugar.set8();
 		Lowsugar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ok.setVisible(false);
 				ok.setBounds(721, 346, 50, 50);
 				ok.setVisible(true);
+				choosen=true;
 				originchoice = new String[] { "Low Sugar", "4", "origin" };
 				System.out.println(originchoice[0].toString());
 			}

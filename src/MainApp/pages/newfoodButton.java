@@ -53,4 +53,5 @@ class newfoodButton extends JButton{
     public void set8(){
         this.setBounds(721,315,193,122);
     }
+
 }
