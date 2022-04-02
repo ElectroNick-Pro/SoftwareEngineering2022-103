@@ -25,3 +25,9 @@ Download the [release](https://gitee.com/electronick_pro/software-engineering202
   ```shell
   java -jar path/to/jar/file.jar path/to/configuration/file.xml
   ```
+
+## For preview version - Database Fetching
+- This is a preview version and you may not able to add data to database through the program
+- As a result, database shall be fetched before you start to use
+- Database is in a folder and you should set the value of `dataDir` the path of the folder in the configuration `xml` file
+- The configuration file specification is in the document [Configuration Specification](Configuration%20Specification.md)
