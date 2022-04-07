@@ -318,12 +318,40 @@ public class FlightInformationFrm extends JFrame
         next.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e) {
                 if(e.getSource() == next) {
-                    GlobalData.data.put("flight",passData);
-                    new chooseNormalSeat();
-                    try {
-                        Pages.displayPage(path.resolve(Path.of("page3")));
-                    } catch (UnboundPageException e1) {
-                        e1.printStackTrace();
+                    // qxt
+                    //get the class of seat the customer have chosen
+                    //if he chose a normal seat before, ask if he want to upgrade
+                    String seatclass = (String)passData.ticket.seatClass.getValue();
+                    if(seatclass.equals("First")){
+                        GlobalData.data.put("seatClass",seatclass);
+                        GlobalData.data.put("flight",passData);
+                        new ChooseSeat("First");
+                        try {
+                            Pages.displayPage(path.resolve(Path.of("page3")));
+                        } catch (UnboundPageException e1) {
+                            e1.printStackTrace();
+                        }
+                    }else if(seatclass.equals("Normal")){
+                        int choice = JOptionPane.showConfirmDialog(null, "Would you like to upgrade?", "Upgrade",JOptionPane.YES_NO_OPTION);
+                        if(choice == 0){ //upgrade
+                            GlobalData.data.put("seatClass","First");
+                            GlobalData.data.put("flight",passData);
+                            new ChooseSeat("First");
+                            try {
+                                Pages.displayPage(path.resolve(Path.of("page3")));
+                            } catch (UnboundPageException e1) {
+                                e1.printStackTrace();
+                            }
+                        }else if(choice == 1){ //keep normal seat
+                            GlobalData.data.put("seatClass",seatclass);
+                            GlobalData.data.put("flight",passData);
+                            new ChooseSeat("Normal");
+                            try {
+                                Pages.displayPage(path.resolve(Path.of("page3")));
+                            } catch (UnboundPageException e1) {
+                                e1.printStackTrace();
+                            }
+                        }
                     }
                 }
                 
