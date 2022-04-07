@@ -15,6 +15,7 @@
         <model>Customer</model>
         <model>Flight</model>
         <model>Food</model>
+        <model>FoodPurchase</model>
         <model>Interval</model>
         <model>Plane</model>
         <model>Seat</model>
