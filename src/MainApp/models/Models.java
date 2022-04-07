@@ -1,6 +1,5 @@
 package MainApp.models;
 
-import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Files;
@@ -40,6 +39,7 @@ public class Models {
                         if(field.verbose.equals("")) {
                             field.verbose = fields[i].getName();
                         }
+                        verboseMap.put(fields[i].getName(), fields[i].getName());
                         verboseMap.put(field.verbose, fields[i].getName());
                     }
                 }

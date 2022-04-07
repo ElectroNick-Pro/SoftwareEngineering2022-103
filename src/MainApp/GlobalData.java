@@ -2,6 +2,8 @@ package MainApp;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -9,6 +11,7 @@ import javax.swing.*;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.w3c.dom.DOMException;
 import org.xml.sax.SAXException;
 
 import MainApp.pages.Retrieve;
@@ -43,18 +46,20 @@ public class GlobalData {
             for(int i = 0; i < n; i++) {
                 userModels.add(nodeLs.item(i).getTextContent());
             }
-
             config.put("userModels", userModels);
+
+            var dig = MessageDigest.getInstance(doc.getElementsByTagName("digest-algorithm").item(0).getTextContent());
+            config.put("digest", dig);
+
             var pagePaths = new HashMap<Path, JFrame>();
             pagePaths.put(Path.of("page1"), new Retrieve(){{
                 setSize(960, 540);
             }});
-
             config.put("pagePaths", pagePaths);
 
             config.put("welcomePage", Path.of(doc.getElementsByTagName("welcomePage").item(0).getTextContent()));
 
-        } catch (SAXException | IOException | ParserConfigurationException e) {
+        } catch (SAXException | IOException | ParserConfigurationException | NoSuchAlgorithmException | DOMException e) {
             e.printStackTrace();
         }
 

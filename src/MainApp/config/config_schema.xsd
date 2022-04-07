@@ -18,6 +18,7 @@
                         </xs:sequence>
                     </xs:complexType>
                 </xs:element>
+                <xs:element name="digest-algorithm" type="xs:string"/>
                 <xs:element name="welcomePage" type="xs:string"/>
             </xs:sequence>
         </xs:complexType>

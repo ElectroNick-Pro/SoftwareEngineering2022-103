@@ -40,4 +40,9 @@ public class BaseField {
     public void setValue(Object newValue) {
         this.rawData = newValue;
     }
+
+    public boolean equals(Object obj) {
+        return rawData.equals(obj);
+    }
+    
 }

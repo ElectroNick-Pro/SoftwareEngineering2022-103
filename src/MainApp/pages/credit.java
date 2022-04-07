@@ -1,25 +1,14 @@
 package MainApp.pages;
 
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import MainApp.GlobalData;
 import MainApp.pages.components.RoundBorder;
-
+import MainApp.models.Field.*;
 import MainApp.models.Model.UserModel.*;
 
-import javax.swing.JTextField;
-import javax.swing.WindowConstants;
-import javax.swing.JLayeredPane;
-import javax.swing.JOptionPane;
+import javax.swing.*;
 
 import java.awt.*;
 
@@ -43,7 +32,7 @@ public class credit extends JFrame implements ActionListener {
     JButton btn = new JButton("OK");
     public Customer customer = (Customer) GlobalData.data.get("customer");
     public String id = (String)customer.creditId.getValue();
-    public String password = (String)customer.password.getValue();
+    public PasswordField password = (PasswordField)customer.password;
     // int cFlag = 0;
     // boolean flag;
     protected JFrame frame;
@@ -77,15 +66,11 @@ public class credit extends JFrame implements ActionListener {
         label.setBounds(46, 40, 436, 35);
     }
 
-    private String String(String string) {
-        return string;
-    }
-
     public void actionPerformed(ActionEvent e) {
         String cmd = e.getActionCommand();
         if (cmd.equals("OK")) {
-            String creditText = creditF.getText().toString();
-            String passText = passF.getText().toString();
+            String creditText = creditF.getText();
+            String passText = passF.getText();
             if (id.equals(creditText) && password.equals(passText)) {
                 ((Ticket)GlobalData.data.get("ticket")).save();
                 ((Seat)GlobalData.data.get("seat")).save();

@@ -129,7 +129,7 @@ public class Retrieve extends JFrame implements ActionListener{
                             GlobalData.data.put("flag",2);
                         }
                         if(panel3.isVisible()) {
-                            var customers = Customer.queryByProperty(Customer.class, "customerId", "230103200102223218").toArray();
+                            var customers = Customer.queryByProperty(Customer.class, "customerId", "123456789012345678").toArray();
                             if(customers.length == 0) {
                                 return;
                             }

@@ -1,5 +1,6 @@
 package MainApp.models.Model.UserModel;
 
+import MainApp.models.Field.PasswordField;
 import MainApp.models.Field.StringField;
 import MainApp.models.Model.BaseModel;
 
@@ -13,5 +14,5 @@ public class Customer extends BaseModel {
     public StringField surname = new StringField();
     public StringField customerId = new StringField();
     public StringField creditId = new StringField();
-    public StringField password = new StringField();
+    public PasswordField password = new PasswordField();
 }
