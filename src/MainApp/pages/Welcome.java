@@ -1,17 +1,22 @@
 package MainApp.pages;
 
 import javax.swing.*;
+
+import MainApp.pages.Exception.UnboundPageException;
 import MainApp.pages.components.*;
 
 import java.awt.*;
+import java.awt.event.*;
+import java.nio.file.Path;
 
-public class Welcom extends JFrame{
+public class Welcome extends JFrame{
     private JPanel contentPane;
+    private Path path = Path.of("Welcome");
     public static void main(String[] args){
         EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Welcom frame = new Welcom();
+					Welcome frame = new Welcome();
 					frame.setVisible(true);
                     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                     frame.setLocationRelativeTo(null); 
@@ -23,7 +28,8 @@ public class Welcom extends JFrame{
     }
     private static final int DEFAULT_WIDTH = 965;
     private static final int DEFAULT_HEIGHT = 550; 
-    public Welcom(){
+    public Welcome(){
+        Pages.bindPage(path, this);
         setSize(DEFAULT_WIDTH,DEFAULT_HEIGHT);
         contentPane = new JPanel();
         contentPane.setLayout(null);
@@ -50,6 +56,19 @@ public class Welcom extends JFrame{
         start.setFont(new Font("Microsoft YaHei UI",Font.BOLD,30));
         start.setBorder(new RoundBorder(new Color(30, 144, 255)));
         start.setBounds(391,426,177,40);
+        start.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new Retrieve();
+                try {
+                    Pages.displayPage(Path.of("Retrieve"));
+                } catch (UnboundPageException e1) {
+                    e1.printStackTrace();
+                }
+            }
+            
+        });
         add(start);
     }
 }
