@@ -168,9 +168,6 @@ public class ExtraFoodFrm extends JFrame{
                 foodMenu[0].name.setValue("Coffee");
                 foodMenu[0].price.setValue(2);
                 // foodMenu[0] = coffeePanel.getValue();
-
-            }
-        });
-    }
+                //不要放弃我的文件！
     
 }
