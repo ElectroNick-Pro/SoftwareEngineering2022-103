@@ -20,24 +20,29 @@ import MainApp.pages.components.RoundBorder;
 import MainApp.pages.control.FlightInfo;
 import java.nio.file.Path;
 
-
-public class chooseNormalSeat extends JFrame{
+public class ChooseSeat extends JFrame{
     public int width = 965;
     public int height = 550;
+    private String seatClass = "";
     private boolean haveChosen = false;
     private boolean havePaid = false;
     private int normalRest = 0;
     private int windowRest = 0;
     private int aisleRest = 0;
     private int extraRest = 0;
+    private double normalMoney = 0.0;
+    private double windowMoney = 0.0;
+    private double aisleMoney = 0.0;
     private double extraMoney = 0.0;
     private Ticket ticket;
-    private Seat seat;
+    public Seat seat;
     private int interval_id = 1;
     private FlightInfo flightinfo = (FlightInfo)GlobalData.data.get("flight");
     JFrame f = this;
+
     {
         ticket = flightinfo.ticket;
+        seatClass = (String)GlobalData.data.get("seatClass");
         getAllSeat();
         
         if((Seat)GlobalData.data.get("seat") != null){
@@ -57,9 +62,19 @@ public class chooseNormalSeat extends JFrame{
     private JButton aisle = aisleSeat(f);
     private JButton extra = extraSeat(f);
     private Path path = Path.of("page1/page2/page3");
-    public chooseNormalSeat(){
-        super("Choose seat");
+
+    public ChooseSeat(String seatclass){
+        super("Choose Seat");
         Pages.bindPage(this.path, this);
+        seatClass = seatclass;
+        
+        if(seat != null){
+            if(! seat.seatClass.equals(seatClass)){
+                //the customer try to upgrade
+                seat = null;
+                haveChosen = false;
+            }
+        }
         myFrame();
         front(); //exit + mian bao xie + question service
         title_hint(); //title + hint
@@ -67,6 +82,7 @@ public class chooseNormalSeat extends JFrame{
         buttonAction(); //4 buttons action 
         f.setLocationRelativeTo(null); 
     }
+
     private void myFrame(){
         f.setLayout(null);
         f.getContentPane().setBackground(Color.WHITE);
@@ -77,17 +93,27 @@ public class chooseNormalSeat extends JFrame{
         /**
          * title
          */
-        JLabel title = new JLabel("Choose Seat ");
-        title.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 35));         
+        JLabel title1 = new JLabel("Choose Seat ");
+        title1.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 35)); 
+        String seatclass = "";
+        if(seatClass.equals("First")){
+            seatclass = "First Class Seats";
+        }else if(seatClass.equals("Normal")){
+            seatclass = "Economy Class Seats";
+        }
+        JLabel title2 = new JLabel(seatclass);
+        title2.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 25));         
         /**
          * hint
          */
         JLabel hint = new JLabel("Please choose a type of seat that you prefer, and the system will assign a seat for you.");
         hint.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 15)); 
 
-        title.setBounds(40,80,230,49);
+        title1.setBounds(40,80,230,49);
+        title2.setBounds(289,88,270,40);
         hint.setBounds(40,112,650,70);
-        f.add(title);
+        f.add(title1);
+        f.add(title2);
         f.add(hint);
     }
     private JButton normalSeat(JFrame f){
@@ -96,14 +122,17 @@ public class chooseNormalSeat extends JFrame{
         normal.setContentAreaFilled(false);
         JLabel normal_text1 = new JLabel("A Normal", JLabel.CENTER);
         JLabel normal_text2 = new JLabel("Seat", JLabel.CENTER);
+        JLabel normal_money = new JLabel("$"+normalMoney, JLabel.CENTER);
         JLabel normal_num1 = new JLabel("Remaining", JLabel.CENTER);
         JLabel normal_num2 = new JLabel(normalRest+"", JLabel.CENTER);
         normal_text1.setFont(new Font("Arial", Font.BOLD, 33));
         normal_text2.setFont(new Font("Arial", Font.BOLD, 33));
+        normal_money.setFont(new Font("Arial", Font.PLAIN, 17));
+        normal_money.setForeground(new ColorUIResource(Color.red));
         normal_num1.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 17));
         normal_num2.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 17));
-        if(haveChosen){
-            if(seat.type.getValue().equals("Normal")){
+        if(haveChosen && !havePaid){
+            if(seat.type.getValue().equals("Normal") && seat.seatClass.getValue().equals(seatClass)){
                 normal.setBorder(new RoundBorder(new ColorUIResource(30,144,255)));   
             }else{
                 normal.setBorder(new RoundBorder(Color.GRAY));   
@@ -116,7 +145,7 @@ public class chooseNormalSeat extends JFrame{
             normal_num2.setForeground(new ColorUIResource(30,144,255)); 
         }else{
             if(haveChosen){
-                if(seat.type.getValue().equals("Normal")){
+                if(seat.type.getValue().equals("Normal") && seat.seatClass.getValue().equals(seatClass)){
                     normal.setBorder(new RoundBorder(new ColorUIResource(30,144,255)));   
                 }else{
                     normal.setBorder(new RoundBorder(Color.GRAY));   
@@ -126,18 +155,23 @@ public class chooseNormalSeat extends JFrame{
             }
             normal_text1.setForeground(Color.GRAY);
             normal_text2.setForeground(Color.GRAY);
+            normal_money.setForeground(Color.GRAY);
             normal_num1.setForeground(Color.GRAY);
             normal_num2.setForeground(Color.GRAY);
         }
         normal.setBounds(40,175,195,268);
         normal_text1.setBounds(61,224,152,42);
         normal_text2.setBounds(61,266,152,42);
+        normal_money.setBounds(105,299,60,42);
         normal_num1.setBounds(90,341,94,24);
         normal_num2.setBounds(90,365,94,24);
         
         f.add(normal);
         f.add(normal_text1);
         f.add(normal_text2);
+        if(seatClass.equals("First")){
+            f.add(normal_money);
+        }
         f.add(normal_num1);
         f.add(normal_num2);
         return normal;
@@ -148,14 +182,17 @@ public class chooseNormalSeat extends JFrame{
         window.setContentAreaFilled(false); 
         JLabel window_text1 = new JLabel("A Window", JLabel.CENTER);
         JLabel window_text2 = new JLabel("Seat", JLabel.CENTER);
+        JLabel window_money = new JLabel("$"+windowMoney, JLabel.CENTER);
         JLabel window_num1 = new JLabel("Remaining", JLabel.CENTER);
         JLabel window_num2 = new JLabel(windowRest+"", JLabel.CENTER);
         window_text1.setFont(new Font("Arial", Font.BOLD, 33));
         window_text2.setFont(new Font("Arial", Font.BOLD, 33));
+        window_money.setFont(new Font("Arial", Font.PLAIN, 17));
+        window_money.setForeground(new ColorUIResource(Color.red));
         window_num1.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 17));
         window_num2.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 17));
-        if(haveChosen){
-            if(seat.type.getValue().equals("Window")){
+        if(haveChosen && !havePaid){
+            if(seat.type.getValue().equals("Window") && seat.seatClass.getValue().equals(seatClass)){
                 window.setBorder(new RoundBorder(new ColorUIResource(30,144,255)));   
             }else{
                 window.setBorder(new RoundBorder(Color.GRAY));  
@@ -168,7 +205,7 @@ public class chooseNormalSeat extends JFrame{
             window_num2.setForeground(new ColorUIResource(30,144,255));
         }else{
             if(haveChosen){
-                if(seat.type.getValue().equals("Window")){
+                if(seat.type.getValue().equals("Window") && seat.seatClass.getValue().equals(seatClass)){
                     window.setBorder(new RoundBorder(new ColorUIResource(30,144,255)));   
                 }else{
                     window.setBorder(new RoundBorder(Color.GRAY));  
@@ -178,17 +215,22 @@ public class chooseNormalSeat extends JFrame{
             }
             window_text1.setForeground(Color.GRAY);
             window_text2.setForeground(Color.GRAY);
+            window_money.setForeground(Color.GRAY);
             window_num1.setForeground(Color.GRAY);
             window_num2.setForeground(Color.GRAY);
         }
         window.setBounds(265,175,195,268);
         window_text1.setBounds(280,224,165,42);
         window_text2.setBounds(280,266,165,42);
+        window_money.setBounds(330,299,60,42);
         window_num1.setBounds(315,341,94,24);
         window_num2.setBounds(315,365,94,24);
         f.add(window);
         f.add(window_text1);
         f.add(window_text2);
+        if(seatClass.equals("First")){
+            f.add(window_money);
+        }
         f.add(window_num1);
         f.add(window_num2);
         return window;
@@ -199,14 +241,17 @@ public class chooseNormalSeat extends JFrame{
         aisle.setContentAreaFilled(false);  
         JLabel aisle_text1 = new JLabel("An Aisle", JLabel.CENTER);
         JLabel aisle_text2 = new JLabel("Seat", JLabel.CENTER);
+        JLabel aisle_money = new JLabel("$"+aisleMoney, JLabel.CENTER);
         JLabel aisle_num1 = new JLabel("Remaining", JLabel.CENTER);
         JLabel aisle_num2 = new JLabel(aisleRest+"", JLabel.CENTER);
         aisle_text1.setFont(new Font("Arial", Font.BOLD, 33));
         aisle_text2.setFont(new Font("Arial", Font.BOLD, 33));
+        aisle_money.setFont(new Font("Arial", Font.PLAIN, 17));
+        aisle_money.setForeground(new ColorUIResource(Color.red));
         aisle_num1.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 17));
         aisle_num2.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 17));
-        if(haveChosen){
-            if(seat.type.getValue().equals("Aisle")){
+        if(haveChosen && !havePaid){
+            if(seat.type.getValue().equals("Aisle") && seat.seatClass.getValue().equals(seatClass)){
                 aisle.setBorder(new RoundBorder(new ColorUIResource(30,144,255)));   
             }else{
                 aisle.setBorder(new RoundBorder(Color.GRAY));  
@@ -219,7 +264,7 @@ public class chooseNormalSeat extends JFrame{
             aisle_num2.setForeground(new ColorUIResource(30,144,255));
         }else{
             if(haveChosen){
-                if(seat.type.getValue().equals("Aisle")){
+                if(seat.type.getValue().equals("Aisle") && seat.seatClass.getValue().equals(seatClass)){
                     aisle.setBorder(new RoundBorder(new ColorUIResource(30,144,255)));   
                 }else{
                     aisle.setBorder(new RoundBorder(Color.GRAY));  
@@ -229,17 +274,22 @@ public class chooseNormalSeat extends JFrame{
             } 
             aisle_text1.setForeground(Color.GRAY);
             aisle_text2.setForeground(Color.GRAY);
+            aisle_money.setForeground(Color.GRAY);
             aisle_num1.setForeground(Color.GRAY);
             aisle_num2.setForeground(Color.GRAY);
         }
         aisle.setBounds(490,175,195,268);
         aisle_text1.setBounds(513,224,150,42);
         aisle_text2.setBounds(513,266,150,42);
+        aisle_money.setBounds(555,299,60,42);
         aisle_num1.setBounds(540,341,94,24);
         aisle_num2.setBounds(540,365,94,24);
         f.add(aisle);
         f.add(aisle_text1);
         f.add(aisle_text2);
+        if(seatClass.equals("First")){
+            f.add(aisle_money);
+        }
         f.add(aisle_num1);
         f.add(aisle_num2);
         return aisle;
@@ -259,8 +309,8 @@ public class chooseNormalSeat extends JFrame{
         extra_money.setForeground(new ColorUIResource(Color.red));
         extra_num1.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 17));
         extra_num2.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 17));
-        if(haveChosen){
-            if(seat.type.getValue().equals("Extra")){
+        if(haveChosen && !havePaid){
+            if(seat.type.getValue().equals("Extra") && seat.seatClass.getValue().equals(seatClass)){
                 extra.setBorder(new RoundBorder(new ColorUIResource(30,144,255)));   
             }else{
                 extra.setBorder(new RoundBorder(Color.GRAY));  
@@ -273,7 +323,7 @@ public class chooseNormalSeat extends JFrame{
             extra_num2.setForeground(new ColorUIResource(30,144,255));
         }else{
             if(haveChosen){
-                if(seat.type.getValue().equals("Extra")){
+                if(seat.type.getValue().equals("Extra") && seat.seatClass.getValue().equals(seatClass)){
                     extra.setBorder(new RoundBorder(new ColorUIResource(30,144,255)));   
                 }else{
                     extra.setBorder(new RoundBorder(Color.GRAY));  
@@ -312,7 +362,7 @@ public class chooseNormalSeat extends JFrame{
                     if(normalRest != 0){
                         int choice = JOptionPane.showConfirmDialog(null, "Choose a normal seat?", "Confirm",JOptionPane.YES_NO_OPTION);
                         if(choice == 0){
-                            chooseSeat("Normal","Normal");
+                            chooseSeat("Normal",seatClass);
                         } 
                     }else{
                         JOptionPane.showMessageDialog(null, "no normal seat left", "normal", JOptionPane.ERROR_MESSAGE);
@@ -321,7 +371,7 @@ public class chooseNormalSeat extends JFrame{
                     if(windowRest != 0){
                         int choice = JOptionPane.showConfirmDialog(null, "Choose a window seat?", "Confirm",JOptionPane.YES_NO_OPTION);
                         if(choice == 0){
-                            chooseSeat("Window","Normal");
+                            chooseSeat("Window",seatClass);
                         }
                     }else{
                         JOptionPane.showMessageDialog(null, "no seat left", "window", JOptionPane.ERROR_MESSAGE);
@@ -330,7 +380,7 @@ public class chooseNormalSeat extends JFrame{
                     if(aisleRest != 0){
                         int choice = JOptionPane.showConfirmDialog(null, "Choose an aisle seat?", "Confirm",JOptionPane.YES_NO_OPTION);
                         if(choice == 0){
-                            chooseSeat("Aisle","Normal");
+                            chooseSeat("Aisle",seatClass);
                         }
                     }else{
                         JOptionPane.showMessageDialog(null, "no seat left", "aisle", JOptionPane.ERROR_MESSAGE);
@@ -339,7 +389,7 @@ public class chooseNormalSeat extends JFrame{
                     if(extraRest != 0){
                         int choice = JOptionPane.showConfirmDialog(null, "Choose a seat with extra space?\nYou need to pay extra money for it.", "Confirm",JOptionPane.YES_NO_OPTION);
                         if(choice == 0){
-                            chooseSeat("Extra","Normal");
+                            chooseSeat("Extra",seatClass);
                         }
                     }else{
                         JOptionPane.showMessageDialog(null, "no seat left", "extra", JOptionPane.ERROR_MESSAGE);
@@ -382,29 +432,30 @@ public class chooseNormalSeat extends JFrame{
         }
         @Override
         public void mouseExited(MouseEvent e) {
+            seat = (Seat)GlobalData.data.get("seat");
             if(normalRest > 0){
-                if(seat != null && seat.type.getValue().equals("Normal")){
+                if(seat != null && seat.type.getValue().equals("Normal") && seat.seatClass.getValue().equals(seatClass)){
                     normal.setBorder(new RoundBorder(new ColorUIResource(30,144,255)));   
                 }else{
                     normal.setBorder(new RoundBorder(Color.GRAY));   
                 }
             }
             if(windowRest > 0){
-                if(seat != null && seat.type.getValue().equals("Window")){
+                if(seat != null && seat.type.getValue().equals("Window") && seat.seatClass.getValue().equals(seatClass)){
                     window.setBorder(new RoundBorder(new ColorUIResource(30,144,255)));   
                 }else{
                     window.setBorder(new RoundBorder(Color.GRAY));   
                 }
             }
             if(aisleRest > 0){
-                if(seat != null && seat.type.getValue().equals("Aisle")){
+                if(seat != null && seat.type.getValue().equals("Aisle") && seat.seatClass.getValue().equals(seatClass)){
                     aisle.setBorder(new RoundBorder(new ColorUIResource(30,144,255)));   
                 }else{
                     aisle.setBorder(new RoundBorder(Color.GRAY));   
                 }
             }
             if(extraRest > 0){
-                if(seat != null && seat.type.getValue().equals("Extra")){
+                if(seat != null && seat.type.getValue().equals("Extra") && seat.seatClass.getValue().equals(seatClass)){
                     extra.setBorder(new RoundBorder(new ColorUIResource(30,144,255)));   
                 }else{
                     extra.setBorder(new RoundBorder(Color.GRAY));   
@@ -514,8 +565,9 @@ public class chooseNormalSeat extends JFrame{
             new ActionListener(){
                 public void actionPerformed(ActionEvent e){
                     if(e.getSource()==next) {
+                        seat = (Seat)GlobalData.data.get("seat");
                         if(seat != null){
-                            setGlobalData();
+                            GlobalData.data.put("seat", seat);
                             new FoodFrame();
                             try {
                                 Pages.displayPage(path.resolve(Path.of("page4")));
@@ -544,44 +596,50 @@ public class chooseNormalSeat extends JFrame{
         extra.addActionListener(myListener);
         extra.addMouseListener(myListener2);
     }
-    
     //init data for this page
     private void getAllSeat(){
         
         Interval interval = flightinfo.interval.get(0);
         interval_id = interval.id;
         try {
+            //info for normal seat of this ticket's seat class
             var normalSeatStream = Seat.queryByProperty(Seat.class, "Interval_id", interval_id).filter((x)->{
                 return x.type.getValue().equals("Normal");
             }).filter((x)->{
-                return x.seatClass.getValue().equals("Normal");
+                return x.seatClass.getValue().equals(seatClass);
             }).filter((x)->{
                 return x.ticket.getValue() == null;
             });
             var allNormalSeat = normalSeatStream.toArray();
+            normalMoney = (Double)((Seat)allNormalSeat[0]).price.getValue();
             normalRest = allNormalSeat.length;
+            //info for window seat of this ticket's seat class
             var windowSeatStream = Seat.queryByProperty(Seat.class, "Interval_id", interval_id).filter((x)->{
                 return x.type.getValue().equals("Window");
             }).filter((x)->{
-                return x.seatClass.getValue().equals("Normal");
+                return x.seatClass.getValue().equals(seatClass);
             }).filter((x)->{
                 return x.ticket.getValue() == null;
             });
             var allWindowSeat = windowSeatStream.toArray();
+            windowMoney = (Double)((Seat)allWindowSeat[0]).price.getValue();
             windowRest = allWindowSeat.length;
+            //info for aisle seat of this ticket's seat class
             var aisleSeatStream = Seat.queryByProperty(Seat.class, "Interval_id", interval_id).filter((x)->{
                 return x.type.getValue().equals("Aisle");
             }).filter((x)->{
-                return x.seatClass.getValue().equals("Normal");
+                return x.seatClass.getValue().equals(seatClass);
             }).filter((x)->{
                 return x.ticket.getValue() == null;
             });
             var allAisleSeat = aisleSeatStream.toArray();
+            aisleMoney = (Double)((Seat)allAisleSeat[0]).price.getValue();
             aisleRest = allAisleSeat.length;
+            //info for extra space seat of this ticket's seat class
             var extraSeatStream = Seat.queryByProperty(Seat.class, "Interval_id", interval_id).filter((x)->{
                 return x.type.getValue().equals("Extra");
             }).filter((x)->{
-                return x.seatClass.getValue().equals("Normal");
+                return x.seatClass.getValue().equals(seatClass);
             }).filter((x)->{
                 return x.ticket.getValue() == null;
             });
@@ -592,14 +650,16 @@ public class chooseNormalSeat extends JFrame{
             //minus the seat stored in globalData
             if((Seat)GlobalData.data.get("seat") != null){
                 Seat nowSeat = (Seat)GlobalData.data.get("seat");
-                if(nowSeat.type.getValue().equals("Normal")){
-                    normalRest --;
-                }else if(nowSeat.type.getValue().equals("Window")){
-                    windowRest --;
-                }else if(nowSeat.type.getValue().equals("Aisle")){
-                    aisleRest --;
-                }else if(nowSeat.type.getValue().equals("Extra")){
-                    extraRest --;
+                if(nowSeat.seatClass.getValue().equals(seatClass)){
+                    if(nowSeat.type.getValue().equals("Normal")){
+                        normalRest --;
+                    }else if(nowSeat.type.getValue().equals("Window")){
+                        windowRest --;
+                    }else if(nowSeat.type.getValue().equals("Aisle")){
+                        aisleRest --;
+                    }else if(nowSeat.type.getValue().equals("Extra")){
+                        extraRest --;
+                    }
                 }
             }
         } catch (FieldNotFoundException e) {
@@ -627,8 +687,6 @@ public class chooseNormalSeat extends JFrame{
     }
     //assign a seat after user click the button
     private void chooseSeat(String type, String seatClass){
-        System.out.println(type);
-        System.out.println(seatClass);
         try {
             var seatStream2 = Seat.queryByProperty(Seat.class, "Interval_id", 1).filter((x)->{
                 return x.type.getValue().equals(type);
@@ -640,8 +698,9 @@ public class chooseNormalSeat extends JFrame{
             var seatArray = seatStream2.toArray();
             if(seatArray.length != 0){
                 seat = (Seat)seatArray[0];
+                seat.seatClass.setValue(seatClass);
                 seat.ticket.setValue(ticket.id);
-                setGlobalData();
+                GlobalData.data.put("seat",seat);
                 if(type.equals("Normal")){
                     normalRest --;
                 }else if(type.equals("Window")){
@@ -653,8 +712,8 @@ public class chooseNormalSeat extends JFrame{
                 }
                 JOptionPane.showMessageDialog(null, "Select Successfully!\nYour seat number is "+seat.seatNo.getValue(), "Success", JOptionPane.PLAIN_MESSAGE);
                 f.setVisible(false);
-                chooseNormalSeat newFrame = new chooseNormalSeat();
-                newFrame.setVisible(true);                
+                ChooseSeat newFrame = new ChooseSeat(seatClass);
+                newFrame.setVisible(true);
             }else{
                 JOptionPane.showMessageDialog(null, "Sorry, there is no seat left.\nPlease choose again.", "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -663,18 +722,7 @@ public class chooseNormalSeat extends JFrame{
         }
         
     }
-    
 
-    private void setGlobalData(){
-        // var seatStream = Seat.queryByProperty(Seat.class, "Ticket_id", ticket.id).toArray();
-        // var seat = seatStream[0];
-        System.out.println(seat.type.getValue());
-        GlobalData.data.put("seat",seat);
-    }
-    public static void main(String[] args) {
-        GlobalData.init(args);
-        Models.init();
-        chooseNormalSeat seat = new chooseNormalSeat();
-        seat.setVisible(true);
-    }
+
+
 }
