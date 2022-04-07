@@ -31,6 +31,7 @@ public class Models {
                 modelInstances.put(clzName, (BaseModel)ins);
                 // Collect the verboses
                 var verboseMap = (Map<String, String>)clz.getField("verboseMap").get(null);
+                var classMap = new HashMap<String, String>();
                 var fields = clz.getFields();
                 for(int i = 0; i < fields.length; i++) {
                     var _field = fields[i].get(ins);
@@ -39,7 +40,7 @@ public class Models {
                         if(field.verbose.equals("")) {
                             field.verbose = fields[i].getName();
                         }
-                        verboseMap.put(fields[i].getName(), fields[i].getName());
+                        classMap.put(fields[i].getName(), fields[i].getName());
                         verboseMap.put(field.verbose, fields[i].getName());
                     }
                 }
@@ -66,6 +67,7 @@ public class Models {
                     Files.createFile(clzPath);
                     Files.write(clzPath, List.of(lineStr));
                 }
+                verboseMap.putAll(classMap);
             }
         } catch (IOException | ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException | NoSuchFieldException e) {
             e.printStackTrace();

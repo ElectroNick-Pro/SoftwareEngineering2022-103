@@ -73,6 +73,7 @@ public class FoodFrame extends JFrame {
         Next.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == Next) {
+                    // TODO - food choice
                     try {
                         var ticket = (Ticket)((Seat)GlobalData.data.get("seat")).ticket.getReferred();
 						var flight = (Flight)ticket.flight.getReferred();
@@ -81,7 +82,7 @@ public class FoodFrame extends JFrame {
 									.filter((x)->{
 										return x.flight.getValue().equals(flight.id);
 									}).findFirst().get();
-                        ticket.food.setValue(food.id);
+                        //ticket.food.setValue(food.id);
                         GlobalData.data.put("ticket", ticket);
 						GlobalData.data.put("food_choice", food);
                         new confirmPay();

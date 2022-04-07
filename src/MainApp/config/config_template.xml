@@ -21,6 +21,8 @@
         <model>Ticket</model>
     </userModel>
 
+    <digest-algorithm>MD5</digest-algorithm>
+
     <welcomePage>page1</welcomePage>
     
 </config>
