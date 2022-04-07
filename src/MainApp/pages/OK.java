@@ -92,7 +92,7 @@ public class OK extends JFrame {
             public void windowDeactivated(WindowEvent e) {
                 new confirmPrint();
                 try {
-                    Pages.displayPage(Path.of("page1/page2/page3/page4/page5/page6"));
+                    Pages.displayPage(Path.of("Retrieve/Flight Information/Choose Seat/Choose Food/Confirm and Pay/Print"));
                 } catch (UnboundPageException e1) {
                     e1.printStackTrace();
                 }

@@ -19,7 +19,7 @@ import MainApp.pages.components.DemoScrollBarUI;
 import MainApp.pages.components.RoundBorder;
 
 public class FoodFrame extends JFrame {
-    private Path path = Path.of("page1/page2/page3/page4");
+    private Path path = Path.of("Retrieve/Flight Information/Choose Seat/Choose Food");
 
     public FoodFrame() {
         Pages.bindPage(this.path, this);
@@ -85,7 +85,7 @@ public class FoodFrame extends JFrame {
                         GlobalData.data.put("ticket", ticket);
 						GlobalData.data.put("food_choice", food);
                         new confirmPay();
-                        Pages.displayPage(path.resolve(Path.of("page5")));
+                        Pages.displayPage(path.resolve(Path.of("Extra Food")));
                     } catch (UnboundPageException | FieldNotFoundException | ObjectNotFoundException e1) {
                         e1.printStackTrace();
                     }

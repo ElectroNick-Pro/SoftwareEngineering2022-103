@@ -14,11 +14,11 @@ import MainApp.models.Model.Exception.ObjectNotFoundException;
 import MainApp.models.Model.UserModel.Interval;
 import MainApp.models.Model.UserModel.Seat;
 import MainApp.models.Model.UserModel.Ticket;
-import MainApp.pages.components.BreadCrumbPanel;
+import MainApp.pages.components.*;
 import MainApp.pages.Exception.UnboundPageException;
-import MainApp.pages.components.RoundBorder;
 import MainApp.pages.control.FlightInfo;
 import java.nio.file.Path;
+import java.util.LinkedList;
 
 
 public class chooseNormalSeat extends JFrame{
@@ -55,7 +55,7 @@ public class chooseNormalSeat extends JFrame{
     private JButton window = windowSeat(f);
     private JButton aside = asideSeat(f);
     private JButton extra = extraSeat(f);
-    private Path path = Path.of("page1/page2/page3");
+    private Path path = Path.of("Retrieve/Flight Information/Choose Seat");
     public chooseNormalSeat(){
         super("Choose seat");
         Pages.bindPage(this.path, this);
@@ -307,7 +307,7 @@ public class chooseNormalSeat extends JFrame{
             if(buttonName.equals("normalSeat")){
                 if(normalRest != 0){
                     int choice = JOptionPane.showConfirmDialog(null, "Choose a normal seat?", "Confirm",JOptionPane.YES_NO_OPTION);
-                    if(choice == 0){
+                    if(choice == JOptionPane.YES_OPTION){
                         chooseSeat("Normal","Normal");
                     } 
                 }else{
@@ -316,7 +316,7 @@ public class chooseNormalSeat extends JFrame{
             }else if(buttonName.equals("windowSeat")){
                 if(windowRest != 0){
                     int choice = JOptionPane.showConfirmDialog(null, "Choose a window seat?", "Confirm",JOptionPane.YES_NO_OPTION);
-                    if(choice == 0){
+                    if(choice == JOptionPane.YES_OPTION){
                         chooseSeat("Window","Normal");
                     }
                 }else{
@@ -325,7 +325,7 @@ public class chooseNormalSeat extends JFrame{
             }else if(buttonName.equals("asideSeat")){
                 if(asideRest != 0){
                     int choice = JOptionPane.showConfirmDialog(null, "Choose an aside seat?", "Confirm",JOptionPane.YES_NO_OPTION);
-                    if(choice == 0){
+                    if(choice == JOptionPane.YES_OPTION){
                         chooseSeat("Aside","Normal");
                     }
                 }else{
@@ -334,7 +334,7 @@ public class chooseNormalSeat extends JFrame{
             }else if(buttonName.equals("extraSeat")){
                 if(extraRest != 0){
                     int choice = JOptionPane.showConfirmDialog(null, "Choose a seat with extra space?\nYou need to pay extra money for it.", "Confirm",JOptionPane.YES_NO_OPTION);
-                    if(choice == 0){
+                    if(choice == JOptionPane.YES_OPTION){
                         chooseSeat("Extra","Normal");
                     }
                 }else{
@@ -417,53 +417,13 @@ public class chooseNormalSeat extends JFrame{
         exit.setBorder(BorderFactory.createRaisedSoftBevelBorder());
         setIcon exitIcon = new setIcon();
         exitIcon.changeIconSize("src/MainApp/pages/image/exit.png", exit, 40, 40);
-        // exit.setOpaque(false);
-        /*
-            flow chart
-        */
-        // JLabel chart = new JLabel("Check In>Choose Seat>Choose a meal plan>Confirm and Print>Have a Good Trip!");
-        // chart.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 15));
-        JPanel flowChart = new JPanel();
-        flowChart.setLayout(null);
-        flowChart.setBounds(100, 25,765,25);
-        flowChart.setBackground(Color.WHITE);
+        
+        // top panel
+        topPanel top = new topPanel(this.path);
+        top.setBounds(0,0,940,70);
+        f.add(top);
+        top.setVisible(true);
 
-        JLabel retrive = new JLabel("Retrive>");
-        retrive.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
-        retrive.setBounds(0,0,70,35);
-        flowChart.add(retrive);
-
-        JLabel fInfo = new JLabel("Flight Information>");
-        fInfo.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
-        fInfo.setBounds(70,0,160,35);
-        flowChart.add(fInfo);
-
-        JLabel chooseSeat = new JLabel("Choose Seat>");
-        chooseSeat.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
-        chooseSeat.setBounds(230,0,110,35);
-        flowChart.add(chooseSeat);
-
-        JLabel chooseFood = new JLabel("Choose Food>");
-        chooseFood.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
-        chooseFood.setBounds(340,0,115,35);
-        flowChart.add(chooseFood);
-
-        JLabel extraFood = new JLabel("Extra Food>");
-        extraFood.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
-        extraFood.setBounds(455,0,100,35);
-        flowChart.add(extraFood);
-
-        JLabel confirmPay = new JLabel("Confirm and Pay>");
-        confirmPay.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
-        confirmPay.setBounds(555,0,140,35);
-        flowChart.add(confirmPay);
-
-        JLabel checkin = new JLabel("Check in");
-        checkin.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
-        checkin.setBounds(695,0,80,35);
-        flowChart.add(checkin);
-
-        // chart.setOpaque(false);
         /*
             artificial service
         */
@@ -472,13 +432,11 @@ public class chooseNormalSeat extends JFrame{
         service.setBorder(BorderFactory.createRaisedSoftBevelBorder());
         setIcon serviceIcon = new setIcon();
         serviceIcon.changeIconSize("src/MainApp/pages/image/question.png", service, 40, 40);
-        // service.setOpaque(false)
 
         exit.setBounds(35,20,40,40);
         service.setBounds(875, 20, 40, 40);
         f.add(exit);
         f.add(service);
-        f.add(flowChart);
     }
     private void bottom(){
         /**
@@ -513,7 +471,7 @@ public class chooseNormalSeat extends JFrame{
                             setGlobalData();
                             new FoodFrame();
                             try {
-                                Pages.displayPage(path.resolve(Path.of("page4")));
+                                Pages.displayPage(path.resolve(Path.of("Choose Food")));
                             } catch (UnboundPageException e1) {
                                 e1.printStackTrace();
                             }

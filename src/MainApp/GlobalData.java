@@ -16,7 +16,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.xml.sax.SAXException;
 
-import MainApp.pages.Retrive;
+import MainApp.pages.Retrieve;
 
 public class GlobalData {
     public static Map<String, Object> data = new HashMap<>();
@@ -53,7 +53,7 @@ public class GlobalData {
 
             config.put("userModels", userModels);
             var pagePaths = new HashMap<Path, JFrame>();
-            pagePaths.put(Path.of("page1"), new Retrive(){{
+            pagePaths.put(Path.of("page1"), new Retrieve(){{
                 setSize(960, 540);
             }});
 

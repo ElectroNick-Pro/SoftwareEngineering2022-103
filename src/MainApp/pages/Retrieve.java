@@ -1,27 +1,24 @@
-
 package MainApp.pages;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.nio.file.Path;
-
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import MainApp.pages.components.RoundBorder;
-
+import MainApp.pages.components.*;
 import MainApp.GlobalData;
 import MainApp.models.Model.Exception.FieldNotFoundException;
 import MainApp.models.Model.UserModel.Customer;
 import MainApp.models.Model.UserModel.Ticket;
 import MainApp.pages.Exception.UnboundPageException;
-public class Retrive extends JFrame implements ActionListener{
-    private Path path = Path.of("page1");
+public class Retrieve extends JFrame implements ActionListener{
+    private Path path = Path.of("Retrieve");
     public Container container;
-    public JTextField bookingIdField, surnameField, customerIdField;
+    public static JTextField bookingIdField, surnameField, customerIdField;
     public JButton button1,button2,button3;
     public JPanel panel1, panel2, panel3;
-    public Retrive(){
+    public Retrieve(){
         Pages.bindPage(this.path, this);
 		this.setTitle("Check-In Kiosk");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -30,77 +27,28 @@ public class Retrive extends JFrame implements ActionListener{
         container.setLayout(null);
         container.setBackground(Color.white);
 
-		// exit
-        ImageIcon exitIcon = new ImageIcon("src/MainApp/pages/image/exit.png");
-        exitIcon.setImage(exitIcon.getImage().getScaledInstance(40,40,Image.SCALE_DEFAULT));
-        JLabel exit = new JLabel(exitIcon);
-        exit .setBackground(Color.white);
-        exit.setBounds(40,40,40,40);
-        container.add(exit);
+        exitButton exit = new exitButton();
+        exit.setBounds(40,20,40,40);
+        this.add(exit);
 
-        // flow chart
-        JPanel flowChart = new JPanel();
-        flowChart.setLayout(null);
-        flowChart.setBounds(100, 51,765,25);
-        flowChart.setBackground(Color.WHITE);
+        // top panel
+        topPanel top = new topPanel(this.path);
+        top.setBounds(0,0,940,70);
+        container.add(top);
+        top.setVisible(true);
 
-        JLabel retrive = new JLabel("Retrive>");
-        retrive.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
-        retrive.setBounds(0,0,70,35);
-        flowChart.add(retrive);
-
-        JLabel fInfo = new JLabel("Flight Information>");
-        fInfo.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
-        fInfo.setBounds(70,0,160,35);
-        flowChart.add(fInfo);
-
-        JLabel chooseSeat = new JLabel("Choose Seat>");
-        chooseSeat.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
-        chooseSeat.setBounds(230,0,110,35);
-        flowChart.add(chooseSeat);
-
-        JLabel chooseFood = new JLabel("Choose Food>");
-        chooseFood.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
-        chooseFood.setBounds(340,0,115,35);
-        flowChart.add(chooseFood);
-
-        JLabel extraFood = new JLabel("Extra Food>");
-        extraFood.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
-        extraFood.setBounds(455,0,100,35);
-        flowChart.add(extraFood);
-
-        JLabel confirmPay = new JLabel("Confirm and Pay>");
-        confirmPay.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
-        confirmPay.setBounds(555,0,140,35);
-        flowChart.add(confirmPay);
-
-        JLabel checkin = new JLabel("Check in");
-        checkin.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
-        checkin.setBounds(695,0,80,35);
-        flowChart.add(checkin);
-
-        container.add(flowChart);
-
-        // question
-        ImageIcon questionIcon = new ImageIcon("src/MainApp/image/question.png");
-        questionIcon.setImage(questionIcon.getImage().getScaledInstance(40,40,Image.SCALE_DEFAULT));
-        JLabel question = new JLabel(questionIcon);
-        question .setBackground(Color.white);
-        question.setBounds(880,40,40,40);
-        container.add(question);
-
-        // title - Retrive
-		JLabel title = new JLabel("Retrive",JLabel.LEFT);
+        // title - Retrieve
+		JLabel title = new JLabel("Retrieve",JLabel.LEFT);
 		title.setFont(new Font("Microsoft YaHei UI",Font.BOLD,50));
-		title.setBounds(45,105,190,70);
+		title.setBounds(45,85,250,70);
 		container.add(title);
 
-        // button - Retrive
-        JButton btnRetrive = new JButton("Retrive");
-        btnRetrive.addActionListener(new ActionListener() {
+        // button - Retrieve
+        JButton btnRetrieve = new JButton("Retrieve");
+        btnRetrieve.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(e.getSource() == btnRetrive) {
+                if(e.getSource() == btnRetrieve) {
                     var surname = surnameField.getText();
                     var customerId = customerIdField.getText();
                     var bookingId = bookingIdField.getText();
@@ -108,35 +56,56 @@ public class Retrive extends JFrame implements ActionListener{
                     Ticket ticket = null;
                     try {
                         if(panel1.isVisible()) {
-                            var tickets = Ticket.queryByProperty(Ticket.class, "bookingId", bookingId).toArray();
-                            ticket = (Ticket)tickets[0];
-                            GlobalData.data.put("ticket",ticket);
-                            GlobalData.data.put("flag",1);
-                        }
-                        else{
-                            
+                            if(bookingId.equals("")){
+                                JOptionPane.showMessageDialog(null, "Please enter your bookingID.", "Error", JOptionPane.ERROR_MESSAGE);
+                                return;
+                            }else{
+                                var tickets = Ticket.queryByProperty(Ticket.class, "bookingId", bookingId).toArray();
+                                if(tickets.length == 0){
+                                    JOptionPane.showMessageDialog(null, "This bookingID does not exist!", "Error", JOptionPane.ERROR_MESSAGE);
+                                    return;
+                                }
+                                ticket = (Ticket)tickets[0];
+                                GlobalData.data.put("ticket",ticket);
+                                GlobalData.data.put("flag",1);
+                            }
                         }
                         if(panel2.isVisible()) {
-                            var customers = Customer.queryByProperty(Customer.class, "customerId", customerId)
-                            .filter((x)->{
-                                return x.surname.getValue().equals(surname);
-                            }).toArray();
-                            if(customers.length == 0) {
+                            if(surname.equals("") || customerId.equals("")){
+                                JOptionPane.showMessageDialog(null,"Please enter your surname and ID number.","Error",JOptionPane.ERROR_MESSAGE);
                                 return;
                             }
-                            customer = (Customer)customers[0];
-                            GlobalData.data.put("customer", customer);
-                            GlobalData.data.put("flag",2);
+                            else{
+                                var customers = Customer.queryByProperty(Customer.class, "customerId", customerId)
+                                .filter((x)->{
+                                    return x.surname.getValue().equals(surname);
+                                }).toArray();
+                                var ID = Customer.queryByProperty(Customer.class, "customerId", customerId).toArray();
+                                var tickets = Ticket.queryByProperty(Ticket.class, "Customer_id", customerId);
+                                if(ID.length == 0) {
+                                    JOptionPane.showMessageDialog(null, "The ID number you entered does not exist!", "Error", JOptionPane.ERROR_MESSAGE);
+                                    return;
+                                }else if(customers.length == 0){
+                                    JOptionPane.showMessageDialog(null, "Your surname and ID number does not match!", "Error", JOptionPane.ERROR_MESSAGE);
+                                    return;
+                                }else if(tickets == null){
+                                    JOptionPane.showMessageDialog(null, "You have not booked any ticket yet!", "Error", JOptionPane.ERROR_MESSAGE);
+                                    return;
+                                }
+                                
+                                customer = (Customer)customers[0];
+                                GlobalData.data.put("customer", customer);
+                                GlobalData.data.put("flag",2);                                
+                            }
                         }
                         if(panel3.isVisible()) {
-                            var customers = Customer.queryByProperty(Customer.class, "customerId", "230103200102223218").toArray();
+                            var customers = Customer.queryByProperty(Customer.class, "customerId", "123456789012345678").toArray();
                             if(customers.length == 0) {
                                 return;
                             }
                             customer = (Customer)customers[0];
                             GlobalData.data.put("customer", customer);
                             GlobalData.data.put("flag",2);
-                            return;
                         }
                     } catch (FieldNotFoundException e1) {
                         e1.printStackTrace();
@@ -144,7 +113,7 @@ public class Retrive extends JFrame implements ActionListener{
                     }
                     try {
                         new FlightInformationFrm();
-                        Pages.displayPage(path.resolve(Path.of("page2")));
+                        Pages.displayPage(path.resolve(Path.of("Flight Information")));
                     } catch (UnboundPageException e1) {
                         e1.printStackTrace();
                         return;
@@ -152,14 +121,14 @@ public class Retrive extends JFrame implements ActionListener{
                 }
             }
         });
-        btnRetrive.setBounds(45,390,425,38);
-        btnRetrive.setBorder(new RoundBorder(new Color(0, 131, 255)));
-        btnRetrive.setBackground(new Color(0, 131, 255));
-        container.add(btnRetrive);
+        btnRetrieve.setBounds(45,370,425,38);
+        btnRetrieve.setBorder(new RoundBorder(new Color(0, 131, 255)));
+        btnRetrieve.setBackground(new Color(0, 131, 255));
+        container.add(btnRetrieve);
 
         // part1 - Booking ID
         panel1 = new JPanel();
-        panel1.setBounds(45,215,425,134);
+        panel1.setBounds(45,195,425,134);
         panel1.setLayout(null); // Absolute Layout
         JLabel label1 = new JLabel("Please enter your booking ID:");
         label1.setFont(new Font("Microsoft YaHei UI",Font.LAYOUT_LEFT_TO_RIGHT,18));
@@ -176,7 +145,7 @@ public class Retrive extends JFrame implements ActionListener{
 
         // part2 - Surname and ID
         panel2 = new JPanel();
-        panel2.setBounds(45,170,425,193);
+        panel2.setBounds(45,150,425,193);
         panel2.setLayout(null);
         JLabel label2_1 = new JLabel("Please enter your surname:");
         label2_1.setFont(new Font("Microsoft YaHei UI",Font.LAYOUT_LEFT_TO_RIGHT,18));
@@ -202,7 +171,7 @@ public class Retrive extends JFrame implements ActionListener{
 
         // part3 - Scan ID
         panel3 = new JPanel();
-        panel3.setBounds(45,170,341,191);
+        panel3.setBounds(45,150,341,191);
         panel3.setLayout(null);
         JLabel label3 = new JLabel("Please scan your ID document:");
         label3.setFont(new Font("Microsoft YaHei UI",Font.LAYOUT_LEFT_TO_RIGHT,18));
@@ -223,7 +192,7 @@ public class Retrive extends JFrame implements ActionListener{
         btnBookingID.setBackground(Color.white);
         btnBookingID.setBorder(new RoundBorder(new Color(121, 121, 121)));
         btnBookingID.setContentAreaFilled(false);
-        btnBookingID.setBounds(45,455,125,38);
+        btnBookingID.setBounds(45,435,125,38);
         btnBookingID.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent event){
                 panel2.setVisible(false);
@@ -235,7 +204,7 @@ public class Retrive extends JFrame implements ActionListener{
 
         // button - Surname and ID
         JButton btnSurnameID = new JButton("Surname and ID");
-        btnSurnameID.setBounds(195,455,165,38);
+        btnSurnameID.setBounds(195,435,165,38);
         btnSurnameID.setBorder(new RoundBorder(new Color(121, 121, 121)));
         btnSurnameID.setContentAreaFilled(false);
         btnSurnameID.addActionListener(new ActionListener(){
@@ -249,7 +218,7 @@ public class Retrive extends JFrame implements ActionListener{
 
         // button - Scan ID
         JButton btnScanID = new JButton("Scan ID");
-        btnScanID.setBounds(385,455,85,38);
+        btnScanID.setBounds(385,435,85,38);
         btnScanID.setBorder(new RoundBorder(new Color(121, 121, 121)));
         btnScanID.setContentAreaFilled(false);
         btnScanID.addActionListener(new ActionListener(){
@@ -266,7 +235,7 @@ public class Retrive extends JFrame implements ActionListener{
         backgroundIcon.setImage(backgroundIcon.getImage().getScaledInstance(350,524,Image.SCALE_DEFAULT));
         JLabel background = new JLabel(backgroundIcon);
         background.setBackground(Color.white);
-        background.setBounds(540,45,350,524);
+        background.setBounds(540,25,350,524);
         container.add(background);
     }
     public void actionPerformed(ActionEvent event){
@@ -274,7 +243,7 @@ public class Retrive extends JFrame implements ActionListener{
     }
 
     public static void main(String[] args){
-		Retrive frame = new Retrive();
+		Retrieve frame = new Retrieve();
 		frame.pack();
 		frame.setVisible(true);
         frame.setSize(965,550);

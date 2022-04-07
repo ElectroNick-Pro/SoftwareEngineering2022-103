@@ -9,27 +9,39 @@ import javax.swing.*;
 import MainApp.pages.Pages;
 
 public class BreadCrumbPanel extends JPanel {
-    private List<BreadCrumbBtn> crumbs = new LinkedList<>();
+    private LinkedList<HrefButton> crumbs = new LinkedList<>();
+    public Path totalPath = Path.of("Retrieve/Flight Information/Choose Seat/Choose Food/Confirm and Pay/Print");
     public BreadCrumbPanel() {
         this(Pages.curPagePath);
     }
     public BreadCrumbPanel(Path path) {
         super();
-        int n = path.getNameCount();
+        this.setBackground(Color.WHITE);
+
+        int n = totalPath.getNameCount();
+        int k = path.getNameCount();
         for(int i = 1; i <= n; i++) {
-            var btn = new BreadCrumbBtn(path.subpath(0, i));
+            var btn = new HrefButton(totalPath.subpath(0, i));
             this.add(btn);
             if(i < n) {
-                var label = new JLabel("/");
+                var label = new JLabel(">");
                 label.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
+                if(i>k){
+                    label.setForeground(Color.GRAY);
+                }
                 this.add(label);
-            } else {
+            }
+            if(i>k){
                 btn.setEnabled(false);
             }
             crumbs.add(btn);
         }
-
     }
+
+    public LinkedList<HrefButton> getBtnList(){
+        return crumbs;
+    }
+
     public static void main(String[] args) {
         var panel = new BreadCrumbPanel(Path.of("path/path1/path2/path3"));
         var frame = new JFrame();
@@ -41,13 +53,13 @@ public class BreadCrumbPanel extends JPanel {
 }
 
 
-class BreadCrumbBtn extends HrefButton {
+// class BreadCrumbBtn extends HrefButton {
     
-    public BreadCrumbBtn(Path path) {
-        super(path);
-        this.setOpaque(false);
-        this.setBorder(BorderFactory.createEmptyBorder());
-        this.setBackground(new Color(0));
-        this.setText("<html><u>"+path.getName(path.getNameCount()-1).toString()+"</u></html>");
-    }
-}
+//     public BreadCrumbBtn(Path path) {
+//         super(path);
+//         this.setOpaque(false);
+//         this.setBorder(BorderFactory.createEmptyBorder());
+//         this.setBackground(Color.WHITE);
+//         this.setText(path.getName(path.getNameCount()-1).toString());
+//     }
+// }
