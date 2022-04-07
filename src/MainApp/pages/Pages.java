@@ -31,9 +31,10 @@ public class Pages {
             page.setVisible(false);
         }
         curPagePath = path;
-        pagePathMap.get(curPagePath).setVisible(true);
         pagePathMap.get(curPagePath).setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pagePathMap.get(curPagePath).setLocationRelativeTo(null); 
+        pagePathMap.get(curPagePath).setBounds(100, 100, 965, 550);
+        pagePathMap.get(curPagePath).setVisible(true);
     }
 
     public static void goBack() throws UnboundPageException {

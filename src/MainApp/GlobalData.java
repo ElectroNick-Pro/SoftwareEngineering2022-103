@@ -14,7 +14,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.DOMException;
 import org.xml.sax.SAXException;
 
-import MainApp.pages.Retrieve;
+import MainApp.pages.*;
 
 public class GlobalData {
     public static Map<String, Object> data = new HashMap<>();
@@ -51,13 +51,13 @@ public class GlobalData {
             var dig = MessageDigest.getInstance(doc.getElementsByTagName("digest-algorithm").item(0).getTextContent());
             config.put("digest", dig);
 
-            var pagePaths = new HashMap<Path, JFrame>();
-            pagePaths.put(Path.of("page1"), new Retrieve(){{
-                setSize(960, 540);
-            }});
-            config.put("pagePaths", pagePaths);
+            var welcomeStr = doc.getElementsByTagName("welcomePage").item(0).getTextContent();
+            var welcomePath = Path.of(welcomeStr);
+            config.put("welcomePage", welcomePath);
 
-            config.put("welcomePage", Path.of(doc.getElementsByTagName("welcomePage").item(0).getTextContent()));
+            var pagePaths = new HashMap<Path, JFrame>();
+            pagePaths.put(welcomePath, new Welcome());
+            config.put("pagePaths", pagePaths);
 
         } catch (SAXException | IOException | ParserConfigurationException | NoSuchAlgorithmException | DOMException e) {
             e.printStackTrace();

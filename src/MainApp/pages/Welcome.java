@@ -35,7 +35,7 @@ public class Welcome extends JFrame{
         contentPane.setLayout(null);
         setContentPane(contentPane);
 
-        ImageIcon image = new ImageIcon(ClassLoader.getSystemResource("MainApp/pages/image/backgroudAirplane.png"));
+        ImageIcon image = new ImageIcon(ClassLoader.getSystemResource("MainApp/pages/image/backgroundAirplane.png"));
         JLabel picture = new JLabel(image);
         picture.setBounds(0, 0, image.getIconWidth(), image.getIconHeight());
         add(picture,JLayeredPane.DEFAULT_LAYER);

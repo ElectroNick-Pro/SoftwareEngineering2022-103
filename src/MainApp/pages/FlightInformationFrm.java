@@ -300,7 +300,7 @@ public class FlightInformationFrm extends JFrame
                             GlobalData.data.put("flight",passData);
                             new ChooseSeat("First");
                             try {
-                                Pages.displayPage(path.resolve(Path.of("page3")));
+                                Pages.displayPage(path.resolve(Path.of("Choose Seat")));
                             } catch (UnboundPageException e1) {
                                 e1.printStackTrace();
                             }
@@ -309,7 +309,7 @@ public class FlightInformationFrm extends JFrame
                             GlobalData.data.put("flight",passData);
                             new ChooseSeat("Normal");
                             try {
-                                Pages.displayPage(path.resolve(Path.of("page3")));
+                                Pages.displayPage(path.resolve(Path.of("Choose Seat")));
                             } catch (UnboundPageException e1) {
                                 e1.printStackTrace();
                             }

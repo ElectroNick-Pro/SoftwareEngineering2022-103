@@ -71,24 +71,24 @@ public class Retrieve extends JFrame implements ActionListener{
                                 return;
                             }
                             else{
-                                var customers = Customer.queryByProperty(Customer.class, "customerId", customerId)
-                                .filter((x)->{
-                                    return x.surname.getValue().equals(surname);
-                                }).toArray();
-                                var ID = Customer.queryByProperty(Customer.class, "customerId", customerId).toArray();
-                                var tickets = Ticket.queryByProperty(Ticket.class, "Customer_id", customerId);
-                                if(ID.length == 0) {
+                                var customers = Customer.queryByProperty(Customer.class, "customerId", customerId).toArray();
+                                if(customers.length == 0) {
                                     JOptionPane.showMessageDialog(null, "The ID number you entered does not exist!", "Error", JOptionPane.ERROR_MESSAGE);
                                     return;
-                                }else if(customers.length == 0){
-                                    JOptionPane.showMessageDialog(null, "Your surname and ID number does not match!", "Error", JOptionPane.ERROR_MESSAGE);
-                                    return;
-                                }else if(tickets == null){
-                                    JOptionPane.showMessageDialog(null, "You have not booked any ticket yet!", "Error", JOptionPane.ERROR_MESSAGE);
-                                    return;
+                                } else {
+                                    customer = (Customer)customers[0];
+                                    if(!customer.surname.equals(surname)) {
+                                        JOptionPane.showMessageDialog(null, "Your surname and ID number does not match!", "Error", JOptionPane.ERROR_MESSAGE);
+                                        return;
+                                    } else {
+                                        var ticketCnt = Ticket.queryByProperty(Ticket.class, "Customer_id", customer.id).count();
+                                        if(ticketCnt == 0) {
+                                            JOptionPane.showMessageDialog(null, "You have not booked any ticket yet!", "Error", JOptionPane.ERROR_MESSAGE);
+                                            return;
+                                        }
+                                    }
                                 }
                                 
-                                customer = (Customer)customers[0];
                                 GlobalData.data.put("customer", customer);
                                 GlobalData.data.put("flag",2);                                
                             }
