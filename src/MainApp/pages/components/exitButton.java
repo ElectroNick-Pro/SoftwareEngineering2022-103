@@ -13,7 +13,7 @@ import MainApp.pages.Retrieve;
 public class exitButton extends JButton implements ActionListener{
     public exitButton(){
         super();
-        ImageIcon exitIcon = new ImageIcon("src/MainApp/pages/image/exit.png");
+        ImageIcon exitIcon = new ImageIcon(ClassLoader.getSystemResource("MainApp/pages/image/exit.png"));
         exitIcon.setImage(exitIcon.getImage().getScaledInstance(40,40,Image.SCALE_DEFAULT));
         this.setIcon(exitIcon);
         this.setBackground(Color.WHITE);

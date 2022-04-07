@@ -7,7 +7,7 @@ import java.awt.event.*;
 public class helpButton extends JButton implements ActionListener{
     public helpButton(){
         super();
-        ImageIcon helpIcon = new ImageIcon("src/MainApp/image/question.png");
+        ImageIcon helpIcon = new ImageIcon(ClassLoader.getSystemResource("MainApp/image/question.png"));
         helpIcon.setImage(helpIcon.getImage().getScaledInstance(40,40,Image.SCALE_DEFAULT));
         this.setIcon(helpIcon);
         this.setBackground(Color.WHITE);
