@@ -2,10 +2,8 @@ package MainApp.pages;
 
 import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.text.AttributeSet.ColorAttribute;
 
 import MainApp.GlobalData;
-import MainApp.models.Model.Exception.FieldNotFoundException;
 import MainApp.models.Model.Exception.ObjectNotFoundException;
 import MainApp.models.Model.UserModel.*;
 import MainApp.pages.Exception.UnboundPageException;
@@ -16,7 +14,6 @@ import java.awt.event.ActionListener;
 import java.nio.file.Path;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
@@ -207,6 +204,7 @@ public class FlightInformationFrm extends JFrame
         }
         layout1.setVerticalGroup(vSeqGpInfo);
         panelInfo.setLayout(layout1);
+
         JScrollPane info = new JScrollPane(panelInfo);
         info.setBackground(Color.white);
         info.setBounds(35,170,INFO_WIDTH,INFO_HEIGHT);
