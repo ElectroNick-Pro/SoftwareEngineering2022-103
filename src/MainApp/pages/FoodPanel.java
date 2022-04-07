@@ -47,6 +47,8 @@ private Path path = Path.of("page1/page2/page3/page4");
     JPanel J=new JPanel();
     J.setPreferredSize(new Dimension(960,1620));
     ChooseFoodOrigin o=new ChooseFoodOrigin();
+    ChooseFoodExtra e=new ChooseFoodExtra();
+    ChooseFoodDessert d=new ChooseFoodDessert();
     J.setLayout(new GridLayout(3,1)); 
     J.add(o,Integer.valueOf(4));
 

@@ -50,8 +50,12 @@ public class FoodFrame extends JFrame {
         JPanel J = new JPanel();
         J.setPreferredSize(new Dimension(960, 1620));
         ChooseFoodOrigin o = new ChooseFoodOrigin();
+        ChooseFoodExtra e = new ChooseFoodExtra();
+        ChooseFoodDessert d = new ChooseFoodDessert();
         J.setLayout(new GridLayout(3, 1));
         J.add(o, Integer.valueOf(4));
+        // J.add(e,Integer.valueOf(4));
+        // J.add(d,Integer.valueOf(4));
         JScrollPane three = new JScrollPane(J, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
                 ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         // JScrollPane three =new JScrollPane(J);
