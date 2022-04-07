@@ -92,7 +92,7 @@ private Path path = Path.of("page1/page2/page3/page4");
                                 e1.printStackTrace();
                             }
                         }
-                    Pages.displayPage(Path.of("page1/page2/page3/page4/page5"));
+                    Pages.displayPage(Path.of("Retrieve/Flight Information/Choose Seat/Choose Food/Confirm and Pay"));
                     } catch (UnboundPageException e1) {
                     e1.printStackTrace();
                     }

@@ -4,6 +4,8 @@ import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.text.AttributeSet.ColorAttribute;
 
+import org.w3c.dom.events.MouseEvent;
+
 import MainApp.GlobalData;
 import MainApp.models.Model.Exception.FieldNotFoundException;
 import MainApp.models.Model.Exception.ObjectNotFoundException;
@@ -13,11 +15,11 @@ import MainApp.pages.components.*;
 import MainApp.pages.control.FlightInfo;
 
 import java.awt.event.ActionListener;
+import java.awt.event.FocusListener;
 import java.nio.file.Path;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
 
@@ -48,7 +50,7 @@ class FlightInfoButton extends JButton {
 
 public class FlightInformationFrm extends JFrame
 {
-    private Path path = Path.of("page1/page2");
+    private Path path = Path.of("Retrieve/Flight Information");
     private JPanel contentPane;
     private JPanel rightPanel = null;
     public FlightInfo passData = new FlightInfo();
@@ -104,51 +106,6 @@ public class FlightInformationFrm extends JFrame
         setContentPane(contentPane);
         // pane = new JLayeredPane();
 
-        // var bread = new BreadCrumbPanel(this.path);
-        // bread.setBounds(0, 0, 300, 50);
-        // this.add(bread);
-        JPanel flowChart = new JPanel();
-        flowChart.setLayout(null);
-        flowChart.setBounds(100, 25,765,25);
-        flowChart.setBackground(Color.WHITE);
-
-        JLabel retrieve = new JLabel("Retrieve>");
-        retrieve.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
-        retrieve.setBounds(0,0,70,35);
-        flowChart.add(retrieve);
-
-        JLabel fInfo = new JLabel("Flight Information>");
-        fInfo.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
-        fInfo.setBounds(70,0,160,35);
-        flowChart.add(fInfo);
-
-        JLabel chooseSeat = new JLabel("Choose Seat>");
-        chooseSeat.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
-        chooseSeat.setBounds(230,0,110,35);
-        flowChart.add(chooseSeat);
-
-        JLabel chooseFood = new JLabel("Choose Food>");
-        chooseFood.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
-        chooseFood.setBounds(340,0,115,35);
-        flowChart.add(chooseFood);
-
-        JLabel extraFood = new JLabel("Extra Food>");
-        extraFood.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
-        extraFood.setBounds(455,0,100,35);
-        flowChart.add(extraFood);
-
-        JLabel confirmPay = new JLabel("Confirm and Pay>");
-        confirmPay.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
-        confirmPay.setBounds(555,0,140,35);
-        flowChart.add(confirmPay);
-
-        JLabel checkin = new JLabel("Check in");
-        checkin.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
-        checkin.setBounds(695,0,80,35);
-        flowChart.add(checkin);
-
-        add(flowChart);
-
         JLabel label = new JLabel("Flight Information");
         label.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 35));
         label.setBounds(45,85,523,49);
@@ -163,15 +120,20 @@ public class FlightInformationFrm extends JFrame
         // image.setImage(image.getImage().getScaledInstance(960,0,Image.SCALE_DEFAULT));//这里设置图片大小，目前是20*20
         JLabel picture=new JLabel(image);
         //picture.setBounds(544,34,350,523);
-        picture.setBounds(0, 0, image.getIconWidth(), image.getIconHeight()-35);   //把标签设置为和图片等高等宽
-		// contentPane = (JPanel)this.getContentPane(); 	//把我的面板设置为内容面板	
+        picture.setBounds(0, 0, image.getIconWidth(), image.getIconHeight()-35);   //鎶婃爣绛捐缃负鍜屽浘鐗囩瓑楂樼瓑瀹�
+		// contentPane = (JPanel)this.getContentPane(); 	//鎶婃垜鐨勯潰鏉胯缃负鍐呭闈㈡澘	
         contentPane.add(picture,JLayeredPane.DEFAULT_LAYER);
-        contentPane.setOpaque(false);		//把我的面板设置为不可视
-		this.getLayeredPane().setLayout(null);		//把分层面板的布局置空
+        contentPane.setOpaque(false);		//鎶婃垜鐨勯潰鏉胯缃负涓嶅彲瑙�
+		this.getLayeredPane().setLayout(null);		//鎶婂垎灞傞潰鏉跨殑甯冨眬缃┖
 		this.getLayeredPane().add(picture, new Integer(Integer.MIN_VALUE));
         this.getLayeredPane().setBackground(Color.WHITE);
 
-        
+        // top panel
+        topPanel top = new topPanel(this.path);
+        top.setBounds(0,0,940,70);
+        contentPane.add(top);
+        top.setVisible(true);
+
         JPanel panelInfo = new JPanel();
         panelInfo.setBackground(Color.white);
         var flightInfo = new FlightInfoButton[100];
@@ -333,7 +295,7 @@ public class FlightInformationFrm extends JFrame
                         }
                     }else if(seatclass.equals("Normal")){
                         int choice = JOptionPane.showConfirmDialog(null, "Would you like to upgrade?", "Upgrade",JOptionPane.YES_NO_OPTION);
-                        if(choice == 0){ //upgrade
+                        if(choice == JOptionPane.YES_OPTION){ //upgrade
                             GlobalData.data.put("seatClass","First");
                             GlobalData.data.put("flight",passData);
                             new ChooseSeat("First");
@@ -342,7 +304,7 @@ public class FlightInformationFrm extends JFrame
                             } catch (UnboundPageException e1) {
                                 e1.printStackTrace();
                             }
-                        }else if(choice == 1){ //keep normal seat
+                        }else if(choice == JOptionPane.NO_OPTION){ //keep normal seat
                             GlobalData.data.put("seatClass",seatclass);
                             GlobalData.data.put("flight",passData);
                             new ChooseSeat("Normal");

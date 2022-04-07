@@ -30,7 +30,7 @@ class MyPrintPanel extends JPanel {
     }
 }
 public class confirmPrint extends JFrame{
-    private Path path = Path.of("page1/page2/page3/page4/page5/page6");
+    private Path path = Path.of("Retrieve/Flight Information/Choose Seat/Choose Food/Confirm and Pay/Print");
     private JPanel contentPane;
     JLayeredPane pane = new JLayeredPane();
     public static void main(String[] args){
@@ -60,48 +60,6 @@ public class confirmPrint extends JFrame{
         pane = new JLayeredPane();
 
         // flow chart
-        JPanel flowChart = new JPanel();
-        flowChart.setLayout(null);
-        flowChart.setBounds(100, 25,765,25);
-        flowChart.setBackground(Color.WHITE);
-
-        JLabel retrieve = new JLabel("Retrieve>");
-        retrieve.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
-        retrieve.setBounds(0,0,70,35);
-        flowChart.add(retrieve);
-
-        JLabel fInfo = new JLabel("Flight Information>");
-        fInfo.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
-        fInfo.setBounds(70,0,160,35);
-        flowChart.add(fInfo);
-
-        JLabel chooseSeat = new JLabel("Choose Seat>");
-        chooseSeat.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
-        chooseSeat.setBounds(230,0,110,35);
-        flowChart.add(chooseSeat);
-
-        JLabel chooseFood = new JLabel("Choose Food>");
-        chooseFood.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
-        chooseFood.setBounds(340,0,115,35);
-        flowChart.add(chooseFood);
-
-        JLabel extraFood = new JLabel("Extra Food>");
-        extraFood.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
-        extraFood.setBounds(455,0,100,35);
-        flowChart.add(extraFood);
-
-        JLabel confirmPay = new JLabel("Confirm and Pay>");
-        confirmPay.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
-        confirmPay.setBounds(555,0,140,35);
-        flowChart.add(confirmPay);
-
-        JLabel checkin = new JLabel("Check in");
-        checkin.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
-        checkin.setBounds(695,0,80,35);
-        flowChart.add(checkin);
-
-        add(flowChart);
-
         JLabel label1 = new JLabel("Please sacn your ID document:");
         label1.setFont(new Font("Microsoft YaHei", Font.PLAIN,18));
         label1.setBounds(45,100,341,191);
