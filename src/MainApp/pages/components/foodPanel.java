@@ -6,6 +6,7 @@ import java.awt.*;
 public class foodPanel {
     JSpinner spinner;
     public JPanel createPanel(String picture,String name,String price){
+        price = "$"+price;
         JPanel content = new JPanel();
         content.setLayout(null);
         content.setSize(200,150);
