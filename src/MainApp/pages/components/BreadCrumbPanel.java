@@ -10,7 +10,7 @@ import MainApp.pages.Pages;
 
 public class BreadCrumbPanel extends JPanel {
     private LinkedList<HrefButton> crumbs = new LinkedList<>();
-    public Path totalPath = Path.of("Retrieve/Flight Information/Choose Seat/Choose Food/Confirm and Pay/Print");
+    public Path totalPath = Path.of("Retrieve/Flight Information/Choose Seat/Choose Food/Extra Food/Confirm and Pay");
     public BreadCrumbPanel() {
         this(Pages.curPagePath);
     }

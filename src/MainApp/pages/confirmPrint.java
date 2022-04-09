@@ -30,7 +30,7 @@ class MyPrintPanel extends JPanel {
     }
 }
 public class confirmPrint extends JFrame{
-    private Path path = Path.of("Retrieve/Flight Information/Choose Seat/Choose Food/Confirm and Pay/Print");
+    private Path path = Path.of("Retrieve/Flight Information/Choose Seat/Choose Food/Extra Food/Confirm and Pay/Print");
     private JPanel contentPane;
     JLayeredPane pane = new JLayeredPane();
     public static void main(String[] args){

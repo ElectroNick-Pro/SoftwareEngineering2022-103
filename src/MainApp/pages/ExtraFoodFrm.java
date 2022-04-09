@@ -1,12 +1,17 @@
 package MainApp.pages;
 
 import javax.swing.*;
+
+import MainApp.models.Model.Exception.FieldNotFoundException;
+import MainApp.models.Model.Exception.ObjectNotFoundException;
 import MainApp.models.Model.UserModel.*;
 import MainApp.pages.components.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
 import java.awt.*;
+import MainApp.pages.Exception.UnboundPageException;
+import java.nio.file.Path;
 
 public class ExtraFoodFrm extends JFrame{
     private JPanel contentPane;
@@ -26,21 +31,28 @@ public class ExtraFoodFrm extends JFrame{
     }
     private static final int DEFAULT_WIDTH = 965;
     private static final int DEFAULT_HEIGHT = 550; 
+    private Path path = Path.of("Retrieve/Flight Information/Choose Seat/Choose Food/Extra Food");
     public ExtraFoodFrm(){
+        Pages.bindPage(this.path, this);
         setSize(DEFAULT_WIDTH,DEFAULT_HEIGHT);
         contentPane = new JPanel();
         contentPane.setLayout(null);
         setContentPane(contentPane);
         contentPane.setBackground(Color.WHITE);
 
+        topPanel top = new topPanel(this.path);
+        top.setBounds(0,0,940,70);
+        add(top);
+        top.setVisible(true);
+
         JLabel title = new JLabel("Extra Food");
         title.setFont(new Font("Microsoft YaHei UI",Font.BOLD,35));
-        title.setBounds(45,85,190,49);
+        title.setBounds(45,85,200,49);
         add(title);
 
         JLabel smallTitle = new JLabel("You can choose some extra food:"); 
         smallTitle.setFont(new Font("Microsoft YaHei UI",Font.PLAIN,15));
-        smallTitle.setBounds(45,118,247,70);
+        smallTitle.setBounds(45,118,250,70);
         add(smallTitle);
 
         JPanel food = new JPanel();
@@ -152,7 +164,13 @@ public class ExtraFoodFrm extends JFrame{
                 foodMenu = new Food[NUM];
                 foodMenu[0] = new Food();
                 // foodMenu[0] = coffeePanel.getValue();
-
+                try{
+                    new confirmPay();
+                    Pages.displayPage(path.resolve(Path.of("Confirm and Pay")));
+                }
+                catch (UnboundPageException e1) {
+                    e1.printStackTrace();
+                }
             }
         });
     }

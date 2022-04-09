@@ -17,7 +17,7 @@ public class topPanel extends JPanel{
         this.setBackground(Color.WHITE);
         this.setLayout(null);
         BreadCrumbPanel bread = new BreadCrumbPanel(path);
-        bread.setBounds(100, 25, 765, 25);
+        bread.setBounds(80, 25, 800, 25);
         exitButton exit = new exitButton();
         exit.setBounds(40,20,40,40);
         helpButton help = new helpButton();

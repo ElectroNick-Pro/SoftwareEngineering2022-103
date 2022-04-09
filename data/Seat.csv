@@ -1,7 +1,7 @@
 id,Interval_id,Ticket_id,price,seatClass,seatNo,type
 1,1,,0.0,Normal,1A,Window
 2,1,,0,Normal,1B,Normal
-3,1,,0,Normal,1C,Aisle
+3,1,1,0.0,Normal,1C,Aisle
 4,1,,50.0,Normal,1D,Extra
 5,1,,0,Normal,1E,Normal
 6,1,,0.0,Normal,2A,Window
@@ -47,7 +47,7 @@ id,Interval_id,Ticket_id,price,seatClass,seatNo,type
 46,2,,0,Normal,4F,Window
 47,1,,0.0,First,1A,Window
 48,1,,100.0,First,1B,Normal
-49,1,,100.0,First,1C,Aisle
+49,1,2,100.0,First,1C,Aisle
 50,1,,150.0,First,1D,Extra
 51,1,,100.0,First,1E,Normal
 52,1,,100.0,First,2A,Window

@@ -14,15 +14,17 @@ import MainApp.models.Model.Exception.ObjectNotFoundException;
 import MainApp.models.Model.UserModel.*;
 import MainApp.pages.Exception.UnboundPageException;
 import java.nio.file.Path;
-import MainApp.pages.components.BreadCrumbPanel;
-import MainApp.pages.components.DemoScrollBarUI;
-import MainApp.pages.components.RoundBorder;
+import MainApp.pages.components.*;
 
 public class FoodFrame extends JFrame {
     private Path path = Path.of("Retrieve/Flight Information/Choose Seat/Choose Food");
 
     public FoodFrame() {
         Pages.bindPage(this.path, this);
+
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setSize(960, 540);
+
         JButton Back = new JButton("back");
         Back.setBackground(new Color(191, 191, 191));
         Back.setForeground(Color.WHITE);
@@ -45,28 +47,19 @@ public class FoodFrame extends JFrame {
         Next.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 15));
         Next.setBorder(new RoundBorder(new Color(30, 144, 255)));
         Next.setBounds(860, 460, 75, 30);
-        
 
         JPanel J = new JPanel();
-        J.setPreferredSize(new Dimension(960, 1620));
+        J.setPreferredSize(new Dimension(960, 1600));
         ChooseFoodOrigin o = new ChooseFoodOrigin();
-        ChooseFoodExtra e = new ChooseFoodExtra();
-        ChooseFoodDessert d = new ChooseFoodDessert();
         J.setLayout(new GridLayout(3, 1));
         J.add(o, Integer.valueOf(4));
-        // J.add(e,Integer.valueOf(4));
-        // J.add(d,Integer.valueOf(4));
-        JScrollPane three = new JScrollPane(J, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
+        JScrollPane foodPanel = new JScrollPane(J, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
                 ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        // JScrollPane three =new JScrollPane(J);
-        three.setBounds(0, 0, 900, 500);
-        three.getVerticalScrollBar().setUI(new DemoScrollBarUI());
-        three.setPreferredSize(new Dimension(960, 540));
-        // this.add(three);
-        this.setSize(960, 540);
-        this.getContentPane().add(three);
-        // three.setViewportView(this);
-
+        foodPanel.setBounds(0, 0, 900, 1600);
+        foodPanel.getVerticalScrollBar().setUI(new DemoScrollBarUI());
+        foodPanel.setPreferredSize(new Dimension(960, 1600));
+        
+        this.getContentPane().add(foodPanel);
         this.getLayeredPane().add(Next, Integer.valueOf(4));
         this.getLayeredPane().add(Back, Integer.valueOf(4));
 
@@ -85,20 +78,19 @@ public class FoodFrame extends JFrame {
                         //ticket.food.setValue(food.id);
                         GlobalData.data.put("ticket", ticket);
 						GlobalData.data.put("food_choice", food);
-                        new confirmPay();
+                        new ExtraFoodFrm();
                         Pages.displayPage(path.resolve(Path.of("Extra Food")));
-                    } catch (UnboundPageException | FieldNotFoundException | ObjectNotFoundException e1) {
+                    } 
+                    catch (UnboundPageException | FieldNotFoundException | ObjectNotFoundException e1) {
                         e1.printStackTrace();
                     }
                 }
             }
         });
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     public static void main(String[] args) {
         FoodFrame f = new FoodFrame();
         f.setVisible(true);
     }
-
 }
