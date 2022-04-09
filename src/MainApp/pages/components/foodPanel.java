@@ -39,7 +39,7 @@ public class foodPanel {
         spinner = new JSpinner();
         spinner.setBounds(125,110,42,24);
         content.add(spinner);
-        return content;
+        return content; //return the content
     }
     public int getValue(){
         int value = (int)this.spinner.getValue();
