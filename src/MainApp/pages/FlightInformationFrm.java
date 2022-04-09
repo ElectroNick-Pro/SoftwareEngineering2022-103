@@ -176,24 +176,6 @@ public class FlightInformationFrm extends JFrame
         info.getVerticalScrollBar().setUI(new DemoScrollBarUI()); 
         add(info);
 
-        ImageIcon questionIcon = new ImageIcon(ClassLoader.getSystemResource("MainApp/pages/image/question.png"));
-        questionIcon.setImage(questionIcon.getImage().getScaledInstance(40,40,Image.SCALE_DEFAULT));
-        JButton question = new JButton();
-        question.setBackground(Color.WHITE);
-        question.setBorder(new RoundBorder(Color.white));
-        question.setIcon(questionIcon);
-        question.setBounds(880,20,40,40);
-        add(question);
-
-        ImageIcon backHome = new ImageIcon(ClassLoader.getSystemResource("MainApp/pages/image/exit.png"));
-        backHome.setImage(backHome.getImage().getScaledInstance(40,40,Image.SCALE_DEFAULT));
-        JButton home = new JButton();
-        home.setBackground(Color.WHITE);
-        home.setBorder(new RoundBorder(Color.white));
-        home.setIcon(backHome);
-        home.setBounds(40,20,40,40);
-        add(home);
-
         JButton next = new JButton();
         next.setBackground(new Color(30, 144, 255));
         next.setText("Next");
@@ -294,7 +276,7 @@ public class FlightInformationFrm extends JFrame
                         GlobalData.data.put("flight",passData);
                         new ChooseSeat("First");
                         try {
-                            Pages.displayPage(path.resolve(Path.of("page3")));
+                            Pages.displayPage(path.resolve(Path.of("Choose Seat")));
                         } catch (UnboundPageException e1) {
                             e1.printStackTrace();
                         }

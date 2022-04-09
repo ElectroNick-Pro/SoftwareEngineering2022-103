@@ -13,7 +13,7 @@ import MainApp.models.Model.UserModel.Flight;
 import MainApp.models.Model.UserModel.Food;
 import MainApp.models.Model.UserModel.Ticket;
 import MainApp.pages.Exception.UnboundPageException;
-import MainApp.pages.components.RoundBorder;
+import MainApp.pages.components.*;
 
 
 import java.awt.*;
@@ -23,7 +23,7 @@ import java.nio.file.Path;
 
 public class ChooseFoodOrigin extends ChooseFoodtemplate {
 
-	String[] originchoice = new String[] { "0", "0", "0" };
+String[] originchoice = new String[] { "0", "0", "0" };
 boolean choosen=false;
 newfoodButton Standard = new newfoodButton("Standard", 0, null);
 newfoodButton Vegan = new newfoodButton("Vegetarian", 0, null);
@@ -148,7 +148,7 @@ newfoodButton Lowsugar = new newfoodButton("Low Sugar", 1, "$4");
 				ok.setBounds(721, 201, 50, 50);
 				ok.setVisible(true);
 				choosen=true;
-				originchoice = new String[] { "BeefSteak", "12", "origin" };
+				originchoice = new String[] { "Beefsteak", "12", "origin" };
 				System.out.println(originchoice[0].toString());
 			}
 		});
@@ -202,6 +202,11 @@ newfoodButton Lowsugar = new newfoodButton("Low Sugar", 1, "$4");
 			}
 		});
 
+		// topPanel top = new topPanel(this.path);
+        // top.setBounds(0,0,940,70);
+        // this.add(top);
+        // top.setVisible(true);
+
 		this.add(Standard, Integer.valueOf(4));
 		this.add(Vegan, Integer.valueOf(4));
 		this.add(Humbergur, Integer.valueOf(4));
@@ -220,41 +225,6 @@ newfoodButton Lowsugar = new newfoodButton("Low Sugar", 1, "$4");
 		JPanel shadow8 = shade(745, 325);
 		this.add(shadow8, Integer.valueOf(1));
 
-		
-		Home.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if(e.getSource() == Home) {
-					try {
-						var ticket = (Ticket)GlobalData.data.get("ticket");
-						var flight = (Flight)ticket.flight.getReferred();
-								//
-								var foodstream=Food.queryByProperty(Food.class, "id",flight.id)
-								.filter((x)->{
-									return x.flight.getValue().equals(flight.flightNo);
-								});
-								System.out.println("success!");
-								var afood=foodstream.toArray();
-								var aFood=(Food)afood[0];
-								aFood.name.setValue(originchoice[0]);
-								aFood.price.setValue(originchoice[1]);
-								aFood.type.setValue(originchoice[2]);
-								aFood.save();
-								System.out.println("success");
-								//
-						var food = MainApp.models.Model.UserModel.Food
-									.queryByProperty(MainApp.models.Model.UserModel.Food.class, "name", originchoice[0])
-									.filter((x)->{
-										return x.flight.getValue().equals(flight.id);
-									}).findFirst().get();
-						GlobalData.data.put("food_choice", food);
-				
-					} catch (ObjectNotFoundException | FieldNotFoundException e1) {
-						e1.printStackTrace();
-					}
-				}
-			}
-		});
 	}
 /*public void choosefood(){
        // System.out.println(type);

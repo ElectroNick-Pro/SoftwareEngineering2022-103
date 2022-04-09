@@ -5,8 +5,7 @@ import java.awt.*;
 
 import MainApp.GlobalData;
 import MainApp.pages.Exception.UnboundPageException;
-import MainApp.pages.components.DemoScrollBarUI;
-import MainApp.pages.components.RoundBorder;
+import MainApp.pages.components.*;
 import MainApp.pages.control.FlightInfo;
 import MainApp.models.Models;
 import MainApp.models.Model.UserModel.*;
@@ -38,7 +37,7 @@ class MyPayPanel extends JPanel {
 }
 
 public class confirmPay extends JFrame {
-    private Path path = Path.of("Retrieve/Flight Information/Choose Seat/Choose Food/Confirm and Pay");
+    private Path path = Path.of("Retrieve/Flight Information/Choose Seat/Choose Food/Extra Food/Confirm and Pay");
     private JPanel contentPane;
     public FlightInfo info;
     JLayeredPane pane = new JLayeredPane();
@@ -144,23 +143,10 @@ public class confirmPay extends JFrame {
         this.getLayeredPane().add(picture, new Integer(Integer.MIN_VALUE));
         this.getLayeredPane().setBackground(Color.WHITE);
 
-        ImageIcon questionIcon = new ImageIcon(ClassLoader.getSystemResource("MainApp/pages/image/question.png"));
-        questionIcon.setImage(questionIcon.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
-        JButton question = new JButton();
-        question.setBackground(Color.WHITE);
-        question.setBorder(new RoundBorder(Color.white));
-        question.setIcon(questionIcon);
-        question.setBounds(880, 20, 40, 40);
-        add(question);
-
-        ImageIcon backHome = new ImageIcon(ClassLoader.getSystemResource("MainApp/pages/image/exit.png"));
-        backHome.setImage(backHome.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
-        JButton home = new JButton();
-        home.setBackground(Color.WHITE);
-        home.setBorder(new RoundBorder(Color.white));
-        home.setIcon(backHome);
-        home.setBounds(40, 20, 40, 40);
-        add(home);
+        topPanel top = new topPanel(this.path);
+        top.setBounds(0,0,940,70);
+        add(top);
+        top.setVisible(true);
 
         JButton next = new JButton();
 
