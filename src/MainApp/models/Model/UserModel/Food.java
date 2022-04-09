@@ -15,4 +15,5 @@ public class Food extends BaseModel {
     public StringField name = new StringField();
     public StringField type = new StringField();
     public ForeignKey flight = new ForeignKey(Flight.class);
+    public StringField image = new StringField();
 }
