@@ -75,7 +75,7 @@ public class credit extends JFrame implements ActionListener {
                 ((Ticket)GlobalData.data.get("ticket")).save();
                 ((Seat)GlobalData.data.get("seat")).save();
                 OK frame = new OK();
-                frame.setSize(515, 313);
+                frame.setSize(480, 185);
                 frame.setBackground(Color.WHITE);
                 frame.setLocationRelativeTo(null);
                 this.dispose();

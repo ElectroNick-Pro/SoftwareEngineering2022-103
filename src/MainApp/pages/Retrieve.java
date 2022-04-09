@@ -22,6 +22,8 @@ public class Retrieve extends JFrame implements ActionListener{
         Pages.bindPage(this.path, this);
 		this.setTitle("Check-In Kiosk");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setLocationRelativeTo(null); 
+        this.setSize(965,550);
 
 		container = this.getContentPane();
         container.setLayout(null);
