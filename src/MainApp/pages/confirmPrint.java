@@ -1,6 +1,7 @@
 package MainApp.pages;
 import java.awt.Color;
 import java.awt.*;
+import java.awt.event.*;
 
 import MainApp.pages.components.DemoScrollBarUI;
 import MainApp.pages.components.RoundBorder;
@@ -17,7 +18,7 @@ import java.time.Duration;
 import java.util.Locale;
 import java.awt.event.ActionEvent;
 import java.nio.file.Path;
-class MyPrintPanel extends JPanel {
+class MyPrintPanel extends JPanel{
     public Image image;
     public MyPrintPanel(Image image) {
         super();
