@@ -1,17 +1,17 @@
-id,Flight_id,name,price,type
-1,1,Standard,0,Origin
-2,1,Vegan,0,Origin
-3,1,Humbergur,5,Origin
-4,1,Beefsteak,12,Origin
-5,1,Halal,0,Origin
-6,1,child,0,Origin
-7,1,Seafood,8,Origin
-8,1,Low Sugar,4,Origin
-9,2,Standard,0,Origin
-10,2,Vegan,0,Origin
-11,2,Humbergur,5,Origin
-12,2,Beefsteak,12,Origin
-13,2,Halal,0,Origin
-14,2,child,0,Origin
-15,2,Seafood,8,Origin
-16,2,Low Sugar,4,Origin
+id,Flight_id,name,price,type,image
+1,1,Standard,0,Origin,
+2,1,Vegan,0,Origin,
+3,1,Humbergur,5,Origin,
+4,1,Beefsteak,12,Origin,
+5,1,Halal,0,Origin,
+6,1,child,0,Origin,
+7,1,Seafood,8,Origin,
+8,1,Low Sugar,4,Origin,
+9,1,doughnut,0,Extra,MainApp/pages/image/doughnut1.png
+10,1,bread,0,Extra,MainApp/pages/image/bread2.png
+11,1,chocolates,5,Extra,MainApp/pages/image/chocolate3.png
+12,1,biscuit,12,Extra,MainApp/pages/image/biscuit4.png
+13,1,pudding,0,Extra,MainApp/pages/image/biscuit4.png
+14,1,lollipop,0,Extra,MainApp/pages/image/biscuit4.png
+15,1,rice ball,8,Extra,MainApp/pages/image/biscuit4.png
+16,1,Low sushi,4,Extra,MainApp/pages/image/biscuit4.png

@@ -34,6 +34,16 @@ public class BaseModel {
         
     }
 
+    private static String[] splitLine(String str) {
+        if(str.endsWith(",")) {
+            str += ",-";
+            var res = str.split(",");
+            return Arrays.copyOf(res, res.length - 1);
+        } else {
+            return str.split(",");
+        }
+    }
+
     @SuppressWarnings("unchecked")
     public void save() {
 
@@ -52,7 +62,7 @@ public class BaseModel {
 
             var path = (Path) this.getClass().getField("storagePath").get(null);
             var lines = Files.readAllLines(path, StandardCharsets.UTF_8);
-            var keyArr = lines.get(0).split(",");
+            var keyArr = splitLine(lines.get(0));
             int n = keyArr.length;
             var ln = new LinkedList<String>();
             for(int i = 1; i < n; i++) {
@@ -81,12 +91,12 @@ public class BaseModel {
             T res = clz.getConstructor().newInstance();
             var path = (Path) clz.getField("storagePath").get(null);
             var lines = Files.readAllLines(path, StandardCharsets.UTF_8);
-            var keyArr = lines.get(0).split(",");
+            var keyArr = splitLine(lines.get(0));
             int n = keyArr.length;
             if(id >= lines.size()) {
                 throw new ObjectNotFoundException();
             }
-            var valArr = lines.get(id).split(",");
+            var valArr = splitLine(lines.get(id));
             res.id = id;
             var verMap = (Map<String, String>)clz.getField("verboseMap").get(null);
             for(int i = 1; i < n; i++) {
@@ -110,7 +120,7 @@ public class BaseModel {
             var resLs = new ArrayList<T>();
             var path = (Path) clz.getField("storagePath").get(null);
             var lines = Files.readAllLines(path, StandardCharsets.UTF_8);
-            var keyArr = lines.get(0).split(",");
+            var keyArr = splitLine(lines.get(0));
             int n = keyArr.length;
             String[] valArr = null;
             var verMap = (Map<String, String>)clz.getField("verboseMap").get(null);
@@ -141,7 +151,7 @@ public class BaseModel {
             int m = lines.size();
             int ln = 1;
             for(ln = 1; ln < m; ln++) {
-                valArr = lines.get(ln).split(",");
+                valArr = splitLine(lines.get(ln));
                 if(valArr[idx].equals(keyClz.getField("csvForm").get(keyItem))) {
                     T ins = clz.getConstructor().newInstance();
                     ins.id = ln;
@@ -168,7 +178,7 @@ public class BaseModel {
             var resLs = new ArrayList<T>();
             var path = (Path) clz.getField("storagePath").get(null);
             var lines = Files.readAllLines(path, StandardCharsets.UTF_8);
-            var keyArr = lines.get(0).split(",");
+            var keyArr = splitLine(lines.get(0));
             int n = keyArr.length;
             String[] valArr = null;
             var verMap = (Map<String, String>)clz.getField("verboseMap").get(null);
@@ -176,7 +186,7 @@ public class BaseModel {
             int m = lines.size();
             int ln = 1;
             for(ln = 1; ln < m; ln++) {
-                valArr = lines.get(ln).split(",");
+                valArr = splitLine(lines.get(ln));
                 T ins = clz.getConstructor().newInstance();
                 ins.id = ln;
                 for(int i = 1; i < n; i++) {

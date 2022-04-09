@@ -56,6 +56,7 @@ public class FlightInformationFrm extends JFrame
     public FlightInfo passData = new FlightInfo();
     private int flag = (Integer)GlobalData.data.get("flag");
     private Map<Integer, FlightInfo> flightInfoMap;
+    private int judgeFlage = 0;
     JLayeredPane pane = new JLayeredPane();
     public static void main(String[] args){
         EventQueue.invokeLater(new Runnable() {
@@ -217,7 +218,7 @@ public class FlightInformationFrm extends JFrame
                     for(int j = 0; j < NUM;j++){
                         flightInfo[j].setBorder(new RoundBorder(Color.GRAY));
                     }
-                    
+                    judgeFlage = 1;
                     flightInfo[number].setBorder(new RoundBorder(new Color(83,180,248)));
                     smallLabel.setText("Please choose the flight and check the information:");
                     ImageIcon newImage = new ImageIcon(ClassLoader.getSystemResource("MainApp/pages/image/background.png"));// 这是背景图片 .png .jpg .gif 等格式的图片都可以
@@ -261,6 +262,10 @@ public class FlightInformationFrm extends JFrame
         }
         next.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e) {
+                if(judgeFlage == 0){
+                    JOptionPane.showMessageDialog(null, "Please choose a flight to check in", "notice", JOptionPane.ERROR_MESSAGE);
+                }
+                else{
                 if(e.getSource() == next) {
                     // qxt
                     //get the class of seat the customer have chosen
@@ -298,7 +303,7 @@ public class FlightInformationFrm extends JFrame
                         }
                     }
                 }
-                
+                }
             }
         });
     }

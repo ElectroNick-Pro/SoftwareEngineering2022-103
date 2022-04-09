@@ -1,3 +1,6 @@
 id,Airline_id,type
 1,1,PlaneTypeOne
 2,1,PlaneTypeTwo
+3,2,PlaneTypeOne
+4,2,PlaneTypeTwo
+5,2,PlaneTypeThree

@@ -7,11 +7,15 @@ import MainApp.models.Model.Exception.ObjectNotFoundException;
 import MainApp.models.Model.UserModel.*;
 import MainApp.pages.components.*;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 import java.awt.event.ActionEvent;
-import javax.swing.JScrollPane;
 import java.awt.*;
 import MainApp.pages.Exception.UnboundPageException;
 import java.nio.file.Path;
+import MainApp.pages.control.FlightInfo;
+import MainApp.GlobalData;
+import MainApp.models.Models;
+import MainApp.App;
 
 public class ExtraFoodFrm extends JFrame{
     private JPanel contentPane;
@@ -19,6 +23,8 @@ public class ExtraFoodFrm extends JFrame{
         EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+                    GlobalData.init(args);
+                    Models.init();
 					ExtraFoodFrm frame = new ExtraFoodFrm();
 					frame.setVisible(true);
                     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -32,6 +38,9 @@ public class ExtraFoodFrm extends JFrame{
     private static final int DEFAULT_WIDTH = 965;
     private static final int DEFAULT_HEIGHT = 550; 
     private Path path = Path.of("Retrieve/Flight Information/Choose Seat/Choose Food/Extra Food");
+    private int getNum = 0;
+    private foodPanel[] foodPane = null;
+    private JPanel[] foodJPanels = null;
     public ExtraFoodFrm(){
         Pages.bindPage(this.path, this);
         setSize(DEFAULT_WIDTH,DEFAULT_HEIGHT);
@@ -54,85 +63,88 @@ public class ExtraFoodFrm extends JFrame{
         smallTitle.setFont(new Font("Microsoft YaHei UI",Font.PLAIN,15));
         smallTitle.setBounds(45,118,250,70);
         add(smallTitle);
-
+ 
+        // FlightInfo flightinfo = (FlightInfo)GlobalData.data.get("flight");
+        // int Id = flightinfo.flight.id;
         JPanel food = new JPanel();
-        food.setPreferredSize(new Dimension(800, 480));
+        // food.setPreferredSize(new Dimension(800, 480));
         food.setBackground(Color.white);
-        foodPanel coffeePanel = new foodPanel();
-        JPanel coffee =coffeePanel.createPanel("MainApp/pages/image/coffee1.png","Coffee","$2");
-        foodPanel colaPanel = new foodPanel();
-        JPanel cola = colaPanel.createPanel("MainApp/pages/image/cola2.png","Cola","$3");
-        foodPanel beerPanel = new foodPanel();
-        JPanel beer = beerPanel.createPanel("MainApp/pages/image/beer3.png","Beer","$2");
-        foodPanel juicePanel = new foodPanel();
-        JPanel juice = juicePanel.createPanel("MainApp/pages/image/juice4.png","Juice","$2");
-        foodPanel waterMelonPanel = new foodPanel();
-        JPanel watermelon = waterMelonPanel.createPanel("MainApp/pages/image/WM5.png","watermelon","$2");
-        foodPanel applePanel = new foodPanel();
-        JPanel apple = applePanel.createPanel("MainApp/pages/image/apple6.png","Apple","$2");
-        foodPanel hotdogPanel = new foodPanel();
-        JPanel hotdog = hotdogPanel.createPanel("MainApp/pages/image/hotdog7.png","Hotdog","$2");
-        foodPanel friesPanel = new foodPanel();
-        JPanel fries = friesPanel.createPanel("MainApp/pages/image/French fries8.png","French fries","$2");
-        foodPanel doughnutPanel = new foodPanel();
-        JPanel doughnut = doughnutPanel.createPanel("MainApp/pages/image/doughnut1.png","Pudding","$2");
-        foodPanel breadPanel = new foodPanel();
-        JPanel bread = breadPanel.createPanel("MainApp/pages/image/bread2.png","Bread","$2");
-        foodPanel chocolatePanel = new foodPanel();
-        JPanel chocolate = chocolatePanel.createPanel("MainApp/pages/image/chocolate3.png","Chocolates","$2");
-        foodPanel biscuitPanel = new foodPanel();
-        JPanel biscuit =biscuitPanel.createPanel("MainApp/pages/image/biscuit4.png","Biscuit","$2");
-        
+        Object[] _haveFood = null;
+        try {
+            _haveFood = Food.queryByProperty(Food.class, "Flight_id", 1).filter((x)->{
+                return x.type.getValue().equals("Extra");
+            }).toArray(); //get all extra food on the plane
+            getNum = _haveFood.length;
+            foodPane = new foodPanel[getNum];
+            foodJPanels = new JPanel[getNum];
+            System.out.println(getNum);
+            for(int i = 0; i < getNum; i++){
+                var contain = (Food)_haveFood[i];
+                String name = (String)contain.name.getValue();
+                String image = (String)contain.image.getValue();
+                String price =String.valueOf((double)contain.price.getValue());
+                System.out.println(name+" " +image+" "+price);
+                foodPane[i] = new foodPanel();
+                foodJPanels[i] = foodPane[i].createPanel(image, name, price);
+            }
+        } catch (FieldNotFoundException e1) {
+            e1.printStackTrace();
+        };
+        var haveFood = _haveFood;
         GroupLayout layout1 = new GroupLayout(food);
-        GroupLayout.SequentialGroup hSeqGpInfo1 = layout1.createSequentialGroup();
-        hSeqGpInfo1.addGap(20);
-        hSeqGpInfo1.addComponent(coffee);
-        hSeqGpInfo1.addComponent(cola);
-        hSeqGpInfo1.addComponent(beer);
-        hSeqGpInfo1.addComponent(juice);
-        GroupLayout.SequentialGroup hSeqGpInfo2 = layout1.createSequentialGroup();
-        hSeqGpInfo2.addGap(20);
-        hSeqGpInfo2.addComponent(watermelon);
-        hSeqGpInfo2.addComponent(apple);
-        hSeqGpInfo2.addComponent(hotdog);
-        hSeqGpInfo2.addComponent(fries);
-        GroupLayout.SequentialGroup hSeqGpInfo3 = layout1.createSequentialGroup();
-        hSeqGpInfo3.addGap(20);
-        hSeqGpInfo3.addComponent(doughnut);
-        hSeqGpInfo3.addComponent(bread);
-        hSeqGpInfo3.addComponent(chocolate);
-        hSeqGpInfo3.addComponent(biscuit);
+        GroupLayout.SequentialGroup[] hSeqGP = null;
+        // get the size parallel
+        int size = 0;
+        int remainder = getNum%4;
+        if(remainder == 0){
+            size = getNum/4;
+        }else{
+            size = getNum/4+1;
+        }
+        hSeqGP =new GroupLayout.SequentialGroup[size];
+        //add components
+        for(int i = 0 ; i < size;i++){
+            if(i == size-1&&remainder != 0){
+                hSeqGP[i] = layout1.createSequentialGroup();
+                hSeqGP[i].addGap(20);
+                for(int j = 0; j < remainder;j++){
+                    hSeqGP[i].addComponent(foodJPanels[i*4+j]);
+                }
+            }
+            else{
+                hSeqGP[i] = layout1.createSequentialGroup();
+                hSeqGP[i].addGap(20);
+                for(int j = 0; j < 4;j++){
+                    hSeqGP[i].addComponent(foodJPanels[i*4+j]);
+                }
+            }
+        }
         GroupLayout.ParallelGroup hparallelGroupInfo = layout1.createParallelGroup();
-        hparallelGroupInfo.addGroup(hSeqGpInfo1);
-        hparallelGroupInfo.addGroup(hSeqGpInfo2);
-        hparallelGroupInfo.addGroup(hSeqGpInfo3);
+        for(int i = 0; i < size;i++){
+            hparallelGroupInfo.addGroup(hSeqGP[i]);
+        }
         layout1.setHorizontalGroup(hparallelGroupInfo);
-
-        GroupLayout.SequentialGroup vSeqGP1 = layout1.createSequentialGroup();
-        vSeqGP1.addComponent(coffee);
-        vSeqGP1.addGap(20);
-        vSeqGP1.addComponent(watermelon);
-        vSeqGP1.addGap(20);
-        vSeqGP1.addComponent(doughnut);
-        GroupLayout.SequentialGroup vSeqGP2 = layout1.createSequentialGroup();
-        vSeqGP2.addComponent(cola);
-        vSeqGP2.addComponent(apple);
-        vSeqGP2.addComponent(bread);
-        GroupLayout.SequentialGroup vSeqGP3 = layout1.createSequentialGroup();
-        vSeqGP3.addComponent(beer);
-        vSeqGP3.addComponent(hotdog);
-        vSeqGP3.addComponent(chocolate);
-        GroupLayout.SequentialGroup vSeqGP4 = layout1.createSequentialGroup();
-        vSeqGP4.addComponent(juice);
-        vSeqGP4.addComponent(fries);
-        vSeqGP4.addComponent(biscuit);
+        //horizental
+        GroupLayout.SequentialGroup[] vSeqGP = new GroupLayout.SequentialGroup[4];
+        for(int i = 0; i < 4;i++){
+            vSeqGP[i] = layout1.createSequentialGroup();
+            if(i < remainder){
+                for(int j = 0; j < size + 1; j++)
+                    vSeqGP[i].addComponent(foodJPanels[j*4+i]);
+            }else{
+                for(int j = 0; j < size;j++){
+                    vSeqGP[i].addComponent(foodJPanels[j*4+i]);
+                }
+            }
+        }
         GroupLayout.ParallelGroup vparallelGP = layout1.createParallelGroup();
-        vparallelGP.addGroup(vSeqGP1);
-        vparallelGP.addGroup(vSeqGP2);
-        vparallelGP.addGroup(vSeqGP3);
-        vparallelGP.addGroup(vSeqGP4);
+        vparallelGP.addGroup(vSeqGP[0]);
+        vparallelGP.addGroup(vSeqGP[1]);
+        vparallelGP.addGroup(vSeqGP[2]);
+        vparallelGP.addGroup(vSeqGP[3]);
         layout1.setVerticalGroup(vparallelGP);
         food.setLayout(layout1);
+        
         JScrollPane info = new JScrollPane(food);
         info.setBackground(Color.white);
         info.setBounds(40,180,870,300);
@@ -159,11 +171,16 @@ public class ExtraFoodFrm extends JFrame{
 
         next.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e) {
-                int NUM = 13;
-                Food[] foodMenu = null;
-                foodMenu = new Food[NUM];
-                foodMenu[0] = new Food();
-                // foodMenu[0] = coffeePanel.getValue();
+                var tuples = new HashMap<Integer, FoodPurchase>();
+                for(int i = 0; i < getNum;i++){
+                    var info = new FoodPurchase();
+                    if(foodPane[i].getValue() != 0){
+                        info.food.setValue(((Food)haveFood[i]).id);
+                        info.count.setValue(foodPane[i].getValue());
+                    }
+                    tuples.put((Integer)info.food.getValue(), info);
+                }
+                GlobalData.data.put("foodInfo",info);
                 try{
                     new confirmPay();
                     Pages.displayPage(path.resolve(Path.of("Confirm and Pay")));
