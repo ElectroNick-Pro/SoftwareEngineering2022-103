@@ -28,13 +28,13 @@ public class foodPanel {
 
         JLabel names = new JLabel(name);
         names.setFont(new Font("Microsoft YaHei UI",Font.BOLD,23));
-        names.setBounds(60,55,90,40);
+        names.setBounds(60,55,120,40);
         content.add(names);
 
         JLabel prices = new JLabel(price);
         prices.setFont(new Font("Microsoft YaHei UI",Font.BOLD,20));
         prices.setForeground(Color.red);
-        prices.setBounds(30,100,41,42);
+        prices.setBounds(30,100,81,42);
         content.add(prices);
 
         spinner = new JSpinner();
