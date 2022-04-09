@@ -6,6 +6,7 @@ import MainApp.models.Model.Exception.FieldNotFoundException;
 import MainApp.models.Model.UserModel.*;
 import MainApp.pages.components.*;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 import java.awt.event.ActionEvent;
 import java.awt.*;
 import MainApp.pages.Exception.UnboundPageException;
@@ -34,6 +35,9 @@ public class ExtraFoodFrm extends JFrame{
     }
     private static final int DEFAULT_WIDTH = 965;
     private static final int DEFAULT_HEIGHT = 550; 
+    private int getNum = 0;
+    private foodPanel[] foodPane = null;
+    private JPanel[] foodJPanels = null;
     public ExtraFoodFrm(){
         setSize(DEFAULT_WIDTH,DEFAULT_HEIGHT);
         contentPane = new JPanel();
@@ -51,34 +55,33 @@ public class ExtraFoodFrm extends JFrame{
         smallTitle.setBounds(45,118,247,70);
         add(smallTitle);
  
-
-        int getNum = 0;
         // FlightInfo flightinfo = (FlightInfo)GlobalData.data.get("flight");
         // int Id = flightinfo.flight.id;
         JPanel food = new JPanel();
-        food.setPreferredSize(new Dimension(800, 480));
+        // food.setPreferredSize(new Dimension(800, 480));
         food.setBackground(Color.white);
-        foodPanel[] foodPane = null;
-        foodPane = new foodPanel[getNum];
-        JPanel[] foodJPanels = null;
-        foodJPanels = new JPanel[getNum];
+        Object[] _haveFood = null;
         try {
-            var haveFood = Food.queryByProperty(Food.class, "Flight_id", 1).filter((x)->{
-                return x.type.getValue() == "Extra";
+            _haveFood = Food.queryByProperty(Food.class, "Flight_id", 1).filter((x)->{
+                return x.type.getValue().equals("Extra");
             }).toArray(); //get all extra food on the plane
-            getNum = haveFood.length;
+            getNum = _haveFood.length;
+            foodPane = new foodPanel[getNum];
+            foodJPanels = new JPanel[getNum];
+            System.out.println(getNum);
             for(int i = 0; i < getNum; i++){
-                var contain = (Food)haveFood[i];
+                var contain = (Food)_haveFood[i];
                 String name = (String)contain.name.getValue();
                 String image = (String)contain.image.getValue();
-                String price = (String)contain.price.getValue();
+                String price =String.valueOf((double)contain.price.getValue());
+                System.out.println(name+" " +image+" "+price);
                 foodPane[i] = new foodPanel();
                 foodJPanels[i] = foodPane[i].createPanel(image, name, price);
             }
         } catch (FieldNotFoundException e1) {
             e1.printStackTrace();
         };
-
+        var haveFood = _haveFood;
         GroupLayout layout1 = new GroupLayout(food);
         GroupLayout.SequentialGroup[] hSeqGP = null;
         // get the size parallel
@@ -113,13 +116,12 @@ public class ExtraFoodFrm extends JFrame{
         }
         layout1.setHorizontalGroup(hparallelGroupInfo);
         //horizental
-        GroupLayout.SequentialGroup[] vSeqGP = null;
-        vSeqGP = new GroupLayout.SequentialGroup[4];
+        GroupLayout.SequentialGroup[] vSeqGP = new GroupLayout.SequentialGroup[4];
         for(int i = 0; i < 4;i++){
+            vSeqGP[i] = layout1.createSequentialGroup();
             if(i < remainder){
-                vSeqGP[i] = layout1.createSequentialGroup();
                 for(int j = 0; j < size + 1; j++)
-                vSeqGP[i].addComponent(foodJPanels[j*4+i]);
+                    vSeqGP[i].addComponent(foodJPanels[j*4+i]);
             }else{
                 for(int j = 0; j < size;j++){
                     vSeqGP[i].addComponent(foodJPanels[j*4+i]);
@@ -160,12 +162,16 @@ public class ExtraFoodFrm extends JFrame{
 
         next.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e) {
-                int NUM = 13;
-                Food[] foodMenu = null;
-                foodMenu = new Food[NUM];
-                foodMenu[0] = new Food();
-                // foodMenu[0] = coffeePanel.getValue();
-
+                var tuples = new HashMap<Integer, FoodPurchase>();
+                for(int i = 0; i < getNum;i++){
+                    var info = new FoodPurchase();
+                    if(foodPane[i].getValue() != 0){
+                        info.food.setValue(((Food)haveFood[i]).id);
+                        info.count.setValue(foodPane[i].getValue());
+                    }
+                    tuples.put((Integer)info.food.getValue(), info);
+                }
+                GlobalData.data.put("foodInfo",info);
             }
         });
     }
