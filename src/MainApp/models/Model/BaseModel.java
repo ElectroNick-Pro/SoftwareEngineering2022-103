@@ -36,7 +36,7 @@ public class BaseModel {
 
     private static String[] splitLine(String str) {
         if(str.endsWith(",")) {
-            str += "-";
+            str += ",-";
             var res = str.split(",");
             return Arrays.copyOf(res, res.length - 1);
         } else {
