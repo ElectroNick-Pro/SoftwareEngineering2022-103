@@ -151,6 +151,9 @@ public class BaseModel {
             int m = lines.size();
             int ln = 1;
             for(ln = 1; ln < m; ln++) {
+                if(lines.get(ln) == null || lines.get(ln).equals("")) {
+                    continue;
+                }
                 valArr = splitLine(lines.get(ln));
                 if(valArr[idx].equals(keyClz.getField("csvForm").get(keyItem))) {
                     T ins = clz.getConstructor().newInstance();
@@ -186,6 +189,9 @@ public class BaseModel {
             int m = lines.size();
             int ln = 1;
             for(ln = 1; ln < m; ln++) {
+                if(lines.get(ln) == null || lines.get(ln).equals("")) {
+                    continue;
+                }
                 valArr = splitLine(lines.get(ln));
                 T ins = clz.getConstructor().newInstance();
                 ins.id = ln;
