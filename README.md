@@ -12,11 +12,16 @@ Download the [release](https://gitee.com/electronick_pro/software-engineering202
 
 ## <span style="background-color:yellow;color:black">For this preview version - Database Fetching</span>
 - This is a preview version and you may not able to add data to database through the program
+
 - As a result, **database shall be fetched** before you start to use
+
 - Database can be fetched from the release files `data.zip`
+
 - You should extract files of `data.zip` to a folder
+
 - Database is in a folder and you should set the value of `dataDir` the path of the folder in the configuration `xml` file
-- The configuration file specification is in the document [Configuration Specification](Configuration%20Specification.md)
+
+  The configuration file specification is in the document [Configuration Specification](./Configuration%20Specification.md)
 
 ## Instructions
 
