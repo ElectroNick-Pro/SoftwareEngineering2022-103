@@ -44,25 +44,24 @@ public class confirmPay extends JFrame {
     private Map<Integer, FlightInfo> flightInfoMap = FlightInfo
             .getInfoMap(((Customer) GlobalData.data.get("customer")).id);
     private Food food = (Food) GlobalData.data.get("food_choice");
-
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    GlobalData.init(args);
-                    Models.init();
-                    GlobalData.data.put("customer", Customer.getById(Customer.class, 1));
-                    GlobalData.data.put("seat", Seat.getById(Seat.class, 6));
-                    GlobalData.data.put("flight", FlightInfo.getTicketInfoMap(1).get(1));
-                    confirmPay frame = new confirmPay();
-                    frame.setVisible(true);
-                    frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
+    // public static void main(String[] args) {
+    //     EventQueue.invokeLater(new Runnable() {
+    //         public void run() {
+    //             try {
+    //                 GlobalData.init(args);
+    //                 Models.init();
+    //                 GlobalData.data.put("customer", Customer.getById(Customer.class, 1));
+    //                 GlobalData.data.put("seat", Seat.getById(Seat.class, 6));
+    //                 GlobalData.data.put("flight", FlightInfo.getTicketInfoMap(1).get(1));
+    //                 confirmPay frame = new confirmPay();
+    //                 frame.setVisible(true);
+    //                 frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    //             } catch (Exception e) {
+    //                 e.printStackTrace();
+    //             }
+    //         }
+    //     });
+    // }
 
     private static final int DEFAULT_WIDTH = 965;
     private static final int DEFAULT_HEIGHT = 550;
@@ -122,7 +121,8 @@ public class confirmPay extends JFrame {
         String surname = (String) ((Customer) GlobalData.data.get("customer")).surname.getValue();
         String name = firstname + " " + surname;
         String ID = (String) ((Customer) GlobalData.data.get("customer")).customerId.getValue();
-        String seatClass = (String) seat.seatClass.getValue() + " class";
+        String seatClass = (String) seat.seatClass.getValue();
+        String seatType = (String) seat.type.getValue();
         String seatno = (String) seat.seatNo.getValue();
         Double seatprice = (Double) seat.price.getValue();
         JPanel panelFlight = createFlight(bookingID, departureDate, departureCity, destCity,
@@ -202,41 +202,56 @@ public class confirmPay extends JFrame {
         panel1.setBorder(new RoundBorder(Color.gray));
         panel1.setBounds(45, 170, 375, 85);
         panel1.setBackground(Color.white);
-        String mo = "" + seatprice;
+        String mo = "¥" + seatprice;
 
         JLabel label11 = new JLabel(mo);
 
         label11.setForeground(Color.red);
-        label11.setBounds(278, 30, 75, 25);
-        label11.setFont(new Font("Microsoft YaHei", Font.PLAIN, 25));
+        label11.setBounds(300, 30, 75, 25);
+        label11.setFont(new Font("Microsoft YaHei", Font.BOLD, 20));
         panel1.add(label11);
-        String co = seatClass;
-        JLabel label12 = new JLabel(co);
-        label12.setBounds(110, 22, 156, 42);
-        label12.setFont(new Font("Microsoft YaHei", Font.PLAIN, 25));
+        String co_1 = "";
+        String co_2 = "";
+        if(seatClass.equals("Normal")){
+            co_1 = "Economy Class";
+        }else if(seatClass.equals("First")){
+            co_1 = "First Class";
+        }
+        if(seatType.equals("Normal") || seatType.equals("Window") ||seatType.equals("Aisle")){
+            co_2 = seatType + " Seat";
+        }else if(seatType.equals("Extra")){
+            co_2 = "A Seat with Extra Space";
+        }
+        JLabel label12 = new JLabel(co_1, JLabel.CENTER);
+        JLabel label122 = new JLabel(co_2, JLabel.CENTER);
+        label12.setBounds(94, 15, 190, 32);
+        label122.setBounds(95, 50, 190, 21);
+        label12.setFont(new Font("Microsoft YaHei", Font.BOLD, 25));
+        label122.setFont(new Font("Microsoft YaHei", Font.BOLD, 15));
         panel1.add(label12);
+        panel1.add(label122);
         JLabel label13 = new JLabel(m);
-        label13.setBounds(18, 13, 60, 60);
+        label13.setBounds(20, 13, 60, 60);
         panel1.add(label13);
         add(panel1);
 
-        ImageIcon m2 = new ImageIcon(ClassLoader.getSystemResource("MainApp/pages/image/seat.png"));
+        ImageIcon m2 = new ImageIcon(ClassLoader.getSystemResource("MainApp/pages/image/standard.png"));
         m2.setImage(m2.getImage().getScaledInstance(45, 45, Image.SCALE_DEFAULT));// 这里设置图片大小，目前是20*20
         JPanel panel2 = new JPanel(null);
         panel2.setBackground(Color.white);
         panel2.setBorder(new RoundBorder(Color.gray));
         panel2.setBounds(45, 260, 375, 85);
         double food_price = (Double) food.price.getValue();
-        String mo2 = "" + food_price;
+        String mo2 = "¥" + food_price;
         JLabel label21 = new JLabel(mo2);
         label21.setForeground(Color.red);
-        label21.setBounds(278, 30, 75, 25);
-        label21.setFont(new Font("Microsoft YaHei", Font.PLAIN, 25));
+        label21.setBounds(300, 30, 75, 25);
+        label21.setFont(new Font("Microsoft YaHei", Font.BOLD, 20));
         panel2.add(label21);
         String co2 = (String) food.name.getValue();
-        JLabel label22 = new JLabel(co2);
-        label22.setBounds(110, 18, 156, 21);
-        label22.setFont(new Font("Microsoft YaHei", Font.PLAIN, 25));
+        JLabel label22 = new JLabel(co2, JLabel.CENTER);
+        label22.setBounds(110, 25, 157, 32);
+        label22.setFont(new Font("Microsoft YaHei", Font.BOLD, 25));
         panel2.add(label22);
         JLabel label23 = new JLabel(m2);
         label23.setBounds(20, 18, 50, 50);
@@ -266,16 +281,16 @@ public class confirmPay extends JFrame {
         panel3.setBackground(Color.white);
         panel3.setBorder(new RoundBorder(Color.gray));
         var total_price = seatprice + food_price;
-        String mo3 = "" + total_price;
+        String mo3 = "¥" + total_price;
         JLabel label31 = new JLabel(mo3);
         label31.setForeground(Color.red);
-        label31.setBounds(278, 30, 75, 25);
-        label31.setFont(new Font("Microsoft YaHei", Font.PLAIN, 25));
+        label31.setBounds(300, 30, 75, 25);
+        label31.setFont(new Font("Microsoft YaHei", Font.BOLD, 20));
         panel3.add(label31);
         String co3 = "Total";
-        JLabel label32 = new JLabel(co3);
-        label32.setBounds(158, 30, 62, 21);
-        label32.setFont(new Font("Microsoft YaHei", Font.PLAIN, 25));
+        JLabel label32 = new JLabel(co3, JLabel.CENTER);
+        label32.setBounds(157, 32, 65, 21);
+        label32.setFont(new Font("Microsoft YaHei", Font.BOLD, 25));
         panel3.add(label32);
         JLabel label33 = new JLabel(m3);
         label33.setBounds(20, 18, 50, 50);
