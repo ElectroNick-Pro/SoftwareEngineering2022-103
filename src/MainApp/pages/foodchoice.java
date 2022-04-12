@@ -16,11 +16,13 @@ import javax.swing.GroupLayout.Alignment;
 import MainApp.pages.components.DemoScrollBarUI;
 import MainApp.pages.components.RoundBorder;
 public class foodchoice extends JFrame {
-    public foodchoice(){
+    private String type;
+    public foodchoice(String btnType){
         super();
+        type = btnType;
         JPanel panel;
-    JLayeredPane pane = new JLayeredPane();
-         panel = new JPanel(null);
+        JLayeredPane pane = new JLayeredPane();
+        panel = new JPanel(null);
         panel.setLayout(null);
         setContentPane(panel);
         pane = new JLayeredPane();
@@ -28,7 +30,7 @@ public class foodchoice extends JFrame {
         this.setContentPane(panel);
         JLabel label = new JLabel("Details of the food choice");
         label.setBounds(44,18,341,42);
-        label.setFont(new Font("Microsoft YaHei", Font.PLAIN,25));
+        label.setFont(new Font("Microsoft YaHei", Font.BOLD,25));
         panel.add(label);
 
 

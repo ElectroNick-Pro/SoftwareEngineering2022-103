@@ -180,7 +180,8 @@ public class ExtraFoodFrm extends JFrame{
                     }
                     tuples.put((Integer)info.food.getValue(), info);
                 }
-                GlobalData.data.put("foodInfo",info);
+                // GlobalData.data.put("foodInfo",info); //这个我没拿到数据，所以改成了下面的
+                GlobalData.data.put("foodInfo",tuples);
                 try{
                     new confirmPay();
                     Pages.displayPage(path.resolve(Path.of("Confirm and Pay")));

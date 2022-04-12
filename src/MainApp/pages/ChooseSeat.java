@@ -516,7 +516,6 @@ public class ChooseSeat extends JFrame{
                                 seatMoney = ((double)seat.price.getValue()) - normalMoney;
                             }
                             seat.price.setValue(seatMoney);
-                            System.out.println("Line 518: "+seatMoney);
                             GlobalData.data.put("seat", seat);
                             new FoodFrame();
                             try {
