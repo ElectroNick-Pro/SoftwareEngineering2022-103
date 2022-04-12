@@ -37,7 +37,7 @@ public class credit extends JFrame implements ActionListener {
     // boolean flag;
     protected JFrame frame;
     static JTextField creditF = new JTextField(10);
-    static JTextField passF = new JTextField(10);
+    static JPasswordField passF = new JPasswordField(10);
 
     credit() {
         super();

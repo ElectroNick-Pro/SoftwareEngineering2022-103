@@ -35,7 +35,6 @@ public class foodchoice extends JFrame {
     }
     public foodchoice() {
         super();
-        type = btnType;
         JFrame foodChoice = new JFrame();
 
         /***

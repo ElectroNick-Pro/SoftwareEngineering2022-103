@@ -6,6 +6,7 @@ import java.awt.event.*;
 import MainApp.pages.components.DemoScrollBarUI;
 import MainApp.pages.components.RoundBorder;
 import MainApp.GlobalData;
+import MainApp.pages.components.*;
 
 import MainApp.pages.control.FlightInfo;
 import MainApp.models.Model.UserModel.*;
@@ -60,7 +61,12 @@ public class confirmPrint extends JFrame{
         setContentPane(contentPane);
         pane = new JLayeredPane();
 
-        // flow chart
+        // top panel
+        topPanel top = new topPanel(this.path);
+        top.setBounds(0,0,940,70);
+        add(top);
+        top.setVisible(true);
+
         JLabel label1 = new JLabel("Please sacn your ID document:");
         label1.setFont(new Font("Microsoft YaHei", Font.PLAIN,18));
         label1.setBounds(45,100,341,191);

@@ -117,15 +117,15 @@ public class FlightInformationFrm extends JFrame
         smallLabel.setBounds(47,117,509,70);
         add(smallLabel);
 
-        ImageIcon image = new ImageIcon(ClassLoader.getSystemResource("MainApp/pages/image/travel.png"));// 这是背景图片 .png .jpg .gif 等格式的图片都可以
-        // image.setImage(image.getImage().getScaledInstance(960,0,Image.SCALE_DEFAULT));//这里设置图片大小，目前是20*20
+        ImageIcon image = new ImageIcon(ClassLoader.getSystemResource("MainApp/pages/image/travel.png"));
+        // image.setImage(image.getImage().getScaledInstance(960,0,Image.SCALE_DEFAULT));
         JLabel picture=new JLabel(image);
         //picture.setBounds(544,34,350,523);
-        picture.setBounds(0, 0, image.getIconWidth(), image.getIconHeight()-35);   //鎶婃爣绛捐缃负鍜屽浘鐗囩瓑楂樼瓑瀹�
-		// contentPane = (JPanel)this.getContentPane(); 	//鎶婃垜鐨勯潰鏉胯缃负鍐呭闈㈡澘	
+        picture.setBounds(0, 0, image.getIconWidth(), image.getIconHeight()-35);   
+		// contentPane = (JPanel)this.getContentPane(); 	
         contentPane.add(picture,JLayeredPane.DEFAULT_LAYER);
-        contentPane.setOpaque(false);		//鎶婃垜鐨勯潰鏉胯缃负涓嶅彲瑙�
-		this.getLayeredPane().setLayout(null);		//鎶婂垎灞傞潰鏉跨殑甯冨眬缃┖
+        contentPane.setOpaque(false);		
+		this.getLayeredPane().setLayout(null);		
 		this.getLayeredPane().add(picture, new Integer(Integer.MIN_VALUE));
         this.getLayeredPane().setBackground(Color.WHITE);
 
