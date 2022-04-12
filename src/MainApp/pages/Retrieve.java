@@ -12,6 +12,7 @@ import MainApp.models.Model.Exception.FieldNotFoundException;
 import MainApp.models.Model.UserModel.Customer;
 import MainApp.models.Model.UserModel.Ticket;
 import MainApp.pages.Exception.UnboundPageException;
+
 public class Retrieve extends JFrame implements ActionListener{
     private Path path = Path.of("Retrieve");
     public Container container;
@@ -228,7 +229,7 @@ public class Retrieve extends JFrame implements ActionListener{
         container.add(btnScanID);
 
         // background picture
-        ImageIcon backgroundIcon = new ImageIcon(ClassLoader.getSystemClassLoader().getResource("MainApp/image/departing.png"));
+        ImageIcon backgroundIcon = new ImageIcon(ClassLoader.getSystemClassLoader().getResource("MainApp/pages/image/departing.png"));
         backgroundIcon.setImage(backgroundIcon.getImage().getScaledInstance(350,524,Image.SCALE_DEFAULT));
         JLabel background = new JLabel(backgroundIcon);
         background.setBackground(Color.white);

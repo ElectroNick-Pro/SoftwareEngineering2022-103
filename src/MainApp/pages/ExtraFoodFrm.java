@@ -16,6 +16,7 @@ import MainApp.pages.control.FlightInfo;
 import MainApp.GlobalData;
 import MainApp.models.Models;
 import MainApp.App;
+import javax.swing.GroupLayout.Alignment;
 
 public class ExtraFoodFrm extends JFrame{
     private JPanel contentPane;
@@ -64,19 +65,29 @@ public class ExtraFoodFrm extends JFrame{
         smallTitle.setBounds(45,118,250,70);
         add(smallTitle);
  
-        // FlightInfo flightinfo = (FlightInfo)GlobalData.data.get("flight");
-        // int Id = flightinfo.flight.id;
+        FlightInfo flightinfo = (FlightInfo)GlobalData.data.get("flight");
+        int Id = flightinfo.flight.id;
         JPanel food = new JPanel();
         // food.setPreferredSize(new Dimension(800, 480));
+        food.setLayout(null);
         food.setBackground(Color.white);
         Object[] _haveFood = null;
+        JPanel foodInner = new JPanel();
+        int size = 0;
+        int remainder= 0;
         try {
-            _haveFood = Food.queryByProperty(Food.class, "Flight_id", 1).filter((x)->{
+            _haveFood = Food.queryByProperty(Food.class, "Flight_id", Id).filter((x)->{
                 return x.type.getValue().equals("Extra");
             }).toArray(); //get all extra food on the plane
             getNum = _haveFood.length;
-            foodPane = new foodPanel[getNum];
-            foodJPanels = new JPanel[getNum];
+            remainder = getNum%4;
+            if(remainder == 0){
+                size = getNum/4;
+            }else{
+                size = getNum/4+1;
+            }
+            foodPane = new foodPanel[size*4];
+            foodJPanels = new JPanel[size*4];
             System.out.println(getNum);
             for(int i = 0; i < getNum; i++){
                 var contain = (Food)_haveFood[i];
@@ -87,63 +98,25 @@ public class ExtraFoodFrm extends JFrame{
                 foodPane[i] = new foodPanel();
                 foodJPanels[i] = foodPane[i].createPanel(image, name, price);
             }
+            for(int i = getNum;i < size*4;i++){
+                foodJPanels[i] = new JPanel();
+                foodJPanels[i].setSize(200,150);
+                foodJPanels[i].setBackground(Color.white);
+            }
         } catch (FieldNotFoundException e1) {
             e1.printStackTrace();
         };
         var haveFood = _haveFood;
-        GroupLayout layout1 = new GroupLayout(food);
-        GroupLayout.SequentialGroup[] hSeqGP = null;
         // get the size parallel
-        int size = 0;
-        int remainder = getNum%4;
-        if(remainder == 0){
-            size = getNum/4;
-        }else{
-            size = getNum/4+1;
+        food.setPreferredSize(new Dimension(20, 150*size));
+        foodInner.setLayout(new GridLayout(size,4));
+        // foodInner.setSize(new Dimension(20, 150*size));
+
+        for(int i = 0 ; i < foodJPanels.length;i++){
+            foodInner.add(foodJPanels[i]);
         }
-        hSeqGP =new GroupLayout.SequentialGroup[size];
-        //add components
-        for(int i = 0 ; i < size;i++){
-            if(i == size-1&&remainder != 0){
-                hSeqGP[i] = layout1.createSequentialGroup();
-                hSeqGP[i].addGap(20);
-                for(int j = 0; j < remainder;j++){
-                    hSeqGP[i].addComponent(foodJPanels[i*4+j]);
-                }
-            }
-            else{
-                hSeqGP[i] = layout1.createSequentialGroup();
-                hSeqGP[i].addGap(20);
-                for(int j = 0; j < 4;j++){
-                    hSeqGP[i].addComponent(foodJPanels[i*4+j]);
-                }
-            }
-        }
-        GroupLayout.ParallelGroup hparallelGroupInfo = layout1.createParallelGroup();
-        for(int i = 0; i < size;i++){
-            hparallelGroupInfo.addGroup(hSeqGP[i]);
-        }
-        layout1.setHorizontalGroup(hparallelGroupInfo);
-        //horizental
-        GroupLayout.SequentialGroup[] vSeqGP = new GroupLayout.SequentialGroup[4];
-        for(int i = 0; i < 4;i++){
-            vSeqGP[i] = layout1.createSequentialGroup();
-            if(i < remainder){
-                for(int j = 0; j < size + 1; j++)
-                    vSeqGP[i].addComponent(foodJPanels[j*4+i]);
-            }else{
-                for(int j = 0; j < size;j++){
-                    vSeqGP[i].addComponent(foodJPanels[j*4+i]);
-                }
-            }
-        }
-        GroupLayout.ParallelGroup vparallelGP = layout1.createParallelGroup();
-        vparallelGP.addGroup(vSeqGP[0]);
-        vparallelGP.addGroup(vSeqGP[1]);
-        vparallelGP.addGroup(vSeqGP[2]);
-        vparallelGP.addGroup(vSeqGP[3]);
-        layout1.setVerticalGroup(vparallelGP);
-        food.setLayout(layout1);
+        foodInner.setBounds(20,0,820,150*size);
+        food.add(foodInner);
         
         JScrollPane info = new JScrollPane(food);
         info.setBackground(Color.white);

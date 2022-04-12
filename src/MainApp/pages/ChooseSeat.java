@@ -502,7 +502,7 @@ public class ChooseSeat extends JFrame{
                         seat = (Seat)GlobalData.data.get("seat");
                         if(seat != null){
                             GlobalData.data.put("seat", seat);
-                            new FoodFrame();
+                            new ChooseFood();
                             try {
                                 Pages.displayPage(path.resolve(Path.of("Choose Food")));
                             } catch (UnboundPageException e1) {
