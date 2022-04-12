@@ -34,6 +34,7 @@ public class foodchoice extends JFrame {
     }
     public foodchoice() {
         super();
+        type = btnType;
         JPanel panel;
         panel = new JPanel(null);
         panel.setLayout(null);

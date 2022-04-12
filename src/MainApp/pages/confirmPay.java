@@ -8,18 +8,24 @@ import MainApp.pages.Exception.UnboundPageException;
 import MainApp.pages.components.*;
 import MainApp.pages.control.FlightInfo;
 import MainApp.models.Models;
+import MainApp.models.Field.ForeignKey;
+import MainApp.models.Model.Exception.ObjectNotFoundException;
 import MainApp.models.Model.UserModel.*;
 
 import javax.swing.*;
+
+import org.w3c.dom.events.MouseEvent;
 
 import java.awt.event.ActionListener;
 import java.nio.file.Path;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseListener;
 
 class MyPayPanel extends JPanel {
     public Image image;
@@ -44,6 +50,8 @@ public class confirmPay extends JFrame {
     private Map<Integer, FlightInfo> flightInfoMap = FlightInfo
             .getInfoMap(((Customer) GlobalData.data.get("customer")).id);
     private Food food = (Food) GlobalData.data.get("food_choice");
+    private Map<Integer, FoodPurchase> extraFoodMap;
+
     // public static void main(String[] args) {
     //     EventQueue.invokeLater(new Runnable() {
     //         public void run() {
@@ -98,6 +106,9 @@ public class confirmPay extends JFrame {
          * //btn.setBorder(BorderFactory.createRaisedBevelBorder());
          * add(btn);
          */
+        // var seatStream = Seat.queryByProperty(Seat.class, "Interval_id", interval_id).toArray();
+        // int foodId = (Integer)extra_food.food.getValue();
+        // System.out.println("Line 104: "+foodId);
 
         var flightInfo = (FlightInfo) GlobalData.data.get("flight");
         var seat = (Seat) GlobalData.data.get("seat");
@@ -130,7 +141,37 @@ public class confirmPay extends JFrame {
                 seatClass, "food provided", terminal, gate, name, ID, seatno);
         panelFlight.setBorder(new RoundBorder(Color.gray));
         add(panelFlight);
+        mouseListener myListener = new mouseListener();//click food & total button
+        Double basicFoodPrice = (Double) food.price.getValue();
+        Double extraFoodPrice = 0.0;
+        var extraFoodMap = (HashMap<Integer, FoodPurchase>)GlobalData.data.get("foodInfo");
+        var extra_food = new FoodPurchase[20];
+        double[] extra_food_price = new double[20];
+        int i = 0;
+        for(var entry: extraFoodMap.entrySet()){
+            var tuple = entry.getValue();
+            var foodId = tuple.food.getValue();
+            var count = tuple.count.getValue();
+            if(foodId != null){
+                extra_food[i] = new FoodPurchase();
+                extra_food[i].food.setValue(foodId);
+                extra_food[i].ticket.setValue(ticket.id);
+                extra_food[i].count.setValue(count);
+                try {
+                    var food = (Food)Food.getById(Food.class, (Integer)foodId);
+                    extra_food_price[i] = (Double)food.price.getValue();
+                    extraFoodPrice = extraFoodPrice + extra_food_price[i] * (Integer)count;
+                } catch (ObjectNotFoundException e1) {
+                    e1.printStackTrace();
+                }
+                i ++;
+            }
+        }
+        // System.out.println("Basic food price: "+basicFoodPrice+"Extra food price: " +extraFoodPrice);
+        // for(int j = 0; j < i; j ++){
+        //     System.out.println("i = "+j+"foodId = "+(Integer)extra_food[j].food.getValue()+"ticketId = "+(Integer)extra_food[j].ticket.getValue()+"count = "+(Integer)extra_food[j].count.getValue()+"price = "+extra_food_price[j]);
 
+        // }
         ImageIcon image = new ImageIcon(ClassLoader.getSystemResource("MainApp/pages/image/travel.png"));// 这是背景图片 .png .jpg .gif 等格式的图片都可以
         // image.setImage(image.getImage().getScaledInstance(960,0,Image.SCALE_DEFAULT));//这里设置图片大小，目前是20*20
         JLabel picture = new JLabel(image);
@@ -241,7 +282,8 @@ public class confirmPay extends JFrame {
         panel2.setBackground(Color.white);
         panel2.setBorder(new RoundBorder(Color.gray));
         panel2.setBounds(45, 260, 375, 85);
-        double food_price = (Double) food.price.getValue();
+        panel2.addMouseListener(myListener);
+        double food_price = basicFoodPrice + extraFoodPrice;
         String mo2 = "¥" + food_price;
         JLabel label21 = new JLabel(mo2);
         label21.setForeground(Color.red);
@@ -249,6 +291,9 @@ public class confirmPay extends JFrame {
         label21.setFont(new Font("Microsoft YaHei", Font.BOLD, 20));
         panel2.add(label21);
         String co2 = (String) food.name.getValue();
+        if(extra_food[0] != null){
+            co2 = "Food";
+        }
         JLabel label22 = new JLabel(co2, JLabel.CENTER);
         label22.setBounds(110, 25, 157, 32);
         label22.setFont(new Font("Microsoft YaHei", Font.BOLD, 25));
@@ -256,22 +301,22 @@ public class confirmPay extends JFrame {
         JLabel label23 = new JLabel(m2);
         label23.setBounds(20, 18, 50, 50);
         panel2.add(label23);
-        JButton btnf = new JButton("Click here to view the details");
-        btnf.setContentAreaFilled(false);
+        // JButton btnf = new JButton("Click here to view the details");
+        // btnf.setContentAreaFilled(false);
         // panel2.add(btnf);
-        btnf.setBounds(80, 44, 186, 28);
-        btnf.setFont(new Font("Microsoft YaHei", Font.PLAIN, 10));
-        btnf.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                foodchoice f = new foodchoice();
-                f.setBackground(Color.WHITE);
-                f.setVisible(true);
-                f.setSize(519, 540);
-                f.setLocationRelativeTo(null);
-                f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            }
-        });
+        // btnf.setBounds(80, 44, 186, 28);
+        // btnf.setFont(new Font("Microsoft YaHei", Font.PLAIN, 10));
+        // btnf.addActionListener(new ActionListener() {
+        //     @Override
+        //     public void actionPerformed(ActionEvent e) {
+        //         foodchoice f = new foodchoice();
+        //         f.setBackground(Color.WHITE);
+        //         f.setVisible(true);
+        //         f.setSize(519, 540);
+        //         f.setLocationRelativeTo(null);
+        //         f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        //     }
+        // });
         add(panel2);
 
         ImageIcon m3 = new ImageIcon(ClassLoader.getSystemResource("MainApp/pages/image/pay.png"));
@@ -280,6 +325,7 @@ public class confirmPay extends JFrame {
         panel3.setBounds(45, 350, 375, 85);
         panel3.setBackground(Color.white);
         panel3.setBorder(new RoundBorder(Color.gray));
+        panel3.addMouseListener(myListener);
         var total_price = seatprice + food_price;
         String mo3 = "¥" + total_price;
         JLabel label31 = new JLabel(mo3);
@@ -296,6 +342,61 @@ public class confirmPay extends JFrame {
         label33.setBounds(20, 18, 50, 50);
         panel3.add(label33);
         add(panel3);
+
+    }
+
+    private class priceActionListener implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String btnName = e.getActionCommand();
+            
+        }
+
+    }
+    private class mouseListener implements MouseListener{
+
+        @Override
+        public void mouseClicked(java.awt.event.MouseEvent e) {
+            int y = e.getYOnScreen(); 
+            if(y >= 475 && y <= 559){ //"food" panel
+                foodchoice f = new foodchoice("food");
+                f.setBackground(Color.WHITE);
+                f.setVisible(true);
+                f.setSize(519, 540);
+                f.setLocationRelativeTo(null);
+                f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            }else if(y >= 565 && y <= 649){ //"total" panel
+                foodchoice f = new foodchoice("total");
+                f.setBackground(Color.WHITE);
+                f.setVisible(true);
+                f.setSize(519, 540);
+                f.setLocationRelativeTo(null);
+                f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            }
+        }
+
+        @Override
+        public void mousePressed(java.awt.event.MouseEvent e) {
+            // TODO Auto-generated method stub
+            
+        }
+
+        @Override
+        public void mouseReleased(java.awt.event.MouseEvent e) {
+            // TODO Auto-generated method stub
+            
+        }
+
+        @Override
+        public void mouseEntered(java.awt.event.MouseEvent e) {
+            
+        }
+
+        @Override
+        public void mouseExited(java.awt.event.MouseEvent e) {
+            // TODO Auto-generated method stub
+            
+        }
 
     }
 
