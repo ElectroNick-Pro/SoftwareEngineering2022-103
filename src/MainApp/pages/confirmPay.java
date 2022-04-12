@@ -244,7 +244,7 @@ public class confirmPay extends JFrame {
         panel1.setBorder(new RoundBorder(Color.gray));
         panel1.setBounds(45, 170, 375, 85);
         panel1.setBackground(Color.white);
-        String mo = "¥" + seatprice;
+        String mo = "$" + seatprice;
 
         JLabel label11 = new JLabel(mo);
 
@@ -285,7 +285,7 @@ public class confirmPay extends JFrame {
         panel2.setBounds(45, 260, 375, 85);
         panel2.addMouseListener(myListener);
         double food_price = basicFoodPrice + extraFoodPrice;
-        String mo2 = "¥" + food_price;
+        String mo2 = "$" + food_price;
         JLabel label21 = new JLabel(mo2);
         JLabel label212 = new JLabel("Click to see details", JLabel.CENTER);
         label21.setForeground(Color.red);
@@ -316,7 +316,7 @@ public class confirmPay extends JFrame {
         panel3.setBorder(new RoundBorder(Color.gray));
         panel3.addMouseListener(myListener);
         var total_price = seatprice + food_price;
-        String mo3 = "¥" + total_price;
+        String mo3 = "$" + total_price;
         JLabel label31 = new JLabel(mo3);
         label31.setForeground(Color.red);
         label31.setBounds(300, 30, 75, 25);
@@ -341,14 +341,14 @@ public class confirmPay extends JFrame {
         public void mouseClicked(java.awt.event.MouseEvent e) {
             int y = e.getYOnScreen(); 
             if(y >= 475 && y <= 559){ //"food" panel
-                foodchoice f = new foodchoice("food", food, extra_food);
+                foodchoice f = new foodchoice();
                 f.setBackground(Color.WHITE);
                 f.setVisible(true);
                 f.setSize(519, 540);
                 f.setLocationRelativeTo(null);
                 f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             }else if(y >= 565 && y <= 649){ //"total" panel
-                foodchoice f = new foodchoice("total", food, extra_food);
+                foodchoice f = new foodchoice();
                 f.setBackground(Color.WHITE);
                 f.setVisible(true);
                 f.setSize(519, 540);
