@@ -137,7 +137,7 @@ public class ChooseSeat extends JFrame{
         normal_num2.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 17));
         if(haveChosen && !havePaid){
             if(seat.type.getValue().equals("Normal") && seat.seatClass.getValue().equals(seatClass)){
-                normal.setBorder(new RoundBorder(new ColorUIResource(30,144,255)));   
+                normal.setBorder(new RoundBorder(new ColorUIResource(0,131,255)));   
             }else{
                 normal.setBorder(new RoundBorder(Color.GRAY));   
             }
@@ -145,12 +145,12 @@ public class ChooseSeat extends JFrame{
             normal.setBorder(new RoundBorder(Color.GRAY));   
         }
         if(normalRest > 0){
-            normal_num1.setForeground(new ColorUIResource(30,144,255));
-            normal_num2.setForeground(new ColorUIResource(30,144,255)); 
+            normal_num1.setForeground(new ColorUIResource(0,131,255));
+            normal_num2.setForeground(new ColorUIResource(0,131,255)); 
         }else{
             if(haveChosen){
                 if(seat.type.getValue().equals("Normal") && seat.seatClass.getValue().equals(seatClass)){
-                    normal.setBorder(new RoundBorder(new ColorUIResource(30,144,255)));   
+                    normal.setBorder(new RoundBorder(new ColorUIResource(0,131,255)));   
                 }else{
                     normal.setBorder(new RoundBorder(Color.GRAY));   
                 }
@@ -198,7 +198,7 @@ public class ChooseSeat extends JFrame{
         window_num2.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 17));
         if(haveChosen && !havePaid){
             if(seat.type.getValue().equals("Window") && seat.seatClass.getValue().equals(seatClass)){
-                window.setBorder(new RoundBorder(new ColorUIResource(30,144,255)));   
+                window.setBorder(new RoundBorder(new ColorUIResource(0,131,255)));   
             }else{
                 window.setBorder(new RoundBorder(Color.GRAY));  
             }
@@ -206,12 +206,12 @@ public class ChooseSeat extends JFrame{
             window.setBorder(new RoundBorder(Color.GRAY));  
         }
         if(windowRest > 0){
-            window_num1.setForeground(new ColorUIResource(30,144,255));
-            window_num2.setForeground(new ColorUIResource(30,144,255));
+            window_num1.setForeground(new ColorUIResource(0,131,255));
+            window_num2.setForeground(new ColorUIResource(0,131,255));
         }else{
             if(haveChosen){
                 if(seat.type.getValue().equals("Window") && seat.seatClass.getValue().equals(seatClass)){
-                    window.setBorder(new RoundBorder(new ColorUIResource(30,144,255)));   
+                    window.setBorder(new RoundBorder(new ColorUIResource(0,131,255)));   
                 }else{
                     window.setBorder(new RoundBorder(Color.GRAY));  
                 }
@@ -257,7 +257,7 @@ public class ChooseSeat extends JFrame{
         aisle_num2.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 17));
         if(haveChosen && !havePaid){
             if(seat.type.getValue().equals("Aisle") && seat.seatClass.getValue().equals(seatClass)){
-                aisle.setBorder(new RoundBorder(new ColorUIResource(30,144,255)));   
+                aisle.setBorder(new RoundBorder(new ColorUIResource(0,131,255)));   
             }else{
                 aisle.setBorder(new RoundBorder(Color.GRAY));  
             }
@@ -265,12 +265,12 @@ public class ChooseSeat extends JFrame{
             aisle.setBorder(new RoundBorder(Color.GRAY));  
         }        
         if(aisleRest > 0){
-            aisle_num1.setForeground(new ColorUIResource(30,144,255));
-            aisle_num2.setForeground(new ColorUIResource(30,144,255));
+            aisle_num1.setForeground(new ColorUIResource(0,131,255));
+            aisle_num2.setForeground(new ColorUIResource(0,131,255));
         }else{
             if(haveChosen){
                 if(seat.type.getValue().equals("Aisle") && seat.seatClass.getValue().equals(seatClass)){
-                    aisle.setBorder(new RoundBorder(new ColorUIResource(30,144,255)));   
+                    aisle.setBorder(new RoundBorder(new ColorUIResource(0,131,255)));   
                 }else{
                     aisle.setBorder(new RoundBorder(Color.GRAY));  
                 }
@@ -320,7 +320,7 @@ public class ChooseSeat extends JFrame{
         extra_num2.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 17));
         if(haveChosen && !havePaid){
             if(seat.type.getValue().equals("Extra") && seat.seatClass.getValue().equals(seatClass)){
-                extra.setBorder(new RoundBorder(new ColorUIResource(30,144,255)));   
+                extra.setBorder(new RoundBorder(new ColorUIResource(0,131,255)));   
             }else{
                 extra.setBorder(new RoundBorder(Color.GRAY));  
             }
@@ -328,12 +328,12 @@ public class ChooseSeat extends JFrame{
             extra.setBorder(new RoundBorder(Color.GRAY));   
         }        
         if(extraRest > 0){
-            extra_num1.setForeground(new ColorUIResource(30,144,255));
-            extra_num2.setForeground(new ColorUIResource(30,144,255));
+            extra_num1.setForeground(new ColorUIResource(0,131,255));
+            extra_num2.setForeground(new ColorUIResource(0,131,255));
         }else{
             if(haveChosen){
                 if(seat.type.getValue().equals("Extra") && seat.seatClass.getValue().equals(seatClass)){
-                    extra.setBorder(new RoundBorder(new ColorUIResource(30,144,255)));   
+                    extra.setBorder(new RoundBorder(new ColorUIResource(0,131,255)));   
                 }else{
                     extra.setBorder(new RoundBorder(Color.GRAY));  
                 }
@@ -444,28 +444,28 @@ public class ChooseSeat extends JFrame{
             seat = (Seat)GlobalData.data.get("seat");
             if(normalRest > 0){
                 if(seat != null && seat.type.getValue().equals("Normal") && seat.seatClass.getValue().equals(seatClass)){
-                    normal.setBorder(new RoundBorder(new ColorUIResource(30,144,255)));   
+                    normal.setBorder(new RoundBorder(new ColorUIResource(0,131,255)));   
                 }else{
                     normal.setBorder(new RoundBorder(Color.GRAY));   
                 }
             }
             if(windowRest > 0){
                 if(seat != null && seat.type.getValue().equals("Window") && seat.seatClass.getValue().equals(seatClass)){
-                    window.setBorder(new RoundBorder(new ColorUIResource(30,144,255)));   
+                    window.setBorder(new RoundBorder(new ColorUIResource(0,131,255)));   
                 }else{
                     window.setBorder(new RoundBorder(Color.GRAY));   
                 }
             }
             if(aisleRest > 0){
                 if(seat != null && seat.type.getValue().equals("Aisle") && seat.seatClass.getValue().equals(seatClass)){
-                    aisle.setBorder(new RoundBorder(new ColorUIResource(30,144,255)));   
+                    aisle.setBorder(new RoundBorder(new ColorUIResource(0,131,255)));   
                 }else{
                     aisle.setBorder(new RoundBorder(Color.GRAY));   
                 }
             }
             if(extraRest > 0){
                 if(seat != null && seat.type.getValue().equals("Extra") && seat.seatClass.getValue().equals(seatClass)){
-                    extra.setBorder(new RoundBorder(new ColorUIResource(30,144,255)));   
+                    extra.setBorder(new RoundBorder(new ColorUIResource(0,131,255)));   
                 }else{
                     extra.setBorder(new RoundBorder(Color.GRAY));   
                 }
@@ -489,8 +489,8 @@ public class ChooseSeat extends JFrame{
         JButton next = new JButton("next");
         back.setBounds(20,465,75,30);
         next.setBounds(855,465,75,30);
-        next.setBackground(new Color(30, 144, 255));
-        next.setBorder(new RoundBorder(new Color(30, 144, 255)));
+        next.setBackground(new Color(0, 131, 255));
+        next.setBorder(new RoundBorder(new Color(0, 131, 255)));
         back.setBackground(Color.gray);
         back.setBorder(new RoundBorder(Color.gray));
         back.addActionListener(
