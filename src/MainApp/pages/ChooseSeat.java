@@ -517,7 +517,7 @@ public class ChooseSeat extends JFrame{
                             }
                             seat.price.setValue(seatMoney);
                             GlobalData.data.put("seat", seat);
-                            new FoodFrame();
+                            new ChooseFood();
                             try {
                                 Pages.displayPage(path.resolve(Path.of("Choose Food")));
                             } catch (UnboundPageException e1) {

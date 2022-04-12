@@ -1,4 +1,4 @@
-package MainApp.pages.foodGUI;
+package MainApp.pages.components;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GradientPaint;

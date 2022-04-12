@@ -65,8 +65,8 @@ public class ExtraFoodFrm extends JFrame{
         smallTitle.setBounds(45,118,250,70);
         add(smallTitle);
  
-        // FlightInfo flightinfo = (FlightInfo)GlobalData.data.get("flight");
-        // int Id = flightinfo.flight.id;
+        FlightInfo flightinfo = (FlightInfo)GlobalData.data.get("flight");
+        int Id = flightinfo.flight.id;
         JPanel food = new JPanel();
         // food.setPreferredSize(new Dimension(800, 480));
         food.setLayout(null);
@@ -76,7 +76,7 @@ public class ExtraFoodFrm extends JFrame{
         int size = 0;
         int remainder= 0;
         try {
-            _haveFood = Food.queryByProperty(Food.class, "Flight_id", 1).filter((x)->{
+            _haveFood = Food.queryByProperty(Food.class, "Flight_id", Id).filter((x)->{
                 return x.type.getValue().equals("Extra");
             }).toArray(); //get all extra food on the plane
             getNum = _haveFood.length;
