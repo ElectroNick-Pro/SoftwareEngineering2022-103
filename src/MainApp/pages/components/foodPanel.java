@@ -37,7 +37,12 @@ public class foodPanel {
         prices.setBounds(30,100,81,42);
         content.add(prices);
 
-        spinner = new JSpinner();
+        int min = 0;
+        int max = 100;
+        int step = 1;  //步数间隔
+        int initValue = 0;  //初始值
+        SpinnerModel model = new SpinnerNumberModel(initValue, min, max, step);
+        spinner = new JSpinner(model);
         spinner.setBounds(125,110,42,24);
         content.add(spinner);
         return content; //return the content
