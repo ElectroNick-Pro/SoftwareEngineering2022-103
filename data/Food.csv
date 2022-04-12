@@ -11,7 +11,7 @@ id,Flight_id,name,price,type,image
 10,1,bread,0,Extra,MainApp/pages/image/bread2.png
 11,1,chocolates,5,Extra,MainApp/pages/image/chocolate3.png
 12,1,biscuit,12,Extra,MainApp/pages/image/biscuit4.png
-13,1,pudding,0,Extra,MainApp/pages/image/biscuit4.png
-14,1,lollipop,0,Extra,MainApp/pages/image/biscuit4.png
-15,1,rice ball,8,Extra,MainApp/pages/image/biscuit4.png
-16,1,Low sushi,4,Extra,MainApp/pages/image/biscuit4.png
+13,1,pudding,0,Extra,MainApp/pages/image/pudding5.png
+14,1,lollipop,0,Extra,MainApp/pages/image/lollipop6.png
+15,1,rice ball,8,Extra,MainApp/pages/image/rice ball7.png
+16,1,Low sushi,4,Extra,MainApp/pages/image/sushi8.png

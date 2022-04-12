@@ -274,7 +274,8 @@ public class FlightInformationFrm extends JFrame
                     if(seatclass.equals("First")){
                         GlobalData.data.put("seatClass",seatclass);
                         GlobalData.data.put("flight",passData);
-                        new ChooseSeat("First");
+                        GlobalData.data.put("changeSeatClass", false);
+                        new ChooseSeat("First", false);
                         try {
                             Pages.displayPage(path.resolve(Path.of("Choose Seat")));
                         } catch (UnboundPageException e1) {
@@ -285,7 +286,8 @@ public class FlightInformationFrm extends JFrame
                         if(choice == JOptionPane.YES_OPTION){ //upgrade
                             GlobalData.data.put("seatClass","First");
                             GlobalData.data.put("flight",passData);
-                            new ChooseSeat("First");
+                            GlobalData.data.put("changeSeatClass", true);
+                            new ChooseSeat("First", true);
                             try {
                                 Pages.displayPage(path.resolve(Path.of("Choose Seat")));
                             } catch (UnboundPageException e1) {
@@ -294,7 +296,8 @@ public class FlightInformationFrm extends JFrame
                         }else if(choice == JOptionPane.NO_OPTION){ //keep normal seat
                             GlobalData.data.put("seatClass",seatclass);
                             GlobalData.data.put("flight",passData);
-                            new ChooseSeat("Normal");
+                            GlobalData.data.put("changeSeatClass", false);
+                            new ChooseSeat("Normal", false);
                             try {
                                 Pages.displayPage(path.resolve(Path.of("Choose Seat")));
                             } catch (UnboundPageException e1) {

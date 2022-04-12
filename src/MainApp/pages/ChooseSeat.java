@@ -26,6 +26,7 @@ public class ChooseSeat extends JFrame{
     private String seatClass = "";
     private boolean haveChosen = false;
     private boolean havePaid = false;
+    public boolean changeSeatClass = false;
     private int normalRest = 0;
     private int windowRest = 0;
     private int aisleRest = 0;
@@ -34,6 +35,7 @@ public class ChooseSeat extends JFrame{
     private double windowMoney = 0.0;
     private double aisleMoney = 0.0;
     private double extraMoney = 0.0;
+    public double seatMoney = 0.0;
     private Ticket ticket;
     public Seat seat;
     private int interval_id = 1;
@@ -43,6 +45,7 @@ public class ChooseSeat extends JFrame{
     {
         ticket = flightinfo.ticket;
         seatClass = (String)GlobalData.data.get("seatClass");
+        changeSeatClass = (boolean)GlobalData.data.get("changeSeatClass");
         getAllSeat();
         
         if((Seat)GlobalData.data.get("seat") != null){
@@ -62,10 +65,12 @@ public class ChooseSeat extends JFrame{
     private JButton aisle = aisleSeat(f);
     private JButton extra = extraSeat(f);
     private Path path = Path.of("Retrieve/Flight Information/Choose Seat");
-    public ChooseSeat(String seatclass){
+    public ChooseSeat(String seatclass, boolean changeSeatClass){
         super("Choose seat");
         Pages.bindPage(this.path, this);
         seatClass = seatclass;
+        changeSeatClass = changeSeatClass;
+        System.out.println("Line 71: " + changeSeatClass);
         
         if(seat != null){
             if(! seat.seatClass.equals(seatClass)){
@@ -168,7 +173,8 @@ public class ChooseSeat extends JFrame{
         f.add(normal);
         f.add(normal_text1);
         f.add(normal_text2);
-        if(seatClass.equals("First")){
+        System.out.println("Line 174: " + changeSeatClass);
+        if(seatClass.equals("First") && changeSeatClass){
             f.add(normal_money);
         }
         f.add(normal_num1);
@@ -227,7 +233,7 @@ public class ChooseSeat extends JFrame{
         f.add(window);
         f.add(window_text1);
         f.add(window_text2);
-        if(seatClass.equals("First")){
+        if(seatClass.equals("First") && changeSeatClass){
             f.add(window_money);
         }
         f.add(window_num1);
@@ -286,7 +292,7 @@ public class ChooseSeat extends JFrame{
         f.add(aisle);
         f.add(aisle_text1);
         f.add(aisle_text2);
-        if(seatClass.equals("First")){
+        if(seatClass.equals("First") && changeSeatClass){
             f.add(aisle_money);
         }
         f.add(aisle_num1);
@@ -297,9 +303,13 @@ public class ChooseSeat extends JFrame{
         JButton extra = new JButton();
         extra.setActionCommand("extraSeat");
         extra.setContentAreaFilled(false);  
+        double money = extraMoney;
+        if(!changeSeatClass && seatClass.equals("First")){
+            money = extraMoney - normalMoney;
+        }
         JLabel extra_text1 = new JLabel("A Seat with", JLabel.CENTER);
         JLabel extra_text2 = new JLabel("Extra Space", JLabel.CENTER);
-        JLabel extra_money = new JLabel("$"+extraMoney, JLabel.CENTER);
+        JLabel extra_money = new JLabel("$"+money, JLabel.CENTER);
         JLabel extra_num1 = new JLabel("Remaining", JLabel.CENTER);
         JLabel extra_num2 = new JLabel(extraRest+"", JLabel.CENTER);
         extra_text1.setFont(new Font("Arial", Font.BOLD, 32));
@@ -501,6 +511,12 @@ public class ChooseSeat extends JFrame{
                     if(e.getSource()==next) {
                         seat = (Seat)GlobalData.data.get("seat");
                         if(seat != null){
+                            seatMoney = (double)seat.price.getValue();
+                            if(!changeSeatClass && seatClass.equals("First")){
+                                seatMoney = ((double)seat.price.getValue()) - normalMoney;
+                            }
+                            seat.price.setValue(seatMoney);
+                            System.out.println("Line 518: "+seatMoney);
                             GlobalData.data.put("seat", seat);
                             new FoodFrame();
                             try {
@@ -646,7 +662,7 @@ public class ChooseSeat extends JFrame{
                 }
                 JOptionPane.showMessageDialog(null, "Select Successfully!\nYour seat number is "+seat.seatNo.getValue(), "Success", JOptionPane.PLAIN_MESSAGE);
                 f.setVisible(false);
-                ChooseSeat newFrame = new ChooseSeat(seatClass);
+                ChooseSeat newFrame = new ChooseSeat(seatClass, changeSeatClass);
                 newFrame.setVisible(true);
             }else{
                 JOptionPane.showMessageDialog(null, "Sorry, there is no seat left.\nPlease choose again.", "Error", JOptionPane.ERROR_MESSAGE);
