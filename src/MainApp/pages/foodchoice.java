@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.WindowConstants;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.plaf.ColorUIResource;
 
 import MainApp.GlobalData;
 import MainApp.models.Models;
@@ -35,6 +36,11 @@ public class foodchoice extends JFrame {
     public foodchoice() {
         super();
         type = btnType;
+        JFrame foodChoice = new JFrame();
+
+        /***
+         * title
+         */
         JPanel panel;
         panel = new JPanel(null);
         panel.setLayout(null);
