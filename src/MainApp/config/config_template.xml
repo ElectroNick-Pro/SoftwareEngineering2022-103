@@ -3,7 +3,8 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xsi:noNamespaceSchemaLocation="https://gitee.com/electronick_pro/software-engineering2022-103/raw/master/src/MainApp/config/config_schema.xsd">
 
-    <dataDir><!-- Put your data directory here, an absolute path recommended --></dataDir>
+    <!-- Put your own data directory in the dataDir, an absolute path recommended -->
+    <dataDir>FlightKiosk/data</dataDir>
 
     <datetimeFormat>
         <timeStrFormat>yyyy-MM-dd HH:mm:ss</timeStrFormat>

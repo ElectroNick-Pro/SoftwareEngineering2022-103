@@ -45,7 +45,7 @@ id,Interval_id,Ticket_id,price,seatClass,seatNo,type
 44,2,,50,Normal,4D,Extra
 45,2,,0,Normal,4E,Normal
 46,2,,0,Normal,4F,Window
-47,1,,0,First,1A,Window
+47,1,,100,First,1A,Window
 48,1,,100,First,1B,Normal
 49,1,,100,First,1C,Aisle
 50,1,,150,First,1D,Extra
