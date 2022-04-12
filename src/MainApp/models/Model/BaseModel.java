@@ -138,9 +138,9 @@ public class BaseModel {
             keyClz.getField("rawData").set(keyItem, value);
             keyClz.getMethod("validate_data").invoke(keyItem);
             keyClz.getMethod("save_field").invoke(keyItem);
-            int idx = 0;
-            for(idx = 0; idx < n; idx++) {
-                if(keyArr[idx].equals(key)) {
+            int idx = 1;
+            for(idx = 1; idx < n; idx++) {
+                if(verMap.get(keyArr[idx]).equals(verMap.get(key))) {
                     break;
                 }
             }
