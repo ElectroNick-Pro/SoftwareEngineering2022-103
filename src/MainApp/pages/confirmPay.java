@@ -314,7 +314,6 @@ public class confirmPay extends JFrame {
         panel3.setBounds(45, 350, 375, 85);
         panel3.setBackground(Color.white);
         panel3.setBorder(new RoundBorder(Color.gray));
-        panel3.addMouseListener(myListener);
         var total_price = seatprice + food_price;
         String mo3 = "$" + total_price;
         JLabel label31 = new JLabel(mo3);
@@ -323,13 +322,9 @@ public class confirmPay extends JFrame {
         label31.setFont(new Font("Microsoft YaHei", Font.BOLD, 20));
         panel3.add(label31);
         JLabel label32 = new JLabel("Total", JLabel.CENTER);
-        JLabel label322 = new JLabel("Click to see details", JLabel.CENTER);
-        label32.setBounds(157, 19, 65, 21);
-        label322.setBounds(94, 50, 186, 21);
+        label32.setBounds(157, 32, 65, 21);
         label32.setFont(new Font("Microsoft YaHei", Font.BOLD, 25));
-        label322.setFont(new Font("Microsoft YaHei", Font.BOLD, 15));
         panel3.add(label32);
-        panel3.add(label322);
         JLabel label33 = new JLabel(m3);
         label33.setBounds(20, 18, 50, 50);
         panel3.add(label33);
@@ -341,13 +336,6 @@ public class confirmPay extends JFrame {
         public void mouseClicked(java.awt.event.MouseEvent e) {
             int y = e.getYOnScreen(); 
             if(y >= 475 && y <= 559){ //"food" panel
-                foodchoice f = new foodchoice();
-                f.setBackground(Color.WHITE);
-                f.setVisible(true);
-                f.setSize(519, 540);
-                f.setLocationRelativeTo(null);
-                f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            }else if(y >= 565 && y <= 649){ //"total" panel
                 foodchoice f = new foodchoice();
                 f.setBackground(Color.WHITE);
                 f.setVisible(true);
