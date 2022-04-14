@@ -270,6 +270,7 @@ public class FlightInformationFrm extends JFrame
                     // qxt
                     //get the class of seat the customer have chosen
                     //if he chose a normal seat before, ask if he want to upgrade
+                    GlobalData.data.put("ticket", passData.ticket);
                     String seatclass = (String)passData.ticket.seatClass.getValue();
                     if(seatclass.equals("First")){
                         GlobalData.data.put("seatClass",seatclass);

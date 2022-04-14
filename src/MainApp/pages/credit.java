@@ -73,7 +73,9 @@ public class credit extends JFrame implements ActionListener {
             String creditText = creditF.getText();
             String passText = passF.getText();
             if (id.equals(creditText) && password.equals(passText)) {
-                ((Ticket)GlobalData.data.get("ticket")).save();
+                var ticket = (Ticket)GlobalData.data.get("ticket");
+                ticket.isCheckin.setValue(1);
+                ticket.save();
                 ((Seat)GlobalData.data.get("seat")).save();
                 var extraFoodMap = (HashMap<Integer, FoodPurchase>)GlobalData.data.get("foodInfo");
                 for(var entry: extraFoodMap.entrySet()){
