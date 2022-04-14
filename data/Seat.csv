@@ -1,6 +1,6 @@
 id,Interval_id,Ticket_id,price,seatClass,seatNo,type
 1,1,,0,Normal,1A,Window
-2,1,1,0.0,Normal,1B,Normal
+2,1,,0.0,Normal,1B,Normal
 3,1,,0,Normal,1C,Aisle
 4,1,,50,Normal,1D,Extra
 5,1,,0,Normal,1E,Normal
