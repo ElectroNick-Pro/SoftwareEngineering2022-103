@@ -283,7 +283,7 @@ public class confirmPay extends JFrame {
         panel2.setBorder(new RoundBorder(Color.gray));
         panel2.setBounds(45, 260, 375, 85);
         
-        double food_price = basicFoodPrice + extraFoodPrice;
+        double food_price = extraFoodPrice;
         String mo2 = "$" + food_price;
         JLabel label21 = new JLabel(mo2);
         JLabel label212 = new JLabel("Click to see details", JLabel.CENTER);
