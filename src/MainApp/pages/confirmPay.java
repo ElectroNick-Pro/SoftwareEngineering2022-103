@@ -283,7 +283,7 @@ public class confirmPay extends JFrame {
         panel2.setBackground(Color.white);
         panel2.setBorder(new RoundBorder(Color.gray));
         panel2.setBounds(45, 260, 375, 85);
-        panel2.addMouseListener(myListener);
+        
         double food_price = basicFoodPrice + extraFoodPrice;
         String mo2 = "$" + food_price;
         JLabel label21 = new JLabel(mo2);
@@ -298,6 +298,7 @@ public class confirmPay extends JFrame {
         if(extra_food[0] != null){
             co2 = "Food";
             panel2.add(label212);
+            panel2.addMouseListener(myListener);
         }
         JLabel label22 = new JLabel(co2, JLabel.CENTER);
         label22.setBounds(110, 19, 157, 32);
