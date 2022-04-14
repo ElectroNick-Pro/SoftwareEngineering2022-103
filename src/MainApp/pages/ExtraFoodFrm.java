@@ -150,8 +150,9 @@ public class ExtraFoodFrm extends JFrame{
                     if(foodPane[i].getValue() != 0){
                         info.food.setValue(((Food)haveFood[i]).id);
                         info.count.setValue(foodPane[i].getValue());
+                        tuples.put((Integer)info.food.getValue(), info);
                     }
-                    tuples.put((Integer)info.food.getValue(), info);
+                    
                 }
                 // GlobalData.data.put("foodInfo",info); //这个我没拿到数据，所以改成了下面的
                 GlobalData.data.put("foodInfo",tuples);

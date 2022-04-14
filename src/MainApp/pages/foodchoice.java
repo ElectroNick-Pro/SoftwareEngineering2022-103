@@ -2,6 +2,7 @@ package MainApp.pages;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
@@ -33,14 +34,10 @@ public class foodchoice extends JFrame {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
     }
+
+    @SuppressWarnings("unchecked")
     public foodchoice() {
         super();
-        type = btnType;
-        JFrame foodChoice = new JFrame();
-
-        /***
-         * title
-         */
         JPanel panel;
         panel = new JPanel(null);
         panel.setLayout(null);
@@ -71,14 +68,12 @@ public class foodchoice extends JFrame {
         var foodPanels = new ArrayList<FoodBlockPanel>();
 
         try {
-            var foodPurchases = FoodPurchase.queryByProperty(FoodPurchase.class, "ticket", 1).toArray();
-            for(var _fp: foodPurchases) {
-                var fp = (FoodPurchase)_fp;
+            for(var fp: ((HashMap<Integer, FoodPurchase>)GlobalData.data.get("foodInfo")).values()) {
                 var fpanel = new FoodBlockPanel(fp);
                 foodPanels.add(fpanel);
                 panelin.add(fpanel);
             }
-        } catch (FieldNotFoundException | ObjectNotFoundException e) {
+        } catch (ObjectNotFoundException e) {
             e.printStackTrace();
         }
         

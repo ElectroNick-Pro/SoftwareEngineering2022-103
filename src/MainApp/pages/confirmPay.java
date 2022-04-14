@@ -341,14 +341,14 @@ public class confirmPay extends JFrame {
         public void mouseClicked(java.awt.event.MouseEvent e) {
             int y = e.getYOnScreen(); 
             if(y >= 475 && y <= 559){ //"food" panel
-                foodchoice f = new foodchoice("food", food, extra_food);
+                foodchoice f = new foodchoice();
                 f.setBackground(Color.WHITE);
                 f.setVisible(true);
                 f.setSize(519, 540);
                 f.setLocationRelativeTo(null);
                 f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             }else if(y >= 565 && y <= 649){ //"total" panel
-                foodchoice f = new foodchoice("total", food, extra_food);
+                foodchoice f = new foodchoice();
                 f.setBackground(Color.WHITE);
                 f.setVisible(true);
                 f.setSize(519, 540);
@@ -403,7 +403,7 @@ public class confirmPay extends JFrame {
 
         JLabel where = new JLabel("Air China");
         where.setFont(new Font("Microsoft YaHei UI", Font.ITALIC, 20));
-        ImageIcon image = new ImageIcon("D:/Git/software-engineering2022-103/src/MainApp/pages/image/airplane.png");//
+        ImageIcon image = new ImageIcon(ClassLoader.getSystemResource("MainApp/pages/image/airplane.png"));//
         image.setImage(image.getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT));//
         JLabel picture = new JLabel(image);
 
