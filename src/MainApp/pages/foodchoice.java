@@ -57,9 +57,11 @@ public class foodchoice extends JFrame {
                 } catch (ObjectNotFoundException e1) {
                     e1.printStackTrace();
                 }
-                i ++;
+                i++;
             }
         }
+        
+        foodPackage.save();
         double food_price = basicFoodPrice + extraFoodPrice;
 
         /***

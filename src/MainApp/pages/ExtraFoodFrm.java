@@ -155,7 +155,11 @@ public class ExtraFoodFrm extends JFrame{
                     
                 }
                 // GlobalData.data.put("foodInfo",info); //这个我没拿到数据，所以改成了下面的
-                GlobalData.data.put("foodInfo",tuples);
+                if(GlobalData.data.containsKey("foodInfo")) {
+                    ((HashMap<Integer, FoodPurchase>)GlobalData.data.get("foodInfo")).putAll(tuples);;
+                } else {
+                    GlobalData.data.put("foodInfo", tuples);
+                }
                 try{
                     new confirmPay();
                     Pages.displayPage(path.resolve(Path.of("Confirm and Pay")));

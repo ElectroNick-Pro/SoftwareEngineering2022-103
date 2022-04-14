@@ -83,12 +83,7 @@ public class credit extends JFrame implements ActionListener {
                     tuple.ticket.setValue(((Ticket)GlobalData.data.get("ticket")).id);
                     tuple.save();
                 }
-                FoodPurchase foodPackage = new FoodPurchase();
-                Food food = (Food)GlobalData.data.get("food_choice");
-                foodPackage.ticket.setValue(((Ticket)GlobalData.data.get("ticket")).id);
-                foodPackage.food.setValue(food.id);
-                foodPackage.count.setValue(1);
-                foodPackage.save();
+                
                 OK frame = new OK();
                 frame.setSize(480, 185);
                 frame.setBackground(Color.WHITE);
