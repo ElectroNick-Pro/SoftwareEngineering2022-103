@@ -1,28 +1,13 @@
 package MainApp.pages;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import javax.swing.BorderFactory;
-import javax.swing.GroupLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.WindowConstants;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.plaf.ColorUIResource;
+import java.util.*;
+import javax.swing.*;
 import MainApp.GlobalData;
 import MainApp.models.Models;
-import MainApp.models.Model.Exception.FieldNotFoundException;
-import MainApp.models.Model.Exception.ObjectNotFoundException;
-import MainApp.models.Model.UserModel.Food;
-import MainApp.models.Model.UserModel.FoodPurchase;
-import MainApp.pages.components.DemoScrollBarUI;
-import MainApp.pages.components.RoundBorder;
+import MainApp.models.Model.Exception.*;
+import MainApp.models.Model.UserModel.*;
+import MainApp.pages.components.*;
 import MainApp.pages.control.FlightInfo;
 
 public class foodchoice extends JFrame {
@@ -47,7 +32,7 @@ public class foodchoice extends JFrame {
     @SuppressWarnings("unchecked")
     public foodchoice() {
         super();
-        JFrame foodChoice = this;
+        var foodChoice = this;
         foodChoice.getContentPane().setBackground(Color.WHITE);
         foodChoice.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         foodChoice.setSize(530,540);
@@ -93,7 +78,6 @@ public class foodchoice extends JFrame {
 
         JPanel panelin = new JPanel(null);
         panelin.setBackground(Color.white);
-        panelin.setBounds(26, 75, 465, Integer.MAX_VALUE);
         JScrollPane food = new JScrollPane(panelin);
         panelin.setBorder(BorderFactory.createCompoundBorder(panelin.getBorder(), BorderFactory.createEmptyBorder(10, 10, 10, 10)));
         food.setBounds(26, 75, 465, 303);
@@ -106,7 +90,7 @@ public class foodchoice extends JFrame {
         layout.setVgap(20);
         panelin.setLayout(layout);
         var foodPanels = new ArrayList<FoodBlockPanel>();
-
+        panelin.setBounds(26, 75, 465, Integer.MAX_VALUE);
 
         try {
             for(int j = 0; j < extra_food.length; j ++){
@@ -117,10 +101,12 @@ public class foodchoice extends JFrame {
                     panelin.add(fpanel);
                 }
             }
+            panelin.add(new FoodBlockPanel());
+            panelin.add(new FoodBlockPanel());
+            panelin.add(new FoodBlockPanel());
         } catch (ObjectNotFoundException e) {
             e.printStackTrace();
         }
-        
         ImageIcon m3 = new ImageIcon(ClassLoader.getSystemResource("MainApp/pages/image/pay.png"));
         m3.setImage(m3.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));// 这里设置图片大小，目前是20*20
         JPanel panel3 = new JPanel(null);
@@ -149,6 +135,11 @@ public class foodchoice extends JFrame {
 class FoodBlockPanel extends JPanel {
     private FoodPurchase foodPurchase;
     private Food food;
+    public FoodBlockPanel() {
+        this.setPreferredSize(new Dimension(431, 85));
+        this.setLayout(null);
+        this.setOpaque(false);
+    }
     public FoodBlockPanel(FoodPurchase fp) throws ObjectNotFoundException {
         super();
         
