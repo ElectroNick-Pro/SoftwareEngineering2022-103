@@ -121,6 +121,7 @@ public class Retrieve extends JFrame implements ActionListener{
         });
         btnRetrieve.setBounds(45,370,425,38);
         btnRetrieve.setBorder(new RoundBorder(new Color(0, 131, 255)));
+        btnRetrieve.setForeground(Color.WHITE);
         btnRetrieve.setBackground(new Color(0, 131, 255));
         container.add(btnRetrieve);
 
