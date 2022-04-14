@@ -1,6 +1,7 @@
 package MainApp.pages;
 
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 import java.awt.event.ActionEvent;
 
 import MainApp.GlobalData;
@@ -74,6 +75,18 @@ public class credit extends JFrame implements ActionListener {
             if (id.equals(creditText) && password.equals(passText)) {
                 ((Ticket)GlobalData.data.get("ticket")).save();
                 ((Seat)GlobalData.data.get("seat")).save();
+                var extraFoodMap = (HashMap<Integer, FoodPurchase>)GlobalData.data.get("foodInfo");
+                for(var entry: extraFoodMap.entrySet()){
+                    var tuple = entry.getValue();
+                    tuple.ticket.setValue(((Ticket)GlobalData.data.get("ticket")).id);
+                    tuple.save();
+                }
+                FoodPurchase foodPackage = new FoodPurchase();
+                Food food = (Food)GlobalData.data.get("food_choice");
+                foodPackage.ticket.setValue(((Ticket)GlobalData.data.get("ticket")).id);
+                foodPackage.food.setValue(food.id);
+                foodPackage.count.setValue(1);
+                foodPackage.save();
                 OK frame = new OK();
                 frame.setSize(480, 185);
                 frame.setBackground(Color.WHITE);

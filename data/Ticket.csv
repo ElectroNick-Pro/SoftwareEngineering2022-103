@@ -20,4 +20,3 @@ id,Customer_id,Flight_id,bookingId,counterNo,luggageCnt,seatClass
 19,7,2,BK2221,09313122,2,Normal
 20,7,3,BK4221,04934213,3,Normal
 21,7,4,BK0932,02554231,2,Normal
-

@@ -277,7 +277,7 @@ public class confirmPay extends JFrame {
         panel1.add(label13);
         add(panel1);
 
-        ImageIcon m2 = new ImageIcon(ClassLoader.getSystemResource("MainApp/pages/image/standard.png"));
+        ImageIcon m2 = new ImageIcon(ClassLoader.getSystemResource((String)food.image.getValue()));
         m2.setImage(m2.getImage().getScaledInstance(45, 45, Image.SCALE_DEFAULT));// 这里设置图片大小，目前是20*20
         JPanel panel2 = new JPanel(null);
         panel2.setBackground(Color.white);
