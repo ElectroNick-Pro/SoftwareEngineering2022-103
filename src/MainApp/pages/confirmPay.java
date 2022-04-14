@@ -143,7 +143,6 @@ public class confirmPay extends JFrame {
                 seatClass, "food provided", terminal, gate, name, ID, seatno);
         panelFlight.setBorder(new RoundBorder(Color.gray));
         add(panelFlight);
-        mouseListener myListener = new mouseListener();//click food & total button
         Double basicFoodPrice = (Double) food.price.getValue();
         Double extraFoodPrice = 0.0;
 
@@ -298,7 +297,23 @@ public class confirmPay extends JFrame {
         if(extra_food[0] != null){
             co2 = "Food";
             panel2.add(label212);
-            panel2.addMouseListener(myListener);
+            panel2.addMouseListener(new MouseListener() {
+                @Override
+                public void mouseClicked(java.awt.event.MouseEvent e) { 
+                    if(e.getSource() == panel2) { //"food" panel
+                        foodchoice f = new foodchoice();
+                        f.setBackground(Color.WHITE);
+                        f.setVisible(true);
+                        f.setSize(519, 540);
+                        f.setLocationRelativeTo(null);
+                        f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    }
+                }
+                public void mousePressed(java.awt.event.MouseEvent e) {}
+                public void mouseReleased(java.awt.event.MouseEvent e) {}
+                public void mouseEntered(java.awt.event.MouseEvent e) {}
+                public void mouseExited(java.awt.event.MouseEvent e) {}
+            });
         }
         JLabel label22 = new JLabel(co2, JLabel.CENTER);
         label22.setBounds(110, 19, 157, 32);
@@ -330,45 +345,6 @@ public class confirmPay extends JFrame {
         label33.setBounds(20, 18, 50, 50);
         panel3.add(label33);
         add(panel3);
-    }
-    private class mouseListener implements MouseListener{
-
-        @Override
-        public void mouseClicked(java.awt.event.MouseEvent e) {
-            int y = e.getYOnScreen(); 
-            if(y >= 475 && y <= 559){ //"food" panel
-                foodchoice f = new foodchoice();
-                f.setBackground(Color.WHITE);
-                f.setVisible(true);
-                f.setSize(519, 540);
-                f.setLocationRelativeTo(null);
-                f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            }
-        }
-
-        @Override
-        public void mousePressed(java.awt.event.MouseEvent e) {
-            // TODO Auto-generated method stub
-            
-        }
-
-        @Override
-        public void mouseReleased(java.awt.event.MouseEvent e) {
-            // TODO Auto-generated method stub
-            
-        }
-
-        @Override
-        public void mouseEntered(java.awt.event.MouseEvent e) {
-            
-        }
-
-        @Override
-        public void mouseExited(java.awt.event.MouseEvent e) {
-            // TODO Auto-generated method stub
-            
-        }
-
     }
 
     private static JPanel createFlight(String flightbookID, String flightDate, String flightTakeoff,

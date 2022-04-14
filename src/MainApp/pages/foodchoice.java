@@ -116,11 +116,11 @@ public class foodchoice extends JFrame {
                     foodPanels.add(fpanel);
                     panelin.add(fpanel);
                 }
-                
             }
         } catch (ObjectNotFoundException e) {
             e.printStackTrace();
         }
+        
         ImageIcon m3 = new ImageIcon(ClassLoader.getSystemResource("MainApp/pages/image/pay.png"));
         m3.setImage(m3.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));// 这里设置图片大小，目前是20*20
         JPanel panel3 = new JPanel(null);
