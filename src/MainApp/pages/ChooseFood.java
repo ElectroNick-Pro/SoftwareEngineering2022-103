@@ -82,6 +82,7 @@ public class ChooseFood extends JFrame{
                 var contain = (Food)haveFood[i];
                 String name = (String)contain.name.getValue();
                 String image = (String)contain.image.getValue();
+                System.out.println(image);
                 String price =String.valueOf((double)contain.price.getValue());
                 foodPane[i] = new originFood();
                 foodJPanels[i] = foodPane[i].createPanel(image, name, price);
