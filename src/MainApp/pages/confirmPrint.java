@@ -165,7 +165,7 @@ String bookingID =(String)ticket.bookingId.getValue();
                 
     }
 
-    private static JPanel createFlight(String flightbookID, String flightDate,String flightTakeoff,String flightArrive,
+    public static JPanel createFlight(String flightbookID, String flightDate,String flightTakeoff,String flightArrive,
     String flightFlightNo,String flightAirport1,String flightAirport2, String flightStartTime,String flightArriveTime,
     String fightTime, String flightSeat,String flightFood,String FlightTerminalNum, String flightGateNo,String flightName,
     String fligthNameID,String seatno) {
