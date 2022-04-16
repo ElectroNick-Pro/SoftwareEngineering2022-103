@@ -324,15 +324,17 @@ System.out.println(nowtime);*/
                     System.out.println("foodid is:"+foodid1);
                     var food2=Food.getById(Food.class, foodid1).name;
                     System.out.println(food2.getValue().toString());
-
-                   /* var seatstream=Ticket.queryByProperty(Ticket.class, "id", ticketid);
-                    var seatbuy=seatstream.toArray();
-                    String seatname=(String)((Ticket)seatbuy[0]).seatClass.getValue().toString();
-                    System.out.println(seatname);*/
+                   //获取座位，不知道为什么报错，一会再说
+                   
+                   var seatstream=Ticket.getById(Ticket.class, ticketid);
+                   var seatbuy=seatstream.seatClass.getValue().toString();
+                    /*var seatbuy=seatstream.toArray();
+                    String seatname=(String)((Ticket)seatbuy[0]).seatClass.getValue().toString();*/
+                    System.out.println(seatbuy);
 
                     JPanel flightChecked = confirmPrint.createFlight(bookingID,departureDate,departureCity,destCity,
                     flightNo,departureAirport,destAirport,departureTime,destTime,timeDeltaStr,
-                    seatClass,food2.getValue().toString(),terminal,gate,name,ID,"seatname");
+                    seatClass,food2.getValue().toString(),terminal,gate,name,ID,seatbuy);
 
                     flightChecked.setBorder(new RoundBorder(Color.GRAY)); 
                     flightChecked.setBounds(500,80,415,355);
@@ -517,7 +519,7 @@ JOptionPane.showMessageDialog(null, "Expired!","This ticket is out of date!",JOp
 
 
 
-//********************************************** */
+    //********************************************** */
     private int[] TimeCmp(int[] timevalue,int imap){
 int[] timeIndex=new int[100];
 for(int i=0;i<imap-1;i++){
