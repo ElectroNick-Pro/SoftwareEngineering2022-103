@@ -9,6 +9,7 @@ import MainApp.models.Model.Exception.FieldNotFoundException;
 import MainApp.models.Model.UserModel.*;
 import MainApp.pages.Exception.UnboundPageException;
 import java.nio.file.Path;
+import java.util.HashMap;
 
 import MainApp.pages.components.*;
 import MainApp.pages.control.FlightInfo;
@@ -81,6 +82,7 @@ public class ChooseFood extends JFrame{
                 var contain = (Food)haveFood[i];
                 String name = (String)contain.name.getValue();
                 String image = (String)contain.image.getValue();
+                System.out.println(image);
                 String price =String.valueOf((double)contain.price.getValue());
                 foodPane[i] = new originFood();
                 foodJPanels[i] = foodPane[i].createPanel(image, name, price);
@@ -146,6 +148,17 @@ public class ChooseFood extends JFrame{
                             return;
                         }
                         GlobalData.data.put("food_choice",foodChoice);
+                        FoodPurchase foodPackage = new FoodPurchase();
+                        foodPackage.ticket.setValue(((Ticket)GlobalData.data.get("ticket")).id);
+                        foodPackage.food.setValue(foodChoice.id);
+                        foodPackage.count.setValue(1);
+                        if(GlobalData.data.containsKey("foodInfo")) {
+                            ((HashMap<Integer, FoodPurchase>)GlobalData.data.get("foodInfo")).put((Integer)foodPackage.food.getValue(), foodPackage);
+                        } else {
+                            var fc = new HashMap<Integer,FoodPurchase>();
+                            fc.put((Integer)foodPackage.food.getValue(), foodPackage);
+                            GlobalData.data.put("foodInfo", fc);
+                        }
                         // System.out.println(foodChoice.name.getValue());
                         new ExtraFoodFrm();
                         Pages.displayPage(path.resolve(Path.of("Extra Food")));

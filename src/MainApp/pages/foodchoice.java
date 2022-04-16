@@ -57,10 +57,12 @@ public class foodchoice extends JFrame {
                 } catch (ObjectNotFoundException e1) {
                     e1.printStackTrace();
                 }
-                i ++;
+                i++;
             }
         }
-        double food_price = basicFoodPrice + extraFoodPrice;
+        
+        foodPackage.save();
+        double food_price = extraFoodPrice;
 
         /***
          * title
@@ -71,7 +73,7 @@ public class foodchoice extends JFrame {
         setContentPane(panel);
         panel.setBackground(Color.WHITE);
         this.setContentPane(panel);
-        JLabel label = new JLabel("Details of extra food choice");
+        JLabel label = new JLabel("Details of food choice");
         label.setBounds(26, 25, 360, 42);
         label.setFont(new Font("Microsoft YaHei", Font.BOLD, 25));
         panel.add(label);

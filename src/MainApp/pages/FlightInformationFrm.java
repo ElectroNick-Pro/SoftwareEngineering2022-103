@@ -369,7 +369,9 @@ System.out.println(nowtime);*/
                     if(flightInfo[nowchoice].isCheckin==0){//判断是否checkin了
                     if(timeIndex[nowchoice]==0)//判断是否是最近的一张,是
                     {
-                        String seatclass = (String)passData.ticket.seatClass.getValue();
+
+                    GlobalData.data.put("ticket", passData.ticket);
+                    String seatclass = (String)passData.ticket.seatClass.getValue();
                     if(seatclass.equals("First")){
                         GlobalData.data.put("seatClass",seatclass);
                         GlobalData.data.put("flight",passData);
