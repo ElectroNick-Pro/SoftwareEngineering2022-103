@@ -13,10 +13,9 @@ import MainApp.pages.control.FlightInfo;
 public class foodchoice extends JFrame {
     public Food foodPackage = (Food) GlobalData.data.get("food_choice");
     // private Map<Integer, FoodPurchase> extraFoodMap;
-    FoodPurchase[] extra_food = new FoodPurchase[20];
-    double[] extra_food_price = new double[20];
-    Double basicFoodPrice = (Double) foodPackage.price.getValue();
-    Double extraFoodPrice = 0.0;
+    FoodPurchase[] all_food = new FoodPurchase[20];
+    double[] food_price = new double[20];
+    Double foodPrice = 0.0;
 
     
     public static void main(String[] args) {
@@ -46,14 +45,14 @@ public class foodchoice extends JFrame {
             var foodId = tuple.food.getValue();
             var count = tuple.count.getValue();
             if(foodId != null){
-                extra_food[i] = new FoodPurchase();
-                extra_food[i].food.setValue(foodId);
-                extra_food[i].ticket.setValue(ticket.id);
-                extra_food[i].count.setValue(count);
+                all_food[i] = new FoodPurchase();
+                all_food[i].food.setValue(foodId);
+                all_food[i].ticket.setValue(ticket.id);
+                all_food[i].count.setValue(count);
                 try {
                     var food = (Food)Food.getById(Food.class, (Integer)foodId);
-                    extra_food_price[i] = (Double)food.price.getValue();
-                    extraFoodPrice = extraFoodPrice + extra_food_price[i] * (Integer)count;
+                    food_price[i] = (Double)food.price.getValue();
+                    foodPrice = foodPrice + food_price[i] * (Integer)count;
                 } catch (ObjectNotFoundException e1) {
                     e1.printStackTrace();
                 }
@@ -62,7 +61,6 @@ public class foodchoice extends JFrame {
         }
         
         foodPackage.save();
-        double food_price = basicFoodPrice + extraFoodPrice;
 
         /***
          * title
@@ -73,8 +71,8 @@ public class foodchoice extends JFrame {
         setContentPane(panel);
         panel.setBackground(Color.WHITE);
         this.setContentPane(panel);
-        JLabel label = new JLabel("Details of extra food choice");
-        label.setBounds(26, 25, 360, 42);
+        JLabel label = new JLabel("Details of your food choice");
+        label.setBounds(26, 25, 365, 42);
         label.setFont(new Font("Microsoft YaHei", Font.BOLD, 25));
         panel.add(label);
 
@@ -95,9 +93,9 @@ public class foodchoice extends JFrame {
         panelin.setBounds(26, 75, 465, Integer.MAX_VALUE);
 
         try {
-            for(int j = 0; j < extra_food.length; j ++){
-                if(extra_food[j] != null){
-                    var fp = (FoodPurchase)extra_food[j];
+            for(int j = 0; j < all_food.length; j ++){
+                if(all_food[j] != null){
+                    var fp = (FoodPurchase)all_food[j];
                     var fpanel = new FoodBlockPanel(fp);      
                     foodPanels.add(fpanel);
                     panelin.add(fpanel);
@@ -115,13 +113,13 @@ public class foodchoice extends JFrame {
         panel3.setBounds(26, 387, 467, 85);
         panel3.setBackground(Color.white);
         panel3.setBorder(new RoundBorder(Color.gray));
-        String mo3 = "$"+food_price;
+        String mo3 = "$"+foodPrice;
         JLabel label31 = new JLabel(mo3, JLabel.CENTER);
         label31.setForeground(Color.red);
         label31.setBounds(365, 30, 96, 25);
         label31.setFont(new Font("Microsoft YaHei", Font.BOLD, 25));
         panel3.add(label31);
-        String co3 = "Total of Extra Food";
+        String co3 = "Total of Food Choice";
         JLabel label32 = new JLabel(co3, JLabel.CENTER);
         label32.setBounds(82, 25, 276, 32);
         label32.setFont(new Font("Microsoft YaHei", Font.BOLD, 25));

@@ -369,34 +369,25 @@ public class ChooseSeat extends JFrame{
             }else{
                 if(buttonName.equals("normalSeat")){
                     if(normalRest != 0){
-                        int choice = JOptionPane.showConfirmDialog(null, "Choose a normal seat?", "Confirm",JOptionPane.YES_NO_OPTION);
-                        if(choice == JOptionPane.YES_OPTION){
-                            chooseSeat("Normal",seatClass);
-                        } 
+                        chooseSeat("Normal",seatClass);
                     }else{
                         JOptionPane.showMessageDialog(null, "no normal seat left", "normal", JOptionPane.ERROR_MESSAGE);
                     }
                 }else if(buttonName.equals("windowSeat")){
                     if(windowRest != 0){
-                        int choice = JOptionPane.showConfirmDialog(null, "Choose a window seat?", "Confirm",JOptionPane.YES_NO_OPTION);
-                        if(choice == JOptionPane.YES_OPTION){
-                            chooseSeat("Window",seatClass);
-                        }
+                        chooseSeat("Window",seatClass);
                     }else{
                         JOptionPane.showMessageDialog(null, "no seat left", "window", JOptionPane.ERROR_MESSAGE);
                     }
                 }else if(buttonName.equals("aisleSeat")){
                     if(aisleRest != 0){
-                        int choice = JOptionPane.showConfirmDialog(null, "Choose an aisle seat?", "Confirm",JOptionPane.YES_NO_OPTION);
-                        if(choice == JOptionPane.YES_OPTION){
-                            chooseSeat("Aisle",seatClass);
-                        }
+                        chooseSeat("Aisle",seatClass);
                     }else{
                         JOptionPane.showMessageDialog(null, "no seat left", "aisle", JOptionPane.ERROR_MESSAGE);
                     }
                 }else if(buttonName.equals("extraSeat")){
                     if(extraRest != 0){
-                        int choice = JOptionPane.showConfirmDialog(null, "Choose a seat with extra space?\nYou need to pay extra money for it.", "Confirm",JOptionPane.YES_NO_OPTION);
+                        int choice = JOptionPane.showConfirmDialog(null, "You need to pay extra money for a seat with more space.", "Confirm",JOptionPane.YES_NO_OPTION);
                         if(choice == JOptionPane.YES_OPTION){
                             chooseSeat("Extra",seatClass);
                         }
@@ -660,9 +651,26 @@ public class ChooseSeat extends JFrame{
                     extraRest --;
                 }
                 JOptionPane.showMessageDialog(null, "Select Successfully!\nYour seat number is "+seat.seatNo.getValue(), "Success", JOptionPane.PLAIN_MESSAGE);
-                f.setVisible(false);
-                ChooseSeat newFrame = new ChooseSeat(seatClass, changeSeatClass);
-                newFrame.setVisible(true);
+                seat = (Seat)GlobalData.data.get("seat");
+                if(seat != null){
+                    seatMoney = (double)seat.price.getValue();
+                    if(!changeSeatClass && seatClass.equals("First")){
+                        seatMoney = ((double)seat.price.getValue()) - normalMoney;
+                    }
+                    seat.price.setValue(seatMoney);
+                    GlobalData.data.put("seat", seat);
+                    new ChooseFood();
+                    try {
+                        Pages.displayPage(path.resolve(Path.of("Choose Food")));
+                    } catch (UnboundPageException e1) {
+                        e1.printStackTrace();
+                    }
+                    return;
+                }
+
+                // f.setVisible(false);
+                // ChooseSeat newFrame = new ChooseSeat(seatClass, changeSeatClass);
+                // newFrame.setVisible(true);
             }else{
                 JOptionPane.showMessageDialog(null, "Sorry, there is no seat left.\nPlease choose again.", "Error", JOptionPane.ERROR_MESSAGE);
             }
