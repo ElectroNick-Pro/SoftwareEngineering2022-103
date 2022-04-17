@@ -30,7 +30,8 @@ import javax.swing.JLayeredPane;
 import java.util.*;
 
 import java.awt.*;
-
+//测试的时间在175行
+//现在的时间是112行
 class MyPanel extends JPanel {
     public Image image;
     public MyPanel(Image image) {
@@ -172,7 +173,7 @@ System.out.println(nowtime);*/
             flightInfo[i_map].setBorder(new RoundBorder(Color.GRAY));
 
             //这里是测试的时间******************************************************
-            String testtime="2022-04-08 12:00:00";
+            String testtime="2022-04-01 12:00:00";
             String flighttime=(String)interval.departureTime.csvForm;
             System.out.println(flighttime);
             timeValue[i_map]=strtotime(testtime, flighttime);
@@ -522,21 +523,49 @@ JOptionPane.showMessageDialog(null, "Expired!","This ticket is out of date!",JOp
     //********************************************** */
     private int[] TimeCmp(int[] timevalue,int imap){
 int[] timeIndex=new int[100];
-for(int i=0;i<imap-1;i++){
+int expired=0;
+for(int i=0;i<imap;i++){
+    if(timevalue[i]<0){
+expired++;//过期的排在第几个
+    }
 }
-
+System.out.println("The value of expired is:"+expired);
 for(int j=0;j<imap;j++){
-    int whetherbig=0;
+    if(timevalue[j]<0)//先比没过期的 
+    {
+        int whetherbig=0;
     for(int k=0;k<imap;k++){
-        if(j!=k){
-            if(timevalue[j]>=timevalue[k]){
+     if(timevalue[k]<0)
+     {   if(j!=k)
+        {
+            if(timevalue[j]<=timevalue[k]){
                 whetherbig++;
             }
+            }
         }
-
+        timeIndex[j]=whetherbig;
     }
-    timeIndex[j]=whetherbig;
-    System.out.println("The index is:"+timeIndex[j]);
+     
+    }
+}
+ for(int jd=0;jd<imap;jd++){
+        if(timevalue[jd]>0)//再比过期的
+        {
+            int whetherbig=expired;
+        for(int kd=0;kd<imap;kd++){
+         if(timevalue[kd]>0) {
+                if(jd!=kd){
+                if(timevalue[jd]>=timevalue[kd]){
+                    whetherbig++;}
+                }
+            }
+            timeIndex[jd]=whetherbig;
+        }
+        
+        }
+        for(int f=0;f<imap;f++)//这就测试的,没用
+    {
+        System.out.println("The index is:"+timeIndex[f]);}
 }
 return timeIndex;
     }
@@ -555,7 +584,7 @@ private int strtotime(String str1,String str2){
         }
     }
    // System.out.println("The length is :"+str1.length());
-   // System.out.println("The value is :"+value);
+   System.out.println("The value is :"+value);
 
     return value;
 }
