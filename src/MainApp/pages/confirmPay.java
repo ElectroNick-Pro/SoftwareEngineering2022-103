@@ -51,27 +51,9 @@ public class confirmPay extends JFrame {
             .getInfoMap(((Customer) GlobalData.data.get("customer")).id);
     public Food food = (Food) GlobalData.data.get("food_choice");
     private Map<Integer, FoodPurchase> extraFoodMap;
-    FoodPurchase[] extra_food = new FoodPurchase[20];
-    double[] extra_food_price = new double[20];
-
-    // public static void main(String[] args) {
-    //     EventQueue.invokeLater(new Runnable() {
-    //         public void run() {
-    //             try {
-    //                 GlobalData.init(args);
-    //                 Models.init();
-    //                 GlobalData.data.put("customer", Customer.getById(Customer.class, 1));
-    //                 GlobalData.data.put("seat", Seat.getById(Seat.class, 6));
-    //                 GlobalData.data.put("flight", FlightInfo.getTicketInfoMap(1).get(1));
-    //                 confirmPay frame = new confirmPay();
-    //                 frame.setVisible(true);
-    //                 frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-    //             } catch (Exception e) {
-    //                 e.printStackTrace();
-    //             }
-    //         }
-    //     });
-    // }
+    FoodPurchase[] all_food = new FoodPurchase[20];
+    double[] food_price = new double[20];
+    Double foodPrice = 0.0;
 
     private static final int DEFAULT_WIDTH = 965;
     private static final int DEFAULT_HEIGHT = 550;
@@ -98,19 +80,6 @@ public class confirmPay extends JFrame {
         label2.setFont(new Font("Microsoft YaHei", Font.BOLD, 35));
         label2.setBounds(45, 90, 323, 49);
         add(label2);
-
-        /*
-         * JButton btn = new JButton("Comfirm");
-         * btn.setBounds(45,400,425,38);
-         * btn.setFont(new Font("Microsoft YaHei", Font.BOLD,17));
-         * btn.setBackground(Color.BLUE);
-         * //btn.setForeground(Color.white);
-         * //btn.setBorder(BorderFactory.createRaisedBevelBorder());
-         * add(btn);
-         */
-        // var seatStream = Seat.queryByProperty(Seat.class, "Interval_id", interval_id).toArray();
-        // int foodId = (Integer)extra_food.food.getValue();
-        // System.out.println("Line 104: "+foodId);
 
         var flightInfo = (FlightInfo) GlobalData.data.get("flight");
         var seat = (Seat) GlobalData.data.get("seat");
@@ -143,8 +112,7 @@ public class confirmPay extends JFrame {
                 seatClass, "food provided", terminal, gate, name, ID, seatno);
         panelFlight.setBorder(new RoundBorder(Color.gray));
         add(panelFlight);
-        Double basicFoodPrice = (Double) food.price.getValue();
-        Double extraFoodPrice = 0.0;
+        
 
         var extraFoodMap = (HashMap<Integer, FoodPurchase>)GlobalData.data.get("foodInfo");
         int i = 0;
@@ -153,25 +121,20 @@ public class confirmPay extends JFrame {
             var foodId = tuple.food.getValue();
             var count = tuple.count.getValue();
             if(foodId != null){
-                extra_food[i] = new FoodPurchase();
-                extra_food[i].food.setValue(foodId);
-                extra_food[i].ticket.setValue(ticket.id);
-                extra_food[i].count.setValue(count);
+                all_food[i] = new FoodPurchase();
+                all_food[i].food.setValue(foodId);
+                all_food[i].ticket.setValue(ticket.id);
+                all_food[i].count.setValue(count);
                 try {
                     var food = (Food)Food.getById(Food.class, (Integer)foodId);
-                    extra_food_price[i] = (Double)food.price.getValue();
-                    extraFoodPrice = extraFoodPrice + extra_food_price[i] * (Integer)count;
+                    food_price[i] = (Double)food.price.getValue();
+                    foodPrice = foodPrice + food_price[i] * (Integer)count;
                 } catch (ObjectNotFoundException e1) {
                     e1.printStackTrace();
                 }
                 i ++;
             }
         }
-        // System.out.println("Basic food price: "+basicFoodPrice+"Extra food price: " +extraFoodPrice);
-        // for(int j = 0; j < i; j ++){
-        //     System.out.println("i = "+j+"foodId = "+(Integer)extra_food[j].food.getValue()+"ticketId = "+(Integer)extra_food[j].ticket.getValue()+"count = "+(Integer)extra_food[j].count.getValue()+"price = "+extra_food_price[j]);
-
-        // }
         ImageIcon image = new ImageIcon(ClassLoader.getSystemResource("MainApp/pages/image/travel.png"));// 这是背景图片 .png .jpg .gif 等格式的图片都可以
         // image.setImage(image.getImage().getScaledInstance(960,0,Image.SCALE_DEFAULT));//这里设置图片大小，目前是20*20
         JLabel picture = new JLabel(image);
@@ -190,22 +153,38 @@ public class confirmPay extends JFrame {
         top.setVisible(true);
 
         JButton next = new JButton();
-
-        next.setText("Confirm");
         next.setBackground(new Color(0, 131, 255));
         next.setForeground(Color.white);
         next.setBounds(800, 460, 100, 35);
+        next.setText("Next");
         next.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 14));
         next.setBorder(new RoundBorder(new Color(30, 144, 255)));
         next.setContentAreaFilled(true);
         next.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                credit frame = new credit();
-                frame.setBackground(Color.WHITE);
-                frame.setSize(515, 313);
-                frame.setLocationRelativeTo(null);
-                frame.setVisible(true);
+                if(foodPrice == 0){
+                    new confirmPrint();
+                    try {
+                        Pages.displayPage(Path.of("Retrieve/Flight Information/Choose Seat/Choose Food/Extra Food/Confirm and Pay/Print"));
+                        ((Seat)GlobalData.data.get("seat")).save();
+                        var extraFoodMap = (HashMap<Integer, FoodPurchase>)GlobalData.data.get("foodInfo");
+                        for(var entry: extraFoodMap.entrySet()){
+                            var tuple = entry.getValue();
+                            tuple.ticket.setValue(((Ticket)GlobalData.data.get("ticket")).id);
+                            tuple.save();
+                        }
+                    } catch (UnboundPageException e1) {
+                        e1.printStackTrace();
+                    }
+                }else{
+                    credit frame = new credit();
+                    frame.setBackground(Color.WHITE);
+                    frame.setSize(515, 313);
+                    frame.setLocationRelativeTo(null);
+                    frame.setVisible(true);
+                }
+                
             }
         });
         add(next);
@@ -216,7 +195,7 @@ public class confirmPay extends JFrame {
         // back.setForeground(Color.white);
         back.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 14));
         back.setBorder(new RoundBorder(Color.gray));
-        back.setBounds(25, 460, 75, 30);
+        back.setBounds(25, 460, 100, 35);
         back.setContentAreaFilled(false);
         add(back);
         back.addActionListener(new ActionListener() {
@@ -283,8 +262,7 @@ public class confirmPay extends JFrame {
         panel2.setBorder(new RoundBorder(Color.gray));
         panel2.setBounds(45, 260, 375, 85);
         
-        double food_price = extraFoodPrice;
-        String mo2 = "$" + food_price;
+        String mo2 = "$" + foodPrice;
         JLabel label21 = new JLabel(mo2);
         JLabel label212 = new JLabel("Click to see details", JLabel.CENTER);
         label21.setForeground(Color.red);
@@ -293,9 +271,20 @@ public class confirmPay extends JFrame {
         label21.setFont(new Font("Microsoft YaHei", Font.BOLD, 20));
         label212.setFont(new Font("Microsoft YaHei", Font.BOLD, 15));
         panel2.add(label21);
-        String co2 = (String) food.name.getValue();
-        if(extra_food[0] != null){
+        String co2;
+        JLabel label22;
+        int length = 0;
+        for(int j = 0 ; j < all_food.length; j ++){
+            if(all_food[j] != null){
+                length ++;
+            }
+        }
+        if(length > 1){
             co2 = "Food";
+            label22 = new JLabel(co2, JLabel.CENTER);
+            label22.setBounds(110, 19, 157, 32);
+            label22.setFont(new Font("Microsoft YaHei", Font.BOLD, 25));
+            panel2.add(label22);
             panel2.add(label212);
             panel2.addMouseListener(new MouseListener() {
                 @Override
@@ -314,11 +303,14 @@ public class confirmPay extends JFrame {
                 public void mouseEntered(java.awt.event.MouseEvent e) {}
                 public void mouseExited(java.awt.event.MouseEvent e) {}
             });
+        }else{
+            co2 = (String) food.name.getValue();
+            label22 = new JLabel(co2, JLabel.CENTER);
+            label22.setBounds(110, 27, 157, 35);
+            label22.setFont(new Font("Microsoft YaHei", Font.BOLD, 25));
+            panel2.add(label22);
         }
-        JLabel label22 = new JLabel(co2, JLabel.CENTER);
-        label22.setBounds(110, 19, 157, 32);
-        label22.setFont(new Font("Microsoft YaHei", Font.BOLD, 25));
-        panel2.add(label22);
+        
         JLabel label23 = new JLabel(m2);
         label23.setBounds(20, 18, 50, 50);
         panel2.add(label23);
@@ -330,7 +322,7 @@ public class confirmPay extends JFrame {
         panel3.setBounds(45, 350, 375, 85);
         panel3.setBackground(Color.white);
         panel3.setBorder(new RoundBorder(Color.gray));
-        var total_price = seatprice + food_price;
+        var total_price = seatprice + foodPrice;
         String mo3 = "$" + total_price;
         JLabel label31 = new JLabel(mo3);
         label31.setForeground(Color.red);
