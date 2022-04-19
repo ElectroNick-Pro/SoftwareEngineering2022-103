@@ -1,7 +1,9 @@
 package MainApp;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
@@ -34,7 +36,14 @@ public class GlobalData {
                 builder.parse(ClassLoader.getSystemClassLoader().getResourceAsStream("MainApp/config/config.xml")) : 
                 builder.parse(Path.of(args[0]).toFile());
 
-            config.put("dataDir", Path.of(doc.getElementsByTagName("dataDir").item(0).getTextContent()));
+            var dataPath = Path.of(doc.getElementsByTagName("dataDir").item(0).getTextContent());
+            if(!dataPath.toFile().exists()) {
+                if(!dataPath.toFile().mkdirs()) {
+                    System.exit(1);
+                }
+                JOptionPane.showMessageDialog(null, "Database files are now in directory "+dataPath.toAbsolutePath().toString(), "File Ready", JOptionPane.PLAIN_MESSAGE);
+            }
+            config.put("dataDir", dataPath);
 
             var tz = new SimpleDateFormat(doc.getElementsByTagName("timeStrFormat").item(0).getTextContent());
             tz.setTimeZone(TimeZone.getTimeZone(doc.getElementsByTagName("timeZone").item(0).getTextContent()));
@@ -47,6 +56,15 @@ public class GlobalData {
                 userModels.add(nodeLs.item(i).getTextContent());
             }
             config.put("userModels", userModels);
+
+            // copy internal files
+            for(var model : userModels) {
+                var filePath = dataPath.resolve(model+".csv");
+                if(filePath.toFile().exists()) {
+                    continue;
+                }
+                Files.copy(ClassLoader.getSystemResourceAsStream("MainApp/data/"+model+".csv"), filePath);
+            }
 
             var dig = MessageDigest.getInstance(doc.getElementsByTagName("digest-algorithm").item(0).getTextContent());
             config.put("digest", dig);
