@@ -173,7 +173,7 @@ System.out.println(nowtime);*/
             flightInfo[i_map].setBorder(new RoundBorder(Color.GRAY));
 
             //这里是测试的时间******************************************************
-            String testtime="2022-04-01 12:00:00";
+            String testtime="2022-04-08 12:00:00";
             String flighttime=(String)interval.departureTime.csvForm;
             System.out.println(flighttime);
             timeValue[i_map]=strtotime(testtime, flighttime);
