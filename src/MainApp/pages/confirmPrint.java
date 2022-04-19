@@ -88,32 +88,38 @@ public class confirmPrint extends JFrame{
         btn.setBackground(new Color(0,131,255));
         btn.setForeground(Color.white);
         btn.setBorder(new RoundBorder(new Color(30, 144, 255)));
+        btn.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(null, "Your boarding pass and luggage tag are printing. Please wait for a moment", "Hint", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
 
         var flightInfo = (FlightInfo)GlobalData.data.get("flight");
         var seat = (Seat)GlobalData.data.get("seat");
-var ticket = flightInfo.ticket;
+        var ticket = flightInfo.ticket;
 
-String bookingID =(String)ticket.bookingId.getValue();
-                    var departureDt = (Date)flightInfo.interval.get(0).departureTime.getValue();
-                    String departureDate = new SimpleDateFormat("MMM dd,yyyy", Locale.UK).format(departureDt);
-                    String destCity = (String)flightInfo.interval.get(0).destCity.getValue();
-                    String departureCity = (String)flightInfo.interval.get(0).departureCity.getValue();
-                    String flightNo = (String)flightInfo.flight.flightNo.getValue();
-                    String departureAirport = (String)flightInfo.interval.get(0).departureAirport.getValue();
-                    String destAirport = (String)flightInfo.interval.get(0).destAirport.getValue();
-                    String departureTime = new SimpleDateFormat("hh:mm", Locale.UK).format(departureDt);
-                    var destDt = (Date)flightInfo.interval.get(0).destTime.getValue();
-                    String destTime = new SimpleDateFormat("hh:mm", Locale.UK).format(destDt);
-                    var timeDelta = Duration.between(departureDt.toInstant(), destDt.toInstant());
-                    String timeDeltaStr = "" + timeDelta.toHours() + "h" + timeDelta.toMinutes() % 60 + "min";
-                    String terminal = (String)flightInfo.interval.get(0).terminal.getValue();
-                    String gate = (String)flightInfo.interval.get(0).gate.getValue();
-                    String firstname = (String)((Customer)GlobalData.data.get("customer")).firstname.getValue();
-                    String surname = (String)((Customer)GlobalData.data.get("customer")).surname.getValue();
-                    String name = firstname+ " " + surname;
-                    String ID =(String)((Customer)GlobalData.data.get("customer")).customerId.getValue();
-                    String seatClass = (String)seat.seatClass.getValue() + " class";
-                    String seatno = (String)seat.seatNo.getValue();
+        String bookingID =(String)ticket.bookingId.getValue();
+        var departureDt = (Date)flightInfo.interval.get(0).departureTime.getValue();
+        String departureDate = new SimpleDateFormat("MMM dd,yyyy", Locale.UK).format(departureDt);
+        String destCity = (String)flightInfo.interval.get(0).destCity.getValue();
+        String departureCity = (String)flightInfo.interval.get(0).departureCity.getValue();
+        String flightNo = (String)flightInfo.flight.flightNo.getValue();
+        String departureAirport = (String)flightInfo.interval.get(0).departureAirport.getValue();
+        String destAirport = (String)flightInfo.interval.get(0).destAirport.getValue();
+        String departureTime = new SimpleDateFormat("hh:mm", Locale.UK).format(departureDt);
+        var destDt = (Date)flightInfo.interval.get(0).destTime.getValue();
+        String destTime = new SimpleDateFormat("hh:mm", Locale.UK).format(destDt);
+        var timeDelta = Duration.between(departureDt.toInstant(), destDt.toInstant());
+        String timeDeltaStr = "" + timeDelta.toHours() + "h" + timeDelta.toMinutes() % 60 + "min";
+        String terminal = (String)flightInfo.interval.get(0).terminal.getValue();
+        String gate = (String)flightInfo.interval.get(0).gate.getValue();
+        String firstname = (String)((Customer)GlobalData.data.get("customer")).firstname.getValue();
+        String surname = (String)((Customer)GlobalData.data.get("customer")).surname.getValue();
+        String name = firstname+ " " + surname;
+        String ID =(String)((Customer)GlobalData.data.get("customer")).customerId.getValue();
+        String seatClass = (String)seat.seatClass.getValue() + " class";
+        String seatno = (String)seat.seatNo.getValue();
         JPanel panelFlight = createFlight(bookingID,departureDate,departureCity,destCity,
         flightNo,departureAirport,destAirport,departureTime,destTime,timeDeltaStr,
         seatClass,"food provided",terminal,gate,name,ID,seatno);
@@ -165,7 +171,7 @@ String bookingID =(String)ticket.bookingId.getValue();
                 
     }
 
-    private static JPanel createFlight(String flightbookID, String flightDate,String flightTakeoff,String flightArrive,
+    public static JPanel createFlight(String flightbookID, String flightDate,String flightTakeoff,String flightArrive,
     String flightFlightNo,String flightAirport1,String flightAirport2, String flightStartTime,String flightArriveTime,
     String fightTime, String flightSeat,String flightFood,String FlightTerminalNum, String flightGateNo,String flightName,
     String fligthNameID,String seatno) {
