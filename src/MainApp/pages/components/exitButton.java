@@ -27,7 +27,7 @@ public class exitButton extends JButton implements ActionListener{
             Retrieve.bookingIdField.setText("");
             // Global Data
             try {
-                Pages.displayPage(Path.of("Retrieve"));
+                Pages.displayPage(Path.of("Welcome"));
             } catch (UnboundPageException e1) {
                 e1.printStackTrace();
             }   

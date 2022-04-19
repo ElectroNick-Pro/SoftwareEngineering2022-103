@@ -39,14 +39,14 @@ public class HrefButton extends JButton implements ActionListener, MouseListener
     public void actionPerformed(ActionEvent e) {
         // System.out.println((Pages.curPagePath).toString());
 
-        if(this.pathName.equals("Retrieve") && GlobalData.data.get("seat") != null && !((Pages.curPagePath).toString().equals("page1") || (Pages.curPagePath).toString().equals("Retrieve"))){
-            int choice = JOptionPane.showConfirmDialog(null, "Do you want to go back to the Retrieve page? If so, your choices will not be saved.", "Confirm",JOptionPane.YES_NO_OPTION);
-            if(choice != JOptionPane.YES_OPTION){
-                this.state = false;
-            }else{
-                this.state = true;
-            }
-        }
+        // if(this.pathName.equals("Retrieve") && GlobalData.data.get("seat") != null && !((Pages.curPagePath).toString().equals("page1") || (Pages.curPagePath).toString().equals("Retrieve"))){
+        //     int choice = JOptionPane.showConfirmDialog(null, "Do you want to go back to the Retrieve page? If so, your choices will not be saved.", "Confirm",JOptionPane.YES_NO_OPTION);
+        //     if(choice != JOptionPane.YES_OPTION){
+        //         this.state = false;
+        //     }else{
+        //         this.state = true;
+        //     }
+        // }
         if(Pages.curPagePath.equals(path) || Pages.curPagePath.toString().equals("page1")){
             state = false;
         }

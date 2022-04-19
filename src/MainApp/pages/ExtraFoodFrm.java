@@ -140,6 +140,18 @@ public class ExtraFoodFrm extends JFrame{
         back.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
         back.setBorder(new RoundBorder(Color.gray));
         back.setBounds(25,480,75,30);
+        back.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(e.getSource() == back) {
+                    try {
+                        Pages.goBack();
+                    } catch (UnboundPageException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+            }
+        });
         add(back);
 
         next.addActionListener(new ActionListener(){
