@@ -66,6 +66,7 @@ public class FlightInformationFrm extends JFrame
     private int flag = (Integer)GlobalData.data.get("flag");
     private Map<Integer, FlightInfo> flightInfoMap;
     private int judgeFlage = 0;
+    private int nowchoice=0;
     JLayeredPane pane = new JLayeredPane();
     public static void main(String[] args){
         EventQueue.invokeLater(new Runnable() {
@@ -156,6 +157,10 @@ System.out.println(nowtime);*/
         panelInfo.setBackground(Color.white);
         var flightInfo = new FlightButton[100];
         int i_map = 0;
+
+        //******************************** */
+        int[] timeValue=new int[100];
+
         for(var entry: flightInfoMap.entrySet()){
             var tuple = entry.getValue();
             var interval = tuple.interval.get(0);
@@ -300,6 +305,7 @@ System.out.println(nowtime);*/
                     if(rightPanel!=null) {
                         rightPanel.setVisible(false);
                     }
+            if(flightInfo[number].isCheckin==0){
                     FlightInfoPanel flightCheck = new FlightInfoPanel(bookingID,departureDate,departureCity,destCity,
                     flightNo,departureAirport,destAirport,departureTime,destTime,timeDeltaStr,
                     seatClass,"food provided",terminal,gate,name,ID);
@@ -423,6 +429,75 @@ JOptionPane.showMessageDialog(null, "Expired!","This ticket is out of date!",JOp
                 }
                 }
             }
-        });
-    }
+        }
+    });
+    
+    //********************************************** */
+    private int[] TimeCmp(int[] timevalue,int imap){
+        int[] timeIndex=new int[100];
+        int expired=0;
+        for(int i=0;i<imap;i++){
+            if(timevalue[i]<0){
+        expired++;//过期的排在第几个
+            }
+        }
+        System.out.println("The value of expired is:"+expired);
+        for(int j=0;j<imap;j++){
+            if(timevalue[j]<0)//先比没过期的 
+            {
+                int whetherbig=0;
+            for(int k=0;k<imap;k++){
+             if(timevalue[k]<0)
+             {   if(j!=k)
+                {
+                    if(timevalue[j]<=timevalue[k]){
+                        whetherbig++;
+                    }
+                    }
+                }
+                timeIndex[j]=whetherbig;
+            }
+             
+            }
+        }
+         for(int jd=0;jd<imap;jd++){
+                if(timevalue[jd]>0)//再比过期的
+                {
+                    int whetherbig=expired;
+                for(int kd=0;kd<imap;kd++){
+                 if(timevalue[kd]>0) {
+                        if(jd!=kd){
+                        if(timevalue[jd]>=timevalue[kd]){
+                            whetherbig++;}
+                        }
+                    }
+                    timeIndex[jd]=whetherbig;
+                }
+                
+                }
+                for(int f=0;f<imap;f++)//这就测试的,没用
+            {
+                System.out.println("The index is:"+timeIndex[f]);}
+        }
+        return timeIndex;
+            }
+        //***************************************** */
+        private int strtotime(String str1,String str2){
+            char[] fir=str1.toLowerCase().toCharArray();
+            char[] sec=str2.toLowerCase().toCharArray();
+            int value=0;
+            for(int i=0;i<str1.length();i++){
+                if(fir[i]-0>47&&fir[i]<58){
+                    //int m=(fir[i]-0-48)-(sec[i]-0-48);
+                   // System.out.println("minus="+m);
+                   value+=((fir[i]-0-48)-(sec[i]-0-48))*(Math.pow((int)10, (int)(10-i)));
+                   //System.out.println("Value="+value);
+                   //System.out.println("Now i= "+i);
+                }
+            }
+           // System.out.println("The length is :"+str1.length());
+           System.out.println("The value is :"+value);
+        
+            return value;
+        }
 }
