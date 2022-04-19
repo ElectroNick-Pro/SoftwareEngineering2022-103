@@ -40,6 +40,7 @@ public class ChooseSeat extends JFrame{
     public Seat seat;
     private int interval_id = 1;
     private FlightInfo flightinfo = (FlightInfo)GlobalData.data.get("flight");
+    public Boolean haveAskToUpgrade = (Boolean) GlobalData.data.get("haveAskToUpgrade");
     JFrame f = this;
 
     {
@@ -65,12 +66,12 @@ public class ChooseSeat extends JFrame{
     private JButton aisle = aisleSeat(f);
     private JButton extra = extraSeat(f);
     private Path path = Path.of("Retrieve/Flight Information/Choose Seat");
-    public ChooseSeat(String seatclass, boolean changeSeatClass){
+    public ChooseSeat(){
         super("Choose seat");
         Pages.bindPage(this.path, this);
-        seatClass = seatclass;
-        changeSeatClass = changeSeatClass;
-        System.out.println("Line 71: " + changeSeatClass);
+        seatClass = (String)GlobalData.data.get("seatClass");
+        
+        // System.out.println("Line 71: " + changeSeatClass);
         
         if(seat != null){
             if(! seat.seatClass.equals(seatClass)){
@@ -85,6 +86,10 @@ public class ChooseSeat extends JFrame{
         bottom(); // back + next button
         buttonAction(); //4 buttons action 
         f.setLocationRelativeTo(null); 
+        if(seatClass.equals("Normal") && !haveAskToUpgrade){
+            
+            upgrade();
+        }
     }
 
     private void myFrame(){
@@ -174,7 +179,7 @@ public class ChooseSeat extends JFrame{
         f.add(normal_text1);
         f.add(normal_text2);
         System.out.println("Line 174: " + changeSeatClass);
-        if(seatClass.equals("First") && changeSeatClass){
+        if(changeSeatClass){
             f.add(normal_money);
         }
         f.add(normal_num1);
@@ -233,7 +238,7 @@ public class ChooseSeat extends JFrame{
         f.add(window);
         f.add(window_text1);
         f.add(window_text2);
-        if(seatClass.equals("First") && changeSeatClass){
+        if(changeSeatClass){
             f.add(window_money);
         }
         f.add(window_num1);
@@ -292,7 +297,7 @@ public class ChooseSeat extends JFrame{
         f.add(aisle);
         f.add(aisle_text1);
         f.add(aisle_text2);
-        if(seatClass.equals("First") && changeSeatClass){
+        if(changeSeatClass){
             f.add(aisle_money);
         }
         f.add(aisle_num1);
@@ -680,6 +685,21 @@ public class ChooseSeat extends JFrame{
         
     }
 
+    //popup to ask if users of economy class want to upgrade 
+    private void upgrade(){
+        int choice = JOptionPane.showConfirmDialog(null, "Choose Seat Would you like to upgrade?", "Upgrade",JOptionPane.YES_NO_OPTION);
+        if(choice == JOptionPane.YES_OPTION){ //upgrade
+            GlobalData.data.put("seatClass","First");
+            GlobalData.data.put("changeSeatClass", true);
+            GlobalData.data.put("haveAskToUpgrade", true);
+            new ChooseSeat();
+        }else if(choice == JOptionPane.NO_OPTION){ //keep normal seat
+            GlobalData.data.put("seatClass","Normal");
+            GlobalData.data.put("changeSeatClass", false);
+            GlobalData.data.put("haveAskToUpgrade", true);
+            new ChooseSeat();
+        }
 
+    }
 
 }

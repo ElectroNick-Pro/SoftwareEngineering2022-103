@@ -267,44 +267,36 @@ public class FlightInformationFrm extends JFrame
                 }
                 else{
                 if(e.getSource() == next) {
-                    // qxt
-                    //get the class of seat the customer have chosen
-                    //if he chose a normal seat before, ask if he want to upgrade
-                    GlobalData.data.put("ticket", passData.ticket);
-                    String seatclass = (String)passData.ticket.seatClass.getValue();
-                    if(seatclass.equals("First")){
+                    // qxt                    
+                    String seatclass = (String)passData.ticket.seatClass.getValue();;
+                    if((String) GlobalData.data.get("seatClass") == null){
                         GlobalData.data.put("seatClass",seatclass);
-                        GlobalData.data.put("flight",passData);
+                    }else{
+                        seatclass = (String)GlobalData.data.get("seatClass");
+                    }
+                    if((Boolean) GlobalData.data.get("changeSeatClass") == null){
                         GlobalData.data.put("changeSeatClass", false);
-                        new ChooseSeat("First", false);
+                    }
+                    if((Boolean) GlobalData.data.get("haveAskToUpgrade") == null){
+                        GlobalData.data.put("haveAskToUpgrade", false);
+                    }
+                    GlobalData.data.put("ticket", passData.ticket);
+                    GlobalData.data.put("flight",passData);
+                    
+                    if(seatclass.equals("First")){
+                        new ChooseSeat();
                         try {
                             Pages.displayPage(path.resolve(Path.of("Choose Seat")));
                         } catch (UnboundPageException e1) {
                             e1.printStackTrace();
                         }
                     }else if(seatclass.equals("Normal")){
-                        int choice = JOptionPane.showConfirmDialog(null, "Would you like to upgrade?", "Upgrade",JOptionPane.YES_NO_OPTION);
-                        if(choice == JOptionPane.YES_OPTION){ //upgrade
-                            GlobalData.data.put("seatClass","First");
-                            GlobalData.data.put("flight",passData);
-                            GlobalData.data.put("changeSeatClass", true);
-                            new ChooseSeat("First", true);
+                            new ChooseSeat();
                             try {
                                 Pages.displayPage(path.resolve(Path.of("Choose Seat")));
                             } catch (UnboundPageException e1) {
                                 e1.printStackTrace();
                             }
-                        }else if(choice == JOptionPane.NO_OPTION){ //keep normal seat
-                            GlobalData.data.put("seatClass",seatclass);
-                            GlobalData.data.put("flight",passData);
-                            GlobalData.data.put("changeSeatClass", false);
-                            new ChooseSeat("Normal", false);
-                            try {
-                                Pages.displayPage(path.resolve(Path.of("Choose Seat")));
-                            } catch (UnboundPageException e1) {
-                                e1.printStackTrace();
-                            }
-                        }
                     }
                 }
                 }
