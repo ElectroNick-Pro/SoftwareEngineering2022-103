@@ -22,17 +22,18 @@ public class BreadCrumbPanel extends JPanel {
         int k = path.getNameCount();
         for(int i = 1; i <= n; i++) {
             var btn = new HrefButton(totalPath.subpath(0, i));
+            var label = new JLabel(">");
             this.add(btn);
-            if(i < n) {
-                var label = new JLabel(">");
-                label.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
-                if(i>k){
-                    label.setForeground(Color.GRAY);
-                }
-                this.add(label);
-            }
-            if(i>k){
+            if(k == 7 || i > k){
                 btn.setEnabled(false);
+                label.setForeground(Color.GRAY);
+                if(i!=n){
+                    this.add(label);
+                }
+            }
+            else if(i < n) {
+                label.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
+                this.add(label);
             }
             crumbs.add(btn);
         }

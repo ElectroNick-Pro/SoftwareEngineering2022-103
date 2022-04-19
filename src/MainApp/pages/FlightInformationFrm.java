@@ -147,6 +147,7 @@ System.out.println(nowtime);*/
         this.getLayeredPane().setBackground(Color.WHITE);
 
         // top panel
+        // GlobalData.data.put("curPath",this.path);
         topPanel top = new topPanel(this.path);
         top.setBounds(0,0,940,70);
         contentPane.add(top);
