@@ -25,7 +25,7 @@ id,Flight_id,name,price,type,image
 24,2,French fries,2,Extra,MainApp/pages/image/French fries8.png
 25,2,Standard,0,Origin,MainApp/pages/image/Standard1.png
 26,2,Vegan,0,Origin,MainApp/pages/image/Vegan2.png
-27,2,Hamburger,5.0,Origin,MainApp/pages/image/Hamburger3.png
+27,2,Hamburger,5,Origin,MainApp/pages/image/Hamburger3.png
 28,2,Beefsteak,12,Origin,MainApp/pages/image/Beefsteak4.png
 29,2,Halal,2.5,Origin,MainApp/pages/image/Halal5.png
 30,2,Child,0,Origin,MainApp/pages/image/child6.png

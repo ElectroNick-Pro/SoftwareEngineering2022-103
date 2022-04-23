@@ -14,7 +14,7 @@ import MainApp.models.Model.UserModel.Ticket;
 import MainApp.pages.Exception.UnboundPageException;
 
 public class Retrieve extends JFrame implements ActionListener{
-    private Path path = Path.of("Retrieve");
+    private Path path = Path.of("/Retrieve");
     public Container container;
     public static JTextField bookingIdField, surnameField, customerIdField;
     public JButton button1,button2,button3;
@@ -30,7 +30,6 @@ public class Retrieve extends JFrame implements ActionListener{
         container.setLayout(null);
         container.setBackground(Color.white);
         // top panel
-        // GlobalData.data.put("curPath",this.path);
         topPanel top = new topPanel(this.path);
         top.setBounds(0,0,940,70);
         container.add(top);

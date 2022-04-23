@@ -62,7 +62,7 @@ public class Welcome extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 new Retrieve();
                 try {
-                    Pages.displayPage(Path.of("Retrieve"));
+                    Pages.displayPage(Path.of("/Retrieve"));
                 } catch (UnboundPageException e1) {
                     e1.printStackTrace();
                 }

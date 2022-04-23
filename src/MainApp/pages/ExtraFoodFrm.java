@@ -38,7 +38,7 @@ public class ExtraFoodFrm extends JFrame{
     }
     private static final int DEFAULT_WIDTH = 965;
     private static final int DEFAULT_HEIGHT = 550; 
-    private Path path = Path.of("Retrieve/Flight Information/Choose Seat/Choose Food/Extra Food");
+    private Path path = Path.of("/Retrieve/Flight Information/Choose Seat/Choose Food/Extra Food");
     private int getNum = 0;
     private foodPanel[] foodPane = null;
     private JPanel[] foodJPanels = null;
@@ -140,18 +140,6 @@ public class ExtraFoodFrm extends JFrame{
         back.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
         back.setBorder(new RoundBorder(Color.gray));
         back.setBounds(25,480,75,30);
-        back.addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(e.getSource() == back) {
-                    try {
-                        Pages.goBack();
-                    } catch (UnboundPageException e1) {
-                        e1.printStackTrace();
-                    }
-                }
-            }
-        });
         add(back);
 
         next.addActionListener(new ActionListener(){
@@ -167,11 +155,7 @@ public class ExtraFoodFrm extends JFrame{
                     
                 }
                 // GlobalData.data.put("foodInfo",info); //这个我没拿到数据，所以改成了下面的
-                if(GlobalData.data.containsKey("foodInfo")) {
-                    ((HashMap<Integer, FoodPurchase>)GlobalData.data.get("foodInfo")).putAll(tuples);;
-                } else {
-                    GlobalData.data.put("foodInfo", tuples);
-                }
+                GlobalData.data.put("extraFood", tuples);
                 try{
                     new confirmPay();
                     Pages.displayPage(path.resolve(Path.of("Confirm and Pay")));

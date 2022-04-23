@@ -3,8 +3,11 @@ import javax.swing.*;
 import java.awt.*;
 
 public class foodButton extends JButton{
+
+    public int id;
     
-    public foodButton(String name,String price){
+    public foodButton(String name,String price, int id){
+        this.id = id;
         this.setSize(200,200);
         this.setBorderPainted(false);
         this.setBackground(Color.WHITE);

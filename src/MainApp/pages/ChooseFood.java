@@ -17,20 +17,19 @@ import MainApp.pages.control.FlightInfo;
 public class ChooseFood extends JFrame{
     private static final int DEFAULT_WIDTH = 965;
     private static final int DEFAULT_HEIGHT = 550; 
-    private Path path = Path.of("Retrieve/Flight Information/Choose Seat/Choose Food");
+    private Path path = Path.of("/Retrieve/Flight Information/Choose Seat/Choose Food");
     private JPanel contentPane;
     private int getNum = 0;
     private originFood[] foodPane = null;
     private JPanel[] foodJPanels = null;
-    private JLabel ok = new JLabel(new ImageIcon(ClassLoader.getSystemResource("MainApp/pages/image/success1.png")));
+    private HashMap<Object, Object> objMap = new HashMap<>();
     Object[] haveFood = null;
     int size = 0;
     int remainder= 0;
-    JPanel foodInner = new JPanel();
+    JPanel foodInner;
+    int selectedFoodId = -1;
     
     public ChooseFood(){
-
-        GlobalData.data.put("okLabel",ok);
 
         Pages.bindPage(this.path, this);
 
@@ -57,9 +56,7 @@ public class ChooseFood extends JFrame{
         smallTitle.setBounds(45,100,350,70);
         add(smallTitle);
 
-        JPanel food = new JPanel();
-        food.setLayout(null);
-        food.setBackground(Color.white);
+        
 
         FlightInfo flightinfo = (FlightInfo)GlobalData.data.get("flight");
         int Id = flightinfo.flight.id;
@@ -84,8 +81,19 @@ public class ChooseFood extends JFrame{
                 String image = (String)contain.image.getValue();
                 System.out.println(image);
                 String price =String.valueOf((double)contain.price.getValue());
-                foodPane[i] = new originFood();
-                foodJPanels[i] = foodPane[i].createPanel(image, name, price);
+                foodPane[i] = new originFood(contain.id);
+                objMap.put(contain.id, foodPane[i]);
+                foodJPanels[i] = foodPane[i].createPanel(image, name, price, contain.id);
+                foodPane[i].fBtn.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        if(selectedFoodId > -1) {
+                            ((originFood)objMap.get(selectedFoodId)).setSelected(false);
+                        }
+                        selectedFoodId =((foodButton)e.getSource()).id;
+                        ((originFood)objMap.get(selectedFoodId)).setSelected(true);
+                    }
+                });
+                
             }
             for(int i = getNum;i < size*4;i++){
                 foodJPanels[i] = new JPanel();
@@ -96,13 +104,19 @@ public class ChooseFood extends JFrame{
             e1.printStackTrace();
         };
 
-        food.setPreferredSize(new Dimension(20, 150*size));
-        foodInner.setLayout(new GridLayout(size,4));
-        for(int i = 0 ; i < foodJPanels.length;i++){
-            foodInner.add(foodJPanels[i]);
-        }
-        foodInner.setBounds(20,0,820,150*size);
-        food.add(foodInner);
+        JPanel food = new JPanel() {{
+            setLayout(null);
+            setBackground(Color.white);
+            setPreferredSize(new Dimension(20, 150*size));
+            add(new JPanel() {{
+                setLayout(new GridLayout(size,4));
+                foodInner = this;
+                for(int i = 0 ; i < foodJPanels.length;i++){
+                    add(foodJPanels[i]);
+                }
+                setBounds(20,0,820,150*size);
+            }});
+        }};
         
         JScrollPane info = new JScrollPane(food);
         info.setBackground(Color.white);
@@ -141,6 +155,7 @@ public class ChooseFood extends JFrame{
                         for(int i = 0; i < getNum;i++){
                             if(foodPane[i].getSelected()){
                                 foodChoice = (Food)haveFood[i];
+                                break;
                             }
                         }
                         if(foodChoice == null){
@@ -152,14 +167,10 @@ public class ChooseFood extends JFrame{
                         foodPackage.ticket.setValue(((Ticket)GlobalData.data.get("ticket")).id);
                         foodPackage.food.setValue(foodChoice.id);
                         foodPackage.count.setValue(1);
-                        if(GlobalData.data.containsKey("foodInfo")) {
-                            ((HashMap<Integer, FoodPurchase>)GlobalData.data.get("foodInfo")).put((Integer)foodPackage.food.getValue(), foodPackage);
-                        } else {
-                            var fc = new HashMap<Integer,FoodPurchase>();
-                            fc.put((Integer)foodPackage.food.getValue(), foodPackage);
-                            GlobalData.data.put("foodInfo", fc);
-                        }
-                        // System.out.println(foodChoice.name.getValue());
+                        
+                        var fc = new HashMap<Integer,FoodPurchase>();
+                        fc.put((Integer)foodPackage.food.getValue(), foodPackage);
+                        GlobalData.data.put("foodInfo", fc);
                         new ExtraFoodFrm();
                         Pages.displayPage(path.resolve(Path.of("Extra Food")));
                     } 

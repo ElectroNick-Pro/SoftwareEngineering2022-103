@@ -10,7 +10,7 @@ import MainApp.pages.Pages;
 
 public class BreadCrumbPanel extends JPanel {
     private LinkedList<HrefButton> crumbs = new LinkedList<>();
-    public Path totalPath = Path.of("Retrieve/Flight Information/Choose Seat/Choose Food/Extra Food/Confirm and Pay");
+    public Path totalPath = Path.of("/Retrieve/Flight Information/Choose Seat/Choose Food/Extra Food/Confirm and Pay");
     public BreadCrumbPanel() {
         this(Pages.curPagePath);
     }
@@ -21,19 +21,18 @@ public class BreadCrumbPanel extends JPanel {
         int n = totalPath.getNameCount();
         int k = path.getNameCount();
         for(int i = 1; i <= n; i++) {
-            var btn = new HrefButton(totalPath.subpath(0, i));
-            var label = new JLabel(">");
+            var btn = new HrefButton(Path.of("/").resolve(totalPath.subpath(0, i)));
             this.add(btn);
-            if(k == 7 || i > k){
-                btn.setEnabled(false);
-                label.setForeground(Color.GRAY);
-                if(i!=n){
-                    this.add(label);
-                }
-            }
-            else if(i < n) {
+            if(i < n) {
+                var label = new JLabel(">");
                 label.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
+                if(i>k){
+                    label.setForeground(Color.GRAY);
+                }
                 this.add(label);
+            }
+            if(i>k){
+                btn.setEnabled(false);
             }
             crumbs.add(btn);
         }

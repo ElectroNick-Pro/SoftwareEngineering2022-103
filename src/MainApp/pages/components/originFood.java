@@ -9,12 +9,20 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class originFood{
-    private boolean isSelected = false;
+    public int id = -1;
     JPanel content = new JPanel();
-    public boolean getSelected() {
-        return isSelected;
+    JLabel ok = new JLabel(new ImageIcon(ClassLoader.getSystemResource("MainApp/pages/image/success1.png")));
+    public foodButton fBtn;
+    public originFood(int id) {
+        this.id = id;
     }
-    public JPanel createPanel(String picture,String name,String price){
+    public boolean getSelected() {
+        return ok.isVisible();
+    }
+    public void setSelected(boolean isSelected) {
+        ok.setVisible(isSelected);
+    }
+    public JPanel createPanel(String picture,String name,String price, int id){
         price = "$"+price;
         
         content.setLayout(null);
@@ -35,22 +43,14 @@ public class originFood{
         panel.setBounds(0,35,wigth,hight);
         content.add(panel);
 
-        foodButton btn = new foodButton(name,price);
-        btn.setLocation(0,0,200,200);
-        btn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JLabel ok = (JLabel)GlobalData.data.get("okLabel");
-                ok.setVisible(false);
-                ok.setBounds(0,80,50,50);
-                ok.setVisible(true);
-                content.add(ok);
-                isSelected = true;
-                System.out.println(name);
-            }
-        });
+        ok.setBounds(0,80,50,50);
+        content.add(ok);
+        ok.setVisible(false);
 
-        content.add(btn);
+        fBtn = new foodButton(name,price,id);
+        fBtn.setLocation(0,0,200,200);
+
+        content.add(fBtn);
 
         return content; 
     }

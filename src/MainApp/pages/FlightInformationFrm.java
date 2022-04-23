@@ -3,7 +3,9 @@ package MainApp.pages;
 import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.text.AttributeSet.ColorAttribute;
+
 import org.w3c.dom.events.MouseEvent;
+
 import MainApp.GlobalData;
 import MainApp.models.Model.Exception.FieldNotFoundException;
 import MainApp.models.Model.Exception.ObjectNotFoundException;
@@ -11,17 +13,13 @@ import MainApp.models.Model.UserModel.*;
 import MainApp.pages.Exception.UnboundPageException;
 import MainApp.pages.components.*;
 import MainApp.pages.control.FlightInfo;
-import junit.framework.Test;
 
 import java.awt.event.ActionListener;
 import java.awt.event.FocusListener;
 import java.nio.file.Path;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.DateTimeException;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
 
@@ -30,17 +28,13 @@ import java.util.*;
 
 import java.awt.*;
 
-//测试的时间在175行
-//现在的时间是112行
 class MyPanel extends JPanel {
     public Image image;
-
     public MyPanel(Image image) {
         super();
         setBackground(Color.WHITE);
         this.image = image;
     }
-
     public void paint(Graphics g) {
         super.paint(g);
         g.drawImage(image, 0, 0, this);
@@ -48,83 +42,66 @@ class MyPanel extends JPanel {
 }
 
 class FlightInfoButton extends JButton {
-    /***************** */
-    public int isCheckin;
-    public int timeValue;
-    public int timeIndex;
-
     public FlightInfo info;
-
     public FlightInfoButton() {
         super();
     }
 }
 
-public class FlightInformationFrm extends JFrame {
-    private Path path = Path.of("Retrieve/Flight Information");// 啥？的路径
+public class FlightInformationFrm extends JFrame
+{
+    private Path path = Path.of("/Retrieve/Flight Information");
     private JPanel contentPane;
     private JPanel rightPanel = null;
     public FlightInfo passData = new FlightInfo();
-    private int flag = (Integer) GlobalData.data.get("flag");
+    private int flag = (Integer)GlobalData.data.get("flag");
     private Map<Integer, FlightInfo> flightInfoMap;
     private int judgeFlage = 0;
-    private int nowchoice = 0;
     JLayeredPane pane = new JLayeredPane();
-
-    public static void main(String[] args) {
+    public static void main(String[] args){
         EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    FlightInformationFrm frame = new FlightInformationFrm();
-                    frame.setVisible(true);
+			public void run() {
+				try {
+					FlightInformationFrm frame = new FlightInformationFrm();
+					frame.setVisible(true);
                     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                    frame.setLocationRelativeTo(null);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
+                    frame.setLocationRelativeTo(null); 
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
         });
     }
-
     private static final int DEFAULT_WIDTH = 965;
-    private static final int DEFAULT_HEIGHT = 550;
+    private static final int DEFAULT_HEIGHT = 550; 
     private static final int INFO_WIDTH = 420;
     private static final int INFO_HEIGHT = 250;
-
-    public FlightInformationFrm() {
-        if (flag == 2) {// 如果flag=2,从数据库中获取customerID
-            flightInfoMap = FlightInfo.getInfoMap(((Customer) GlobalData.data.get("customer")).id);
-        } else if (flag == 1) {// 如果flag=1,从数据库获取ticketID
-            Ticket ticket = (Ticket) GlobalData.data.get("ticket");
+    public FlightInformationFrm(){
+        if(flag == 2){
+            flightInfoMap = FlightInfo.getInfoMap(((Customer)GlobalData.data.get("customer")).id);
+        }
+        else if(flag == 1){
+            Ticket ticket = (Ticket)GlobalData.data.get("ticket");
             flightInfoMap = FlightInfo.getTicketInfoMap((ticket).id);
             Customer customer;
             try {
-                customer = (Customer) ticket.customer.getReferred();// 寻找和ticketID符合的customer
-                GlobalData.data.put("customer", customer);// 把customerID放在globaldata,后来使用
+                customer = (Customer)ticket.customer.getReferred();
+                GlobalData.data.put("customer",customer);
             } catch (ObjectNotFoundException e1) {
                 e1.printStackTrace();
             }
         }
 
         var tz_day = new SimpleDateFormat("MMM dd,yyyy", Locale.UK);
-        tz_day.setTimeZone(((SimpleDateFormat) GlobalData.config.get("timezone")).getTimeZone());// 日期
+        tz_day.setTimeZone(((SimpleDateFormat)GlobalData.config.get("timezone")).getTimeZone());
         var tz_time = new SimpleDateFormat("HH:mm", Locale.UK);
-        tz_time.setTimeZone(((SimpleDateFormat) GlobalData.config.get("timezone")).getTimeZone());// 时间
+        tz_time.setTimeZone(((SimpleDateFormat)GlobalData.config.get("timezone")).getTimeZone());
         GlobalData.data.put("dateformat", tz_day);
         GlobalData.data.put("timeformat", tz_time);
 
-        // *********************这里是现在的时间，先不用，没法测试 */
-        /*
-         * var now_time=new SimpleDateFormat("yyyy-MM-dd HH:mm",Locale.UK);
-         * now_time.setTimeZone(((SimpleDateFormat)GlobalData.config.get("timezone")).
-         * getTimeZone());
-         * String nowtime=now_time.format(new Date());
-         * System.out.println(nowtime);
-         */
-
         int NUM = flightInfoMap.size();
-        Pages.bindPage(this.path, this);// ？
-        setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+        Pages.bindPage(this.path, this);
+        setSize(DEFAULT_WIDTH,DEFAULT_HEIGHT);
         contentPane = new JPanel();
         contentPane.setLayout(null);
         setContentPane(contentPane);
@@ -132,126 +109,94 @@ public class FlightInformationFrm extends JFrame {
 
         JLabel label = new JLabel("Flight Information");
         label.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 35));
-        label.setBounds(45, 85, 523, 49);
+        label.setBounds(45,85,523,49);
         add(label);
 
         JLabel smallLabel = new JLabel("Please choose your flight:                         ");
         smallLabel.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 15));
-        smallLabel.setBounds(47, 117, 509, 70);
+        smallLabel.setBounds(47,117,509,70);
         add(smallLabel);
 
         ImageIcon image = new ImageIcon(ClassLoader.getSystemResource("MainApp/pages/image/travel.png"));
         // image.setImage(image.getImage().getScaledInstance(960,0,Image.SCALE_DEFAULT));
-        JLabel picture = new JLabel(image);
-        // picture.setBounds(544,34,350,523);
-        picture.setBounds(0, 0, image.getIconWidth(), image.getIconHeight() - 35);
-        // contentPane = (JPanel)this.getContentPane();
-        contentPane.add(picture, JLayeredPane.DEFAULT_LAYER);
-        contentPane.setOpaque(false);
-        this.getLayeredPane().setLayout(null);
-        this.getLayeredPane().add(picture, new Integer(Integer.MIN_VALUE));
+        JLabel picture=new JLabel(image);
+        //picture.setBounds(544,34,350,523);
+        picture.setBounds(0, 0, image.getIconWidth(), image.getIconHeight()-35);   
+		// contentPane = (JPanel)this.getContentPane(); 	
+        contentPane.add(picture,JLayeredPane.DEFAULT_LAYER);
+        contentPane.setOpaque(false);		
+		this.getLayeredPane().setLayout(null);		
+		this.getLayeredPane().add(picture, new Integer(Integer.MIN_VALUE));
         this.getLayeredPane().setBackground(Color.WHITE);
 
         // top panel
-        // GlobalData.data.put("curPath",this.path);
         topPanel top = new topPanel(this.path);
-        top.setBounds(0, 0, 940, 70);
+        top.setBounds(0,0,940,70);
         contentPane.add(top);
         top.setVisible(true);
 
         JPanel panelInfo = new JPanel();
         panelInfo.setBackground(Color.white);
-        var flightInfo = new FlightButton[100];
+        var flightInfo = new FlightInfoButton[100];
         int i_map = 0;
-
-        // ******************************** */
-        int[] timeValue = new int[100];
-
-        for (var entry : flightInfoMap.entrySet()) {
+        for(var entry: flightInfoMap.entrySet()){
             var tuple = entry.getValue();
             var interval = tuple.interval.get(0);
-            String departureCity = (String) interval.departureCity.getValue();
-            String destCity = (String) interval.destCity.getValue();
-            String flightNo = (String) tuple.flight.flightNo.getValue();
-            var departureDt = (Date) interval.departureTime.getValue();
-            String departureDate = ((SimpleDateFormat) GlobalData.data.get("dateformat")).format(departureDt);
-            String airline = (String) tuple.airline.name.getValue();
-            System.out.println(departureCity);
-            flightInfo[i_map] = new FlightButton(tuple, departureCity, destCity, flightNo, departureDate, airline);
-            flightInfo[i_map].Layout();
+            String departureCity = (String)interval.departureCity.getValue();
+            String destCity = (String)interval.destCity.getValue();
+            String flightNo = (String)tuple.flight.flightNo.getValue();
+            var departureDt = (Date)interval.departureTime.getValue();
+            String departureDate = ((SimpleDateFormat)GlobalData.data.get("dateformat")).format(departureDt);
+            String airline = (String)tuple.airline.name.getValue();
+            flightInfo[i_map]=createButton(tuple, departureCity,destCity,flightNo,departureDate,airline);  
             flightInfo[i_map].setBorder(new RoundBorder(Color.GRAY));
-
-            // 这里是测试的时间******************************************************
-            String testtime = "2022-04-08 12:00:00";
-            String flighttime = (String) interval.departureTime.csvForm;
-            System.out.println(flighttime);
-            timeValue[i_map] = strtotime(testtime, flighttime);
-            flightInfo[i_map].timeValue = strtotime(testtime, flighttime);
-            int IsCheckin = (int) tuple.ticket.isCheckin.getValue();
-            flightInfo[i_map].isCheckin = IsCheckin;
-            if (testtime.compareTo(flighttime) > 0) {
-                flightInfo[i_map].setBackground(Color.GRAY);
-            } else {
-            }
-            i_map++;
+            i_map++; 
         }
-        int[] timeIndex = TimeCmp(timeValue, i_map);
-        for (int i = 0; i < i_map; i++) {
-            flightInfo[i].timeIndex = timeIndex[i];
-        }
-
-        // grouplayout
+        //grouplayout
         GroupLayout layout1 = new GroupLayout(panelInfo);
         GroupLayout.ParallelGroup hparallelGroupInfo = layout1.createParallelGroup(Alignment.LEADING);
-        for (int i = 0; i < NUM; i++) {
-            hparallelGroupInfo.addComponent(flightInfo[i], GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-                    GroupLayout.PREFERRED_SIZE);
+        for(int i = 0; i < NUM;i++){
+            hparallelGroupInfo.addComponent(flightInfo[i],GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE);
         }
         GroupLayout.SequentialGroup hSeqGpInfo = layout1.createSequentialGroup();
         hSeqGpInfo.addGap(20);
         hSeqGpInfo.addGroup(hparallelGroupInfo);
         layout1.setHorizontalGroup(hSeqGpInfo);
 
-        // 将按钮按时间次序重新排序********************************************
         GroupLayout.SequentialGroup vSeqGpInfo = layout1.createSequentialGroup();
-        for (int i = 0; i < NUM; i++) {
+        for(int i = 0; i <NUM;i++){
             vSeqGpInfo.addGap(11);
-            for (int j = 0; j < NUM; j++) {
-                if (i == timeIndex[j])
-                    vSeqGpInfo.addComponent(flightInfo[j], GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-                            GroupLayout.PREFERRED_SIZE);
-            }
+            vSeqGpInfo.addComponent(flightInfo[i],GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE);
         }
-
         layout1.setVerticalGroup(vSeqGpInfo);
         panelInfo.setLayout(layout1);
         JScrollPane info = new JScrollPane(panelInfo);
         info.setBackground(Color.white);
-        info.setBounds(35, 170, INFO_WIDTH, INFO_HEIGHT);
-        info.getVerticalScrollBar().setUI(new DemoScrollBarUI());
+        info.setBounds(35,170,INFO_WIDTH,INFO_HEIGHT);
+        info.getVerticalScrollBar().setUI(new DemoScrollBarUI()); 
         add(info);
 
         JButton next = new JButton();
         next.setBackground(new Color(30, 144, 255));
         next.setText("Next");
         next.setForeground(Color.white);
-        next.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 15));
+        next.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
         next.setBorder(new RoundBorder(new Color(30, 144, 255)));
-        next.setBounds(830, 460, 75, 30);
+        next.setBounds(830,460,75,30);
         add(next);
 
         JButton back = new JButton();
         back.setBackground(Color.gray);
         back.setText("Back");
         back.setForeground(Color.white);
-        back.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 15));
+        back.setFont(new Font("Microsoft YaHei UI",Font.BOLD,15));
         back.setBorder(new RoundBorder(Color.gray));
-        back.setBounds(25, 460, 75, 30);
+        back.setBounds(25,460,75,30);
         back.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == back) {
+                if(e.getSource() == back) {
                     try {
                         Pages.goBack();
                     } catch (UnboundPageException e1) {
@@ -259,260 +204,409 @@ public class FlightInformationFrm extends JFrame {
                     }
                 }
             }
-
+            
         });
         add(back);
 
-        for (int i = 0; i < NUM; i++) {
+        for(int i = 0 ; i < NUM;i++){
             int number = i;
             flightInfo[i].addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-
-                    if (e.getSource() != flightInfo[number]) {
+                    if(e.getSource() != flightInfo[number]) {
                         return;
                     }
-
-                    for (int j = 0; j < NUM; j++) {
+                    for(int j = 0; j < NUM;j++){
                         flightInfo[j].setBorder(new RoundBorder(Color.GRAY));
                     }
                     judgeFlage = 1;
-                    // ************* */
-                    nowchoice = number;
-
-                    flightInfo[number].setBorder(new RoundBorder(new Color(83, 180, 248)));
+                    flightInfo[number].setBorder(new RoundBorder(new Color(83,180,248)));
                     smallLabel.setText("Please choose the flight and check the information:");
-                    ImageIcon newImage = new ImageIcon(
-                            ClassLoader.getSystemResource("MainApp/pages/image/background.png"));// 这是背景图片 .png .jpg
-                                                                                                 // .gif 等格式的图片都可以
+                    ImageIcon newImage = new ImageIcon(ClassLoader.getSystemResource("MainApp/pages/image/background.png"));// 这是背景图片 .png .jpg .gif 等格式的图片都可以
                     picture.setIcon(newImage);
-                    picture.setBounds(0, 0, image.getIconWidth(), image.getIconHeight() - 35);
+                    picture.setBounds(0, 0, image.getIconWidth(), image.getIconHeight()-35);
                     passData = flightInfo[number].info;
-                    String bookingID = (String) flightInfo[number].info.ticket.bookingId.getValue();
-                    var departureDt = (Date) flightInfo[number].info.interval.get(0).departureTime.getValue();
-                    String departureDate = ((SimpleDateFormat) GlobalData.data.get("dateformat")).format(departureDt);
-                    String departureCity = (String) flightInfo[number].info.interval.get(0).departureCity.getValue();
-                    String destCity = (String) flightInfo[number].info.interval.get(0).destCity.getValue();
-                    String flightNo = (String) flightInfo[number].info.flight.flightNo.getValue();
-                    String departureAirport = (String) flightInfo[number].info.interval.get(0).departureAirport
-                            .getValue();
-                    String destAirport = (String) flightInfo[number].info.interval.get(0).destAirport.getValue();
-                    String departureTime = ((SimpleDateFormat) GlobalData.data.get("timeformat")).format(departureDt);
-                    // System.out.println(departureTime);
-                    var destDt = (Date) flightInfo[number].info.interval.get(0).destTime.getValue();
-                    String destTime = ((SimpleDateFormat) GlobalData.data.get("timeformat")).format(destDt);
+                    String bookingID =(String)flightInfo[number].info.ticket.bookingId.getValue();
+                    var departureDt = (Date)flightInfo[number].info.interval.get(0).departureTime.getValue();
+                    String departureDate = ((SimpleDateFormat)GlobalData.data.get("dateformat")).format(departureDt);
+                    String departureCity = (String)flightInfo[number].info.interval.get(0).departureCity.getValue();
+                    String destCity = (String)flightInfo[number].info.interval.get(0).destCity.getValue();
+                    String flightNo = (String)flightInfo[number].info.flight.flightNo.getValue();
+                    String departureAirport = (String)flightInfo[number].info.interval.get(0).departureAirport.getValue();
+                    String destAirport = (String)flightInfo[number].info.interval.get(0).destAirport.getValue();
+                    String departureTime = ((SimpleDateFormat)GlobalData.data.get("timeformat")).format(departureDt);
+                    var destDt = (Date)flightInfo[number].info.interval.get(0).destTime.getValue();
+                    String destTime = ((SimpleDateFormat)GlobalData.data.get("timeformat")).format(destDt);
                     var timeDelta = Duration.between(departureDt.toInstant(), destDt.toInstant());
                     String timeDeltaStr = "" + timeDelta.toHours() + "h" + timeDelta.toMinutes() % 60 + "min";
-                    String terminal = (String) flightInfo[number].info.interval.get(0).terminal.getValue();
-                    String gate = (String) flightInfo[number].info.interval.get(0).gate.getValue();
-                    String firstname = (String) ((Customer) GlobalData.data.get("customer")).firstname.getValue();
-                    String surname = (String) ((Customer) GlobalData.data.get("customer")).surname.getValue();
-                    String name = firstname + " " + surname;
-                    String ID = (String) ((Customer) GlobalData.data.get("customer")).customerId.getValue();
-                    String seatClass = (String) flightInfo[number].info.ticket.seatClass.getValue() + " class";
-                    int ticketid = (int) flightInfo[number].info.ticket.id;
-
-                    if (rightPanel != null) {
+                    String terminal = (String)flightInfo[number].info.interval.get(0).terminal.getValue();
+                    String gate = (String)flightInfo[number].info.interval.get(0).gate.getValue();
+                    String firstname = (String)((Customer)GlobalData.data.get("customer")).firstname.getValue();
+                    String surname = (String)((Customer)GlobalData.data.get("customer")).surname.getValue();
+                    String name = firstname+ " " + surname;
+                    String ID =(String)((Customer)GlobalData.data.get("customer")).customerId.getValue();
+                    String seatClass = (String)flightInfo[number].info.ticket.seatClass.getValue() + " class";
+                    if(rightPanel!=null) {
                         rightPanel.setVisible(false);
                     }
-                    if (flightInfo[number].isCheckin == 0) {
-                        FlightInfoPanel flightCheck = new FlightInfoPanel(bookingID, departureDate, departureCity,
-                                destCity,
-                                flightNo, departureAirport, destAirport, departureTime, destTime, timeDeltaStr,
-                                seatClass, "food provided", terminal, gate, name, ID);
-                        flightCheck.Layout();
-                        flightCheck.setBorder(new RoundBorder(Color.GRAY));
-                        flightCheck.setBounds(500, 80, 415, 355);
-                        flightCheck.setVisible(true);
-                        System.out.println(number + " " + destAirport);
-                        rightPanel = flightCheck;
-                        add(flightCheck);
-                    } else {// 是Checkin过的票
-                        System.out.println("Now the ticketid is: " + ticketid);
-                        try {
-                            try {
-                                var foodstream = FoodPurchase.queryByProperty(FoodPurchase.class, "Ticket_id",
-                                        ticketid);
-                                var foodbuy = foodstream.toArray();
-                                var foodid1 = ((FoodPurchase) foodbuy[0]).food.getReferred().id;
-                                System.out.println("foodid is:" + foodid1);
-                                var food2 = Food.getById(Food.class, foodid1).name;
-                                System.out.println(food2.getValue().toString());
-                                // 获取座位，不知道为什么报错，一会再说
-
-                                var seatstream = Ticket.getById(Ticket.class, ticketid);
-                                var seatbuy = seatstream.seatClass.getValue().toString();
-                                /*
-                                 * var seatbuy=seatstream.toArray();
-                                 * String seatname=(String)((Ticket)seatbuy[0]).seatClass.getValue().toString();
-                                 */
-                                System.out.println(seatbuy);
-
-                                JPanel flightChecked = confirmPrint.createFlight(bookingID, departureDate,
-                                        departureCity, destCity,
-                                        flightNo, departureAirport, destAirport, departureTime, destTime, timeDeltaStr,
-                                        seatClass, food2.getValue().toString(), terminal, gate, name, ID, seatbuy);
-
-                                flightChecked.setBorder(new RoundBorder(Color.GRAY));
-                                flightChecked.setBounds(500, 80, 415, 355);
-                                flightChecked.setVisible(true);
-                                System.out.println(number + " " + destAirport);
-                                rightPanel = flightChecked;
-                                add(flightChecked);
-                            } catch (ObjectNotFoundException e2) {
-                                e2.printStackTrace();
-                            }
-
-                        } catch (FieldNotFoundException f) {
-                            f.printStackTrace();
-                        }
-
-                    }
+                    JPanel flightCheck = createFlight(bookingID,departureDate,departureCity,destCity,
+                    flightNo,departureAirport,destAirport,departureTime,destTime,timeDeltaStr,
+                    seatClass,"food provided",terminal,gate,name,ID);
+                    flightCheck.setBorder(new RoundBorder(Color.GRAY)); 
+                    flightCheck.setBounds(500,80,415,355);
+                    flightCheck.setVisible(true);
+                    System.out.println(number+" "+destAirport);
+                    rightPanel = flightCheck;
+                    add(flightCheck);
                 }
             });
         }
-
-        next.addActionListener(new ActionListener() {
+        next.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == next) {
-
-                    if (judgeFlage == 0) {
-                        JOptionPane.showMessageDialog(
-                            null,
-                            "Please choose a flight to check in", 
-                            "notice", 
-                            JOptionPane.ERROR_MESSAGE
-                        );
-                        return;
-                    }
-
-                    // validate ticket
-                    if(flightInfo[nowchoice].timeValue > 0) {
-                        JOptionPane.showMessageDialog(null, "Expired!","This ticket is out of date!",JOptionPane.INFORMATION_MESSAGE);
-                        return;
-                    }
-                    int isCheckin = flightInfo[nowchoice].isCheckin==0 ? 1 : 0;
-                    int isRecent = timeIndex[nowchoice]==0 ? 1 : 0;
-                    switch(isCheckin * 2 + 1) {
-                        case 0:
-                        JOptionPane.showMessageDialog(null, "There is earlier tickted waited.","Another ticket!",JOptionPane.INFORMATION_MESSAGE);
-                        case 2:
-                        return;
-                        case 1:
-                        break;
-                        case 3:
-                        // TODO - Skip to information page
-                        default:
-                        break;
-                    }
-                    
-                    // validate ticket ends
-
-                    String seatclass = (String) passData.ticket.seatClass.getValue();
-                    if (seatclass.equals("First")) {
-                        GlobalData.data.put("seatClass", seatclass);
-                    } else {
-                        // TODO: refine the conditions
-                        seatclass = (String) GlobalData.data.get("seatClass");
-                    }
-                    if ((Boolean) GlobalData.data.get("changeSeatClass") == null) {
-                        GlobalData.data.put("changeSeatClass", false);
-                    }
-                    if ((Boolean) GlobalData.data.get("haveAskToUpgrade") == null) {
-                        GlobalData.data.put("haveAskToUpgrade", false);
-                    }
+                if(judgeFlage == 0){
+                    JOptionPane.showMessageDialog(null, "Please choose a flight to check in", "notice", JOptionPane.ERROR_MESSAGE);
+                }
+                else{
+                if(e.getSource() == next) {
+                    // qxt
+                    //get the class of seat the customer have chosen
+                    //if he chose a normal seat before, ask if he want to upgrade
                     GlobalData.data.put("ticket", passData.ticket);
-                    GlobalData.data.put("flight", passData);
-
-                    if (seatclass.equals("First")) {
-                        new ChooseSeat();
+                    String seatclass = (String)passData.ticket.seatClass.getValue();
+                    if(seatclass.equals("First")){
+                        GlobalData.data.put("seatClass",seatclass);
+                        GlobalData.data.put("flight",passData);
+                        GlobalData.data.put("changeSeatClass", false);
+                        new ChooseSeat("First", false);
                         try {
                             Pages.displayPage(path.resolve(Path.of("Choose Seat")));
                         } catch (UnboundPageException e1) {
                             e1.printStackTrace();
                         }
-                    } else if (seatclass.equals("Normal")) {
-                        new ChooseSeat();
-                        try {
-                            Pages.displayPage(path.resolve(Path.of("Choose Seat")));
-                        } catch (UnboundPageException e1) {
-                            e1.printStackTrace();
+                    }else if(seatclass.equals("Normal")){
+                        int choice = JOptionPane.showConfirmDialog(null, "Would you like to upgrade?", "Upgrade",JOptionPane.YES_NO_OPTION);
+                        if(choice == JOptionPane.YES_OPTION){ //upgrade
+                            GlobalData.data.put("seatClass","First");
+                            GlobalData.data.put("flight",passData);
+                            GlobalData.data.put("changeSeatClass", true);
+                            new ChooseSeat("First", true);
+                            try {
+                                Pages.displayPage(path.resolve(Path.of("Choose Seat")));
+                            } catch (UnboundPageException e1) {
+                                e1.printStackTrace();
+                            }
+                        }else if(choice == JOptionPane.NO_OPTION){ //keep normal seat
+                            GlobalData.data.put("seatClass",seatclass);
+                            GlobalData.data.put("flight",passData);
+                            GlobalData.data.put("changeSeatClass", false);
+                            new ChooseSeat("Normal", false);
+                            try {
+                                Pages.displayPage(path.resolve(Path.of("Choose Seat")));
+                            } catch (UnboundPageException e1) {
+                                e1.printStackTrace();
+                            }
                         }
-                    } else {
-                        JOptionPane.showMessageDialog(null, "There is earlier tickted waited.","Another ticket!",JOptionPane.INFORMATION_MESSAGE);
                     }
+                }
                 }
             }
         });
     }
 
-    // ********************************************** */
-    private int[] TimeCmp(int[] timevalue, int imap) {
-        int[] timeIndex = new int[100];
-        int expired = 0;
-        for (int i = 0; i < imap; i++) {
-            if (timevalue[i] < 0) {
-                expired++;// 过期的排在第几个
-            }
-        }
-        System.out.println("The value of expired is:" + expired);
-        for (int j = 0; j < imap; j++) {
-            if (timevalue[j] < 0)// 先比没过期的
-            {
-                int whetherbig = 0;
-                for (int k = 0; k < imap; k++) {
-                    if (timevalue[k] < 0) {
-                        if (j != k) {
-                            if (timevalue[j] <= timevalue[k]) {
-                                whetherbig++;
-                            }
-                        }
-                    }
-                    timeIndex[j] = whetherbig;
-                }
+    private static FlightInfoButton createButton(FlightInfo flightInfo, String flightTakeoff,String flightArrive,String flightFlightNo,
+    String flightDate,String flightWhere) {
+        var button = new FlightInfoButton();
+        button.info = flightInfo;
+        button.setPreferredSize(new Dimension(374, 70));
+        button.setBackground(Color.WHITE);
+        
+        ImageIcon image = new ImageIcon(ClassLoader.getSystemResource("MainApp/pages/image/airplane.png"));// background picture
+        image.setImage(image.getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));// setSize
+        JLabel picture=new JLabel(image);
 
-            }
-        }
-        for (int jd = 0; jd < imap; jd++) {
-            if (timevalue[jd] > 0)// 再比过期的
-            {
-                int whetherbig = expired;
-                for (int kd = 0; kd < imap; kd++) {
-                    if (timevalue[kd] > 0) {
-                        if (jd != kd) {
-                            if (timevalue[jd] >= timevalue[kd]) {
-                                whetherbig++;
-                            }
-                        }
-                    }
-                    timeIndex[jd] = whetherbig;
-                }
+        JLabel takeoff = new JLabel(flightTakeoff);
+        takeoff.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23));
 
-            }
-            for (int f = 0; f < imap; f++)// 这就测试的,没用
-            {
-                System.out.println("The index is:" + timeIndex[f]);
-            }
-        }
-        return timeIndex;
+        JLabel arrive = new JLabel(flightArrive);
+        arrive.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 23));
+
+        JLabel flightNo = new JLabel(flightFlightNo);
+        flightNo.setFont(new Font("Microsoft YaHei UI", Font.ITALIC, 12));
+
+        JLabel date = new JLabel(flightDate);
+        date.setFont(new Font("Microsoft YaHei UI", Font.ITALIC, 12));
+
+        JLabel where = new JLabel(flightWhere);
+        where.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 12));
+
+        //
+
+        GroupLayout layout = new GroupLayout(button);
+        GroupLayout.SequentialGroup hSeqGp01 = layout.createSequentialGroup();
+        hSeqGp01.addGap(15);
+        hSeqGp01.addComponent(takeoff);
+        hSeqGp01.addGap(60);
+        hSeqGp01.addComponent(picture);
+        hSeqGp01.addGap(55);
+        hSeqGp01.addComponent(arrive);
+
+        GroupLayout.SequentialGroup hSeqGp02 = layout.createSequentialGroup();
+        hSeqGp02.addGap(15);
+        hSeqGp02.addComponent(where);
+        hSeqGp02.addGap(10);
+        hSeqGp02.addComponent(flightNo);
+        hSeqGp02.addGap(165);
+        hSeqGp02.addComponent(date);
+
+        GroupLayout.ParallelGroup hparallelGroup1 = layout.createParallelGroup();
+        hparallelGroup1.addGap(50);
+        hparallelGroup1.addGroup(hSeqGp01);
+        hparallelGroup1.addGap(50);
+        hparallelGroup1.addGroup(hSeqGp02);
+
+        layout.setHorizontalGroup(hparallelGroup1);
+
+        GroupLayout.ParallelGroup vparallelGroup1 = layout.createParallelGroup();
+        vparallelGroup1.addComponent(where);
+        vparallelGroup1.addComponent(flightNo);
+
+        GroupLayout.SequentialGroup vSeqGp01 = layout.createSequentialGroup();
+        vSeqGp01.addGap(8);
+        vSeqGp01.addGroup(vparallelGroup1);
+        vSeqGp01.addGap(10);
+        vSeqGp01.addComponent(takeoff);
+
+        GroupLayout.SequentialGroup vSeqGp02 = layout.createSequentialGroup();
+        vSeqGp02.addGap(8);
+        vSeqGp02.addComponent(date);
+        vSeqGp02.addGap(10);
+        vSeqGp02.addComponent(arrive);
+
+        GroupLayout.SequentialGroup vSeqGp03 = layout.createSequentialGroup();
+        vSeqGp03.addGap(25);
+        vSeqGp03.addComponent(picture);
+
+        GroupLayout.ParallelGroup vparallelGroup = layout.createParallelGroup();
+        vparallelGroup.addGroup(vSeqGp01);
+        vparallelGroup.addGroup(vSeqGp03);
+        vparallelGroup.addGroup(vSeqGp02);
+
+        layout.setVerticalGroup(vparallelGroup);
+
+        button.setLayout(layout);
+        
+        
+        return button;
     }
+    private static JPanel createFlight(String flightbookID, String flightDate,String flightTakeoff,String flightArrive,
+    String flightFlightNo,String flightAirport1,String flightAirport2, String flightStartTime,String flightArriveTime,
+    String fightTime, String flightSeat,String flightFood,String FlightTerminalNum, String flightGateNo,String flightName,
+    String fligthNameID) {
+        JPanel panel = new JPanel();
+        panel.setOpaque(false);
 
-    // ***************************************** */
-    private int strtotime(String str1, String str2) {
-        char[] fir = str1.toLowerCase().toCharArray();
-        char[] sec = str2.toLowerCase().toCharArray();
-        int value = 0;
-        for (int i = 0; i < str1.length(); i++) {
-            if (fir[i] - 0 > 47 && fir[i] < 58) {
-                // int m=(fir[i]-0-48)-(sec[i]-0-48);
-                // System.out.println("minus="+m);
-                value += ((fir[i] - 0 - 48) - (sec[i] - 0 - 48)) * (Math.pow((int) 10, (int) (10 - i)));
-                // System.out.println("Value="+value);
-                // System.out.println("Now i= "+i);
-            }
-        }
-        // System.out.println("The length is :"+str1.length());
-        System.out.println("The value is :" + value);
+        JLabel book = new JLabel("Booking ID");
+        book.setFont(new Font("Microsoft YaHei UI",Font.ITALIC,15));
 
-        return value;
+        JLabel bookID = new JLabel(flightbookID);
+        bookID.setFont(new Font("Microsoft YaHei UI",Font.ITALIC,15));
+
+        JLabel date = new JLabel(flightDate);
+        date.setFont(new Font("Microsoft YaHei UI",Font.ITALIC,15));
+
+        JLabel where = new JLabel("Air China");
+        where.setFont(new Font("Microsoft YaHei UI",Font.ITALIC,20));
+
+        ImageIcon image = new ImageIcon(ClassLoader.getSystemResource("MainApp/pages/image/airplane.png"));//
+        image.setImage(image.getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT));//
+        JLabel picture=new JLabel(image);
+
+        JLabel takeoff = new JLabel(flightTakeoff);
+        takeoff.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 25));
+
+        JLabel arrive = new JLabel(flightArrive);
+        arrive.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 25));
+
+        JLabel flightNo = new JLabel(flightFlightNo);
+        flightNo.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 22));
+
+        JLabel airport1 = new JLabel(flightAirport1);
+        airport1.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 13));
+
+        JLabel airport2 = new JLabel(flightAirport2);
+        airport2.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 13));
+
+        JLabel startTime = new JLabel(flightStartTime);
+        startTime.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 20));
+
+        JLabel arriveTime = new JLabel(flightArriveTime);
+        arriveTime.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 20));
+
+        JLabel time = new JLabel(fightTime);
+        time.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 15));
+
+        JLabel seat = new JLabel(flightSeat);
+        seat.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 13));
+
+        JLabel food =new JLabel(flightFood);
+        food.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 13));
+
+        JLabel Terminal = new JLabel("Terminal");
+        Terminal.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 15));
+
+        JLabel TerminalNum = new JLabel(FlightTerminalNum);
+        TerminalNum.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 25));
+
+        JLabel GateNo = new JLabel(flightGateNo);
+        GateNo.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 25));
+
+        JLabel Gate = new JLabel("Gate");
+        Gate.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 15));
+
+        JLabel name = new JLabel(flightName);
+        name.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 22));
+
+        JLabel ID = new JLabel(fligthNameID);
+        ID.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 15));
+
+        GroupLayout layout = new GroupLayout(panel);
+
+        GroupLayout.SequentialGroup hSeqGp01 = layout.createSequentialGroup();
+        hSeqGp01.addGap(20);
+        hSeqGp01.addComponent(book);
+        hSeqGp01.addGap(15);
+        hSeqGp01.addComponent(bookID);
+        hSeqGp01.addGap(90);
+        hSeqGp01.addComponent(date);
+
+        GroupLayout.SequentialGroup hSeqGp02 = layout.createSequentialGroup();
+        hSeqGp02.addGap(20);
+        hSeqGp02.addComponent(where);
+        hSeqGp02.addGap(20);
+        hSeqGp02.addComponent(flightNo);
+
+        GroupLayout.SequentialGroup hSeqGp03 = layout.createSequentialGroup();
+        hSeqGp03.addGap(20);
+        hSeqGp03.addComponent(takeoff);
+        hSeqGp03.addGap(50);
+        hSeqGp03.addComponent(picture);
+        hSeqGp03.addGap(50);
+        hSeqGp03.addComponent(arrive);
+
+        GroupLayout.SequentialGroup hSeqGp04 = layout.createSequentialGroup();
+        hSeqGp04.addGap(20);
+        hSeqGp04.addComponent(airport1);
+        hSeqGp04.addGap(130);
+        hSeqGp04.addComponent(airport2);
+        
+        GroupLayout.SequentialGroup hSeqGp05 = layout.createSequentialGroup();
+        hSeqGp05.addGap(40);
+        hSeqGp05.addComponent(startTime);
+        hSeqGp05.addGap(68);
+        hSeqGp05.addComponent(time);
+        hSeqGp05.addGap(75);
+        hSeqGp05.addComponent(arriveTime);
+
+        GroupLayout.SequentialGroup hSeqGp06 = layout.createSequentialGroup();
+        hSeqGp06.addGap(30);
+        hSeqGp06.addComponent(seat);
+        hSeqGp06.addGap(70);
+        hSeqGp06.addComponent(TerminalNum);
+        hSeqGp06.addGap(105);
+        hSeqGp06.addComponent(GateNo);
+
+        GroupLayout.SequentialGroup hSeqGp07 = layout.createSequentialGroup();
+        hSeqGp07.addGap(30);
+        hSeqGp07.addComponent(food);
+        hSeqGp07.addGap(40);
+        hSeqGp07.addComponent(Terminal);
+        hSeqGp07.addGap(83);
+        hSeqGp07.addComponent(Gate);
+
+        GroupLayout.SequentialGroup hSeqGp08 = layout.createSequentialGroup();
+        hSeqGp08.addGap(25);
+        hSeqGp08.addComponent(name);
+
+        GroupLayout.SequentialGroup hSeqGp09 = layout.createSequentialGroup();
+        hSeqGp09.addGap(25);
+        hSeqGp09.addComponent(ID);
+
+        GroupLayout.ParallelGroup hparallelGroup = layout.createParallelGroup();
+        hparallelGroup.addGroup(hSeqGp01);
+        hparallelGroup.addGroup(hSeqGp02);
+        hparallelGroup.addGroup(hSeqGp03);
+        hparallelGroup.addGroup(hSeqGp04);
+        hparallelGroup.addGroup(hSeqGp05);
+        hparallelGroup.addGroup(hSeqGp06);
+        hparallelGroup.addGroup(hSeqGp07);
+        hparallelGroup.addGroup(hSeqGp08);
+        hparallelGroup.addGroup(hSeqGp09);
+
+        layout.setHorizontalGroup(hparallelGroup);
+
+        GroupLayout.SequentialGroup vSeqGP01 = layout.createSequentialGroup();
+        vSeqGP01.addGap(5);
+        vSeqGP01.addComponent(book);
+        vSeqGP01.addGap(15);
+        vSeqGP01.addComponent(where);
+        vSeqGP01.addGap(15);
+        vSeqGP01.addComponent(takeoff);
+        vSeqGP01.addGap(15);
+        vSeqGP01.addComponent(airport1);
+        vSeqGP01.addGap(25);
+        vSeqGP01.addComponent(startTime);
+        vSeqGP01.addGap(20);
+        vSeqGP01.addComponent(seat);
+        vSeqGP01.addGap(8);
+        vSeqGP01.addComponent(food);
+
+        GroupLayout.SequentialGroup vSeqGP02 = layout.createSequentialGroup();
+        vSeqGP02.addGap(5);
+        vSeqGP02.addComponent(bookID);
+        vSeqGP02.addGap(15);
+        vSeqGP02.addComponent(flightNo);
+        vSeqGP02.addGap(10);
+        vSeqGP02.addComponent(picture);
+        vSeqGP02.addGap(40);
+        vSeqGP02.addComponent(time);
+        vSeqGP02.addGap(15);
+        vSeqGP02.addComponent(TerminalNum);
+        vSeqGP02.addGap(3);
+        vSeqGP02.addComponent(Terminal);
+
+        GroupLayout.SequentialGroup vSeqGP03 = layout.createSequentialGroup();
+        vSeqGP03.addGap(5);
+        vSeqGP03.addComponent(date);
+        vSeqGP03.addGap(50);
+        vSeqGP03.addComponent(arrive);
+        vSeqGP03.addGap(15);
+        vSeqGP03.addComponent(airport2);
+        vSeqGP03.addGap(15);
+        vSeqGP03.addComponent(arriveTime);
+        vSeqGP03.addGap(15);
+        vSeqGP03.addComponent(GateNo);
+        vSeqGP03.addGap(8);
+        vSeqGP03.addComponent(Gate);
+        
+        GroupLayout.SequentialGroup vSeqGP04 = layout.createSequentialGroup();
+        vSeqGP04.addComponent(name);
+        vSeqGP04.addGap(2);
+        vSeqGP04.addComponent(ID);
+
+        GroupLayout.ParallelGroup vParallelGroup = layout.createParallelGroup();
+        vParallelGroup.addGroup(vSeqGP01);
+        vParallelGroup.addGroup(vSeqGP02);
+        vParallelGroup.addGroup(vSeqGP03);
+        
+        GroupLayout.SequentialGroup vSeqGP = layout.createSequentialGroup();
+        vSeqGP.addGap(20);
+        vSeqGP.addGroup(vParallelGroup);
+        vSeqGP.addGap(20);
+        vSeqGP.addGroup(vSeqGP04);
+
+        layout.setVerticalGroup(vSeqGP);
+
+        panel.setLayout(layout);
+        
+        return panel;
     }
 }

@@ -5,18 +5,15 @@ import java.awt.*;
 import java.awt.event.*;
 import java.nio.file.Path;
 
-import MainApp.GlobalData;
 import MainApp.pages.Pages;
 
 public class topPanel extends JPanel{
-    // public Path curPath;
     public topPanel(){
         this(Pages.curPagePath);
     }
 
     public topPanel(Path path){
         super();
-        // Path path = (Path)GlobalData.data.get("curPath");
         this.setBackground(Color.WHITE);
         this.setLayout(null);
         BreadCrumbPanel bread = new BreadCrumbPanel(path);
@@ -31,7 +28,7 @@ public class topPanel extends JPanel{
     }
     public static void main(String[] args){
         JFrame frame = new JFrame();
-        topPanel panel = new topPanel(Path.of("Retrieve/Flight Information"));
+        topPanel panel = new topPanel(Path.of("/Retrieve/Flight Information"));
         frame.add(panel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);

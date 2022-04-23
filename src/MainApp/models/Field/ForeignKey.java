@@ -29,6 +29,9 @@ public class ForeignKey extends BaseField {
 
     @Override
     public void validate_data() throws ValidationException {
+        if(rawData == null) {
+            return;
+        }
         int id = (Integer)rawData;
         try {
             BaseModel.getById(foreignClz, id);
@@ -43,6 +46,9 @@ public class ForeignKey extends BaseField {
     }
 
     public BaseModel getReferred() throws ObjectNotFoundException {
+        if(rawData == null) {
+            throw new ObjectNotFoundException();
+        }
         return BaseModel.getById(foreignClz, (Integer)rawData);
     }
 
